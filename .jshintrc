@@ -35,7 +35,9 @@
     "gcl"           : false,       // Makes JSHint compatible with Google Closure Compiler.
     "iterator"      : false,       // Suppresses warnings about the __iterator__ property.
     "lastsemic"     : false,       // Suppresses warnings about missing semicolons, but only when the semicolon is omitted for the last statement in a one-line block.
-    "loopfunc"      : false,       // Suppresses warnings about functions inside of loops.
+    "laxbreak"      : false,       // Suppresses most of the warnings about possibly unsafe line breaks in your code.
+    "laxcomma"      : false,       // Suppresses warnings about comma-first coding style.
+    "loopfunc"      : true,        // Suppresses warnings about functions inside of loops.
     "maxerr"        : 100,         // Set the maximum amount of warnings JSHint will produce before giving up.
     "moz"           : false,       // Tells JSHint that your code uses Mozilla JavaScript extensions.
     "notypeof"      : false,       // Suppresses warnings about invalid typeof operator values.
@@ -44,7 +46,7 @@
     "smarttabs"     : false,       // Suppresses warnings about mixed tabs and spaces when the latter are used for alignment only.
     "shadow"        : false,       // Suppresses warnings about variable shadowing i.e. declaring a variable that had been already declared somewhere in the outer scope.
     "supernew"      : false,       // Suppresses warnings about "weird" constructions like new function () { ... } and new Object;.
-    "validthis"     : true,       // Suppresses warnings about possible strict violations when the code is running in strict mode and you use this in a non-constructor function.
+    "validthis"     : true,        // Suppresses warnings about possible strict violations when the code is running in strict mode and you use this in a non-constructor function.
     "noyield"       : false,       // Suppresses warnings about generator functions with no yield statement in them.
 
 
@@ -106,6 +108,7 @@
         // require Library
         "require",
         "requirejs",
+        "RequireJS",
         "define",
 
         // Jasmine library.

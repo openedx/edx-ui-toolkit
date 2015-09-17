@@ -33,8 +33,10 @@ module.exports = function (config, options) {
             {pattern: 'bower_components/**/*.js', included: false},
             {pattern: 'bower_components/**/*.json', included: false},
             {pattern: 'components/utils/*.js', included: false},
-            {pattern: 'components/**/views/*.js', included: false},
+            {pattern: 'components/**/collections/*.js', included: false},
             {pattern: 'components/**/templates/*.underscore', included: false},
+            {pattern: 'components/**/views/*.js', included: false},
+            {pattern: 'test/utils/*.js', included: false},
             {pattern: 'test/specs/**/*.js', included: false},
             {pattern: 'components/config.js', included: true},
             {pattern: 'test/spec-runner.js', included: true}
