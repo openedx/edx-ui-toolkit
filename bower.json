@@ -1,0 +1,25 @@
+{
+  "name": "edx-ui-toolkit",
+  "version": "0.1.0",
+  "homepage": "https://github.com/edx/edx-ui-toolkit",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/edx/edx-ui-toolkit.git"
+  },
+  "ignore": [
+    "**\/.*",
+    "node_modules",
+    "bower_components"
+  ],
+  "license": "Apache 2.0",
+  "dependencies": {
+    "jquery": "~1.11.1",
+    "underscore": "~1.8.2",
+    "backbone": "~1.1.2",
+    "requirejs": "~2.1.15"
+  },
+  "devDependencies": {
+    "requirejs-plugins": "~1.0.3",
+    "jasmine": "~2.0.4"
+  }
+}
