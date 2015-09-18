@@ -16,6 +16,10 @@ install:
 
 script: gulp test --ci
 
+after_script:
+    - npm install coveralls
+    - coveralls
+
 branches:
     only:
       - master
