@@ -6,6 +6,10 @@ install:
     - bower install
 script: gulp
 
+after_script:
+    - npm install coveralls
+    - coveralls
+
 branches:
     only:
       - master
