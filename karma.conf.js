@@ -1,6 +1,22 @@
 // Karma configuration
 
-module.exports = function (config) {
+module.exports = function (config, options) {
+    'use strict';
+
+    // If not being overridden, then specify the default headless configuration
+    if (!options) {
+        options = {
+            singleRun: true,
+            autoWatch: false,
+            browsers: ['PhantomJS'],
+            logLevel: config.LOG_INFO,
+            preprocessors: {
+                'components/**/*.js': ['coverage']
+            },
+            reporters: ['spec', 'coverage']
+        };
+    }
+
     config.set({
 
         // base path that will be used to resolve all patterns (eg. files, exclude)
@@ -25,27 +41,23 @@ module.exports = function (config) {
         ],
 
 
-        // preprocess matching files before serving them to the browser
-        // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
-        preprocessors: {
-            'components/**/*.js': ['coverage']
-        },
-
         // plugins required for running the karma tests
         plugins:[
             'karma-jasmine',
             'karma-jasmine-jquery',
             'karma-requirejs',
+            'karma-chrome-launcher',
             'karma-phantomjs-launcher',
             'karma-coverage',
             'karma-sinon',
             'karma-spec-reporter'
         ],
 
-        // test results reporter to use
-        // possible values: 'dots', 'progress'
-        // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-        reporters: ['spec', 'coverage'],
+        // preprocess each file according to the specified options
+        preprocessors: options.preprocessors,
+
+        // reports to use according to the specified options
+        reporters: options.reporters,
 
         coverageReporter: {
             dir:'build', subdir: 'coverage-js',
@@ -57,31 +69,29 @@ module.exports = function (config) {
         },
 
         // web server port
-        port: 9876,
-
+        // Note: not the default 9876 as that clashes with devstack
+        port: 9009,
 
         // enable / disable colors in the output (reporters and logs)
         colors: true,
 
-
         // level of logging
         // possible values: config.LOG_DISABLE || config.LOG_ERROR || config.LOG_WARN || config.LOG_INFO || config.LOG_DEBUG
-        logLevel: config.LOG_INFO,
-
+        logLevel: options.logLevel,
 
         // enable / disable watching file and executing tests whenever any file changes
-        autoWatch: true,
+        autoWatch: options.autoWatch,
 
 
         // start these browsers
         // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
         // you can also add Chrome or other browsers too
-        browsers: ['PhantomJS'],
+        browsers: options.browsers,
 
         captureTimeout: 60000,
 
         // Continuous Integration mode
         // if true, Karma captures browsers, runs the tests and exits
-        singleRun: false
+        singleRun: options.singleRun
     });
 };

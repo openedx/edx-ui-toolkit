@@ -4,9 +4,9 @@
     var gulp = require('gulp'),
         karma = require('karma').server,
         path = require('path'),
-        configFile = 'karma.conf.js';
+        configFile = 'karma.debug.conf.js';
 
-    gulp.task('test', function (callback) {
+    gulp.task('test_debug', function (callback) {
         karma.start({
             configFile: path.resolve(configFile)
         }, callback);
