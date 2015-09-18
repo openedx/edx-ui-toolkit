@@ -1,0 +1,11 @@
+language: node_js
+sudo: false
+
+install:
+    - npm install
+    - bower install
+script: gulp
+
+branches:
+    only:
+      - master
