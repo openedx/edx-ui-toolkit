@@ -6,6 +6,11 @@ install:
     - bower install
 script: gulp
 
+after_script:
+    - cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js
+    - ls -a node_modules/.bin
+    - ./node_modules/.bin/coveralls
+
 branches:
     only:
       - master
