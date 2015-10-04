@@ -8,8 +8,10 @@
   },
   "ignore": [
     "**\/.*",
+    "bower_components",
+    "gulp/tasks",
     "node_modules",
-    "bower_components"
+    "test"
   ],
   "license": "Apache 2.0",
   "dependencies": {
