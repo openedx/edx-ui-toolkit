@@ -1,4 +1,4 @@
-define(['../../bower_components/backbone/backbone', 'underscore'],
+define(['backbone', 'underscore'],
     function (Backbone, _) {
         'use strict';
 
