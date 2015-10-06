@@ -29,6 +29,7 @@ define(['../../bower_components/backbone/backbone', 'underscore'],
                 } else {
                     $textEl.text(self.$el.data('collapse-text'));
                 }
+                $textEl.attr('aria-expanded', isVisible);
             },
 
             render: function () {

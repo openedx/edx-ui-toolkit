@@ -30,12 +30,14 @@ define(['jquery', 'components/views/collapsible-view'], function ($, Collapsible
             // collapsible content is visible and text should display messaging
             expect(toggleText.textContent).toEqual('Click to Collapse');
             expect($.fn.slideToggle).not.toHaveBeenCalled();
+            expect(toggleText.getAttribute('aria-expanded')).toBe('false');
 
             $(toggleText).trigger('click');
             expect(toggleText.textContent).toEqual('Expand Text');
             // visability is difficult to test in jasmine, but we know that slideToggle
             // should have been called
             expect($.fn.slideToggle).toHaveBeenCalled();
+            expect(toggleText.getAttribute('aria-expanded')).toBe('true');
         });
 
     });
