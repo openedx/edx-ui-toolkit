@@ -35,13 +35,14 @@ module.exports = function (config) {
             'karma-requirejs',
             'karma-phantomjs-launcher',
             'karma-coverage',
-            'karma-sinon'
+            'karma-sinon',
+            'karma-spec-reporter'
         ],
 
         // test results reporter to use
         // possible values: 'dots', 'progress'
         // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-        reporters: ['progress', 'coverage'],
+        reporters: ['spec', 'coverage'],
 
         coverageReporter: {
             dir:'build', subdir: 'coverage-js',
