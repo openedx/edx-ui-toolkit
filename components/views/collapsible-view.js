@@ -14,22 +14,24 @@ define(['backbone', 'underscore'],
             initialize: function (options) {
                 var self = this;
                 self.options = _.defaults(options, {
-                    toggleTextSelector: '.collapsible-toggle-text',
-                    collapsibleSelector: '.collapsible-content'
+                    toggleTextSelector: '.collapsible-toggle',
+                    collapsibleSelector: '.collapsible-target',
+                    isCollapsedClass: 'is-collapsed'
                 });
                 self.render();
             },
 
-            toggleText: function(isVisible) {
+            toggleState: function(isVisible) {
                 var self = this,
                     $textEl = self.$el.find(self.options.toggleTextSelector);
 
                 if (isVisible) {
-                    $textEl.text(self.$el.data('expand-text'));
+                    $textEl.text(self.$el.data('expanded-text'));
                 } else {
-                    $textEl.text(self.$el.data('collapse-text'));
+                    $textEl.text(self.$el.data('collapsed-text'));
                 }
                 $textEl.attr('aria-expanded', isVisible);
+                self.$el.toggleClass(self.options.isCollapsedClass, !isVisible);
             },
 
             render: function () {
@@ -38,7 +40,7 @@ define(['backbone', 'underscore'],
                     $textEl =self.$el.find(self.options.toggleTextSelector);
 
                 // sets the initial state
-                self.toggleText($collapsibleEl.is(':visible'));
+                self.toggleState($collapsibleEl.is(':visible'));
 
                 // clicking on the toggle text will hide/show content and update text
                 $textEl.click(function () {
@@ -46,7 +48,7 @@ define(['backbone', 'underscore'],
                     // in transition
                     var isVisible = $collapsibleEl.is(':visible');
                     $collapsibleEl.slideToggle();
-                    self.toggleText(!isVisible);
+                    self.toggleState(!isVisible);
                 });
 
                 return self;
