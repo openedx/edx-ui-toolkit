@@ -108,7 +108,7 @@ define([
             clickOpenDropdown: function( event ) {
                 event.preventDefault();
 
-                this.openMenu( $(event.target) );
+                this.openMenu( this.$dropdownButton );
             },
 
             closeDropdownMenus: function( all ) {
