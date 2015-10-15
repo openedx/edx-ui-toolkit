@@ -2,9 +2,10 @@ define([
         'backbone',
         'jquery',
         'underscore',
+        '../utils/constants',
         'text!../templates/dropdown.underscore'
     ],
-    function( Backbone, $, _, DropdownTpl ) {
+    function( Backbone, $, _, constants, DropdownTpl ) {
         'use strict';
 
         /**
@@ -36,7 +37,7 @@ define([
          *  parent: 'selecter for parent element that will be replaced with dropdown menu'
          *
          */
-        return Backbone.View.extend({
+        var DropdownMenuView = Backbone.View.extend({
             tpl: _.template( DropdownTpl ),
 
             events: {
@@ -46,14 +47,6 @@ define([
             },
 
             menu: '.dropdown-menu',
-
-            key: {
-                tab: 9,
-                enter: 13,
-                esc: 27,
-                up: 38,
-                down: 40
-            },
 
             initialize: function( options ) {
                 this.$parent = $(options.parent);
@@ -79,10 +72,14 @@ define([
                 this.listenForPageKeypress();
             },
 
+            /**
+             * Function to track analytics
+             * By default it doesn't do anything, to utilize please
+             * extend the View (example code commented out in the function)
+             */
             analyticsLinkClick: function( event ) {
                 /**
-                 *  Add your own analytics tracking here
-                 *  for example:
+                 *  Example code:
                  *
                  *  var $link = $(event.target),
                  *      label = $link.hasClass('user-title') ? 'Dashboard' : $link.html().trim();
@@ -133,7 +130,7 @@ define([
             escKeypressHandler: function( event ) {
                 var keyCode = event.keyCode;
 
-                if ( keyCode === this.key.esc ) {
+                if ( keyCode === constants.keyCodes.esc ) {
                     // When the ESC key is pressed, close all menus
                     this.closeDropdownMenus(true);
                 }
@@ -144,23 +141,23 @@ define([
             },
 
             handlerIsAction: function( key, $el ) {
-                if ( key === this.key.up ) {
+                if ( key === constants.keyCodes.up ) {
                     this.previousMenuItemLink( $el );
-                } else if ( key === this.key.down ) {
+                } else if ( key === constants.keyCodes.down ) {
                     this.nextMenuItemLink( $el );
                 }
             },
 
             handlerIsButton: function( key ) {
-                if ( key === this.key.down ) {
+                if ( key === constants.keyCodes.down ) {
                     this.focusFirstItem();
                 }
             },
 
             handlerIsMenu: function( key ) {
-                if ( key === this.key.down ) {
+                if ( key === constants.keyCodes.down ) {
                     this.focusFirstItem();
-                } else if ( key === this.key.up ) {
+                } else if ( key === constants.keyCodes.up ) {
                     this.$dropdownButton.focus();
                 }
             },
@@ -178,16 +175,16 @@ define([
                 var keyCode = event.keyCode,
                     $el = $(event.target);
 
-                if ( keyCode === this.key.up ||
-                     keyCode === this.key.down ) {
+                if ( keyCode === constants.keyCodes.up ||
+                     keyCode === constants.keyCodes.down ) {
                     // Prevent default behavior if one of our trigger keys
                     event.preventDefault();
                 }
 
-                if ( keyCode === this.key.tab && $el.hasClass('last') ) {
+                if ( keyCode === constants.keyCodes.tab && $el.hasClass('last') ) {
                     event.preventDefault();
                     this.$dropdownButton.focus();
-                } else if ( keyCode === this.key.esc ) {
+                } else if ( keyCode === constants.keyCodes.esc ) {
                     this.closeDropdownMenus();
                     this.$dropdownButton.focus();
                 } else if ( $el.hasClass('action') ) {
@@ -258,5 +255,7 @@ define([
                     .addClass( alignClass );
             }
         });
+
+        return DropdownMenuView;
     }
 );
