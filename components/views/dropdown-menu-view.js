@@ -7,6 +7,35 @@ define([
     function( Backbone, $, _, DropdownTpl ) {
         'use strict';
 
+        /**
+         *  Dropdown Menu View which is fully accessible
+         *
+         *  Initialize the view by passing in the following attributes
+         *  className: 'space separated string of classes for element',
+         *  model: with the following attributes (example values added)
+         *      main: {
+         *          text: 'username',
+         *          url: 'dashboard'
+         *      },
+         *      button_label: 'User options dropdown',
+         *      items: [
+         *          {
+         *              text: 'Dashboard',
+         *              url: 'dashboard'
+         *          }, {
+         *              text: 'Account',
+         *              url: 'account_settings'
+         *          }, {
+         *              text: 'Profile',
+         *              url: 'learner_profile'
+         *          }, {
+         *              text: 'Sign Out',
+         *              url: 'logout'
+         *          }
+         *      ]
+         *  parent: 'selecter for parent element that will be replaced with dropdown menu'
+         *
+         */
         return Backbone.View.extend({
             tpl: _.template( DropdownTpl ),
 
@@ -51,18 +80,21 @@ define([
             },
 
             analyticsLinkClick: function( event ) {
-                var $link = $(event.target),
-                    label = $link.hasClass('user-title') ? 'Dashboard' : $link.html().trim();
-
                 /**
                  *  Add your own analytics tracking here
                  *  for example:
+                 *
+                 *  var $link = $(event.target),
+                 *      label = $link.hasClass('user-title') ? 'Dashboard' : $link.html().trim();
+                 *
+                 *  window.analytics.track( 'user_dropdown.clicked', {
+                 *      category: 'navigation',
+                 *      label: label,
+                 *      link: $link.attr('href')
+                 *  });
                  */
-                window.analytics.track( 'user_dropdown.clicked', {
-                    category: 'navigation',
-                    label: label,
-                    link: $link.attr('href')
-                });
+
+                return event;
             },
 
             clickCloseDropdown: function( event, context ) {
@@ -176,11 +208,11 @@ define([
 
             nextMenuItemLink: function( $el ) {
                 var items = this.$el.find('.dropdown-menu').children('.dropdown-item').find('.action'),
-                    items_count = items.length -1,
+                    itemsCount = items.length -1,
                     index = items.index( $el ),
                     next = index + 1;
 
-                if ( index === items_count ) {
+                if ( index === itemsCount ) {
                     this.$dropdownButton.focus();
                 } else {
                     items.eq(next).focus();
@@ -190,7 +222,9 @@ define([
             openMenu: function( $el ) {
                 var $menu = this.$menu;
 
-                if ( !$menu.hasClass( 'is-visible' ) ) {
+                if ( $menu.hasClass( 'is-visible' ) ) {
+                    this.closeDropdownMenus();
+                } else {
                     $el.addClass( 'is-active' )
                        .attr( 'aria-expanded', 'true' );
 
@@ -200,9 +234,6 @@ define([
                     $menu.focus();
                     this.setOrientation();
                     this.handlerPageClicks( this );
-
-                } else {
-                    this.closeDropdownMenus();
                 }
             },
 

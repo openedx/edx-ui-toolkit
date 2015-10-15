@@ -18,6 +18,24 @@ define([
                 };
 
             beforeEach(function() {
+                // Extend the view to add analytics for testing
+                var ExtendedDropdownMenuView = DropdownMenuView.extend({
+                    analyticsLinkClick: function( event ) {
+                        var $link = $(event.target),
+                            label = $link.hasClass('user-title') ? 'Dashboard' : $link.html().trim();
+
+                        /**
+                         *  Add your own analytics tracking here
+                         *  for example:
+                         */
+                        window.analytics.track( 'user_dropdown.clicked', {
+                            category: 'navigation',
+                            label: label,
+                            link: $link.attr('href')
+                        });
+                    }
+                });
+
                 // Set the DOM
                 setFixtures( '<div class="js-user-cta"></div>' );
 
@@ -44,8 +62,7 @@ define([
                     ]
                 });
 
-
-                view = new DropdownMenuView({
+                view = new ExtendedDropdownMenuView({
                     className: 'wrapper-more-actions user-menu logged-in',
                     model: dropdownModel,
                     parent: '.js-user-cta'
