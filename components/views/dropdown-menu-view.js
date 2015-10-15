@@ -106,9 +106,12 @@ define([
             },
 
             clickOpenDropdown: function( event ) {
+                var $el = $(event.target),
+                    $btn = $el.hasClass('js-dropdown-button') ? $el : $el.closest('.js-dropdown-button');
+
                 event.preventDefault();
 
-                this.openMenu( this.$dropdownButton );
+                this.openMenu( $btn );
             },
 
             closeDropdownMenus: function( all ) {
