@@ -9,14 +9,16 @@ module.exports = function (config) {
 
         // frameworks to use
         // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
-        frameworks: ['jasmine', 'requirejs', 'sinon'],
+        frameworks: ['jasmine-jquery', 'jasmine', 'requirejs', 'sinon'],
 
 
         // list of files / patterns to load in the browser
         files: [
             {pattern: 'bower_components/**/*.js', included: false},
             {pattern: 'bower_components/**/*.json', included: false},
+            {pattern: 'components/utils/*.js', included: false},
             {pattern: 'components/**/views/*.js', included: false},
+            {pattern: 'components/**/templates/*.underscore', included: false},
             {pattern: 'test/specs/**/*.js', included: false},
             {pattern: 'components/config.js', included: true},
             {pattern: 'test/spec-runner.js', included: true}
@@ -32,6 +34,7 @@ module.exports = function (config) {
         // plugins required for running the karma tests
         plugins:[
             'karma-jasmine',
+            'karma-jasmine-jquery',
             'karma-requirejs',
             'karma-phantomjs-launcher',
             'karma-coverage',
