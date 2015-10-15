@@ -15,13 +15,13 @@ define(['jquery', 'components/views/collapsible-view'], function ($, Collapsible
             spyOn($.fn, 'slideToggle');
 
             // set up the text to display
-            collapsibleEl.setAttribute('data-expand-text', 'Expand Text');
-            collapsibleEl.setAttribute('data-collapse-text', 'Click to Collapse');
+            collapsibleEl.setAttribute('data-expanded-text', 'Expand Text');
+            collapsibleEl.setAttribute('data-collapsed-text', 'Click to Collapse');
 
-            toggleText.className = 'collapsible-toggle-text';
+            toggleText.className = 'collapsible-toggle';
             collapsibleEl.appendChild(toggleText);
 
-            toggleContent.className = 'collapsible-content';
+            toggleContent.className = 'collapsible-target';
             toggleContent.textContent = 'sample stuff';
             collapsibleEl.appendChild(toggleContent);
 
@@ -31,6 +31,7 @@ define(['jquery', 'components/views/collapsible-view'], function ($, Collapsible
             expect(toggleText.textContent).toEqual('Click to Collapse');
             expect($.fn.slideToggle).not.toHaveBeenCalled();
             expect(toggleText.getAttribute('aria-expanded')).toBe('false');
+            expect($(collapsibleEl).hasClass('is-collapsed')).toBe(true);
 
             $(toggleText).trigger('click');
             expect(toggleText.textContent).toEqual('Expand Text');
@@ -38,6 +39,7 @@ define(['jquery', 'components/views/collapsible-view'], function ($, Collapsible
             // should have been called
             expect($.fn.slideToggle).toHaveBeenCalled();
             expect(toggleText.getAttribute('aria-expanded')).toBe('true');
+            expect($(collapsibleEl).hasClass('is-collapsed')).toBe(false);
         });
 
     });
