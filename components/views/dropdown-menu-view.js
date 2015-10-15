@@ -141,23 +141,23 @@ define([
             },
 
             handlerIsAction: function( key, $el ) {
-                if ( key === constants.keyCodes.up ) {
+                if ( key === constants.keyCodes.up || key === constants.keyCodes.left ) {
                     this.previousMenuItemLink( $el );
-                } else if ( key === constants.keyCodes.down ) {
+                } else if ( key === constants.keyCodes.down || key === constants.keyCodes.right ) {
                     this.nextMenuItemLink( $el );
                 }
             },
 
             handlerIsButton: function( key ) {
-                if ( key === constants.keyCodes.down ) {
+                if ( key === constants.keyCodes.down || key === constants.keyCodes.right ) {
                     this.focusFirstItem();
                 }
             },
 
             handlerIsMenu: function( key ) {
-                if ( key === constants.keyCodes.down ) {
+                if ( key === constants.keyCodes.down || key === constants.keyCodes.right ) {
                     this.focusFirstItem();
-                } else if ( key === constants.keyCodes.up ) {
+                } else if ( key === constants.keyCodes.up || key === constants.keyCodes.left ) {
                     this.$dropdownButton.focus();
                 }
             },
@@ -176,7 +176,9 @@ define([
                     $el = $(event.target);
 
                 if ( keyCode === constants.keyCodes.up ||
-                     keyCode === constants.keyCodes.down ) {
+                     keyCode === constants.keyCodes.down ||
+                     key === constants.keyCodes.left ||
+                     key === constants.keyCodes.right ) {
                     // Prevent default behavior if one of our trigger keys
                     event.preventDefault();
                 }
