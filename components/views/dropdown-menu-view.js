@@ -180,8 +180,8 @@ define([
 
                 if ( keyCode === constants.keyCodes.up ||
                      keyCode === constants.keyCodes.down ||
-                     key === constants.keyCodes.left ||
-                     key === constants.keyCodes.right ) {
+                     keyCode === constants.keyCodes.left ||
+                     keyCode === constants.keyCodes.right ) {
                     // Prevent default behavior if one of our trigger keys
                     event.preventDefault();
                 }
