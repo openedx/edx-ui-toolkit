@@ -121,6 +121,7 @@
         // require Library
         "require",
         "requirejs",
+        "RequireJS",
         "define",
 
         // Jasmine library.
