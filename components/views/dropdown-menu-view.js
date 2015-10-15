@@ -18,7 +18,10 @@ define([
          *          text: 'username',
          *          url: 'dashboard'
          *      },
-         *      button_label: 'User options dropdown',
+         *      button: {
+         *          text: '&#8964;',
+         *          sr_label: 'User options dropdown'
+         *      },
          *      items: [
          *          {
          *              text: 'Dashboard',

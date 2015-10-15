@@ -44,7 +44,10 @@ define([
                         text: 'username',
                         url: 'dashboard'
                     },
-                    button_label: 'User options dropdown',
+                    button: {
+                        text: '&#8964;',
+                        sr_label: 'User options dropdown'
+                    },
                     items: [
                         {
                             text: 'Dashboard',
@@ -82,6 +85,7 @@ define([
                 expect( view ).toBeDefined();
             });
 
+            // TODO: Add tests for aria-labels changing
             it( 'should open the user menu on click of the button', function () {
                 var $btn = view.$el.find('.js-dropdown-button');
 
@@ -94,6 +98,7 @@ define([
                 jasmine.clock().tick(101);
             });
 
+            // TODO: Add tests for aria-labels changing
             it( 'should close the user menu on keypress of the esc key', function () {
                 var $btn = view.$el.find('.js-dropdown-button');
 
@@ -112,6 +117,7 @@ define([
                 jasmine.clock().tick(201);
             });
 
+            // TODO: Add tests for aria-labels changing
             it( 'should close the user menu on page click', function () {
                 var $btn = view.$el.find('.js-dropdown-button');
 
@@ -128,6 +134,9 @@ define([
 
                 jasmine.clock().tick(101);
                 jasmine.clock().tick(201);
+            });
+
+            xit( 'should navigate through the menu with arrow presses', function() {
             });
 
             it( 'should open track analytics for user title clicks', function () {
