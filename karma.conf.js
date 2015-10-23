@@ -50,6 +50,7 @@ module.exports = function (config, options) {
             'karma-phantomjs-launcher',
             'karma-coverage',
             'karma-sinon',
+            'karma-jasmine-html-reporter',
             'karma-spec-reporter'
         ],
 

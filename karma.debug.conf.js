@@ -11,6 +11,6 @@ module.exports = function (config) {
         browsers: ['Chrome'],
         logLevel: baseConfig.LOG_DEBUG,
         preprocessors: [],
-        reporters: []
+        reporters: ['html']
     });
 };
