@@ -44,6 +44,7 @@ define(['jquery',
 
             beforeEach(function () {
                 collection = new PagingCollection();
+                collection.url = '/test';
                 collection.perPage = 10;
                 server.isZeroIndexed = false;
                 server.count = 43;
@@ -67,15 +68,16 @@ define(['jquery',
                 expect(collection.sortField).toBe(sort_order);
             });
 
-            it('can set the sort field', function () {
-                var requests = AjaxHelpers.requests(this);
-                collection.registerSortableField('test_field', 'Test Field');
-                collection.setSortField('test_field', false);
-                collection.refresh();
-                assertQueryParams(requests, {'sort_order': 'test_field'});
-                expect(collection.sortField).toBe('test_field');
-                expect(collection.sortDisplayName()).toBe('Test Field');
-            });
+            it('can set the sort field', AjaxHelpers.requests(
+                function (requests) {
+                    collection.registerSortableField('test_field', 'Test Field');
+                    collection.setSortField('test_field', false);
+                    collection.refresh();
+                    assertQueryParams(requests, {'sort_order': 'test_field'});
+                    expect(collection.sortField).toBe('test_field');
+                    expect(collection.sortDisplayName()).toBe('Test Field');
+                }
+            ));
 
             it('can set the filter field', function () {
                 collection.registerFilterableField('test_field', 'Test Field');
@@ -107,17 +109,34 @@ define(['jquery',
                 expect(collection.sortDirection).toBe(PagingCollection.SortDirection.DESCENDING);
             });
 
+            it('can set the search string', AjaxHelpers.requests(function (requests) {
+                collection.setSearchString('testString');
+                collection.refresh();
+                assertQueryParams(requests, {'text_search': 'testString'});
+            }));
+
+            it('does not refresh itself if the search string is unchanged',
+               AjaxHelpers.requests(function (requests) {
+                   var testString = 'testString';
+                   collection.setSearchString(testString);
+                   collection.refresh();
+                   server.respond(requests);
+                   collection.setSearchString(testString);
+                   collection.refresh();
+                   expect(requests.length).toEqual(1);
+               })
+              );
+
             SpecHelpers.withData({
                 'queries with page, page_size, and sort_order parameters when zero indexed': [true, 2],
                 'queries with page, page_size, and sort_order parameters when one indexed': [false, 3],
-            }, function (isZeroIndexed, page) {
-                var requests = AjaxHelpers.requests(this);
+            }, AjaxHelpers.requests(function (isZeroIndexed, page, requests) {
                 collection.isZeroIndexed = isZeroIndexed;
                 collection.perPage = 5;
                 collection.sortField = 'test_field';
                 collection.setPage(3);
                 assertQueryParams(requests, {'page': page.toString(), 'page_size': '5', 'sort_order': 'test_field'});
-            });
+            }));
 
             SpecHelpers.withConfiguration({
                 'using a zero indexed collection': [true],
@@ -127,48 +146,50 @@ define(['jquery',
                 server.isZeroIndexed = isZeroIndexed;
             }, function () {
                 describe('setPage', function() {
-                    it('triggers a reset event when the page changes successfully', function () {
-                        var requests = AjaxHelpers.requests(this),
-                            resetTriggered = false;
+                    it('triggers a reset event when the page changes successfully',
+                       AjaxHelpers.requests(function (requests) {
+                        var resetTriggered = false;
                         collection.on('reset', function () { resetTriggered = true; });
                         collection.setPage(3);
                         server.respond(requests);
                         expect(resetTriggered).toBe(true);
-                    });
+                       })
+                      );
 
-                    it('triggers an error event when the requested page is out of range', function () {
-                        var requests = AjaxHelpers.requests(this),
-                            errorTriggered = false;
+                    it('triggers an error event when the requested page is out of range',
+                       AjaxHelpers.requests(function (requests) {
+                        var errorTriggered = false;
                         collection.on('error', function () { errorTriggered = true; });
                         collection.setPage(17);
                         server.respond(requests);
                         expect(errorTriggered).toBe(true);
-                    });
+                       })
+                      );
 
-                    it('triggers an error event if the server responds with a 500', function () {
-                        var requests = AjaxHelpers.requests(this),
-                            errorTriggered = false;
+                    it('triggers an error event if the server responds with a 500',
+                       AjaxHelpers.requests(function (requests) {
+                        var errorTriggered = false;
                         collection.on('error', function () { errorTriggered = true; });
                         collection.setPage(2);
-                        expect(collection.getPage()).toBe(2);
+                        expect(collection.getPageNumber()).toBe(2);
                         server.respond(requests);
                         collection.setPage(3);
                         AjaxHelpers.respondWithError(requests, 500, {}, requests.length - 1);
                         expect(errorTriggered).toBe(true);
-                        expect(collection.getPage()).toBe(2);
-                    });
+                        expect(collection.getPageNumber()).toBe(2);
+                       })
+                      );
                 });
 
-                describe('getPage', function () {
-                    it('returns the correct page', function () {
-                        var requests = AjaxHelpers.requests(this);
+                describe('getPageNumber', function () {
+                    it('returns the correct page', AjaxHelpers.requests(function (requests) {
                         collection.setPage(1);
                         server.respond(requests);
-                        expect(collection.getPage()).toBe(1);
+                        expect(collection.getPageNumber()).toBe(1);
                         collection.setPage(3);
                         server.respond(requests);
-                        expect(collection.getPage()).toBe(3);
-                    });
+                        expect(collection.getPageNumber()).toBe(3);
+                    }));
                 });
 
                 describe('hasNextPage', function () {
@@ -179,13 +200,12 @@ define(['jquery',
                             'returns true on the penultimate page': [4, 43, true],
                             'returns false on the last page': [5, 43, false]
                         },
-                        function (page, count, result) {
-                            var requests = AjaxHelpers.requests(this);
+                        AjaxHelpers.requests(function (page, count, result, requests) {
                             server.count = count;
                             collection.setPage(page);
                             server.respond(requests);
                             expect(collection.hasNextPage()).toBe(result);
-                        }
+                        })
                     );
                 });
 
@@ -197,13 +217,12 @@ define(['jquery',
                             'returns true on the second page': [2, 43, true],
                             'returns false on the first page': [1, 43, false]
                         },
-                        function (page, count, result) {
-                            var requests = AjaxHelpers.requests(this);
+                        AjaxHelpers.requests(function (page, count, result, requests) {
                             server.count = count;
                             collection.setPage(page);
                             server.respond(requests);
                             expect(collection.hasPreviousPage()).toBe(result);
-                        }
+                        })
                     );
                 });
 
@@ -213,18 +232,17 @@ define(['jquery',
                             'advances to the next page': [2, 43, 3],
                             'silently fails on the last page': [5, 43, 5]
                         },
-                        function (page, count, newPage) {
-                            var requests = AjaxHelpers.requests(this);
+                        AjaxHelpers.requests(function (page, count, newPage, requests) {
                             server.count = count;
                             collection.setPage(page);
                             server.respond(requests);
-                            expect(collection.getPage()).toBe(page);
+                            expect(collection.getPageNumber()).toBe(page);
                             collection.nextPage();
                             if (requests.length > 1) {
                                 server.respond(requests);
                             }
-                            expect(collection.getPage()).toBe(newPage);
-                        }
+                            expect(collection.getPageNumber()).toBe(newPage);
+                        })
                     );
                 });
 
@@ -234,18 +252,17 @@ define(['jquery',
                             'moves to the previous page': [2, 43, 1],
                             'silently fails on the first page': [1, 43, 1]
                         },
-                        function (page, count, newPage) {
-                            var requests = AjaxHelpers.requests(this);
+                        AjaxHelpers.requests(function (page, count, newPage, requests) {
                             server.count = count;
                             collection.setPage(page);
                             server.respond(requests);
-                            expect(collection.getPage()).toBe(page);
+                            expect(collection.getPageNumber()).toBe(page);
                             collection.previousPage();
                             if (requests.length > 1) {
                                 server.respond(requests);
                             }
-                            expect(collection.getPage()).toBe(newPage);
-                        }
+                            expect(collection.getPageNumber()).toBe(newPage);
+                        })
                     );
                 });
             });

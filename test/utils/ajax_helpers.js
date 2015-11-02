@@ -1,7 +1,7 @@
 define(['sinon', 'underscore', 'URI'], function(sinon, _, URI) {
     'use strict';
 
-    var fakeServer, fakeRequests, expectRequest, expectJsonRequest, expectPostRequest, expectRequestURL,
+    var fakeRequests, expectRequest, expectJsonRequest, expectPostRequest, expectRequestURL,
         respondWithJson, respondWithError, respondWithTextError, respondWithNoContent;
 
     /* These utility methods are used by Jasmine tests to create a mock server or
@@ -19,33 +19,39 @@ define(['sinon', 'underscore', 'URI'], function(sinon, _, URI) {
     /**
      * Get a reference to the mocked server, and respond
      * to all requests with the specified statusCode.
+     *
+     * TODO (pfogg): removing this for now. Jasmine 2.0 removes the
+     * `after` hook (as well as the ability to get a reference to the
+     * current spec). As a result this function is broken, and it's
+     * not used anywhere regardless. Fixing this is likely as simple
+     * as converting it to work as a decorator/HOF like `fakeRequests`
+     * below.
      */
-    fakeServer = function (that, response) {
-        var server = sinon.fakeServer.create();
-        that.after(function() {
-            server.restore();
-        });
-        server.respondWith(response);
-        return server;
-    };
+    // fakeServer = function (that, response) {
+    //     var server = sinon.fakeServer.create();
+    //     that.after(function() {
+    //         server.restore();
+    //     });
+    //     server.respondWith(response);
+    //     return server;
+    // };
 
     /**
-     * Keep track of all requests to a fake server, and
-     * return a reference to the Array. This allows tests
-     * to respond for individual requests.
+     * Keep track of all requests to a fake server, and call `spec`
+     * with a reference to the server. Allows tests to respond to
+     * individual requests.
      */
-    fakeRequests = function (that) {
-        var requests = [],
-            xhr = sinon.useFakeXMLHttpRequest();
-        xhr.onCreate = function(request) {
-            requests.push(request);
-        };
-
-        that.after(function() {
+    fakeRequests = function (spec) {
+        return function () {
+            var requests = [],
+                xhr = sinon.useFakeXMLHttpRequest(),
+                args = Array.prototype.slice.call(arguments);
+            xhr.onCreate = function(request) {
+                requests.push(request);
+            };
+            spec.apply(null, args.concat([requests]));
             xhr.restore();
-        });
-
-        return requests;
+        };
     };
 
     expectRequest = function(requests, method, url, body, requestIndex) {
@@ -153,7 +159,6 @@ define(['sinon', 'underscore', 'URI'], function(sinon, _, URI) {
     };
 
     return {
-        server: fakeServer,
         requests: fakeRequests,
         expectRequest: expectRequest,
         expectJsonRequest: expectJsonRequest,

@@ -10,12 +10,15 @@ define([], function () {
      *      of the test case, and the list of arguments is applied as arguments to func.
      * @param func The function that actually expresses the logic of the test.
      */
+    /* jshint loopfunc:true */
     var withData = function (data, func) {
         for (var name in data) {
             if (data.hasOwnProperty(name)) {
-                it(name, function () {
-                    func.apply(this, data[name]);
-                });
+                (function (name) {
+                    it(name, function () {
+                        func.apply(this, data[name]);
+                    });
+                })(name);
             }
         }
     };
@@ -31,12 +34,14 @@ define([], function () {
     var withConfiguration = function (config, setup, test) {
         for (var name in config) {
             if (config.hasOwnProperty(name)) {
-                describe(name, function () {
-                    beforeEach(function () {
-                        setup.apply(this, config[name]);
+                (function (name) {
+                    describe(name, function () {
+                        beforeEach(function () {
+                            setup.apply(this, config[name]);
+                        });
+                        test();
                     });
-                    test();
-                });
+                })(name);
             }
         }
     };

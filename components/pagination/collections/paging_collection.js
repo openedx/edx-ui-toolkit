@@ -18,7 +18,7 @@
  */
 ;(function (define) {
     'use strict';
-    define(['backbone.paginator'], function (PageableCollection) {
+    define(['jquery', 'backbone.paginator'], function ($, PageableCollection) {
         var PagingCollection = PageableCollection.extend({
             initialize: function () {
                 // These must be initialized in the constructor because otherwise all PagingCollections would point
@@ -50,7 +50,7 @@
             },
 
             queryParams: {
-                page: function () { return this.currentPage; },
+                page: function () { return this.state.currentPage; },
                 page_size: function () { return this.perPage; },
                 text_search: function () { return this.searchString ? this.searchString : ''; },
                 sort_order: function () { return this.sortField; }
@@ -58,9 +58,8 @@
 
             parse: function (response) {
                 this.totalCount = response.count;
-                this.currentPage = response.current_page;
+                this.state.currentPage = response.current_page;
                 this.totalPages = response.num_pages;
-                this.start = response.start;
 
                 // Note: sort_order is not returned when performing a search
                 if (response.sort_order) {
@@ -74,7 +73,7 @@
              * underlying server API.
              */
             getPageNumber: function () {
-                return this.currentPage + (this.isZeroIndexed ? 1 : 0);
+                return this.state.currentPage + (this.isZeroIndexed ? 1 : 0);
             },
 
             /**
@@ -84,7 +83,7 @@
              * @param page one-indexed page to change to
              */
             setPage: function (page) {
-                var oldPage = this.currentPage,
+                var oldPage = this.state.currentPage,
                     self = this,
                     deferred = $.Deferred();
                 this.getPage(page - (this.isZeroIndexed ? 1 : 0), {reset: true}).then(
@@ -94,7 +93,7 @@
                         deferred.resolve();
                     },
                     function () {
-                        self.currentPage = oldPage;
+                        self.state.currentPage = oldPage;
                         deferred.fail();
                     }
                 );

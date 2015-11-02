@@ -37,7 +37,7 @@
     "lastsemic"     : false,       // Suppresses warnings about missing semicolons, but only when the semicolon is omitted for the last statement in a one-line block.
     "laxbreak"      : false,       // Suppresses most of the warnings about possibly unsafe line breaks in your code.
     "laxcomma"      : false,       // Suppresses warnings about comma-first coding style.
-    "loopfunc"      : true,        // Suppresses warnings about functions inside of loops.
+    "loopfunc"      : false,       // Suppresses warnings about functions inside of loops.
     "maxerr"        : 100,         // Set the maximum amount of warnings JSHint will produce before giving up.
     "moz"           : false,       // Tells JSHint that your code uses Mozilla JavaScript extensions.
     "notypeof"      : false,       // Suppresses warnings about invalid typeof operator values.
