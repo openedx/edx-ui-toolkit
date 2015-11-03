@@ -1,4 +1,4 @@
-// Karma configuration
+// Karma configuration for debugging
 
 module.exports = function (config) {
     'use strict';
