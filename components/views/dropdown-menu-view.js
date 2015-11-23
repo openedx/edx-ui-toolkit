@@ -5,7 +5,7 @@ define([
         '../utils/constants',
         'text!../templates/dropdown.underscore'
     ],
-    function( Backbone, $, _, constants, DropdownTpl ) {
+    function(Backbone, $, _, constants, DropdownTpl) {
         'use strict';
 
         /**
@@ -38,7 +38,7 @@ define([
          *
          */
         var DropdownMenuView = Backbone.View.extend({
-            tpl: _.template( DropdownTpl ),
+            tpl: _.template(DropdownTpl),
 
             events: {
                 'click .js-dropdown-button': 'clickOpenDropdown',
@@ -48,7 +48,7 @@ define([
 
             menu: '.dropdown-menu',
 
-            initialize: function( options ) {
+            initialize: function(options) {
                 this.$parent = $(options.parent);
                 this.render();
             },
@@ -58,8 +58,8 @@ define([
             },
 
             render: function() {
-                this.$el.html( this.tpl( this.model.toJSON() ) );
-                this.$parent.replaceWith( this.$el );
+                this.$el.html(this.tpl(this.model.toJSON()));
+                this.$parent.replaceWith(this.$el);
                 this.postRender();
 
                 return this;
@@ -77,14 +77,14 @@ define([
              * By default it doesn't do anything, to utilize please
              * extend the View (example code commented out in the function)
              */
-            analyticsLinkClick: function( event ) {
+            analyticsLinkClick: function(event) {
                 /**
                  *  Example code:
                  *
                  *  var $link = $(event.target),
                  *      label = $link.hasClass('user-title') ? 'Dashboard' : $link.html().trim();
                  *
-                 *  window.analytics.track( 'user_dropdown.clicked', {
+                 *  window.analytics.track('user_dropdown.clicked', {
                  *      category: 'navigation',
                  *      label: label,
                  *      link: $link.attr('href')
@@ -94,43 +94,43 @@ define([
                 return event;
             },
 
-            clickCloseDropdown: function( event, context ) {
+            clickCloseDropdown: function(event, context) {
                 var $el = $(event.target);
 
-                if ( !$el.hasClass('button-more') && !$el.hasClass('has-dropdown') ) {
+                if (!$el.hasClass('button-more') && !$el.hasClass('has-dropdown')) {
                     context.closeDropdownMenus();
                 }
             },
 
-            clickOpenDropdown: function( event ) {
+            clickOpenDropdown: function(event) {
                 event.preventDefault();
 
-                this.openMenu( $(event.target) );
+                this.openMenu($(event.target));
             },
 
-            closeDropdownMenus: function( all ) {
+            closeDropdownMenus: function(all) {
                 var $open;
 
-                if ( all ) {
+                if (all) {
                     // Close all open, usually from ESC or doc click
-                    $open = this.$page.find( this.menu );
+                    $open = this.$page.find(this.menu);
                 } else {
                     // Closing one for another
-                    $open = this.$page.find( this.menu ).not( ':focus' );
+                    $open = this.$page.find(this.menu).not(':focus');
                 }
 
-                $open.removeClass( 'is-visible' )
-                     .addClass( 'is-hidden' );
+                $open.removeClass('is-visible')
+                     .addClass('is-hidden');
 
                 this.$dropdownButton
-                    .removeClass( 'is-active' )
-                    .attr( 'aria-expanded', 'false' );
+                    .removeClass('is-active')
+                    .attr('aria-expanded', 'false');
             },
 
-            escKeypressHandler: function( event ) {
+            escKeypressHandler: function(event) {
                 var keyCode = event.keyCode;
 
-                if ( keyCode === constants.keyCodes.esc ) {
+                if (keyCode === constants.keyCodes.esc) {
                     // When the ESC key is pressed, close all menus
                     this.closeDropdownMenus(true);
                 }
@@ -140,106 +140,106 @@ define([
                 this.$menu.find('.action').first().focus();
             },
 
-            handlerIsAction: function( key, $el ) {
-                if ( key === constants.keyCodes.up ) {
-                    this.previousMenuItemLink( $el );
-                } else if ( key === constants.keyCodes.down ) {
-                    this.nextMenuItemLink( $el );
+            handlerIsAction: function(key, $el) {
+                if (key === constants.keyCodes.up) {
+                    this.previousMenuItemLink($el);
+                } else if (key === constants.keyCodes.down) {
+                    this.nextMenuItemLink($el);
                 }
             },
 
-            handlerIsButton: function( key ) {
-                if ( key === constants.keyCodes.down ) {
+            handlerIsButton: function(key) {
+                if (key === constants.keyCodes.down) {
                     this.focusFirstItem();
                 }
             },
 
-            handlerIsMenu: function( key ) {
-                if ( key === constants.keyCodes.down ) {
+            handlerIsMenu: function(key) {
+                if (key === constants.keyCodes.down) {
                     this.focusFirstItem();
-                } else if ( key === constants.keyCodes.up ) {
+                } else if (key === constants.keyCodes.up) {
                     this.$dropdownButton.focus();
                 }
             },
 
-            handlerPageClicks: function( context ) {
+            handlerPageClicks: function(context) {
                 // Only want 1 event listener for click.dropdown
                 // on the page so unbind for instantiating
-                this.$page.off( 'click.dropdown' );
-                this.$page.on( 'click.dropdown', function( event ) {
-                    context.clickCloseDropdown( event, context );
+                this.$page.off('click.dropdown');
+                this.$page.on('click.dropdown', function(event) {
+                    context.clickCloseDropdown(event, context);
                 });
             },
 
-            viewKeypress: function( event ) {
+            viewKeypress: function(event) {
                 var keyCode = event.keyCode,
                     $el = $(event.target);
 
-                if ( keyCode === constants.keyCodes.up ||
-                     keyCode === constants.keyCodes.down ) {
+                if (keyCode === constants.keyCodes.up ||
+                     keyCode === constants.keyCodes.down) {
                     // Prevent default behavior if one of our trigger keys
                     event.preventDefault();
                 }
 
-                if ( keyCode === constants.keyCodes.tab && $el.hasClass('last') ) {
+                if (keyCode === constants.keyCodes.tab && $el.hasClass('last')) {
                     event.preventDefault();
                     this.$dropdownButton.focus();
-                } else if ( keyCode === constants.keyCodes.esc ) {
+                } else if (keyCode === constants.keyCodes.esc) {
                     this.closeDropdownMenus();
                     this.$dropdownButton.focus();
-                } else if ( $el.hasClass('action') ) {
+                } else if ($el.hasClass('action')) {
                     // Key handlers for when a menu item has focus
-                    this.handlerIsAction( keyCode, $el );
-                } else if ( $el.hasClass('dropdown-menu') ) {
+                    this.handlerIsAction(keyCode, $el);
+                } else if ($el.hasClass('dropdown-menu')) {
                     // Key handlers for when the menu itself has focus, before an item within it receives focus
-                    this.handlerIsMenu( keyCode );
-                } else if ( $el.hasClass('has-dropdown') ) {
+                    this.handlerIsMenu(keyCode);
+                } else if ($el.hasClass('has-dropdown')) {
                     // Key handlers for when the button that opens the menu has focus
-                    this.handlerIsButton( keyCode );
+                    this.handlerIsButton(keyCode);
                 }
             },
 
             listenForPageKeypress: function() {
-                this.$page.on( 'keydown', _.bind( this.escKeypressHandler, this ) );
+                this.$page.on('keydown', _.bind(this.escKeypressHandler, this));
             },
 
-            nextMenuItemLink: function( $el ) {
+            nextMenuItemLink: function($el) {
                 var items = this.$el.find('.dropdown-menu').children('.dropdown-item').find('.action'),
-                    itemsCount = items.length -1,
-                    index = items.index( $el ),
+                    itemsCount = items.length - 1,
+                    index = items.index($el),
                     next = index + 1;
 
-                if ( index === itemsCount ) {
+                if (index === itemsCount) {
                     this.$dropdownButton.focus();
                 } else {
                     items.eq(next).focus();
                 }
             },
 
-            openMenu: function( $el ) {
+            openMenu: function($el) {
                 var $menu = this.$menu;
 
-                if ( $menu.hasClass( 'is-visible' ) ) {
+                if ($menu.hasClass('is-visible')) {
                     this.closeDropdownMenus();
                 } else {
-                    $el.addClass( 'is-active' )
-                       .attr( 'aria-expanded', 'true' );
+                    $el.addClass('is-active')
+                       .attr('aria-expanded', 'true');
 
-                    $menu.removeClass( 'is-hidden' )
-                        .addClass( 'is-visible' );
+                    $menu.removeClass('is-hidden')
+                        .addClass('is-visible');
 
                     $menu.focus();
                     this.setOrientation();
-                    this.handlerPageClicks( this );
+                    this.handlerPageClicks(this);
                 }
             },
 
-            previousMenuItemLink: function( $el ) {
+            previousMenuItemLink: function($el) {
                 var items = this.$el.find('.dropdown-menu').children('.dropdown-item').find('.action'),
-                    index = items.index( $el ),
+                    index = items.index($el),
                     prev = index - 1;
 
-                if ( index === 0 ) {
+                if (index === 0) {
                     this.$dropdownButton.focus();
                 } else {
                     items.eq(prev).focus();
@@ -248,11 +248,11 @@ define([
 
             setOrientation: function() {
                 var midpoint = $(window).width() / 2,
-                    alignClass = ( this.$dropdownButton.offset().left > midpoint ) ? 'align-right' : 'align-left';
+                    alignClass = (this.$dropdownButton.offset().left > midpoint) ? 'align-right' : 'align-left';
 
                 this.$menu
-                    .removeClass( 'align-left align-right' )
-                    .addClass( alignClass );
+                    .removeClass('align-left align-right')
+                    .addClass(alignClass);
             }
         });
 

@@ -1,7 +1,7 @@
 (function() {
     'use strict';
 
-    var jshint = require('gulp-jshint'),
+    var jscs = require('gulp-jscs'),
         gulp = require('gulp'),
         paths = {
             lint: [
@@ -12,10 +12,9 @@
             ]
         };
 
-    gulp.task('lint', function() {
+    gulp.task('jscs', function() {
         return gulp.src(paths.lint)
-            .pipe(jshint())
-            .pipe(jshint.reporter('default'))
-            .pipe(jshint.reporter('fail'));
+            .pipe(jscs())
+            .pipe(jscs.reporter());
     });
 }());
