@@ -1,9 +1,9 @@
-define(['jquery', 'components/views/collapsible-view'], function ($, CollapsibleView) {
+define(['jquery', 'components/views/collapsible-view'], function($, CollapsibleView) {
     'use strict';
 
-    describe('Collapsible view', function () {
+    describe('Collapsible view', function() {
 
-        it('should display toggle display', function () {
+        it('should display toggle display', function() {
             var collapsibleEl = document.createElement('div'),
                 toggleText = document.createElement('div'),
                 toggleContent = document.createElement('div'),
@@ -41,7 +41,5 @@ define(['jquery', 'components/views/collapsible-view'], function ($, Collapsible
             expect(toggleText.getAttribute('aria-expanded')).toBe('true');
             expect($(collapsibleEl).hasClass('is-collapsed')).toBe(false);
         });
-
     });
-
 });

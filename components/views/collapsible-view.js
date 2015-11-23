@@ -1,5 +1,5 @@
 define(['backbone', 'underscore'],
-    function (Backbone, _) {
+    function(Backbone, _) {
         'use strict';
 
         /**
@@ -11,7 +11,7 @@ define(['backbone', 'underscore'],
          */
         var CollapsibleView = Backbone.View.extend({
 
-            initialize: function (options) {
+            initialize: function(options) {
                 var self = this;
                 self.options = _.defaults(options, {
                     toggleTextSelector: '.collapsible-toggle',
@@ -34,16 +34,16 @@ define(['backbone', 'underscore'],
                 self.$el.toggleClass(self.options.isCollapsedClass, !isVisible);
             },
 
-            render: function () {
+            render: function() {
                 var self = this,
                     $collapsibleEl = self.$el.find(self.options.collapsibleSelector),
-                    $textEl =self.$el.find(self.options.toggleTextSelector);
+                    $textEl = self.$el.find(self.options.toggleTextSelector);
 
                 // sets the initial state
                 self.toggleState($collapsibleEl.is(':visible'));
 
                 // clicking on the toggle text will hide/show content and update text
-                $textEl.click(function () {
+                $textEl.click(function() {
                     // Get the state now because getting it after toggling isn't  always accurate -- state is
                     // in transition
                     var isVisible = $collapsibleEl.is(':visible');
