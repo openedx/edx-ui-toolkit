@@ -44,7 +44,6 @@
     "expr"          : false,       // Suppresses warnings about the use of expressions where normally you would expect to see assignments or function calls.
     "funcscope"     : false,       // Suppresses warnings about declaring variables inside of control structures while accessing them later from the outside.
     "gcl"           : false,       // Makes JSHint compatible with Google Closure Compiler.
-    "globalstrict"  : false,       // Suppresses warnings about the use of global strict mode.
     "iterator"      : false,       // Suppresses warnings about the __iterator__ property.
     "lastsemic"     : false,       // Suppresses warnings about missing semicolons, but only when the semicolon is omitted for the last statement in a one-line block.
     "laxbreak"      : false,       // Suppresses most of the warnings about possibly unsafe line breaks in your code.
