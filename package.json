@@ -16,7 +16,7 @@
     "gulp-util": "3.0.6",
     "jasmine": "^2.3.0",
     "jshint": "^2.8.0",
-    "jscs": "^2.6.0",
+    "jscs": "^2.1.0",
     "karma": "^0.12.16",
     "karma-coverage": "^0.2.6",
     "karma-jasmine": "^0.3.6",

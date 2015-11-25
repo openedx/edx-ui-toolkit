@@ -23,8 +23,6 @@
   },
   "devDependencies": {
     "requirejs-plugins": "~1.0.3",
-    "jasmine": "~2.0.4",
-    "jshint": "^2.8.0",
-    "jscs": "^2.6.0"
+    "jasmine": "~2.0.4"
   }
 }
