@@ -1,6 +1,6 @@
 Part of [edX code](http://code.edx.org/)
 
-edX UI Toolkit
+edX UI Toolkit [![Build Status](https://travis-ci.org/edx/edx-ui-toolkit.svg?branch=master)](https://travis-ci.org/edx/edx-ui-toolkit)
 ==============
 
 Getting Started
