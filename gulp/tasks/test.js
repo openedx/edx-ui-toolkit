@@ -1,4 +1,4 @@
-(function () {
+(function() {
     'use strict';
 
     var gulp = require('gulp'),
@@ -6,7 +6,7 @@
         path = require('path'),
         configFile = 'karma.conf.js';
 
-    gulp.task('test', function (callback) {
+    gulp.task('test', function(callback) {
         karma.start({
             configFile: path.resolve(configFile)
         }, callback);
