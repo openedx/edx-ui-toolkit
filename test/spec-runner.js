@@ -5,10 +5,11 @@
 'use strict';
 
 var specs = [],
-    config = {};
+    config = {},
+    file;
 
 // you can automatically get the test files using karma's configs
-for (var file in window.__karma__.files) {
+for (file in window.__karma__.files) {
     if (/spec\.js$/.test(file)) {
         specs.push(file);
     }
