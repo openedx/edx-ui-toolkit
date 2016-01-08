@@ -10,8 +10,8 @@ define([], function () {
      *      of the test case, and the list of arguments is applied as arguments to func.
      * @param func The function that actually expresses the logic of the test.
      */
-    /* jshint loopfunc:true */
     var withData = function (data, func) {
+        /* jshint loopfunc:true */
         for (var name in data) {
             if (data.hasOwnProperty(name)) {
                 (function (name) {
@@ -32,6 +32,7 @@ define([], function () {
      * @param test The function that actually express the logic of the test. May include it() or more describe().
      */
     var withConfiguration = function (config, setup, test) {
+        /* jshint loopfunc:true */
         for (var name in config) {
             if (config.hasOwnProperty(name)) {
                 (function (name) {

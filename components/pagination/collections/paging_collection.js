@@ -1,92 +1,117 @@
 /**
- * A generic paging collection for use with a ListView and PagingFooter.
+ * A generic server paging collection.
  *
- * By default this collection is designed to work with Django Rest Framework APIs, but can be configured to work with
- * others. There is support for ascending or descending sort on a particular field, as well as filtering on a field.
- * While the backend API may use either zero or one indexed page numbers, this collection uniformly exposes a one
- * indexed interface to make consumption easier for views.
+ * By default this collection is designed to work with Django Rest
+ * Framework APIs, but can be configured to work with others. There is
+ * support for ascending or descending sort on a particular field, as
+ * well as filtering on a field. While the backend API may use either
+ * zero or one indexed page numbers, this collection uniformly exposes a
+ * one indexed interface to make consumption easier for views.
  *
  * Subclasses may want to override the following properties:
  *      - url (string): The base url for the API endpoint.
- *      - isZeroIndexed (boolean): If true, API calls will use page numbers starting at zero. Defaults to false.
- *      - perPage (number): Count of elements to fetch for each page.
- *      - queryParams (object): Query parameters for the API call. Subclasses may add entries as necessary. By default,
- *          a 'sort_order' field is included to specify the field to sort on. This field may be removed for subclasses
- *          that do not support sort ordering, or support it in a non-standard way. By default filterField and
- *          sortDirection do not affect the API calls. It is up to subclasses to add this information to the appropriate
- *          query string parameters in server_api.
+ *      - state (object): Object to overrride default state values
+ *        provided to Backbone.paginator.
+ *      - queryParams (object): Specifies Query parameters for the API
+ *        call using the Backbone.paginator API.  In the case of built-
+ *        in Backbone.paginator state keys, this maps those state keys
+ *        to query parameter keys.  queryParams can also map query
+ *        parameter keys to functions providing values for such keys.
+ *        Subclasses may add entries as necessary. By default,
+ *        'sort_order' is the query parameter used for sorting, with
+ *        values of 'asc' for increasing sort and 'desc' for decreasing
+ *        sort.
  */
 ;(function (define) {
     'use strict';
-    define(['jquery', 'backbone.paginator'], function ($, PageableCollection) {
+    define(['jquery', 'underscore', 'backbone.paginator'], function ($, _, PageableCollection) {
         var PagingCollection = PageableCollection.extend({
-            initialize: function () {
-                // These must be initialized in the constructor because otherwise all PagingCollections would point
-                // to the same object references for sortableFields and filterableFields.
-                this.sortableFields = {};
-                this.filterableFields = {};
-            },
-
-            isZeroIndexed: false,
-            perPage: 10,
             mode: 'server',
 
             isStale: false,
 
-            sortField: '',
-            sortDirection: 'descending',
             sortableFields: {},
 
-            filterField: '',
+            searchString: '',
             filterableFields: {},
 
-            searchString: null,
+            constructor: function (models, options) {
+                var defaultOptions = {
+                    state: {
+                        firstPage: 1,
+                        pageSize: 10,
+                        sortKey: null
+                    },
+                    queryParams: {
+                        currentPage: 'page',
+                        pageSize: 'page_size',
+                        sortKey: 'order_by',
+                        order: 'sort_order',
+                        text_search: function () { return this.searchString || null; }
+                    }
+                };
 
-            state: {
-                firstPage: function () { return this.isZeroIndexed ? 0 : 1; },
-                // Specifies the initial page during collection initialization
-                currentPage: function () { return this.isZeroIndexed ? 0 : 1; },
-                perPage: function () { return this.perPage; }
+                if (_.isUndefined(options)) { options = {}; }
+                _.extend(defaultOptions, _.omit(options, 'state', 'queryParams'));
+                _.extend(defaultOptions.state, options.state);
+                _.extend(defaultOptions.queryParams, options.queryParams);
+
+                PageableCollection.prototype.constructor.call(this, models, defaultOptions);
             },
 
-            queryParams: {
-                page: function () { return this.state.currentPage; },
-                page_size: function () { return this.perPage; },
-                text_search: function () { return this.searchString ? this.searchString : ''; },
-                sort_order: function () { return this.sortField; }
+            initialize: function (models, options) {
+                // These must be initialized in the constructor
+                // because otherwise all PagingCollections would point
+                // to the same object references for sortableFields
+                // and filterableFields.
+                this.sortableFields = {};
+                this.filterableFields = {};
+                PageableCollection.prototype.initialize.call(this, models, options);
             },
 
-            parse: function (response) {
-                this.totalCount = response.count;
-                this.state.currentPage = response.current_page;
-                this.totalPages = response.num_pages;
+            parse: function (response, options) {
+                // PageableCollection expects the response to be an
+                // array of two elements - the server-side state
+                // metadata (page, size, etc.), and the array of
+                // objects.
+                var modifiedResponse = [];
+                modifiedResponse.push(_.omit(response, 'results'));
+                modifiedResponse.push(response.results);
+                return PageableCollection.prototype.parse.call(this, modifiedResponse, options);
+            },
 
-                // Note: sort_order is not returned when performing a search
-                if (response.sort_order) {
-                    this.sortField = response.sort_order;
-                }
-                return response.results;
+            /* jshint unused:false */
+            /**
+             * Parses state from the server response.  Used only by
+             * backbone.paginator.
+             */
+            parseState: function (response, queryParams, state, options) {
+                return {totalRecords: response[0].count, totalPages: response[0].num_pages};
             },
 
             /**
-             * Returns the current page number as if numbering starts on page one, regardless of the indexing of the
-             * underlying server API.
+             * Returns the current page number as if numbering starts on
+             * page one, regardless of the indexing of the underlying
+             * server API.
              */
             getPageNumber: function () {
-                return this.state.currentPage + (this.isZeroIndexed ? 1 : 0);
+                return this.state.currentPage + (1 - this.state.firstPage);
             },
 
             /**
-             * Sets the current page of the collection. Page is assumed to be one indexed, regardless of the indexing
-             * of the underlying server API. If there is an error fetching the page, the Backbone 'error' event is
-             * triggered and the page does not change. A 'page_changed' event is triggered on a successful page change.
+             * Sets the current page of the collection. Page is assumed
+             * to be one indexed, regardless of the indexing of the
+             * underlying server API. If there is an error fetching the
+             * page, the Backbone 'error' event is triggered and the
+             * page does not change. A 'page_changed' event is triggered
+             * on a successful page change.
              * @param page one-indexed page to change to
              */
             setPage: function (page) {
                 var oldPage = this.state.currentPage,
                     self = this,
                     deferred = $.Deferred();
-                this.getPage(page - (this.isZeroIndexed ? 1 : 0), {reset: true}).then(
+                this.getPage(page - (1 - this.state.firstPage), {reset: true}).then(
                     function () {
                         self.isStale = false;
                         self.trigger('page_changed');
@@ -100,10 +125,10 @@
                 return deferred.promise();
             },
 
-
             /**
              * Refreshes the collection if it has been marked as stale.
-             * @returns {promise} Returns a promise representing the refresh.
+             * @returns {promise} Returns a promise representing the
+             *     refresh.
              */
             refresh: function() {
                 var deferred = $.Deferred();
@@ -119,14 +144,16 @@
             },
 
             /**
-             * Returns true if the collection has a next page, false otherwise.
+             * Returns true if the collection has a next page, false
+             * otherwise.
              */
             hasNextPage: function () {
-                return this.getPageNumber() < this.totalPages;
+                return this.getPageNumber() < this.state.totalPages;
             },
 
             /**
-             * Returns true if the collection has a previous page, false otherwise.
+             * Returns true if the collection has a previous page, false
+             * otherwise.
              */
             hasPreviousPage: function () {
                 return this.getPageNumber() > 1;
@@ -151,28 +178,34 @@
             },
 
             /**
-             * Adds the given field to the list of fields that can be sorted on.
+             * Adds the given field to the list of fields that can be
+             * sorted on.
              * @param fieldName name of the field for the server API
-             * @param displayName name of the field to display to the user
+             * @param displayName name of the field to display to the
+             *     user
              */
             registerSortableField: function (fieldName, displayName) {
                 this.addField(this.sortableFields, fieldName, displayName);
             },
 
             /**
-             * Adds the given field to the list of fields that can be filtered on.
+             * Adds the given field to the list of fields that can be
+             * filtered on.
              * @param fieldName name of the field for the server API
-             * @param displayName name of the field to display to the user
+             * @param displayName name of the field to display to the
+             *     user
              */
             registerFilterableField: function (fieldName, displayName) {
                 this.addField(this.filterableFields, fieldName, displayName);
             },
 
             /**
-             * For internal use only. Adds the given field to the given collection of fields.
+             * For internal use only. Adds the given field to the given
+             * collection of fields.
              * @param fields object of existing fields
              * @param fieldName name of the field for the server API
-             * @param displayName name of the field to display to the user
+             * @param displayName name of the field to display to the
+             *     user
              */
             addField: function (fields, fieldName, displayName) {
                 fields[fieldName] = {
@@ -181,72 +214,164 @@
             },
 
             /**
-             * Returns the display name of the field that the collection is currently sorted on.
+             * Returns the display name of the field that the collection
+             * is currently sorted on.
              */
             sortDisplayName: function () {
-                return this.sortableFields[this.sortField].displayName;
+                if (this.state.sortKey) {
+                    return this.sortableFields[this.state.sortKey].displayName;
+                } else {
+                    return '';
+                }
             },
 
             /**
-             * Returns the display name of the field that the collection is currently filtered on.
+             * Returns the display name of a filterable field.
+             * @param fieldName querystring parameter name for the
+             *     filterable field
              */
-            filterDisplayName: function () {
-                return this.filterableFields[this.filterField].displayName;
+            filterDisplayName: function (fieldName) {
+                if (!_.isUndefined(this.filterableFields[fieldName])) {
+                    return this.filterableFields[fieldName].displayName;
+                } else {
+                    return '';
+                }
             },
 
             /**
-             * Sets the field to sort on. Sends a request to the server to fetch the first page of the collection with
-             * the new sort order. If successful, the collection resets to page one with the new data.
+             * Sets the field to sort on and marks the collection as
+             * stale.
              * @param fieldName name of the field to sort on
-             * @param toggleDirection if true, the sort direction is toggled if the given field was already set
+             * @param toggleDirection if true, the sort direction is
+             *     toggled if the given field was already set
              */
             setSortField: function (fieldName, toggleDirection) {
-                if (toggleDirection) {
-                    if (this.sortField === fieldName) {
-                        this.sortDirection = PagingCollection.SortDirection.flip(this.sortDirection);
-                    } else {
-                        this.sortDirection = PagingCollection.SortDirection.DESCENDING;
-                    }
+                var direction = toggleDirection ? 0 - this.state.order : this.state.order;
+                if (fieldName !== this.state.sortKey || toggleDirection) {
+                    this.setSorting(fieldName, direction);
+                    this.isStale = true;
                 }
-                this.sortField = fieldName;
-                this.isStale = true;
             },
 
             /**
-             * Sets the direction of the sort. Sends a request to the server to fetch the first page of the collection
-             * with the new sort order. If successful, the collection resets to page one with the new data.
-             * @param direction either ASCENDING or DESCENDING from PagingCollection.SortDirection.
+             * Returns the direction of the current sort.
+             */
+            sortDirection: function () {
+                return (this.state.order === -1) ?
+                    PagingCollection.SortDirection.ASCENDING :
+                    PagingCollection.SortDirection.DESCENDING;
+            },
+
+            /**
+             * Sets the direction of the sort and marks the collection
+             * as stale.  Assumes (and requires) that the sort key has
+             * already been set.
+             * @param direction either ASCENDING or DESCENDING from
+             *     PagingCollection.SortDirection.
              */
             setSortDirection: function (direction) {
-                this.sortDirection = direction;
+                var currentOrder = this.state.order,
+                    newOrder = currentOrder;
+                if (direction === PagingCollection.SortDirection.ASCENDING) {
+                    newOrder = -1;
+                } else if (direction === PagingCollection.SortDirection.DESCENDING) {
+                    newOrder = 1;
+                }
+                if (newOrder !== currentOrder) {
+                    this.setSorting(this.state.sortKey, newOrder);
+                    this.isStale = true;
+                }
+            },
+
+            /**
+             * Flips the sort order.
+             */
+            flipSortDirection: function () {
+                this.setSorting(this.state.sortKey, 0 - this.state.order);
                 this.isStale = true;
             },
 
             /**
-             * Sets the field to filter on. Sends a request to the server to fetch the first page of the collection
-             * with the new filter options. If successful, the collection resets to page one with the new data.
-             * @param fieldName name of the field to filter on
+             * Returns whether this collection has defined a given
+             * filterable field.
+             * @param fieldName querystring parameter name for the
+             *     filterable field
              */
-            setFilterField: function (fieldName) {
-                this.filterField = fieldName;
+            hasRegisteredFilterField: function (fieldName) {
+                return _.has(this.filterableFields, fieldName) && !_.isUndefined(this.filterableFields[fieldName].displayName);
+            },
+
+            hasSetFilterField: function (fieldName) {
+                return _.has(this.filterableFields, fieldName) && !_.isNull(this.filterableFields[fieldName].value);
+            },
+
+            /**
+             * Sets a filter field to a given value and marks the
+             * collection as stale.
+             * @param fieldName querystring parameter name for the
+             *     filterable field
+             * @param value value for the filterable field
+             */
+            setFilterField: function (fieldName, value) {
+                if (!this.hasRegisteredFilterField(fieldName)) {
+                    this.registerFilterableField(fieldName, '');
+                }
+                if (Array.isArray(value)) {
+                    value = value.join(',');
+                }
+                this.filterableFields[fieldName].value = value;
+                if (_.isUndefined(this.queryParams.fieldName)) {
+                    this.queryParams[fieldName] = function () {
+                        return this.filterableFields[fieldName].value || null;
+                    };
+                }
                 this.isStale = true;
             },
 
             /**
-             * Sets the string to use for a text search. If no string is specified then
-             * the search is cleared.
-             * @param searchString A string to search on, or null if no search is to be applied.
+             * Unsets a filterable field and marks the collection as
+             * stale.
+             * @param fieldName querystring parameter name for the
+             *     filterable field
              */
-            setSearchString: function(searchString) {
+            unsetFilterField: function (fieldName) {
+                if (this.hasSetFilterField(fieldName)) {
+                    this.setFilterField(fieldName, null);
+                }
+            },
+
+            /**
+             * Unsets all of the collections filterable fields and marks
+             * the collection as stale.
+             */
+            unsetAllFilterFields: function () {
+                _.each(_.keys(this.filterableFields), _.bind(this.unsetFilterField, this));
+            },
+
+            /**
+             * Sets the string to use for a text search and marks the
+             * collection as stale.
+             * @param searchString A string to search on, or null if no
+             *     search is to be applied.
+             */
+            setSearchString: function (searchString) {
                 if (searchString !== this.searchString) {
                     this.searchString = searchString;
                     this.isStale = true;
                 }
+            },
+
+            /**
+             * Unsets the string to use for a text search and marks the
+             * collection as stale.
+             */
+            unsetSearchString: function () {
+                this.setSearchString(null);
             }
         }, {
             SortDirection: {
-                ASCENDING: 'ascending',
-                DESCENDING: 'descending',
+                ASCENDING: 'asc',
+                DESCENDING: 'desc',
                 flip: function (direction) {
                     return direction === this.ASCENDING ? this.DESCENDING : this.ASCENDING;
                 }

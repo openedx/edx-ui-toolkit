@@ -35,17 +35,19 @@ define(['jquery',
                     }
                 }
             };
+            var getUrlParams = function (request) {
+                return (new URI(request.url)).query(true);
+            };
             var assertQueryParams = function (requests, params) {
-                var urlParams = (new URI(requests[requests.length - 1].url)).query(true);
+                var urlParams = getUrlParams(requests[requests.length - 1]);
                 _.each(params, function (value, key) {
                     expect(urlParams[key]).toBe(value);
                 });
             };
 
             beforeEach(function () {
-                collection = new PagingCollection();
+                collection = new PagingCollection([], {state: {perPage: 10}});
                 collection.url = '/test';
-                collection.perPage = 10;
                 server.isZeroIndexed = false;
                 server.count = 43;
             });
@@ -62,57 +64,120 @@ define(['jquery',
                 expect(collection.filterableFields.test_field.displayName).toBe('Test Field');
             });
 
-            it('sets the sort field based on the server response', function () {
-                var sort_order = 'my_sort_order';
-                collection = new PagingCollection({sort_order: sort_order}, {parse: true});
-                expect(collection.sortField).toBe(sort_order);
-            });
-
             it('can set the sort field', AjaxHelpers.requests(
                 function (requests) {
                     collection.registerSortableField('test_field', 'Test Field');
                     collection.setSortField('test_field', false);
                     collection.refresh();
-                    assertQueryParams(requests, {'sort_order': 'test_field'});
-                    expect(collection.sortField).toBe('test_field');
+                    assertQueryParams(requests, {'sort_order': 'asc'});
+                    expect(collection.state.sortKey).toBe('test_field');
                     expect(collection.sortDisplayName()).toBe('Test Field');
                 }
             ));
 
-            it('can set the filter field', function () {
-                collection.registerFilterableField('test_field', 'Test Field');
-                collection.setFilterField('test_field');
-                collection.refresh();
-                // The default implementation does not send any query params for filtering
-                expect(collection.filterField).toBe('test_field');
-                expect(collection.filterDisplayName()).toBe('Test Field');
+            it('can tell the current sort direction', function () {
+                collection.setSortDirection(PagingCollection.SortDirection.ASCENDING);
+                expect(collection.sortDirection()).toBe(PagingCollection.SortDirection.ASCENDING);
+                collection.setSortDirection(PagingCollection.SortDirection.DESCENDING);
+                expect(collection.sortDirection()).toBe(PagingCollection.SortDirection.DESCENDING);
             });
 
-            it('can set the sort direction', function () {
-                collection.setSortDirection(PagingCollection.SortDirection.ASCENDING);
-                // The default implementation does not send any query params for sort direction
-                expect(collection.sortDirection).toBe(PagingCollection.SortDirection.ASCENDING);
-                collection.setSortDirection(PagingCollection.SortDirection.DESCENDING);
-                expect(collection.sortDirection).toBe(PagingCollection.SortDirection.DESCENDING);
-            });
+            it('can set a filter field', AjaxHelpers.requests(
+                function (requests) {
+                    collection.registerFilterableField('test_field', 'Test Field');
+                    collection.setFilterField('test_field', 'test_value');
+                    collection.refresh();
+                    assertQueryParams(requests, {'test_field': 'test_value'});
+                    expect(collection.filterDisplayName('test_field')).toBe('Test Field');
+                    expect(collection.filterableFields.test_field.value).toBe('test_value');
+                }
+            ));
+
+            it('can set many filter fields', AjaxHelpers.requests(
+                function (requests) {
+                    collection.registerFilterableField('test_field_1', 'Test Field 1');
+                    collection.registerFilterableField('test_field_2', 'Test Field 2');
+                    collection.setFilterField('test_field_1', 'test_value_1');
+                    collection.setFilterField('test_field_2', 'test_value_2');
+                    collection.refresh();
+                    assertQueryParams(requests, {test_field_1: 'test_value_1', test_field_2: 'test_value_2'});
+                    expect(collection.filterDisplayName('test_field_1')).toBe('Test Field 1');
+                    expect(collection.filterDisplayName('test_field_2')).toBe('Test Field 2');
+                    expect(collection.filterableFields.test_field_1.value).toBe('test_value_1');
+                    expect(collection.filterableFields.test_field_2.value).toBe('test_value_2');
+                }
+            ));
+
+            it('can unset a filter field', AjaxHelpers.requests(function (requests) {
+                collection.registerFilterableField('test_field', 'Test Field');
+                collection.setFilterField('test_field', 'test_value');
+                collection.refresh();
+                assertQueryParams(requests, {test_field: 'test_value'});
+                collection.unsetAllFilterFields();
+                collection.refresh();
+                expect('test_field' in getUrlParams(requests[requests.length - 1])).not.toBe(true);
+            }));
+
+            it('can unset all filter fields', AjaxHelpers.requests(function (requests) {
+                collection.registerFilterableField('test_field_1', 'Test Field 1');
+                collection.registerFilterableField('test_field_2', 'Test Field 2');
+                collection.setFilterField('test_field_1', 'test_value_1');
+                collection.setFilterField('test_field_2', 'test_value_2');
+                collection.refresh();
+                assertQueryParams(requests, {test_field_1: 'test_value_1', test_field_2: 'test_value_2'});
+                collection.unsetAllFilterFields();
+                collection.refresh();
+                expect('test_field_1' in getUrlParams(requests[requests.length - 1])).not.toBe(true);
+                expect('test_field_2' in getUrlParams(requests[requests.length - 1])).not.toBe(true);
+            }));
+
+            it('can set the sort direction', AjaxHelpers.requests(
+                function (requests) {
+                    collection.setSortField('test_field');
+                    collection.setSortDirection(PagingCollection.SortDirection.DESCENDING);
+                    collection.refresh();
+                    assertQueryParams(requests, {'sort_order': PagingCollection.SortDirection.DESCENDING});
+                    expect(collection.sortDirection()).toBe(PagingCollection.SortDirection.DESCENDING);
+                    collection.setSortDirection(PagingCollection.SortDirection.ASCENDING);
+                    collection.refresh();
+                    assertQueryParams(requests, {'sort_order': PagingCollection.SortDirection.ASCENDING});
+                    expect(collection.sortDirection()).toBe(PagingCollection.SortDirection.ASCENDING);
+                }
+            ));
+
+            it('can flip the sort direction', AjaxHelpers.requests(
+                function (requests) {
+                    collection.setSortField('test_field');
+                    collection.refresh();
+                    assertQueryParams(requests, {'sort_order': PagingCollection.SortDirection.ASCENDING});
+                    collection.flipSortDirection();
+                    collection.refresh();
+                    assertQueryParams(requests, {'sort_order': PagingCollection.SortDirection.DESCENDING});
+                }
+            ));
 
             it('can toggle the sort direction when setting the sort field', function () {
                 collection.registerSortableField('test_field', 'Test Field');
                 collection.registerSortableField('test_field_2', 'Test Field 2');
                 collection.setSortField('test_field', true);
-                expect(collection.sortDirection).toBe(PagingCollection.SortDirection.DESCENDING);
+                expect(collection.sortDirection()).toBe(PagingCollection.SortDirection.DESCENDING);
                 collection.setSortField('test_field', true);
-                expect(collection.sortDirection).toBe(PagingCollection.SortDirection.ASCENDING);
+                expect(collection.sortDirection()).toBe(PagingCollection.SortDirection.ASCENDING);
                 collection.setSortField('test_field', true);
-                expect(collection.sortDirection).toBe(PagingCollection.SortDirection.DESCENDING);
+                expect(collection.sortDirection()).toBe(PagingCollection.SortDirection.DESCENDING);
+                collection.setSortField('test_field_2');
+                expect(collection.sortDirection()).toBe(PagingCollection.SortDirection.DESCENDING);
                 collection.setSortField('test_field_2', true);
-                expect(collection.sortDirection).toBe(PagingCollection.SortDirection.DESCENDING);
+                expect(collection.sortDirection()).toBe(PagingCollection.SortDirection.ASCENDING);
             });
 
-            it('can set the search string', AjaxHelpers.requests(function (requests) {
+            it('can set and unset the search string', AjaxHelpers.requests(function (requests) {
                 collection.setSearchString('testString');
                 collection.refresh();
                 assertQueryParams(requests, {'text_search': 'testString'});
+                collection.unsetSearchString();
+                collection.refresh();
+                expect('text_search' in getUrlParams(requests[requests.length - 1])).not.toBe(true);
             }));
 
             it('does not refresh itself if the search string is unchanged',
@@ -129,20 +194,31 @@ define(['jquery',
 
             SpecHelpers.withData({
                 'queries with page, page_size, and sort_order parameters when zero indexed': [true, 2],
-                'queries with page, page_size, and sort_order parameters when one indexed': [false, 3],
+                'queries with page, page_size, and sort_order parameters when one indexed': [false, 3]
             }, AjaxHelpers.requests(function (isZeroIndexed, page, requests) {
-                collection.isZeroIndexed = isZeroIndexed;
-                collection.perPage = 5;
-                collection.sortField = 'test_field';
+                collection = new PagingCollection([], {state: {firstPage: isZeroIndexed ? 0 : 1, pageSize: 5}});
+                collection.url = '/test';
+                collection.setSortField('test_field');
                 collection.setPage(3);
-                assertQueryParams(requests, {'page': page.toString(), 'page_size': '5', 'sort_order': 'test_field'});
+                assertQueryParams(requests, {
+                    'page': page.toString(), 'page_size': '5', 'order_by': 'test_field', 'sort_order': 'asc'
+                });
             }));
+
+            it('has instance-unique filterableFields and sortablefields', function () {
+                var otherCollection = new PagingCollection([], {state: {perPage: 10}});
+                collection.registerFilterableField('foo', 'foo');
+                collection.setFilterField('foo', 'bar');
+                collection.registerSortableField('quux', 'quux');
+                expect(collection.filterableFields).not.toBe(otherCollection.filterableFields);
+                expect(collection.sortableFields).not.toBe(otherCollection.sortableFields);
+            });
 
             SpecHelpers.withConfiguration({
                 'using a zero indexed collection': [true],
                 'using a one indexed collection': [false]
             }, function (isZeroIndexed) {
-                collection.isZeroIndexed = isZeroIndexed;
+                collection.state.firstPage = isZeroIndexed ? 0 : 1;
                 server.isZeroIndexed = isZeroIndexed;
             }, function () {
                 describe('setPage', function() {

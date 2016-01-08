@@ -17,26 +17,6 @@ define(['sinon', 'underscore', 'URI'], function(sinon, _, URI) {
      */
 
     /**
-     * Get a reference to the mocked server, and respond
-     * to all requests with the specified statusCode.
-     *
-     * TODO (pfogg): removing this for now. Jasmine 2.0 removes the
-     * `after` hook (as well as the ability to get a reference to the
-     * current spec). As a result this function is broken, and it's
-     * not used anywhere regardless. Fixing this is likely as simple
-     * as converting it to work as a decorator/HOF like `fakeRequests`
-     * below.
-     */
-    // fakeServer = function (that, response) {
-    //     var server = sinon.fakeServer.create();
-    //     that.after(function() {
-    //         server.restore();
-    //     });
-    //     server.respondWith(response);
-    //     return server;
-    // };
-
-    /**
      * Keep track of all requests to a fake server, and call `spec`
      * with a reference to the server. Allows tests to respond to
      * individual requests.
@@ -54,6 +34,17 @@ define(['sinon', 'underscore', 'URI'], function(sinon, _, URI) {
         };
     };
 
+    /**
+     * Expect that a request was made as expected.
+     *
+     * @param requests an array of fired sinon requests
+     * @param method the expected method of the request
+     * @param url the expected url of the request
+     * @param body the expected request body
+     * @param requestIndex the expected index of the request in the
+     *     array (higher indices occur later).  Defaults to
+     *     requests.length - 1.
+     */
     expectRequest = function(requests, method, url, body, requestIndex) {
         var request;
         if (_.isUndefined(requestIndex)) {
@@ -65,7 +56,18 @@ define(['sinon', 'underscore', 'URI'], function(sinon, _, URI) {
         expect(request.requestBody).toEqual(body);
     };
 
-    expectJsonRequest = function(requests, method, url, jsonRequest, requestIndex) {
+    /**
+     * Expect that a request with a JSON payload was made as expected.
+     *
+     * @param requests an array of fired sinon requests
+     * @param method the expected method of the request
+     * @param url the expected url of the request
+     * @param jsonBody the expected request body as an object
+     * @param requestIndex the expected index of the request in the
+     *     array (higher indices occur later).  Defaults to
+     *     requests.length - 1.
+     */
+    expectJsonRequest = function(requests, method, url, jsonBody, requestIndex) {
         var request;
         if (_.isUndefined(requestIndex)) {
             requestIndex = requests.length - 1;
@@ -73,11 +75,12 @@ define(['sinon', 'underscore', 'URI'], function(sinon, _, URI) {
         request = requests[requestIndex];
         expect(request.url).toEqual(url);
         expect(request.method).toEqual(method);
-        expect(JSON.parse(request.requestBody)).toEqual(jsonRequest);
+        expect(JSON.parse(request.requestBody)).toEqual(jsonBody);
     };
 
     /**
      * Expect that a JSON request be made with the given URL and parameters.
+     *
      * @param requests The collected requests
      * @param expectedUrl The expected URL excluding the parameters
      * @param expectedParameters An object representing the URL parameters
@@ -96,7 +99,15 @@ define(['sinon', 'underscore', 'URI'], function(sinon, _, URI) {
     };
 
     /**
-     * Intended for use with POST requests using application/x-www-form-urlencoded.
+     * Intended for use with POST requests using
+     * application/x-www-form-urlencoded.
+     *
+     * @param requests an array of fired sinon requests
+     * @param url the expected url of the request
+     * @param body the expected body of the request
+     * @param requestIndex the expected index of the request in the
+     *     array (higher indices occur later).  Defaults to
+     *     requests.length - 1.
      */
     expectPostRequest = function(requests, url, body, requestIndex) {
         var request;
@@ -109,6 +120,15 @@ define(['sinon', 'underscore', 'URI'], function(sinon, _, URI) {
         expect(_.difference(request.requestBody.split('&'), body.split('&'))).toEqual([]);
     };
 
+    /**
+     * Respond to a request with JSON.
+     *
+     * @param requests an array of fired sinon requests
+     * @param jsonResponse an object to be serialized to the response
+     * @param requestIndex the expected index of the request in the
+     *     array (higher indices occur later).  Defaults to
+     *     requests.length - 1.
+     */
     respondWithJson = function(requests, jsonResponse, requestIndex) {
         if (_.isUndefined(requestIndex)) {
             requestIndex = requests.length - 1;
@@ -118,6 +138,18 @@ define(['sinon', 'underscore', 'URI'], function(sinon, _, URI) {
             JSON.stringify(jsonResponse));
     };
 
+    /**
+     * Respond to a request with an error status code and a JSON
+     * payload.
+     *
+     * @param requests an array of fired sinon requests
+     * @param statusCode the HTTP status code of the response
+     *     (defaults to 500)
+     * @param jsonResponse an object to be serialized to the response
+     * @param requestIndex the expected index of the request in the
+     *     array (higher indices occur later).  Defaults to
+     *     requests.length - 1.
+     */
     respondWithError = function(requests, statusCode, jsonResponse, requestIndex) {
         if (_.isUndefined(requestIndex)) {
             requestIndex = requests.length - 1;
@@ -134,6 +166,17 @@ define(['sinon', 'underscore', 'URI'], function(sinon, _, URI) {
         );
     };
 
+    /**
+     * Respond to a request with an error status code.
+     *
+     * @param requests an array of fired sinon requests
+     * @param statusCode the HTTP status code of the response
+     *     (defaults to 500)
+     * @param textResponse the response body as a string
+     * @param requestIndex the expected index of the request in the
+     *     array (higher indices occur later).  Defaults to
+     *     requests.length - 1.
+     */
     respondWithTextError = function(requests, statusCode, textResponse, requestIndex) {
         if (_.isUndefined(requestIndex)) {
             requestIndex = requests.length - 1;
@@ -150,6 +193,14 @@ define(['sinon', 'underscore', 'URI'], function(sinon, _, URI) {
         );
     };
 
+    /**
+     * Respond to a request with an HTTP 204.
+     *
+     * @param requests an array of fired sinon requests
+     * @param requestIndex the expected index of the request in the
+     *     array (higher indices occur later).  Defaults to
+     *     requests.length - 1.
+     */
     respondWithNoContent = function(requests, requestIndex) {
         if (_.isUndefined(requestIndex)) {
             requestIndex = requests.length - 1;

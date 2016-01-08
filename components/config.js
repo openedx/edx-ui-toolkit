@@ -7,7 +7,7 @@ require.config({
     waitSeconds: 60,
     paths: {
         backbone: 'bower_components/backbone/backbone',
-        'backbone.paginator': 'bower_components/backbone.paginator/lib/backbone.paginator',
+        'backbone.paginator': 'bower_components/backbone.paginator/lib/backbone.paginator.min',
         jquery: 'bower_components/jquery/dist/jquery',
         text: 'bower_components/text/text',
         underscore: 'bower_components/underscore/underscore',
