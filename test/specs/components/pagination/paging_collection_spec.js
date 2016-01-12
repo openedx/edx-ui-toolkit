@@ -46,10 +46,23 @@ define(['jquery',
             };
 
             beforeEach(function () {
-                collection = new PagingCollection([], {state: {perPage: 10}});
+                collection = new PagingCollection([], {state: {pageSize: 10}});
                 collection.url = '/test';
                 server.isZeroIndexed = false;
                 server.count = 43;
+            });
+
+            it('correctly merges state and queryParams in the extend statement', function () {
+                var MyPagingCollection, newCollection;
+                MyPagingCollection = PagingCollection.extend({
+                    state: {pageSize: 25},
+                    queryParams: {pageSize: 'per_page'}
+                });
+                newCollection = new MyPagingCollection([]);
+                expect(newCollection.state.pageSize).toBe(25);
+                expect(newCollection.state.firstPage).toBe(1);
+                expect(newCollection.queryParams.pageSize).toBe('per_page');
+                expect(newCollection.queryParams.currentPage).toBe('page');
             });
 
             it('can register sortable fields', function () {
@@ -206,7 +219,7 @@ define(['jquery',
             }));
 
             it('has instance-unique filterableFields and sortablefields', function () {
-                var otherCollection = new PagingCollection([], {state: {perPage: 10}});
+                var otherCollection = new PagingCollection([], {state: {pageSize: 10}});
                 collection.registerFilterableField('foo', 'foo');
                 collection.setFilterField('foo', 'bar');
                 collection.registerSortableField('quux', 'quux');
