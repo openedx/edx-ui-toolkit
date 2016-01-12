@@ -16,13 +16,16 @@
   "license": "Apache 2.0",
   "dependencies": {
     "backbone": "~1.1.2",
+    "backbone.paginator": "~2.0",
     "jquery": "~1.11.1",
     "requirejs": "~2.1.15",
     "text": "~2.0.14",
-    "underscore": "~1.8.2"
+    "underscore": "~1.8.2",
+    "urijs": "1.16.1"
   },
   "devDependencies": {
     "requirejs-plugins": "~1.0.3",
-    "jasmine": "~2.0.4"
+    "jasmine": "~2.0.4",
+    "sinon": "~1.16.1"
   }
 }

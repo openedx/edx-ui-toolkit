@@ -8,6 +8,7 @@ module.exports = function (config, options) {
         options = {
             singleRun: true,
             autoWatch: false,
+            customLaunchers: [],
             browsers: ['PhantomJS'],
             logLevel: config.LOG_INFO,
             preprocessors: {
@@ -33,8 +34,10 @@ module.exports = function (config, options) {
             {pattern: 'bower_components/**/*.js', included: false},
             {pattern: 'bower_components/**/*.json', included: false},
             {pattern: 'components/utils/*.js', included: false},
-            {pattern: 'components/**/views/*.js', included: false},
+            {pattern: 'components/**/collections/*.js', included: false},
             {pattern: 'components/**/templates/*.underscore', included: false},
+            {pattern: 'components/**/views/*.js', included: false},
+            {pattern: 'test/utils/*.js', included: false},
             {pattern: 'test/specs/**/*.js', included: false},
             {pattern: 'components/config.js', included: true},
             {pattern: 'test/spec-runner.js', included: true}
@@ -47,6 +50,7 @@ module.exports = function (config, options) {
             'karma-jasmine-jquery',
             'karma-requirejs',
             'karma-chrome-launcher',
+            'karma-firefox-launcher',
             'karma-phantomjs-launcher',
             'karma-coverage',
             'karma-sinon',
@@ -83,6 +87,8 @@ module.exports = function (config, options) {
         // enable / disable watching file and executing tests whenever any file changes
         autoWatch: options.autoWatch,
 
+        // Custom launchers for environments such as Travis
+        customLaunchers: options.customLaunchers,
 
         // start these browsers
         // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
