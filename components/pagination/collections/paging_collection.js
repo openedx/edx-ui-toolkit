@@ -35,28 +35,24 @@
             searchString: '',
             filterableFields: {},
 
+            state: {
+                firstPage: 1,
+                pageSize: 10,
+                sortKey: null
+            },
+
+            queryParams: {
+                currentPage: 'page',
+                pageSize: 'page_size',
+                sortKey: 'order_by',
+                order: 'sort_order',
+                text_search: function () { return this.searchString || null; }
+            },
+
             constructor: function (models, options) {
-                var defaultOptions = {
-                    state: {
-                        firstPage: 1,
-                        pageSize: 10,
-                        sortKey: null
-                    },
-                    queryParams: {
-                        currentPage: 'page',
-                        pageSize: 'page_size',
-                        sortKey: 'order_by',
-                        order: 'sort_order',
-                        text_search: function () { return this.searchString || null; }
-                    }
-                };
-
-                if (_.isUndefined(options)) { options = {}; }
-                _.extend(defaultOptions, _.omit(options, 'state', 'queryParams'));
-                _.extend(defaultOptions.state, options.state);
-                _.extend(defaultOptions.queryParams, options.queryParams);
-
-                PageableCollection.prototype.constructor.call(this, models, defaultOptions);
+                this.state = _.extend({}, PagingCollection.prototype.state, this.state);
+                this.queryParams = _.extend({}, PagingCollection.prototype.queryParams, this.queryParams);
+                PageableCollection.prototype.constructor.call(this, models, options);
             },
 
             initialize: function (models, options) {
@@ -377,6 +373,7 @@
                 }
             }
         });
+
         return PagingCollection;
     });
 }).call(this, define || RequireJS.define);
