@@ -10,10 +10,6 @@ Getting Started
 
         $ npm install
 
-3. Install Bower requirements:
-
-        $ bower install
-
 Linting
 -------
 

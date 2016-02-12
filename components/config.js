@@ -6,18 +6,18 @@ require.config({
     baseUrl: '/',
     waitSeconds: 60,
     paths: {
-        backbone: 'bower_components/backbone/backbone',
-        'backbone.paginator': 'bower_components/backbone.paginator/lib/backbone.paginator.min',
-        jquery: 'bower_components/jquery/dist/jquery',
-        text: 'bower_components/text/text',
-        underscore: 'bower_components/underscore/underscore',
-        sinon: 'bower_components/sinon/lib/sinon',
+        backbone: 'node_modules/backbone/backbone-min',
+        'backbone.paginator': 'node_modules/backbone.paginator/lib/backbone.paginator.min',
+        jquery: 'node_modules/jquery/dist/jquery.min',
+        text: 'node_modules/requirejs-text/text',
+        underscore: 'node_modules/underscore/underscore-min',
+        sinon: 'node_modules/sinon/lib/sinon',
 
         // URI and its dependencies
-        URI: 'bower_components/urijs/src/URI',
-        IPv6: 'bower_components/urijs/src/IPv6',
-        punycode: 'bower_components/urijs/src/punycode',
-        SecondLevelDomains: 'bower_components/urijs/src/SecondLevelDomains'
+        URI: 'node_modules/urijs/src/URI',
+        IPv6: 'node_modules/urijs/src/IPv6',
+        punycode: 'node_modules/urijs/src/punycode',
+        SecondLevelDomains: 'node_modules/urijs/src/SecondLevelDomains'
     },
     wrapShim: true,
     shim: {

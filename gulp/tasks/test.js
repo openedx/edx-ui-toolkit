@@ -2,7 +2,7 @@
     'use strict';
 
     var gulp = require('gulp'),
-        karma = require('karma').server,
+        karma = require('karma'),
         path = require('path'),
         configFile;
 
@@ -13,8 +13,8 @@
         else {
             configFile = 'karma.conf.js';
         }
-        karma.start({
+        new karma.Server({
             configFile: path.resolve(configFile)
-        }, callback);
+        }, callback).start();
     });
 }());

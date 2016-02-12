@@ -31,8 +31,13 @@ module.exports = function (config, options) {
 
         // list of files / patterns to load in the browser
         files: [
-            {pattern: 'bower_components/**/*.js', included: false},
-            {pattern: 'bower_components/**/*.json', included: false},
+            // node_modules/**/*.js contains a LOT of javascript, and
+            // karma runs out of file handles, hence we have to be a
+            // bit more specific:
+            {pattern: 'node_modules/*/*.js', included: false},
+            {pattern: 'node_modules/*/lib/**/*.js', included: false},
+            {pattern: 'node_modules/*/dist/**/*.js', included: false},
+            {pattern: 'node_modules/*/src/**/*.js', included: false},
             {pattern: 'components/utils/*.js', included: false},
             {pattern: 'components/**/collections/*.js', included: false},
             {pattern: 'components/**/templates/*.underscore', included: false},
@@ -42,7 +47,6 @@ module.exports = function (config, options) {
             {pattern: 'components/config.js', included: true},
             {pattern: 'test/spec-runner.js', included: true}
         ],
-
 
         // plugins required for running the karma tests
         plugins:[
