@@ -1,10 +1,18 @@
 {
   "name": "edx-ui-toolkit",
+  "version": "0.2.0",
+  "description": "A JavaScript toolkit for building edX user interfaces",
   "license": "Apache-2.0",
   "repository": {
     "type": "git",
     "url": "git://github.com/edx/edx-ui-toolkit"
   },
+  "keywords": [
+    "edx",
+    "open edx",
+    "javascript"
+  ],
+  "homepage": "https://github.com/edx/edx-ui-toolkit",
   "dependencies": {
     "backbone": "~1.2.3",
     "backbone.paginator": "~2.0.3",
@@ -22,6 +30,7 @@
     "gulp-karma": "~0.0.5",
     "gulp-util": "~3.0.7",
     "jasmine": "~2.4.1",
+    "jasmine-core": "~2.4.1",
     "jscs": "~2.9.0",
     "jshint": "~2.9.1",
     "karma": "~0.13.20",
