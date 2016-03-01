@@ -9,13 +9,13 @@ define(['backbone', 'underscore'],
          *  - data-collapsed-text: text to display when content collapsed
          *  - data-expanded-text: text to display when content expanded
          */
-        var CollapsibleView = Backbone.View.extend({
+        var DisclosureView = Backbone.View.extend({
 
             initialize: function(options) {
                 var self = this;
                 self.options = _.defaults(options, {
-                    toggleTextSelector: '.collapsible-toggle',
-                    collapsibleSelector: '.collapsible-target',
+                    toggleTextSelector: '.disclosure-toggle',
+                    disclosureSelector: '.disclosure-target',
                     isCollapsedClass: 'is-collapsed'
                 });
                 self.render();
@@ -36,18 +36,18 @@ define(['backbone', 'underscore'],
 
             render: function() {
                 var self = this,
-                    $collapsibleEl = self.$el.find(self.options.collapsibleSelector),
+                    $disclosureEl = self.$el.find(self.options.disclosureSelector),
                     $textEl = self.$el.find(self.options.toggleTextSelector);
 
                 // sets the initial state
-                self.toggleState($collapsibleEl.is(':visible'));
+                self.toggleState($disclosureEl.is(':visible'));
 
                 // clicking on the toggle text will hide/show content and update text
                 $textEl.click(function() {
                     // Get the state now because getting it after toggling isn't  always accurate -- state is
                     // in transition
-                    var isVisible = $collapsibleEl.is(':visible');
-                    $collapsibleEl.slideToggle();
+                    var isVisible = $disclosureEl.is(':visible');
+                    $disclosureEl.slideToggle();
                     self.toggleState(!isVisible);
                 });
 
@@ -56,6 +56,6 @@ define(['backbone', 'underscore'],
 
         });
 
-        return CollapsibleView;
+        return DisclosureView;
     }
 );

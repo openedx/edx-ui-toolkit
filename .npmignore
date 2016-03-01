@@ -1,0 +1,12 @@
+
+.gitignore
+.npmignore
+.travis.yml
+bower.json
+build
+gulp
+gulpfile.js
+node_modules
+package.json
+specs
+test

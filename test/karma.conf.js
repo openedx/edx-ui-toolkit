@@ -21,13 +21,11 @@ module.exports = function (config, options) {
     config.set({
 
         // base path that will be used to resolve all patterns (eg. files, exclude)
-        basePath: '',
-
+        basePath: '../',
 
         // frameworks to use
         // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
         frameworks: ['jasmine-jquery', 'jasmine', 'requirejs', 'sinon'],
-
 
         // list of files / patterns to load in the browser
         files: [
@@ -36,15 +34,10 @@ module.exports = function (config, options) {
             // bit more specific:
             {pattern: 'node_modules/*/*.js', included: false},
             {pattern: 'node_modules/*/lib/**/*.js', included: false},
-            {pattern: 'node_modules/*/dist/**/*.js', included: false},
-            {pattern: 'node_modules/*/src/**/*.js', included: false},
-            {pattern: 'components/utils/*.js', included: false},
-            {pattern: 'components/**/collections/*.js', included: false},
-            {pattern: 'components/**/templates/*.underscore', included: false},
-            {pattern: 'components/**/views/*.js', included: false},
-            {pattern: 'test/utils/*.js', included: false},
-            {pattern: 'test/specs/**/*.js', included: false},
-            {pattern: 'components/config.js', included: true},
+            {pattern: 'node_modules/*/src/*.js', included: false},
+            {pattern: 'src/js/**/*.js', included: false},
+            {pattern: 'src/js/**/*.underscore', included: false},
+            {pattern: 'test/require-config.js', included: true},
             {pattern: 'test/spec-runner.js', included: true}
         ],
 

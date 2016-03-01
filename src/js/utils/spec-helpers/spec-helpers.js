@@ -1,7 +1,7 @@
 /**
  * Generally useful helper functions for writing Jasmine unit tests.
  */
-define([], function () {
+define([], function() {
     'use strict';
 
     /**

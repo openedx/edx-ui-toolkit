@@ -2,8 +2,8 @@ define([
         'backbone',
         'jquery',
         'underscore',
-        '../utils/constants',
-        'text!../templates/dropdown.underscore'
+        '../utils/constants.js',
+        'text!./dropdown.underscore'
     ],
     function(Backbone, $, _, constants, DropdownTpl) {
         'use strict';
