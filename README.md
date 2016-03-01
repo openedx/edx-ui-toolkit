@@ -30,15 +30,16 @@ The code in this repository uses the Apache 2.0 license unless otherwise
 noted. Please see the [LICENSE file](https://github.com/edx/edx-ui-toolkit/blob/master/LICENSE) for details.
 
 ## Contributions
+
 Contributions are very welcome. The easiest way is to fork this repo, and then
 make a pull request from your fork. The first time you make a pull request, you
 may be asked to sign a Contributor Agreement.
 
-Please refer to our [contributor guidelines](https://github.com/edx/edx-
-platform/blob/master/CONTRIBUTING.rst) in the main edx-platform repo for
-important additional information.
+Please refer to our [contributor guidelines](https://github.com/edx/edx-platform/blob/master/CONTRIBUTING.rst) 
+in the main edx-platform repo for important additional information.
 
 ## Getting Started
+
 1. Get the code (e.g. clone the repository).
 2. Install the Node requirements:
 
