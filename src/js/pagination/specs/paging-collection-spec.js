@@ -2,9 +2,9 @@ define(['jquery',
         'backbone',
         'underscore',
         'URI',
-        'components/pagination/collections/paging_collection',
-        'test/utils/ajax_helpers',
-        'test/utils/spec_helpers'
+        '../paging-collection.js',
+        '../../utils/spec-helpers/ajax-helpers.js',
+        '../../utils/spec-helpers/spec-helpers.js'
     ],
     function ($, Backbone, _, URI, PagingCollection, AjaxHelpers, SpecHelpers) {
         'use strict';

@@ -1,7 +1,7 @@
 define([
         'jquery',
         'underscore',
-        'components/views/dropdown-menu-view'
+        '../dropdown-menu-view.js'
     ],
     function($, _, DropdownMenuView) {
         'use strict';
