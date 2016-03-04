@@ -21,10 +21,16 @@
  *        'sort_order' is the query parameter used for sorting, with
  *        values of 'asc' for increasing sort and 'desc' for decreasing
  *        sort.
+ *
+ * @module pagination/PagingCollection
  */
 ;(function (define) {
     'use strict';
     define(['jquery', 'underscore', 'backbone.paginator'], function ($, _, PageableCollection) {
+        /**
+         * @class
+         * @alias module:pagination/PagingCollection
+         */
         var PagingCollection = PageableCollection.extend({
             mode: 'server',
 
@@ -89,6 +95,7 @@
              * Returns the current page number as if numbering starts on
              * page one, regardless of the indexing of the underlying
              * server API.
+             * @returns {integer} The current page number.
              */
             getPageNumber: function () {
                 return this.state.currentPage + (1 - this.state.firstPage);
@@ -101,7 +108,7 @@
              * page, the Backbone 'error' event is triggered and the
              * page does not change. A 'page_changed' event is triggered
              * on a successful page change.
-             * @param page one-indexed page to change to
+             * @param {int} page one-indexed page to change to
              */
             setPage: function (page) {
                 var oldPage = this.state.currentPage,
@@ -198,9 +205,9 @@
             /**
              * For internal use only. Adds the given field to the given
              * collection of fields.
-             * @param fields object of existing fields
-             * @param fieldName name of the field for the server API
-             * @param displayName name of the field to display to the
+             * @param {object} fields object of existing fields
+             * @param {string} fieldName name of the field for the server API
+             * @param {string} displayName name of the field to display to the
              *     user
              */
             addField: function (fields, fieldName, displayName) {
@@ -223,7 +230,7 @@
 
             /**
              * Returns the display name of a filterable field.
-             * @param fieldName querystring parameter name for the
+             * @param {string} fieldName querystring parameter name for the
              *     filterable field
              */
             filterDisplayName: function (fieldName) {
@@ -237,8 +244,8 @@
             /**
              * Sets the field to sort on and marks the collection as
              * stale.
-             * @param fieldName name of the field to sort on
-             * @param toggleDirection if true, the sort direction is
+             * @param {string} fieldName name of the field to sort on
+             * @param {boolean} toggleDirection if true, the sort direction is
              *     toggled if the given field was already set
              */
             setSortField: function (fieldName, toggleDirection) {
@@ -251,6 +258,7 @@
 
             /**
              * Returns the direction of the current sort.
+             * @returns {string} The current sort direction.
              */
             sortDirection: function () {
                 return (this.state.order === -1) ?
@@ -292,6 +300,7 @@
              * filterable field.
              * @param fieldName querystring parameter name for the
              *     filterable field
+             * @returns {boolean} True if the field name is a registered filter.
              */
             hasRegisteredFilterField: function (fieldName) {
                 return _.has(this.filterableFields, fieldName) && !_.isUndefined(this.filterableFields[fieldName].displayName);

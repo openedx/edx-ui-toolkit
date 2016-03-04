@@ -45,6 +45,7 @@ Thumbs.db
 Desktop.ini
 
 .idea/
-node_modules/
+api/
 bower_components/
 coverage/
+node_modules/

@@ -1,10 +1,14 @@
 /**
- * Reusable constants
+ * Reusable constants.
+ *
+ * @module utils/constants
  */
 define([], function() {
     'use strict';
-
-    return {
+    return /** @alias module:utils/constants */ {
+        /**
+         * Standard key codes.
+         */
         keyCodes: {
             tab: 9,
             enter: 13,

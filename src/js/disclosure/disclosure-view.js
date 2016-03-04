@@ -1,13 +1,18 @@
+/**
+ * Click-able view that expands or collapses a section.
+ *
+ * Set the following data attributes on the element:
+ *  - data-collapsed-text: text to display when content collapsed
+ *  - data-expanded-text: text to display when content expanded
+ * @module disclosure/DisclosureView
+ */
 define(['backbone', 'underscore'],
     function(Backbone, _) {
         'use strict';
 
         /**
-         * Click-able view that expands or collapses a section.
-         *
-         * Set the following data attributes on the element:
-         *  - data-collapsed-text: text to display when content collapsed
-         *  - data-expanded-text: text to display when content expanded
+         * @class
+         * @alias module:disclosure/DisclosureView
          */
         var DisclosureView = Backbone.View.extend({
 
