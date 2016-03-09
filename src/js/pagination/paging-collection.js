@@ -302,6 +302,17 @@
             },
 
             /**
+             * Gets an array of currently active (applied) filters.
+             * @returns {Array} An array of filter field names which are
+             *     currently applied to the collection.
+             */
+            getActiveFilterFields: function () {
+                return _.chain(this.filterableFields).pick(function (fieldData, fieldName) {
+                    return !_.isNull(fieldData.value) && !_.isUndefined(fieldData.value);
+                }).keys().value();
+            },
+
+            /**
              * Sets a filter field to a given value and marks the
              * collection as stale.
              * @param fieldName querystring parameter name for the

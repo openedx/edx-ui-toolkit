@@ -144,6 +144,15 @@ define(['jquery',
                 expect('test_field_2' in getUrlParams(requests[requests.length - 1])).not.toBe(true);
             }));
 
+            it('can return the currently active filter fields', function () {
+                collection.registerFilterableField('test_field_1', 'Test Field 1');
+                collection.registerFilterableField('test_field_2', 'Test Field 2');
+                collection.registerFilterableField('test_field_3', 'Test Field 3');
+                collection.setFilterField('test_field_1', 'test_value_1');
+                collection.setFilterField('test_field_3', 'test_value_3');
+                expect(collection.getActiveFilterFields()).toEqual(['test_field_1', 'test_field_3']);
+            });
+
             it('can set the sort direction', AjaxHelpers.requests(
                 function (requests) {
                     collection.setSortField('test_field');
