@@ -2,7 +2,7 @@
 
 A JavaScript toolkit for building edX user interfaces.
 
-[![GitHub version](https://badge.fury.io/gh/edx%2Fedx-ui-toolkit.svg)](https://badge.fury.io/gh/edx%2Fedx-ui-toolkit)  [![npm version](https://badge.fury.io/js/edx-ui-toolkit.svg)](https://badge.fury.io/js/edx-ui-toolki)  [![Bower version](https://badge.fury.io/bo/edx-ui-toolkit.svg)](https://badge.fury.io/bo/edx-ui-toolkit)
+[![GitHub version](https://badge.fury.io/gh/edx%2Fedx-ui-toolkit.svg)](https://badge.fury.io/gh/edx%2Fedx-ui-toolkit)  [![npm version](https://badge.fury.io/js/edx-ui-toolkit.svg)](https://badge.fury.io/js/edx-ui-toolkit)  [![Bower version](https://badge.fury.io/bo/edx-ui-toolkit.svg)](https://badge.fury.io/bo/edx-ui-toolkit)
 
 - - -
 
