@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.4.0 (2016-03-09)
+* Add `getActiveFilterFields` method to the `PagingCollection`
+
+- - -
+
 ## 0.3.0 (2016-03-01)
 * Reorganize file structure for npm package
 
