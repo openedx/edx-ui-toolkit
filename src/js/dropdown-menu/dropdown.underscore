@@ -1,8 +1,14 @@
-<a href="<%- main.url %>" class="user-title">
-    <span class="sr"><%- main.screenreader_label %> </span><%- main.text %>
+<a href="<%- main.url %>" class="menu-title">
+    <% if (main.screenreader_label) { %>
+        <span class="sr-only"><%- main.screenreader_label %> </span>
+    <% } %>
+    <% if (main.image) { %>
+        <img class="menu-image" src="<%- main.image %>" alt="">
+    <% } %>
+    <%- main.text %>
 </a>
 <button type="button" class="button button-more has-dropdown js-dropdown-button" aria-haspopup="true" aria-expanded="false" aria-controls="edx-user-menu">
-    <span class="sr"><%- button_label %></span>
+    <span class="sr-only"><%- button_label %></span>
 </button>
 <ul class="dropdown-menu is-hidden" id="edx-user-menu" tabindex="-1">
     <% _.each(items, function(item, index) { %>
