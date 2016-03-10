@@ -22,7 +22,7 @@ define([
                 var ExtendedDropdownMenuView = DropdownMenuView.extend({
                     analyticsLinkClick: function(event) {
                         var $link = $(event.target),
-                            label = $link.hasClass('user-title') ? 'Dashboard' : $link.html().trim();
+                            label = $link.hasClass('menu-title') ? 'Dashboard' : $link.html().trim();
 
                         /**
                          *  Add your own analytics tracking here
@@ -130,8 +130,45 @@ define([
                 jasmine.clock().tick(201);
             });
 
+            it('should add a screenreader label to the user link if provided', function() {
+                var $srLabel = view.$el.find('.menu-title .sr-only'),
+                    srLabelText = 'Dashboard for:';
+
+                expect($srLabel.length).toEqual(0);
+
+                view.model.set({
+                    main: {
+                        text: 'username',
+                        screenreader_label: srLabelText,
+                        url: 'dashboard'
+                    }
+                });
+                view.render();
+                $srLabel = view.$el.find('.menu-title .sr-only');
+                expect($srLabel.length).toEqual(1);
+                expect($srLabel.html().trim()).toEqual(srLabelText);
+            });
+
+            it('should add a user image to the user link if provided', function() {
+                var $img = view.$el.find('.menu-title .menu-image'),
+                    imgSrc = 'http://placehold.it/350x150';
+                expect($img.length).toEqual(0);
+
+                view.model.set({
+                    main: {
+                        text: 'username',
+                        image: imgSrc,
+                        url: 'dashboard'
+                    }
+                });
+                view.render();
+                $img = view.$el.find('.menu-title .menu-image');
+                expect($img.length).toEqual(1);
+                expect($img.attr('src')).toEqual(imgSrc);
+            });
+
             it('should open track analytics for user title clicks', function() {
-                var $userTitle = view.$el.find('.user-title'),
+                var $userTitle = view.$el.find('.menu-title'),
                     analyticsData = {
                         category: 'navigation',
                         label: 'Dashboard',

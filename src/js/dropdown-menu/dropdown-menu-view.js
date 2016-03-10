@@ -15,6 +15,8 @@ define([
          *  className: 'space separated string of classes for element',
          *  model: with the following attributes (example values added)
          *      main: {
+         *          image: 'http://placehold.it/40x40'',
+         *          screenreader_label: 'Dashboard for: ',
          *          text: 'username',
          *          url: 'dashboard'
          *      },
@@ -82,7 +84,7 @@ define([
                  *  Example code:
                  *
                  *  var $link = $(event.target),
-                 *      label = $link.hasClass('user-title') ? 'Dashboard' : $link.html().trim();
+                 *      label = $link.hasClass('menu-title') ? 'Dashboard' : $link.html().trim();
                  *
                  *  window.analytics.track('user_dropdown.clicked', {
                  *      category: 'navigation',
