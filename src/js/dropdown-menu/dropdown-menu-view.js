@@ -1,26 +1,16 @@
-define([
-        'backbone',
-        'jquery',
-        'underscore',
-        '../utils/constants.js',
-        'text!./dropdown.underscore'
-    ],
-    function(Backbone, $, _, constants, DropdownTpl) {
-        'use strict';
-
-        /**
-         *  Dropdown Menu View which is fully accessible
-         *
-         *  Initialize the view by passing in the following attributes
-         *  className: 'space separated string of classes for element',
-         *  model: with the following attributes (example values added)
-         *      main: {
+/**
+ *  Dropdown Menu View which is fully accessible
+ *
+ *  Initialize the view by passing in the following attributes
+ *  className: 'space separated string of classes for element',
+ *  model: with the following attributes (example values added)
+ *      main: {
          *          text: 'username',
          *          url: 'dashboard'
          *      },
-         *      button_label: 'User options dropdown',
-         *      items: [
-         *          {
+ *      button_label: 'User options dropdown',
+ *      items: [
+ *          {
          *              text: 'Dashboard',
          *              url: 'dashboard'
          *          }, {
@@ -33,9 +23,23 @@ define([
          *              text: 'Sign Out',
          *              url: 'logout'
          *          }
-         *      ]
-         *  parent: 'selecter for parent element that will be replaced with dropdown menu'
-         *
+ *      ]
+ *  parent: 'selecter for parent element that will be replaced with dropdown menu'
+ * @module dropdown-menu/DropdownMenuView
+ */
+define([
+        'backbone',
+        'jquery',
+        'underscore',
+        '../utils/constants.js',
+        'text!./dropdown.underscore'
+    ],
+    function(Backbone, $, _, constants, DropdownTpl) {
+        'use strict';
+
+        /**
+         * @class
+         * @alias module:dropdown-menu/DropdownMenuView
          */
         var DropdownMenuView = Backbone.View.extend({
             tpl: _.template(DropdownTpl),
@@ -120,7 +124,7 @@ define([
                 }
 
                 $open.removeClass('is-visible')
-                     .addClass('is-hidden');
+                    .addClass('is-hidden');
 
                 this.$dropdownButton
                     .removeClass('is-active')
@@ -176,7 +180,7 @@ define([
                     $el = $(event.target);
 
                 if (keyCode === constants.keyCodes.up ||
-                     keyCode === constants.keyCodes.down) {
+                    keyCode === constants.keyCodes.down) {
                     // Prevent default behavior if one of our trigger keys
                     event.preventDefault();
                 }
@@ -223,7 +227,7 @@ define([
                     this.closeDropdownMenus();
                 } else {
                     $el.addClass('is-active')
-                       .attr('aria-expanded', 'true');
+                        .attr('aria-expanded', 'true');
 
                     $menu.removeClass('is-hidden')
                         .addClass('is-visible');
