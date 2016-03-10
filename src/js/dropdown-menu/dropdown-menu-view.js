@@ -9,7 +9,7 @@ define([
         'use strict';
 
         /**
-         *  Dropdown Menu View which is fully accessible
+         *  To render a Dropdown Menu View which is fully accessible
          *
          *  Initialize the view by passing in the following attributes
          *  className: 'space separated string of classes for element',
@@ -51,8 +51,13 @@ define([
             menu: '.dropdown-menu',
 
             initialize: function(options) {
-                this.$parent = $(options.parent);
-                this.render();
+                if (options.parent) {
+                    this.$parent = $(options.parent);
+                }
+
+                this.keyBack = [constants.keyCodes.up, constants.keyCodes.left];
+                this.keyForward = [constants.keyCodes.down, constants.keyCodes.right];
+                this.keyClose = [constants.keyCodes.esc, constants.keyCodes.space];
             },
 
             className: function() {
@@ -68,10 +73,9 @@ define([
             },
 
             postRender: function() {
-                this.$menu = this.$el.find('.dropdown-menu');
+                this.$menu = this.$('.dropdown-menu');
                 this.$page = $(document);
-                this.$dropdownButton = $('.js-dropdown-button');
-                this.listenForPageKeypress();
+                this.$dropdownButton = this.$('.js-dropdown-button');
             },
 
             /**
@@ -100,26 +104,17 @@ define([
                 var $el = $(event.target);
 
                 if (!$el.hasClass('button-more') && !$el.hasClass('has-dropdown')) {
-                    context.closeDropdownMenus();
+                    context.closeDropdownMenu();
                 }
             },
 
             clickOpenDropdown: function(event) {
                 event.preventDefault();
-
                 this.openMenu($(event.target));
             },
 
-            closeDropdownMenus: function(all) {
-                var $open;
-
-                if (all) {
-                    // Close all open, usually from ESC or doc click
-                    $open = this.$page.find(this.menu);
-                } else {
-                    // Closing one for another
-                    $open = this.$page.find(this.menu).not(':focus');
-                }
+            closeDropdownMenu: function() {
+                var $open = this.$(this.menu);
 
                 $open.removeClass('is-visible')
                      .addClass('is-hidden');
@@ -129,37 +124,35 @@ define([
                     .attr('aria-expanded', 'false');
             },
 
-            escKeypressHandler: function(event) {
-                var keyCode = event.keyCode;
-
-                if (keyCode === constants.keyCodes.esc) {
-                    // When the ESC key is pressed, close all menus
-                    this.closeDropdownMenus(true);
-                }
-            },
-
             focusFirstItem: function() {
                 this.$menu.find('.action').first().focus();
             },
 
+            focusLastItem: function() {
+                this.$menu.find('.action').last().focus();
+            },
+
             handlerIsAction: function(key, $el) {
-                if (key === constants.keyCodes.up) {
-                    this.previousMenuItemLink($el);
-                } else if (key === constants.keyCodes.down) {
+                if (_.contains(this.keyForward, key)) {
                     this.nextMenuItemLink($el);
+                } else if ( _.contains(this.keyBack, key) ) {
+                    this.previousMenuItemLink($el);
                 }
             },
 
-            handlerIsButton: function(key) {
-                if (key === constants.keyCodes.down) {
+            handlerIsButton: function(key, event) {
+                if (_.contains(this.keyForward, key)) {
                     this.focusFirstItem();
+                // if up arrow or left arrow key pressed or shift+tab
+                } else if (_.contains(this.keyBack, key) || key === constants.keyCodes.tab && event.shiftKey) {
+                    this.focusLastItem(); 
                 }
             },
 
             handlerIsMenu: function(key) {
-                if (key === constants.keyCodes.down) {
+                if (_.contains(this.keyForward, key)) {
                     this.focusFirstItem();
-                } else if (key === constants.keyCodes.up) {
+                } else if (_.contains(this.keyBack, key)) {
                     this.$dropdownButton.focus();
                 }
             },
@@ -173,40 +166,8 @@ define([
                 });
             },
 
-            viewKeypress: function(event) {
-                var keyCode = event.keyCode,
-                    $el = $(event.target);
-
-                if (keyCode === constants.keyCodes.up ||
-                     keyCode === constants.keyCodes.down) {
-                    // Prevent default behavior if one of our trigger keys
-                    event.preventDefault();
-                }
-
-                if (keyCode === constants.keyCodes.tab && $el.hasClass('last')) {
-                    event.preventDefault();
-                    this.$dropdownButton.focus();
-                } else if (keyCode === constants.keyCodes.esc) {
-                    this.closeDropdownMenus();
-                    this.$dropdownButton.focus();
-                } else if ($el.hasClass('action')) {
-                    // Key handlers for when a menu item has focus
-                    this.handlerIsAction(keyCode, $el);
-                } else if ($el.hasClass('dropdown-menu')) {
-                    // Key handlers for when the menu itself has focus, before an item within it receives focus
-                    this.handlerIsMenu(keyCode);
-                } else if ($el.hasClass('has-dropdown')) {
-                    // Key handlers for when the button that opens the menu has focus
-                    this.handlerIsButton(keyCode);
-                }
-            },
-
-            listenForPageKeypress: function() {
-                this.$page.on('keydown', _.bind(this.escKeypressHandler, this));
-            },
-
             nextMenuItemLink: function($el) {
-                var items = this.$el.find('.dropdown-menu').children('.dropdown-item').find('.action'),
+                var items = this.$('.dropdown-menu').children('.dropdown-item').find('.action'),
                     itemsCount = items.length - 1,
                     index = items.index($el),
                     next = index + 1;
@@ -222,7 +183,7 @@ define([
                 var $menu = this.$menu;
 
                 if ($menu.hasClass('is-visible')) {
-                    this.closeDropdownMenus();
+                    this.closeDropdownMenu();
                 } else {
                     $el.addClass('is-active')
                        .attr('aria-expanded', 'true');
@@ -237,7 +198,7 @@ define([
             },
 
             previousMenuItemLink: function($el) {
-                var items = this.$el.find('.dropdown-menu').children('.dropdown-item').find('.action'),
+                var items = this.$('.dropdown-menu').children('.dropdown-item').find('.action'),
                     index = items.index($el),
                     prev = index - 1;
 
@@ -255,6 +216,33 @@ define([
                 this.$menu
                     .removeClass('align-left align-right')
                     .addClass(alignClass);
+            },
+
+            viewKeypress: function(event) {
+                var key = event.keyCode,
+                    $el = $(event.target);
+
+                if (_.contains(this.keyForward, key) || _.contains(this.keyBack, key)) {
+                    // Prevent default behavior if one of our trigger keys
+                    event.preventDefault();
+                }
+
+                if (key === constants.keyCodes.tab && $el.hasClass('last')) {
+                    event.preventDefault();
+                    this.$dropdownButton.focus();
+                } else if (_.contains(this.keyClose, key)) {
+                    this.closeDropdownMenu();
+                    this.$dropdownButton.focus();
+                } else if ($el.hasClass('action')) {
+                    // Key handlers for when a menu item has focus
+                    this.handlerIsAction(key, $el);
+                } else if ($el.hasClass('dropdown-menu')) {
+                    // Key handlers for when the menu itself has focus, before an item within it receives focus
+                    this.handlerIsMenu(key);
+                } else if ($el.hasClass('has-dropdown')) {
+                    // Key handlers for when the button that opens the menu has focus
+                    this.handlerIsButton(key, event);
+                }
             }
         });
 

@@ -37,6 +37,7 @@ module.exports = function(config, options) {
             {pattern: 'node_modules/*/src/*.js', included: false},
             {pattern: 'src/js/**/*.js', included: false},
             {pattern: 'src/js/**/*.underscore', included: false},
+            {pattern: 'test/jquery.simulate.js', included: false},
             {pattern: 'test/require-config.js', included: true},
             {pattern: 'test/spec-runner.js', included: true}
         ],

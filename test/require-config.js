@@ -9,6 +9,7 @@ require.config({
         backbone: 'node_modules/backbone/backbone-min',
         'backbone.paginator': 'node_modules/backbone.paginator/lib/backbone.paginator.min',
         jquery: 'node_modules/jquery/dist/jquery.min',
+        'jquery.simulate': 'test/jquery.simulate',
         text: 'node_modules/requirejs-text/text',
         underscore: 'node_modules/underscore/underscore-min',
         sinon: 'node_modules/sinon/lib/sinon',
@@ -21,9 +22,6 @@ require.config({
     },
     wrapShim: true,
     shim: {
-        underscore: {
-            exports: '_'
-        },
         backbone: {
             deps: ['underscore', 'jquery'],
             exports: 'Backbone',
@@ -32,6 +30,13 @@ require.config({
                 Backbone.$ = $;
                 return Backbone;
             }
+        },
+        'jquery.simulate': {
+            deps: ['jquery'],
+            exports: ['jquery.simulate']
+        },
+        underscore: {
+            exports: '_'
         }
     }
 });
