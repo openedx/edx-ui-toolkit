@@ -1,6 +1,6 @@
 // Karma configuration
 
-module.exports = function (config, options) {
+module.exports = function(config, options) {
     'use strict';
 
     // If not being overridden, then specify the default headless configuration
@@ -42,7 +42,7 @@ module.exports = function (config, options) {
         ],
 
         // plugins required for running the karma tests
-        plugins:[
+        plugins: [
             'karma-jasmine',
             'karma-jasmine-jquery',
             'karma-requirejs',
@@ -62,8 +62,8 @@ module.exports = function (config, options) {
         reporters: options.reporters,
 
         coverageReporter: {
-            dir:'build', subdir: 'coverage-js',
-            reporters:[
+            dir: 'build', subdir: 'coverage-js',
+            reporters: [
                 {type: 'html', subdir: 'coverage-js/html'},
                 {type: 'cobertura', file: 'coverage.xml'},
                 {type: 'text-summary'}
@@ -78,7 +78,7 @@ module.exports = function (config, options) {
         colors: true,
 
         // level of logging
-        // possible values: config.LOG_DISABLE || config.LOG_ERROR || config.LOG_WARN || config.LOG_INFO || config.LOG_DEBUG
+        // possible values: config.LOG_DISABLE, config.LOG_ERROR, config.LOG_WARN, config.LOG_INFO, config.LOG_DEBUG
         logLevel: options.logLevel,
 
         // enable / disable watching file and executing tests whenever any file changes
