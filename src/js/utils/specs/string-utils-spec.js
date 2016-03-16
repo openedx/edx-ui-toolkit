@@ -9,7 +9,7 @@ define(
         describe('StringUtils', function() {
             describe('interpolate', function() {
                 it('can interpolate a string with no parameters provided', function() {
-                    expect(StringUtils.interpolate('Hello, world').toString()).toBe(
+                    expect(StringUtils.interpolate('Hello, world')).toEqual(
                         'Hello, world'
                     );
                 });
@@ -29,7 +29,7 @@ define(
                     ]
                 }, function(template, options, expectedString) {
                     var result = StringUtils.interpolate(template, options);
-                    expect(result.toString()).toBe(expectedString);
+                    expect(result).toEqual(expectedString);
                 });
             });
         });

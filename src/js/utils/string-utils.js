@@ -42,7 +42,7 @@
          *
          * @param {string} formatString The string to be interpolated.
          * @param {Object} parameters An optional set of parameters to the template.
-         * @returns {HtmlSnippet} The resulting safely escaped HTML snippet.
+         * @returns {string} A string with the values interpolated.
          */
         interpolate = function(formatString, parameters) {
             return formatString.replace(/{\w+}/g,

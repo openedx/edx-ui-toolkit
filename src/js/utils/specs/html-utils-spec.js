@@ -1,21 +1,26 @@
 define(
     [
+        'jquery',
         '../../utils/spec-helpers/spec-helpers.js',
         '../html-utils.js'
     ],
-    function(SpecHelpers, HtmlUtils) {
+    function($, SpecHelpers, HtmlUtils) {
         'use strict';
 
         describe('HtmlUtils', function() {
-            describe('HtmlSnippet', function() {
-                it('can convert to a string', function() {
-                    expect(new HtmlUtils.HtmlSnippet('Hello, world').toString()).toBe('Hello, world');
-                });
-            });
-
             describe('HTML', function() {
-                it('returns an HtmlSnippet', function() {
-                    expect(HtmlUtils.HTML('Hello, world') instanceof HtmlUtils.HtmlSnippet).toBeTruthy();
+                it('returns a string flagged as an HTML snippet', function() {
+                    expect(HtmlUtils.HTML('Hello, world').isHtmlSnippet).toBeTruthy();
+                });
+
+                it('returns an HTML snippet that can be used by JQuery', function() {
+                    var testHtmlString = '<p>A test</p>',
+                        htmlSnippet = HtmlUtils.HTML(testHtmlString);
+                    setFixtures('<div class="test"></div>');
+                    $('.test').html(htmlSnippet);
+                    expect($('.test').html()).toBe(testHtmlString);
+                    $('.test').append(htmlSnippet);
+                    expect($('.test').html()).toBe(testHtmlString + testHtmlString);
                 });
             });
 
@@ -35,13 +40,13 @@ define(
                     ]
                 }, function(input, expectedString) {
                     var result = HtmlUtils.escape(input);
-                    expect(result.toString()).toBe(expectedString);
+                    expect(result).toEqual(expectedString);
                 });
             });
 
             describe('interpolateHtml', function() {
                 it('can interpolate a string with no parameters provided', function() {
-                    expect(HtmlUtils.interpolateHtml('Hello, world').toString()).toBe(
+                    expect(HtmlUtils.interpolateHtml('Hello, world')).toEqual(
                         'Hello, world'
                     );
                 });
@@ -86,7 +91,7 @@ define(
                     ]
                 }, function(template, options, expectedString) {
                     var result = HtmlUtils.interpolateHtml(template, options);
-                    expect(result.toString()).toBe(expectedString);
+                    expect(result).toEqual(expectedString);
                 });
             });
 
@@ -94,13 +99,12 @@ define(
                 it('returns a template that renders correctly', function() {
                     var template = HtmlUtils.template('Hello, <%- name %>'),
                         result = template({name: 'world'});
-                    expect(result instanceof HtmlUtils.HtmlSnippet).toBeTruthy();
-                    expect(result.toString()).toBe('Hello, world');
+                    expect(result).toEqual('Hello, world');
                 });
 
                 it('adds HtmlView as an additional context variable for the template', function() {
                     var template = HtmlUtils.template('I love <%= HtmlUtils.escape("Rock & Roll") %>');
-                    expect(template().toString()).toBe('I love Rock &amp; Roll');
+                    expect(template()).toEqual('I love Rock &amp; Roll');
                 });
             });
         });
