@@ -6,7 +6,7 @@
  */
 (function(define) {
     'use strict';
-    define(['underscore', './string-utils.js'], function(_, StringUtils) {
+    define(['underscore', 'edx-ui-toolkit/js/utils/string-utils'], function(_, StringUtils) {
         var escape, interpolateHtml, HTML, template;
 
         /**

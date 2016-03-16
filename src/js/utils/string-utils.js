@@ -3,7 +3,7 @@
  */
 (function(define) {
     'use strict';
-    define(['underscore', './string-utils.js'], function(_, StringUtils) {
+    define([], function() {
         var interpolate;
 
         /**

@@ -23,6 +23,12 @@ module.exports = function(config, options) {
         // base path that will be used to resolve all patterns (eg. files, exclude)
         basePath: '../',
 
+        // support the namespace 'edx-ui-toolkit' so that it can be used in the
+        // same way as clients expect to see it.
+        proxies: {
+            '/base/edx-ui-toolkit/': '/base/src/'
+        },
+
         // frameworks to use
         // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
         frameworks: ['jasmine-jquery', 'jasmine', 'requirejs', 'sinon'],
