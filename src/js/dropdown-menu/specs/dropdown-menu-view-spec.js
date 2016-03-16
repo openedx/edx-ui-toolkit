@@ -1,21 +1,23 @@
 define([
         'jquery',
         'underscore',
-        '../dropdown-menu-view.js'
+        '../dropdown-menu-view.js',
+        '../../utils/constants.js',
+        'jquery.simulate'
     ],
-    function($, _, DropdownMenuView) {
+    function($, _, DropdownMenuView, constants) {
         'use strict';
 
         describe('Main Menu View', function() {
             var view = {},
                 dropdownModel = new Backbone.Model(),
-                keyPress = function(key) {
-                    var event = document.createEvent('Event');
-
-                    event.keyCode = key;
-                    event.initEvent('keydown', true, false);
-                    document.dispatchEvent(event);
-                };
+                customKeyDown = function(obj) {
+                    $(document.activeElement).simulate('keydown', obj);
+                },
+                singleKeyDown = function(key) {
+                    $(document.activeElement).simulate('keydown', {keyCode: key });
+                },
+                timeoutInt = 100;
 
             beforeEach(function() {
                 // Extend the view to add analytics for testing
@@ -66,7 +68,7 @@ define([
                     className: 'wrapper-more-actions user-menu logged-in',
                     model: dropdownModel,
                     parent: '.js-user-cta'
-                });
+                }).render();
 
                 window.analytics = jasmine.createSpyObj('analytics', ['track', 'page', 'trackLink']);
 
@@ -101,15 +103,88 @@ define([
 
                 setTimeout(function() {
                     expect($btn).toHaveClass('is-active');
-                    keyPress(27);
-                }, 100);
+                    singleKeyDown(constants.keyCodes.esc);
+                }, timeoutInt);
 
                 setTimeout(function() {
                     expect($btn).not.toHaveClass('is-active');
-                }, 200);
+                }, timeoutInt * 2);
 
-                jasmine.clock().tick(101);
-                jasmine.clock().tick(201);
+                jasmine.clock().tick(timeoutInt + 1);
+                jasmine.clock().tick((timeoutInt * 2 ) + 1);
+            });
+
+            it('should close the user menu on keypress of the space bar', function() {
+                var $btn = view.$el.find('.js-dropdown-button');
+
+                $btn.click();
+
+                setTimeout(function() {
+                    expect($btn).toHaveClass('is-active');
+                    singleKeyDown(constants.keyCodes.space);
+                }, timeoutInt);
+
+                setTimeout(function() {
+                    expect($btn).not.toHaveClass('is-active');
+                }, timeoutInt * 2);
+
+                jasmine.clock().tick(timeoutInt + 1);
+                jasmine.clock().tick((timeoutInt * 2 ) + 1);
+            });
+
+            it('should return to the button after pressing down arrow key while at bottom of dropdown menu', function() {
+                var $btn = view.$el.find('.js-dropdown-button');
+
+                $btn.click();
+
+                setTimeout(function() {
+                    expect($(document.activeElement)).not.toHaveClass('js-dropdown-button');
+                    singleKeyDown(constants.keyCodes.down);
+                    singleKeyDown(constants.keyCodes.down);
+                    singleKeyDown(constants.keyCodes.down);
+                    singleKeyDown(constants.keyCodes.down);
+                }, timeoutInt);
+
+                setTimeout(function() {
+                    expect($(document.activeElement)).not.toHaveClass('js-dropdown-button');
+                    singleKeyDown(constants.keyCodes.down);
+                }, timeoutInt * 2);
+
+                setTimeout(function() {
+                    expect($(document.activeElement)).toHaveClass('js-dropdown-button');
+                }, timeoutInt * 3);
+
+                jasmine.clock().tick(timeoutInt + 1);
+                jasmine.clock().tick((timeoutInt * 2 ) + 1);
+                jasmine.clock().tick((timeoutInt * 3 ) + 1);
+            });
+
+            it('should return to the bottom of dropdown menu after pressing up arrow key while on button', function() {
+                var $btn = view.$el.find('.js-dropdown-button');
+
+                $btn.click();
+
+                setTimeout(function() {
+                    expect($(document.activeElement)).not.toHaveClass('js-dropdown-button');
+                    singleKeyDown(constants.keyCodes.up);
+                }, timeoutInt);
+
+                setTimeout(function() {
+                    expect($(document.activeElement)).toHaveClass('js-dropdown-button');
+                    singleKeyDown(constants.keyCodes.up);
+                }, timeoutInt * 2);
+
+                setTimeout(function() {
+                    var $active = $(document.activeElement),
+                        lastItem = _.last(view.model.get('items'));
+
+                    expect($active).toHaveClass('action');
+                    expect($active.attr('href')).toEqual(lastItem.url);
+                }, timeoutInt * 3);
+
+                jasmine.clock().tick(timeoutInt + 1);
+                jasmine.clock().tick((timeoutInt * 2 ) + 1);
+                jasmine.clock().tick((timeoutInt * 3 ) + 1);
             });
 
             it('should close the user menu on page click', function() {
@@ -185,7 +260,7 @@ define([
             });
 
             it('should open track analytics for user menu link clicks', function() {
-                var $userTitle = view.$el.find('.dropdown-item.last a'),
+                var $userTitle = view.$el.find('.dropdown-item').last().find('a'),
                     analyticsData = {
                         category: 'navigation',
                         label: 'Sign Out',
