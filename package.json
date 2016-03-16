@@ -20,6 +20,7 @@
     "jquery": "~2.2.0",
     "requirejs": "~2.1.22",
     "requirejs-text": "~2.0.12",
+    "sinon": "~1.17.3",
     "underscore": "~1.8.3",
     "urijs": "~1.16.1"
   },
@@ -46,7 +47,6 @@
     "karma-spec-reporter": "~0.0.24",
     "phantomjs-prebuilt": "~2.1.4",
     "require-dir": "latest",
-    "requirejs-plugins": "~1.0.2",
-    "sinon": "~1.17.3"
+    "requirejs-plugins": "~1.0.2"
   }
 }
