@@ -6,58 +6,37 @@
  */
 (function(define) {
     'use strict';
-    define(['underscore', './string-utils.js'], function(_, StringUtils) {
+    define(['underscore', 'edx-ui-toolkit/js/utils/string-utils'], function(_, StringUtils) {
         var escape, interpolateHtml, HTML, template;
 
         /**
-         * Creates an HTML snippet.
-         *
-         * The intention of an HTML snippet is to capture a string that
-         * is known to contain HTML that has been safely escaped.
-         * As an example, this allows interpolate to understand that
-         * it does not need to further escape this HTML.
+         * Helper function to return a string flagged as an HTML snippet.
          *
          * @param {string} htmlString The string of HTML.
-         * @constructor
-         */
-        function HtmlSnippet(htmlString) {
-            this.text = htmlString;
-        }
-        HtmlSnippet.prototype.valueOf = function() {
-            return this.text;
-        };
-        HtmlSnippet.prototype.toString = function() {
-            return this.text;
-        };
-
-        /**
-         * Helper function to create an HTML snippet.
-         *
-         * @param {string} htmlString The string of HTML.
-         * @returns {HtmlSnippet} An HTML snippet that can be safely rendered.
+         * @returns {string} A string flagged as an HTML snippet.
          * @constructor
          */
         HTML = function(htmlString) {
-            return new HtmlSnippet(htmlString);
+            var htmlSnippet = new String(htmlString); // jshint ignore:line
+            htmlSnippet.isHtmlSnippet = true;
+            return htmlSnippet;
         };
 
         /**
-         * Returns HTML that is appropriately escaped.
+         * Returns an HTML string that is appropriately escaped.
          *
-         * If the input is provided as a string, then an HtmlSnippet
-         * is returned with the original text escaped. If the input
-         * is already an HtmlSnippet then it is known to be already
-         * escaped and so it is just returned directly.
+         * Note: if the string provided is flagged as being an HTML snippet
+         * then it will be returned directly so as not to double escape it.
          *
-         * @param {(string|HtmlSnippet)} text Some HTML that is
-         * either provided as a string or as an HtmlSnippet.
-         * @returns {HtmlSnippet} A safely escaped HtmlSnippet.
+         * @param {string} text A string that is either plan text, or is
+         * flagged as being an HTML snippet.
+         * @returns {string} A safely HTML-escaped string.
          */
         escape = function(text) {
-            if (text instanceof HtmlSnippet) {
-                return text;
+            if (text.isHtmlSnippet) {
+                return text.toString();
             } else {
-                return HTML(_.escape(text));
+                return _.escape(text);
             }
         };
 
@@ -97,7 +76,8 @@
          *
          * @param {string} formatString The string to be interpolated.
          * @param {Object} parameters An optional set of parameters to the template.
-         * @returns {HtmlSnippet} The resulting safely escaped HTML snippet.
+         * @returns {string} The resulting safely escaped string flagged as
+         * an HTML snippet.
          */
         interpolateHtml = function(formatString, parameters) {
             var result = StringUtils.interpolate(
@@ -108,7 +88,7 @@
         };
 
         /**
-         * Returns a function that renders an Underscore template as an HTML snippet.
+         * Returns a function that renders an Underscore template as a string.
          *
          * Note: This helper function makes the following context parameters
          * available to the template in addition to those passed in:
@@ -117,7 +97,7 @@
          *
          * @param {string} text
          * @param {object} settings
-         * @returns {function} A function that returns a rendered HTML snippet.
+         * @returns {function} A function that returns a rendered string.
          */
         template = function(text, settings) {
             var HtmlUtils = this,
@@ -129,7 +109,7 @@
                         },
                         data
                     );
-                    return HTML(rawTemplate(augmentedData));
+                    return rawTemplate(augmentedData);
                 };
             return template;
         };
@@ -137,7 +117,6 @@
         return {
             escape: escape,
             HTML: HTML,
-            HtmlSnippet: HtmlSnippet,
             interpolateHtml: interpolateHtml,
             template: template
         };
