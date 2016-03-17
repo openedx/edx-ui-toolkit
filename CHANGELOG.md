@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.6.0 (2017-03-16)
+* Remove relative paths for use in edx-platform
+* Replace HtmlSnippet with a string marked as a snippet
+
+- - -
+
 ## 0.5.0 (2016-03-16)
 * Ensure sinon is distributed for ajax-helpers.js
 * Implement new HtmlUtils helper functions
