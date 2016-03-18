@@ -76,6 +76,7 @@ define([
                 this.$menu = this.$('.dropdown-menu');
                 this.$page = $(document);
                 this.$dropdownButton = this.$('.js-dropdown-button');
+                this.$lastItem = this.$menu.find('li:last-child a');
             },
 
             /**
@@ -125,11 +126,11 @@ define([
             },
 
             focusFirstItem: function() {
-                this.$menu.find('.action').first().focus();
+                this.$menu.find('.dropdown-item:first-child .action').focus();
             },
 
             focusLastItem: function() {
-                this.$menu.find('.action').last().focus();
+                this.$lastItem.focus();
             },
 
             handlerIsAction: function(key, $el) {
@@ -145,6 +146,7 @@ define([
                     this.focusFirstItem();
                 // if up arrow or left arrow key pressed or shift+tab
                 } else if (_.contains(this.keyBack, key) || key === constants.keyCodes.tab && event.shiftKey) {
+                    event.preventDefault();
                     this.focusLastItem(); 
                 }
             },
@@ -227,7 +229,7 @@ define([
                     event.preventDefault();
                 }
 
-                if (key === constants.keyCodes.tab && $el.hasClass('last')) {
+                if (key === constants.keyCodes.tab && !event.shiftKey && _.first($el) === _.first(this.$lastItem) ) {
                     event.preventDefault();
                     this.$dropdownButton.focus();
                 } else if (_.contains(this.keyClose, key)) {
