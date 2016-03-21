@@ -8,23 +8,23 @@ define(
         'use strict';
 
         describe('HtmlUtils', function() {
-            describe('HTML', function() {
-                it('returns a string flagged as an HTML snippet', function() {
-                    expect(HtmlUtils.HTML('Hello, world').isHtmlSnippet).toBeTruthy();
-                });
+            beforeEach(function() {
+                setFixtures('<div class="test"></div>');
+            });
 
-                it('returns an HTML snippet that can be used by JQuery', function() {
-                    var testHtmlString = '<p>A test</p>',
-                        htmlSnippet = HtmlUtils.HTML(testHtmlString);
-                    setFixtures('<div class="test"></div>');
-                    $('.test').html(htmlSnippet);
-                    expect($('.test').html()).toBe(testHtmlString);
-                    $('.test').append(htmlSnippet);
-                    expect($('.test').html()).toBe(testHtmlString + testHtmlString);
+            describe('HtmlSnippet', function() {
+                it('can convert to a string', function() {
+                    expect(new HtmlUtils.HtmlSnippet('Hello, world').toString()).toBe('Hello, world');
                 });
             });
 
-            describe('escape', function() {
+            describe('HTML', function() {
+                it('returns an HTML snippet', function() {
+                    expect(HtmlUtils.HTML('Hello, world') instanceof HtmlUtils.HtmlSnippet).toBeTruthy();
+                });
+            });
+
+            describe('ensureHtml', function() {
                 SpecHelpers.withData({
                     'HTML escapes text strings': [
                         'Rock & Roll',
@@ -39,14 +39,15 @@ define(
                         '<a href="world">Rock &amp; Roll</a>'
                     ]
                 }, function(input, expectedString) {
-                    var result = HtmlUtils.escape(input);
-                    expect(result).toEqual(expectedString);
+                    var result = HtmlUtils.ensureHtml(input);
+                    expect(result instanceof HtmlUtils.HtmlSnippet).toBeTruthy();
+                    expect(result.toString()).toEqual(expectedString);
                 });
             });
 
             describe('interpolateHtml', function() {
                 it('can interpolate a string with no parameters provided', function() {
-                    expect(HtmlUtils.interpolateHtml('Hello, world')).toEqual(
+                    expect(HtmlUtils.interpolateHtml('Hello, world').toString()).toEqual(
                         'Hello, world'
                     );
                 });
@@ -91,20 +92,131 @@ define(
                     ]
                 }, function(template, options, expectedString) {
                     var result = HtmlUtils.interpolateHtml(template, options);
-                    expect(result).toEqual(expectedString);
+                    expect(result instanceof HtmlUtils.HtmlSnippet).toBeTruthy();
+                    expect(result.toString()).toEqual(expectedString);
+                });
+            });
+
+            describe('joinHtml', function() {
+                SpecHelpers.withData({
+                    'can join a single string': [
+                        ['Hello, world'],
+                        'Hello, world'
+                    ],
+                    'escapes characters provided as strings': [
+                        ['Rock & Roll'],
+                        'Rock &amp; Roll'
+                    ],
+                    'does not escape HTML snippets': [
+                        [HtmlUtils.HTML('<a href="world">world</a>')],
+                        '<a href="world">world</a>'
+                    ],
+                    'can join a mixture of strings and HTML snippets': [
+                        ['Rock & Roll', ' all over the ', HtmlUtils.HTML('<a href="world">world</a>')],
+                        'Rock &amp; Roll all over the <a href="world">world</a>'
+                    ]
+                }, function(items, expectedString) {
+                    var result = HtmlUtils.joinHtml.apply(this, items);
+                    expect(result instanceof HtmlUtils.HtmlSnippet).toBeTruthy();
+                    expect(result.toString()).toEqual(expectedString);
                 });
             });
 
             describe('template', function() {
-                it('returns a template that renders correctly', function() {
+                it('can render a template with no parameters', function() {
+                    var template = HtmlUtils.template('Hello, world'),
+                        result = template();
+                    expect(result instanceof HtmlUtils.HtmlSnippet).toBeTruthy();
+                    expect(result.toString()).toEqual('Hello, world');
+                });
+
+                it('can render a template with parameters', function() {
                     var template = HtmlUtils.template('Hello, <%- name %>'),
                         result = template({name: 'world'});
-                    expect(result).toEqual('Hello, world');
+                    expect(result instanceof HtmlUtils.HtmlSnippet).toBeTruthy();
+                    expect(result.toString()).toEqual('Hello, world');
                 });
 
                 it('adds HtmlView as an additional context variable for the template', function() {
-                    var template = HtmlUtils.template('I love <%= HtmlUtils.escape("Rock & Roll") %>');
-                    expect(template()).toEqual('I love Rock &amp; Roll');
+                    var template = HtmlUtils.template('I love <%= HtmlUtils.ensureHtml("Rock & Roll") %>');
+                    expect(template().toString()).toEqual('I love Rock &amp; Roll');
+                });
+            });
+
+            describe('setHtml', function() {
+                SpecHelpers.withData({
+                    'HTML escapes text strings': [
+                        'Rock & Roll',
+                        'Rock &amp; Roll'
+                    ],
+                    'HTML escapes full HTML strings': [
+                        '<a href="world">Rock &amp; Roll</a>',
+                        '&lt;a href="world"&gt;Rock &amp;amp; Roll&lt;/a&gt;'
+                    ],
+                    'does not escape HTML snippets': [
+                        HtmlUtils.HTML('<a href="world">Rock &amp; Roll</a>'),
+                        '<a href="world">Rock &amp; Roll</a>'
+                    ]
+                }, function(input, expectedString) {
+                    var $element = $('.test');
+                    HtmlUtils.setHtml($element, input);
+                    expect($element.html()).toEqual(expectedString);
+                });
+            });
+
+            describe('append', function() {
+                SpecHelpers.withData({
+                    'HTML escapes text strings': [
+                        'Rock & Roll',
+                        'Rock &amp; Roll'
+                    ],
+                    'HTML escapes full HTML strings': [
+                        '<a href="world">Rock &amp; Roll</a>',
+                        '&lt;a href="world"&gt;Rock &amp;amp; Roll&lt;/a&gt;'
+                    ],
+                    'does not escape HTML snippets': [
+                        HtmlUtils.HTML('<a href="world">Rock &amp; Roll</a>'),
+                        '<a href="world">Rock &amp; Roll</a>'
+                    ]
+                }, function(input, expectedString) {
+                    var $element = $('.test');
+
+                    // Appends correctly with no children
+                    HtmlUtils.append($element, input);
+                    expect($element.html()).toEqual(expectedString);
+
+                    // Appends correctly with a pre-existing child
+                    $element.html('<p>Hello, world</p>');
+                    HtmlUtils.append($element, input);
+                    expect($element.html()).toEqual('<p>Hello, world</p>' + expectedString);
+                });
+            });
+
+            describe('prepend', function() {
+                SpecHelpers.withData({
+                    'HTML escapes text strings': [
+                        'Rock & Roll',
+                        'Rock &amp; Roll'
+                    ],
+                    'HTML escapes full HTML strings': [
+                        '<a href="world">Rock &amp; Roll</a>',
+                        '&lt;a href="world"&gt;Rock &amp;amp; Roll&lt;/a&gt;'
+                    ],
+                    'does not escape HTML snippets': [
+                        HtmlUtils.HTML('<a href="world">Rock &amp; Roll</a>'),
+                        '<a href="world">Rock &amp; Roll</a>'
+                    ]
+                }, function(input, expectedString) {
+                    var $element = $('.test');
+
+                    // Prepends correctly with no children
+                    HtmlUtils.prepend($element, input);
+                    expect($element.html()).toEqual(expectedString);
+
+                    // Prepends correctly with a pre-existing child
+                    $element.html('<p>Hello, world</p>');
+                    HtmlUtils.prepend($element, input);
+                    expect($element.html()).toEqual(expectedString + '<p>Hello, world</p>');
                 });
             });
         });
