@@ -1,5 +1,8 @@
 # Changelog
 
+## 0.8.0 (2016-03-22)
+* Add more HtmlUtils APIs
+
 ## 0.7.0 (2016-03-22)
 * Dropdown Menu improved a11y to trap focus in the dropdown for
 * tab navigation and added a11y test coverage 
