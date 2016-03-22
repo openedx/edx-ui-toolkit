@@ -1,6 +1,14 @@
 # Changelog
 
-## 0.6.0 (2017-03-16)
+## 0.7.0 (2016-03-22)
+* Dropdown Menu improved a11y to trap focus in the dropdown for
+* tab navigation and added a11y test coverage 
+* Dropdown Menu updated to utilize Pattern Library classes for styling
+* and can add Pattern Library icons by passing an icon class via the model
+
+- - -
+
+## 0.6.0 (2016-03-16)
 * Remove relative paths for use in edx-platform
 * Replace HtmlSnippet with a string marked as a snippet
 
