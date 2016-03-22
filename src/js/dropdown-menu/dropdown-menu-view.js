@@ -20,7 +20,10 @@ define([
          *          text: 'username',
          *          url: 'dashboard'
          *      },
-         *      button_label: 'User options dropdown',
+         *      button: {
+         *          icon: 'icon-angle-down',
+         *          label: 'User options dropdown'
+         *      },
          *      items: [
          *          {
          *              text: 'Dashboard',
@@ -48,6 +51,8 @@ define([
                 'keydown': 'viewKeypress'
             },
 
+            dropdownButton: '.js-dropdown-button',
+
             menu: '.dropdown-menu',
 
             initialize: function(options) {
@@ -55,6 +60,7 @@ define([
                     this.$parent = $(options.parent);
                 }
 
+                this.menuId = options.menuId || 'dropdown-menu-' + this.cid;
                 this.keyBack = [constants.keyCodes.up, constants.keyCodes.left];
                 this.keyForward = [constants.keyCodes.down, constants.keyCodes.right];
                 this.keyClose = [constants.keyCodes.esc, constants.keyCodes.space];
@@ -65,6 +71,12 @@ define([
             },
 
             render: function() {
+                /**
+                 * Set in the render function to prevent error when
+                 * view is used with a pre-rendered DOM
+                 */
+                this.model.set({menuId: this.menuId});
+
                 this.$el.html(this.tpl(this.model.toJSON()));
                 this.$parent.replaceWith(this.$el);
                 this.postRender();
@@ -75,7 +87,7 @@ define([
             postRender: function() {
                 this.$menu = this.$('.dropdown-menu');
                 this.$page = $(document);
-                this.$dropdownButton = this.$('.js-dropdown-button');
+                this.$dropdownButton = this.$(this.dropdownButton);
                 this.$lastItem = this.$menu.find('li:last-child a');
             },
 
@@ -102,7 +114,22 @@ define([
             },
 
             clickCloseDropdown: function(event, context) {
-                var $el = $(event.target);
+                var $el = $(event.target) || $(document),
+                    $btn;
+
+                /** When using edX Pattern Library icons the target
+                 *  is sometimes not the button
+                 */
+                if (!$el.hasClass(this.dropdownButton)) {
+                    /**
+                     *  If there is a parent dropdown button
+                     *  that is the element to test
+                     */
+                    $btn = $el.closest(this.dropdownButton);
+                    if ($btn.length > 0) {
+                        $el = $btn;
+                    }
+                }
 
                 if (!$el.hasClass('button-more') && !$el.hasClass('has-dropdown')) {
                     context.closeDropdownMenu();
@@ -111,7 +138,7 @@ define([
 
             clickOpenDropdown: function(event) {
                 event.preventDefault();
-                this.openMenu($(event.target));
+                this.openMenu(this.$dropdownButton);
             },
 
             closeDropdownMenu: function() {
@@ -181,13 +208,12 @@ define([
                 }
             },
 
-            openMenu: function($el) {
+            openMenu: function($btn) {
                 var $menu = this.$menu;
-
                 if ($menu.hasClass('is-visible')) {
                     this.closeDropdownMenu();
                 } else {
-                    $el.addClass('is-active')
+                    $btn.addClass('is-active')
                        .attr('aria-expanded', 'true');
 
                     $menu.removeClass('is-hidden')
