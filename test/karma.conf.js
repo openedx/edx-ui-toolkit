@@ -57,6 +57,7 @@ module.exports = function(config, options) {
             'karma-firefox-launcher',
             'karma-phantomjs-launcher',
             'karma-coverage',
+            'karma-coveralls',
             'karma-sinon',
             'karma-jasmine-html-reporter',
             'karma-spec-reporter'
@@ -73,6 +74,7 @@ module.exports = function(config, options) {
             reporters: [
                 {type: 'html', subdir: 'coverage-js/html'},
                 {type: 'cobertura', file: 'coverage.xml'},
+                {type: 'lcov', dir: 'coverage/'},
                 {type: 'text-summary'}
             ]
         },
