@@ -12,7 +12,7 @@ module.exports = function(config, options) {
             browsers: ['PhantomJS'],
             logLevel: config.LOG_INFO,
             preprocessors: {
-                'components/**/*.js': ['coverage']
+                'src/js/**/*.js': ['coverage']
             },
             reporters: ['spec', 'coverage']
         };
