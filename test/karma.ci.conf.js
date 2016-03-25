@@ -17,8 +17,8 @@ module.exports = function(config) {
         browsers: ['Chrome_travis_ci', 'Firefox', 'PhantomJS'],
         logLevel: config.LOG_INFO,
         preprocessors: {
-            'components/**/*.js': ['coverage']
+            'src/js/**/*.js': ['coverage']
         },
-        reporters: ['spec', 'coverage']
+        reporters: ['spec', 'coverage', 'coveralls']
     });
 };
