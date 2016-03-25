@@ -6,10 +6,10 @@
 
     gulp.task('coverage', function() {
         if (process.argv.indexOf('--ci') !== -1) {
-            return gulp.src('test/coverage/**/lcov.info')
+            return gulp.src('coverage/**/lcov.info')
   .             pipe(coveralls());
         } else {
-            return gulp.src('test/coverage/**/lcov.info')
+            return gulp.src('coverage/**/lcov.info')
   .             pipe(coveralls());
         }
     });
