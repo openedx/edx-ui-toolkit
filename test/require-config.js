@@ -37,6 +37,9 @@ require.config({
         },
         underscore: {
             exports: '_'
+        },
+        'edx-ui-toolkit/js/utils/global-loader': {
+            exports: 'edx.GlobalLoader'
         }
     }
 });

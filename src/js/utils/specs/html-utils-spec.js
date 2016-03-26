@@ -137,9 +137,16 @@ define(
                     expect(result.toString()).toEqual('Hello, world');
                 });
 
-                it('adds HtmlView as an additional context variable for the template', function() {
+                it('adds HtmlUtils as an additional context variable for the template', function() {
                     var template = HtmlUtils.template('I love <%= HtmlUtils.ensureHtml("Rock & Roll") %>');
                     expect(template().toString()).toEqual('I love Rock &amp; Roll');
+                });
+
+                it('adds StringUtils as an additional context variable for the template', function() {
+                    var template = HtmlUtils.template(
+                        '<%= StringUtils.interpolate("Hello, {name}", {name: "world"}) %>'
+                    );
+                    expect(template().toString()).toEqual('Hello, world');
                 });
             });
 
