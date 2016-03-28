@@ -14,7 +14,7 @@ module.exports = function(config, options) {
             preprocessors: {
                 'src/js/**/*.js': ['coverage']
             },
-            reporters: ['spec', 'coverage']
+            reporters: ['spec', 'coverage', 'coveralls']
         };
     }
 
