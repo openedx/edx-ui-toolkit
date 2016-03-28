@@ -387,4 +387,8 @@
 
         return PagingCollection;
     });
-}).call(this, define || RequireJS.define);
+}).call(
+    this,
+    (typeof define === 'function' && define.amd && define) ||
+    (typeof RequireJS !== 'undefined' && RequireJS.define)
+);

@@ -58,7 +58,7 @@
     });
 }).call(
     this,
-    (typeof define !== 'undefined' && define) ||
+    (typeof define === 'function' && define.amd && define) ||
     (typeof RequireJS !== 'undefined' && RequireJS.define) ||
     edx.GlobalLoader.defineAs('StringUtils', 'edx-ui-toolkit/js/utils/string-utils')
 );
