@@ -62,6 +62,6 @@
     );
 }).call(
     this,
-    (typeof define === 'function' && define.amd && define) ||
-    (typeof RequireJS !== 'undefined' && RequireJS.define)
+    // Use the default 'define' function if available, else use 'RequireJS.define'
+    typeof define === 'function' && define.amd ? define : RequireJS.define
 );
