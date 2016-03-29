@@ -1,7 +1,17 @@
 # Changelog
 
+## 0.9.0 (2016-03-30)
+* Support loading utility classes into "edx" namespace if RequireJS not available
+* Make StringUtils available as a context parameter to templates
+* Add Coveralls support
+* Fix Karma build failures on Travis
+
+- - -
+
 ## 0.8.0 (2016-03-22)
 * Add more HtmlUtils APIs
+
+- - -
 
 ## 0.7.0 (2016-03-22)
 * Dropdown Menu improved a11y to trap focus in the dropdown for
