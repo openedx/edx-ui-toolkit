@@ -3,15 +3,15 @@
  */
 
 require.config({
-    baseUrl: '/',
+    baseUrl: '/base',
     waitSeconds: 60,
     paths: {
-        backbone: 'node_modules/backbone/backbone-min',
-        'backbone.paginator': 'node_modules/backbone.paginator/lib/backbone.paginator.min',
-        jquery: 'node_modules/jquery/dist/jquery.min',
+        backbone: 'node_modules/backbone/backbone',
+        'backbone.paginator': 'node_modules/backbone.paginator/lib/backbone.paginator',
+        jquery: 'node_modules/jquery/dist/jquery',
         'jquery.simulate': 'test/jquery.simulate',
         text: 'node_modules/requirejs-text/text',
-        underscore: 'node_modules/underscore/underscore-min',
+        underscore: 'node_modules/underscore/underscore',
         sinon: 'node_modules/sinon/lib/sinon',
 
         // URI and its dependencies
@@ -22,6 +22,9 @@ require.config({
     },
     wrapShim: true,
     shim: {
+        jquery: {
+            exports: '$'
+        },
         backbone: {
             deps: ['underscore', 'jquery'],
             exports: 'Backbone',
@@ -33,7 +36,7 @@ require.config({
         },
         'jquery.simulate': {
             deps: ['jquery'],
-            exports: ['jquery.simulate']
+            exports: ['$.simulate']
         },
         underscore: {
             exports: '_'

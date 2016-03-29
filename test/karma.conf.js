@@ -31,21 +31,30 @@ module.exports = function(config, options) {
 
         // frameworks to use
         // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
-        frameworks: ['jasmine-jquery', 'jasmine', 'requirejs', 'sinon'],
+        frameworks: ['jasmine-jquery', 'jasmine', 'requirejs'],
 
         // list of files / patterns to load in the browser
         files: [
-            // node_modules/**/*.js contains a LOT of javascript, and
-            // karma runs out of file handles, hence we have to be a
-            // bit more specific:
-            {pattern: 'node_modules/*/*.js', included: false},
-            {pattern: 'node_modules/*/lib/**/*.js', included: false},
-            {pattern: 'node_modules/*/src/*.js', included: false},
-            {pattern: 'src/js/**/*.js', included: false},
-            {pattern: 'src/js/**/*.underscore', included: false},
+            // load the Karma spec runner
+            'test/spec-runner.js',
+
+            // load the RequireJS configuration
+            'test/require-config.js',
+
+           // load third party libraries
+            'node_modules/underscore/underscore.js',
+
+            // register third party libraries to be loaded via RequireJS
+            {pattern: 'node_modules/backbone/backbone.js', included: false},
+            {pattern: 'node_modules/backbone.paginator/lib/backbone.paginator.js', included: false},
+            {pattern: 'node_modules/requirejs-text/text.js', included: false},
+            {pattern: 'node_modules/sinon/**/*.js', included: false},
+            {pattern: 'node_modules/urijs/src/*.js', included: false},
             {pattern: 'test/jquery.simulate.js', included: false},
-            {pattern: 'test/require-config.js', included: true},
-            {pattern: 'test/spec-runner.js', included: true}
+
+            // register all the UI Toolkit source and Underscore templates
+            {pattern: 'src/js/**/*.js', included: false},
+            {pattern: 'src/js/**/*.underscore', included: false}
         ],
 
         // plugins required for running the karma tests

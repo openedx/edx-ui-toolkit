@@ -13,7 +13,7 @@ define([
                 dropdownModel = new Backbone.Model(),
                 ExtendedDropdownMenuView,
                 singleKeyDown = function(key) {
-                    $(document.activeElement).simulate('keydown', {keyCode: key });
+                    $(document.activeElement).simulate('keydown', {keyCode: key});
                 },
                 focusTrapDown,
                 focusTrapUp,
@@ -35,7 +35,7 @@ define([
 
                     expect($(document.activeElement)).not.toHaveClass('js-dropdown-button');
 
-                    for (i=0; i<listLength; i++) {
+                    for (i = 0; i < listLength; i++) {
                         singleKeyDown(key);
                     }
                 }, timeoutInt);
@@ -50,8 +50,8 @@ define([
                 }, timeoutInt * 3);
 
                 jasmine.clock().tick(timeoutInt + 1);
-                jasmine.clock().tick((timeoutInt * 2 ) + 1);
-                jasmine.clock().tick((timeoutInt * 3 ) + 1);
+                jasmine.clock().tick((timeoutInt * 2) + 1);
+                jasmine.clock().tick((timeoutInt * 3) + 1);
             };
 
             focusTrapUp = function(key) {
@@ -78,8 +78,8 @@ define([
                 }, timeoutInt * 3);
 
                 jasmine.clock().tick(timeoutInt + 1);
-                jasmine.clock().tick((timeoutInt * 2 ) + 1);
-                jasmine.clock().tick((timeoutInt * 3 ) + 1);
+                jasmine.clock().tick((timeoutInt * 2) + 1);
+                jasmine.clock().tick((timeoutInt * 3) + 1);
             };
 
             menuIsClosed = function($btn, $menu) {
@@ -165,7 +165,7 @@ define([
                 }, timeoutInt * 2);
 
                 jasmine.clock().tick(timeoutInt + 1);
-                jasmine.clock().tick((timeoutInt * 2 ) + 1);
+                jasmine.clock().tick((timeoutInt * 2) + 1);
             };
 
             beforeEach(function() {
@@ -221,7 +221,7 @@ define([
                 jasmine.clock().uninstall();
             });
 
-            describe('Default icon useage', function() {
+            describe('Default icon usage', function() {
                 beforeEach(function() {
                     view = new ExtendedDropdownMenuView({
                         className: 'wrapper-more-actions user-menu logged-in',
@@ -346,14 +346,14 @@ define([
                 });
             });
 
-            describe('Pattern Library icon useage', function() {
+            describe('Pattern Library icon usage', function() {
                 beforeEach(function() {
                     dropdownModel.set({
                         button: {
                             icon: 'icon-angle-down',
                             label: 'User options dropdown'
                         }
-                    })
+                    });
                     view = new ExtendedDropdownMenuView({
                         className: 'wrapper-more-actions user-menu logged-in',
                         menuId: 'edx-user-menu',
