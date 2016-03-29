@@ -4,7 +4,7 @@
  * In particular, these functions default to being safe against
  * Cross Site Scripting (XSS) attacks.
  */
-(function(define) {
+;(function(define) {
     'use strict';
     define(['underscore', 'jquery', 'edx-ui-toolkit/js/utils/string-utils'], function(_, $, StringUtils) {
         var ensureHtml, interpolateHtml, joinHtml, HTML, template, setHtml, append, prepend;
@@ -89,8 +89,8 @@
          *   'You are enrolling in <span class="course-title">Rock &amp; Roll 101</span>'
          *
          * Note: typically the formatString will need to be internationalized, in which
-         * case it will be wrapped with a call to an i18n lookup function. In Django,
-         * this would look like:
+         * case it will be wrapped with a call to an i18n lookup function. If using
+         * the Django i18n library this would look like:
          *
          *   HtmlUtils.interpolateHtml(
          *       gettext('You are enrolling in {spanStart}{courseName}{spanEnd}'),
@@ -137,7 +137,8 @@
          * Note: This helper function makes the following context parameters
          * available to the template in addition to those passed in:
          *
-         *   * HtmlUtils: the HtmlUtils helper class
+         *   - HtmlUtils: the HtmlUtils helper class
+         *   - StringUtils: the StringUtils helper class
          *
          * @param {string} text
          * @param {object} settings
@@ -149,7 +150,8 @@
                 template = function(data) {
                     var augmentedData = _.extend(
                         {
-                            HtmlUtils: HtmlUtils
+                            HtmlUtils: HtmlUtils,
+                            StringUtils: StringUtils
                         },
                         data || {}
                     );
@@ -218,4 +220,13 @@
             template: template
         };
     });
-}).call(this, define || RequireJS.define);
+}).call(
+    this,
+    // Pick a define function as follows:
+    // 1. Use the default 'define' function if it is available
+    // 2. If not, use 'RequireJS.define' if that is available
+    // 3. else use the GlobalLoader to install the class into the edx namespace
+    typeof define === 'function' && define.amd ? define :
+        (typeof RequireJS !== 'undefined' ? RequireJS.define :
+            edx.GlobalLoader.defineAs('HtmlUtils', 'edx-ui-toolkit/js/utils/html-utils'))
+);

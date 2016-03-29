@@ -387,4 +387,8 @@
 
         return PagingCollection;
     });
-}).call(this, define || RequireJS.define);
+}).call(
+    this,
+    // Use the default 'define' function if available, else use 'RequireJS.define'
+    typeof define === 'function' && define.amd ? define : RequireJS.define
+);
