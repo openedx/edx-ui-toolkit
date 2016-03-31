@@ -4,7 +4,7 @@
             'backbone',
             'jquery',
             'underscore',
-            '../utils/constants.js',
+            'edx-ui-toolkit/js/utils/constants',
             'text!./dropdown.underscore'
         ],
         function(Backbone, $, _, constants, DropdownTpl) {
@@ -16,29 +16,29 @@
              *  className: 'space separated string of classes for element',
              *  model: with the following attributes (example values added)
              *      main: {
-         *          image: 'http://placehold.it/40x40'',
-         *          screenreader_label: 'Dashboard for: ',
-         *          text: 'username',
-         *          url: 'dashboard'
-         *      },
+             *          image: 'http://placehold.it/40x40'',
+             *          screenreader_label: 'Dashboard for: ',
+             *          text: 'username',
+             *          url: 'dashboard'
+             *      },
              *      button: {
-         *          icon: 'icon-angle-down',
-         *          label: 'User options dropdown'
-         *      },
+             *          icon: 'icon-angle-down',
+             *          label: 'User options dropdown'
+             *      },
              *      items: [
              *          {
-         *              text: 'Dashboard',
-         *              url: 'dashboard'
-         *          }, {
-         *              text: 'Account',
-         *              url: 'account_settings'
-         *          }, {
-         *              text: 'Profile',
-         *              url: 'learner_profile'
-         *          }, {
-         *              text: 'Sign Out',
-         *              url: 'logout'
-         *          }
+             *              text: 'Dashboard',
+             *              url: 'dashboard'
+             *          }, {
+             *              text: 'Account',
+             *              url: 'account_settings'
+             *          }, {
+             *              text: 'Profile',
+             *              url: 'learner_profile'
+             *          }, {
+             *              text: 'Sign Out',
+             *              url: 'logout'
+             *          }
              *      ]
              *  parent: 'selecter for parent element that will be replaced with dropdown menu'
              *
