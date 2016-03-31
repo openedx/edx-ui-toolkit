@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.9.1 (2016-03-31)
+* Fixed relative path issue with dropdown menu component
+
+- - -
+
 ## 0.9.0 (2016-03-30)
 * Support loading utility classes into "edx" namespace if RequireJS not available
 * Make StringUtils available as a context parameter to templates
