@@ -59,7 +59,7 @@ To run tests in headless mode:
 
 To run tests in debug mode:
 
-        $ gulp test_debug
+        $ gulp test-debug
 
 Once tests are running in debug mode, open this URL:
 
