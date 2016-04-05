@@ -13,6 +13,9 @@
     "javascript"
   ],
   "homepage": "https://github.com/edx/edx-ui-toolkit",
+  "scripts": {
+    "test": "gulp test"
+  },
   "dependencies": {
     "backbone": "~1.2.3",
     "backbone.paginator": "~2.0.3",
