@@ -150,7 +150,19 @@ define(['jquery',
                 collection.registerFilterableField('test_field_3', 'Test Field 3');
                 collection.setFilterField('test_field_1', 'test_value_1');
                 collection.setFilterField('test_field_3', 'test_value_3');
-                expect(collection.getActiveFilterFields()).toEqual(['test_field_1', 'test_field_3']);
+                expect(collection.getActiveFilterFields())
+                    .toEqual({test_field_1: 'test_value_1', test_field_3: 'test_value_3'});
+            });
+
+            it('can get the value of a particular filter field', function () {
+                collection.registerFilterableField('test_field_1', 'Test Field 1');
+                collection.registerFilterableField('test_field_2', 'Test Field 2');
+                collection.setFilterField('test_field_1', 'test_value_1');
+                expect(collection.getFilterFieldValue('test_field_1')).toEqual('test_value_1');
+                collection.unsetFilterField('test_field_1');
+                expect(collection.getFilterFieldValue('test_field_1')).toBe(undefined);
+                expect(collection.getFilterFieldValue('test_field_2')).toBe(undefined);
+                expect(collection.getFilterFieldValue('no_such_field')).toBe(undefined);
             });
 
             it('can set the sort direction', AjaxHelpers.requests(
