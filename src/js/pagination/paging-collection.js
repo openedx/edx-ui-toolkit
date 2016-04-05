@@ -302,14 +302,30 @@
             },
 
             /**
-             * Gets an array of currently active (applied) filters.
-             * @returns {Array} An array of filter field names which are
-             *     currently applied to the collection.
+             * Gets an object of currently active (applied) filters.
+             * @returns {Object} An object mapping the names of
+             *     currently active filter fields to their values.
              */
             getActiveFilterFields: function () {
-                return _.chain(this.filterableFields).pick(function (fieldData, fieldName) {
-                    return !_.isNull(fieldData.value) && !_.isUndefined(fieldData.value);
-                }).keys().value();
+                return _.chain(this.filterableFields)
+                    .pick(function (fieldData, fieldName) {
+                        return !_.isNull(fieldData.value) && !_.isUndefined(fieldData.value);
+                    })
+                    .mapObject(function (data) {
+                        return data.value;
+                    })
+                    .value();
+            },
+
+            /**
+             * Gets the value of the given filter field.
+             *
+             * @returns {String} the current value of the requested
+             *     filter field.  null or undefined means that the
+             *     filter field is not active.
+             */
+            getFilterFieldValue: function (filterFieldName) {
+                return this.getActiveFilterFields()[filterFieldName];
             },
 
             /**
