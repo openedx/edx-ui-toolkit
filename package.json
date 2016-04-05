@@ -32,7 +32,6 @@
     "gulp-coveralls": "~0.1.4",
     "gulp-jscs": "~3.0.2",
     "gulp-jshint": "~2.0.0",
-    "gulp-karma": "~0.0.5",
     "gulp-util": "~3.0.7",
     "jasmine": "~2.4.1",
     "jasmine-core": "~2.4.1",
