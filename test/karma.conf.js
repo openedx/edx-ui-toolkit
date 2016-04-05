@@ -83,8 +83,7 @@ module.exports = function(config, options) {
             reporters: [
                 {type: 'html', subdir: 'coverage-js/html'},
                 {type: 'cobertura', file: 'coverage.xml'},
-                {type: 'lcov', dir: 'coverage/'},
-                {type: 'text-summary'}
+                {type: 'lcov', dir: 'coverage/'}
             ]
         },
 
