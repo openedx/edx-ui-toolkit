@@ -5,7 +5,7 @@
         gulp = require('gulp'),
         paths = {
             lint: [
-                'test/**/*.js',
+                'test/**/!(jquery.simulate)*.js',
                 'components/**/*.js',
                 'gulp/tasks/*.js',
                 'gulpfile.js'
