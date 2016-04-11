@@ -6,6 +6,7 @@ A JavaScript toolkit for building edX user interfaces.
 [![npm version](https://badge.fury.io/js/edx-ui-toolkit.svg)](https://badge.fury.io/js/edx-ui-toolkit)
 [![Bower version](https://badge.fury.io/bo/edx-ui-toolkit.svg)](https://badge.fury.io/bo/edx-ui-toolkit)
 [![CoverageStatus](https://img.shields.io/coveralls/edx/edx-ui-toolkit.svg)](https://coveralls.io/r/edx/edx-ui-toolkit?branch=master)
+
 - - -
 
 ## Table of Contents
@@ -16,6 +17,7 @@ A JavaScript toolkit for building edX user interfaces.
 5. [Getting Started](#getting-started)
 6. [Linting](#linting)
 7. [Tests](#tests)
+8. [Documentation](#documentation)
 
 - - -
 
@@ -37,8 +39,8 @@ Contributions are very welcome. The easiest way is to fork this repo, and then
 make a pull request from your fork. The first time you make a pull request, you
 may be asked to sign a Contributor Agreement.
 
-Please refer to our [contributor guidelines](https://github.com/edx/edx-platform/blob/master/CONTRIBUTING.rst) 
-in the main edx-platform repo for important additional information.
+Please refer to our [contributor guidelines](https://github.com/edx/edx-ui-toolkit/blob/master/CONTRIBUTING.md) 
+for important additional information.
 
 ## Getting Started
 
@@ -64,3 +66,15 @@ To run tests in debug mode:
 Once tests are running in debug mode, open this URL:
 
         http://localhost:9009/debug.html
+
+## Documentation
+
+The UI Toolkit has auto-generated documentation available here: [http://ui-toolkit.edx.org/](http://ui-toolkit.edx.org/).
+
+To generate this documentation, run the following command:
+
+        $ gulp doc
+        
+To upload a preview of the documentation to S3:
+        
+        $ gulp preview

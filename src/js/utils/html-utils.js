@@ -2,7 +2,12 @@
  * Useful functions for dealing with HTML.
  *
  * In particular, these functions default to being safe against
- * Cross Site Scripting (XSS) attacks.
+ * Cross Site Scripting (XSS) attacks. You can read more about
+ * the best practices for handling proper escaping in the Open edX
+ * platform with
+ * [Preventing Cross Site Scripting Vulnerabilities](http://edx.readthedocs.org/projects/edx-developer-guide/en/latest/conventions/safe_templates.html).
+ *
+ * @module HtmlUtils
  */
 ;(function(define) {
     'use strict';
@@ -14,11 +19,10 @@
          *
          * The intention of an HTML snippet is to communicate that the string
          * it represents contains HTML that has been safely escaped as necessary.
-         * As an example, this allows interpolate to understand that
+         * As an example, this allows `HtmlUtils.interpolate` to understand that
          * it does not need to further escape this HTML.
          *
          * @param {string} htmlString The string of HTML.
-         * @constructor
          */
         function HtmlSnippet(htmlString) {
             this.text = htmlString;
@@ -38,7 +42,6 @@
          *
          * @param {string} htmlString The string of HTML.
          * @returns {HtmlSnippet} An HTML snippet that can be safely rendered.
-         * @constructor
          */
         HTML = function(htmlString) {
             return new HtmlSnippet(htmlString);
@@ -67,7 +70,7 @@
          * Returns an HTML snippet by interpolating the provided parameters.
          *
          * The text is provided as a tokenized format string where parameters
-         * are indicated via curly braces, e.g. 'Hello {name}'. These tokens are
+         * are indicated via curly braces, e.g. `'Hello {name}'`. These tokens are
          * replaced by the parameter value of the same name.
          *
          * Parameter values will be rendered using their toString methods and then
@@ -76,26 +79,34 @@
          * already valid HTML.
          *
          * Example:
-         *   HtmlUtils.interpolateHtml(
-         *       'You are enrolling in {spanStart}{courseName}{spanEnd}',
-         *       {
-         *           courseName: 'Rock & Roll 101',
-         *           spanStart: HtmlUtils.HTML('<span class="course-title">'),
-         *           spanEnd: HtmlUtils.HTML('</span>')
-         *       }
-         *   );
+         *
+         *~~~ javascript
+         * HtmlUtils.interpolateHtml(
+         *     'You are enrolling in {spanStart}{courseName}{spanEnd}',
+         *     {
+         *         courseName: 'Rock & Roll 101',
+         *         spanStart: HtmlUtils.HTML('<span class="course-title">'),
+         *         spanEnd: HtmlUtils.HTML('</span>')
+         *     }
+         * );
+         *~~~
          *
          * returns:
-         *   'You are enrolling in <span class="course-title">Rock &amp; Roll 101</span>'
+         *
+         *~~~ javascript
+         * 'You are enrolling in <span class="course-title">Rock &amp; Roll 101</span>'
+         *~~~
          *
          * Note: typically the formatString will need to be internationalized, in which
          * case it will be wrapped with a call to an i18n lookup function. If using
          * the Django i18n library this would look like:
          *
-         *   HtmlUtils.interpolateHtml(
-         *       gettext('You are enrolling in {spanStart}{courseName}{spanEnd}'),
-         *       ...
-         *   );
+         *~~~ javascript
+         * HtmlUtils.interpolateHtml(
+         *     gettext('You are enrolling in {spanStart}{courseName}{spanEnd}'),
+         *     ...
+         * );
+         *~~~
          *
          * @param {string} formatString The string to be interpolated.
          * @param {Object} parameters An optional set of parameters for interpolation.
@@ -137,8 +148,8 @@
          * Note: This helper function makes the following context parameters
          * available to the template in addition to those passed in:
          *
-         *   - HtmlUtils: the HtmlUtils helper class
-         *   - StringUtils: the StringUtils helper class
+         *   - `HtmlUtils`: the `HtmlUtils` helper class
+         *   - `StringUtils`: the `StringUtils` helper class
          *
          * @param {string} text
          * @param {object} settings
@@ -161,7 +172,7 @@
         };
 
         /**
-         * A wrapper for $.html that safely escapes the provided HTML.
+         * A wrapper for `$.html` that safely escapes the provided HTML.
          *
          * If the HTML is provided as an HTML snippet then it is used directly.
          * If the value is a string then it is assumed to be unescaped and
@@ -177,7 +188,7 @@
         };
 
         /**
-         * A wrapper for $.append that safely escapes the provided HTML.
+         * A wrapper for `$.append` that safely escapes the provided HTML.
          *
          * If the HTML is provided as an HTML snippet then it is used directly.
          * If the value is a string then it is assumed to be unescaped and
@@ -193,7 +204,7 @@
         };
 
         /**
-         * A wrapper for $.prepend that safely escapes the provided HTML.
+         * A wrapper for `$.prepend` that safely escapes the provided HTML.
          *
          * If the HTML is provided as an HTML snippet then it is used directly.
          * If the value is a string then it is assumed to be unescaped and

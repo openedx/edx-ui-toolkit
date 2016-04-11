@@ -9,18 +9,21 @@
  * one indexed interface to make consumption easier for views.
  *
  * Subclasses may want to override the following properties:
- *      - url (string): The base url for the API endpoint.
- *      - state (object): Object to overrride default state values
- *        provided to Backbone.paginator.
- *      - queryParams (object): Specifies Query parameters for the API
- *        call using the Backbone.paginator API.  In the case of built-
- *        in Backbone.paginator state keys, this maps those state keys
- *        to query parameter keys.  queryParams can also map query
- *        parameter keys to functions providing values for such keys.
- *        Subclasses may add entries as necessary. By default,
- *        'sort_order' is the query parameter used for sorting, with
- *        values of 'asc' for increasing sort and 'desc' for decreasing
- *        sort.
+ *
+ * - url (`string`): The base URL for the API endpoint.
+ * - state (`object`): Object to overrride default state values
+ *   provided to `Backbone.paginator`.
+ * - queryParams (`object`): Specifies Query parameters for the API
+ *   call using the `Backbone.paginator` API.  In the case of built-
+ *   in `Backbone.paginator` state keys, this maps those state keys
+ *   to query parameter keys.  queryParams can also map query
+ *   parameter keys to functions providing values for such keys.
+ *   Subclasses may add entries as necessary. By default,
+ *   `'sort_order'` is the query parameter used for sorting, with
+ *   values of `'asc'` for increasing sort and `'desc'` for decreasing
+ *   sort.
+ *
+ * @module PagingCollection
  */
 ;(function (define) {
     'use strict';
@@ -87,6 +90,8 @@
              * Returns the current page number as if numbering starts on
              * page one, regardless of the indexing of the underlying
              * server API.
+             *
+             * @returns {integer} The current page number.
              */
             getPageNumber: function () {
                 return this.state.currentPage + (1 - this.state.firstPage);
@@ -99,7 +104,8 @@
              * page, the Backbone 'error' event is triggered and the
              * page does not change. A 'page_changed' event is triggered
              * on a successful page change.
-             * @param page one-indexed page to change to
+             *
+             * @param page {integer} one-indexed page to change to.
              */
             setPage: function (page) {
                 var oldPage = this.state.currentPage,
@@ -121,6 +127,7 @@
 
             /**
              * Refreshes the collection if it has been marked as stale.
+             *
              * @returns {promise} Returns a promise representing the
              *     refresh.
              */
@@ -140,6 +147,8 @@
             /**
              * Returns true if the collection has a next page, false
              * otherwise.
+             *
+             * @returns {boolean} Returns true if the collection has a next page.
              */
             hasNextPage: function () {
                 return this.getPageNumber() < this.state.totalPages;
@@ -148,6 +157,8 @@
             /**
              * Returns true if the collection has a previous page, false
              * otherwise.
+             *
+             * @returns {boolean} Returns true if the collection has a previous page.
              */
             hasPreviousPage: function () {
                 return this.getPageNumber() > 1;
@@ -174,8 +185,9 @@
             /**
              * Adds the given field to the list of fields that can be
              * sorted on.
-             * @param fieldName name of the field for the server API
-             * @param displayName name of the field to display to the
+             *
+             * @param fieldName {string} name of the field for the server API
+             * @param displayName {string} name of the field to display to the
              *     user
              */
             registerSortableField: function (fieldName, displayName) {
@@ -185,8 +197,9 @@
             /**
              * Adds the given field to the list of fields that can be
              * filtered on.
-             * @param fieldName name of the field for the server API
-             * @param displayName name of the field to display to the
+             *
+             * @param fieldName {string} name of the field for the server API
+             * @param displayName {string} name of the field to display to the
              *     user
              */
             registerFilterableField: function (fieldName, displayName) {
@@ -196,9 +209,9 @@
             /**
              * For internal use only. Adds the given field to the given
              * collection of fields.
-             * @param fields object of existing fields
-             * @param fieldName name of the field for the server API
-             * @param displayName name of the field to display to the
+             * @param fields {object} object of existing fields
+             * @param fieldName {string} name of the field for the server API
+             * @param displayName {string} name of the field to display to the
              *     user
              */
             addField: function (fields, fieldName, displayName) {
@@ -210,6 +223,8 @@
             /**
              * Returns the display name of the field that the collection
              * is currently sorted on.
+             *
+             * @returns {string} The display name of the sort field.
              */
             sortDisplayName: function () {
                 if (this.state.sortKey) {
@@ -220,9 +235,11 @@
             },
 
             /**
-             * Returns the display name of a filterable field.
-             * @param fieldName querystring parameter name for the
+             * Returns the display name of a specified filterable field.
+             *
+             * @param fieldName {string} querystring parameter name for the
              *     filterable field
+             * @returns {string} The display name of the specified filterable field.
              */
             filterDisplayName: function (fieldName) {
                 if (!_.isUndefined(this.filterableFields[fieldName])) {
@@ -235,8 +252,9 @@
             /**
              * Sets the field to sort on and marks the collection as
              * stale.
-             * @param fieldName name of the field to sort on
-             * @param toggleDirection if true, the sort direction is
+             *
+             * @param fieldName {string} name of the field to sort on
+             * @param toggleDirection {boolean} if true, the sort direction is
              *     toggled if the given field was already set
              */
             setSortField: function (fieldName, toggleDirection) {
@@ -249,6 +267,13 @@
 
             /**
              * Returns the direction of the current sort.
+             *
+             * The return value is one of the following:
+             *
+             * - `asc` - indicates that the sort is ascending.
+             * - `desc` - indicates that the sort is descending.
+             *
+             * @returns {string} Returns the direction of the current sort.
              */
             sortDirection: function () {
                 return (this.state.order === -1) ?
@@ -260,7 +285,8 @@
              * Sets the direction of the sort and marks the collection
              * as stale.  Assumes (and requires) that the sort key has
              * already been set.
-             * @param direction either ASCENDING or DESCENDING from
+             *
+             * @param direction {string} either ASCENDING or DESCENDING from
              *     PagingCollection.SortDirection.
              */
             setSortDirection: function (direction) {
@@ -288,13 +314,23 @@
             /**
              * Returns whether this collection has defined a given
              * filterable field.
-             * @param fieldName querystring parameter name for the
+             *
+             * @param fieldName {string} querystring parameter name for the
              *     filterable field
+             * @return {boolean} Returns true if this collection has the specified field.
              */
             hasRegisteredFilterField: function (fieldName) {
-                return _.has(this.filterableFields, fieldName) && !_.isUndefined(this.filterableFields[fieldName].displayName);
+                return _.has(this.filterableFields, fieldName) &&
+                    !_.isUndefined(this.filterableFields[fieldName].displayName);
             },
 
+            /**
+             * Returns whether this collection has set a filterable field.
+             *
+             * @param fieldName {string} querystring parameter name for the
+             *     filterable field
+             * @return {boolean} Returns true if this collection has set the specified field.
+             */
             hasSetFilterField: function (fieldName) {
                 return _.has(this.filterableFields, fieldName) && !_.isNull(this.filterableFields[fieldName].value);
             },
@@ -335,9 +371,10 @@
             /**
              * Sets a filter field to a given value and marks the
              * collection as stale.
-             * @param fieldName querystring parameter name for the
+             *
+             * @param fieldName {string} querystring parameter name for the
              *     filterable field
-             * @param value value for the filterable field
+             * @param value {*} value for the filterable field
              */
             setFilterField: function (fieldName, value) {
                 var queryStringValue;
@@ -359,7 +396,8 @@
             /**
              * Unsets a filterable field and marks the collection as
              * stale.
-             * @param fieldName querystring parameter name for the
+             *
+             * @param fieldName {string} querystring parameter name for the
              *     filterable field
              */
             unsetFilterField: function (fieldName) {
@@ -399,7 +437,8 @@
             /**
              * Sets the string to use for a text search and marks the
              * collection as stale.
-             * @param searchString A string to search on, or null if no
+             *
+             * @param searchString {string} A string to search on, or null if no
              *     search is to be applied.
              */
             setSearchString: function (searchString) {
