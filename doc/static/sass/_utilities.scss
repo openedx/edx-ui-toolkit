@@ -1,0 +1,41 @@
+// ------------------------------
+// edX Pattern Library Site: Utilities
+
+// About: configuration, functions, variables, mixins, and general helpers for rendering.
+
+// ------------------------------
+// #VARIABLES
+// ------------------------------
+// pl UI
+$doc-content-supplemental-width:  rem(330); // width of supplemental content sidebar
+$doc-tab-label-height:            rem(4);  // height of tab labels
+$doc-ui-toolkit-color:            rgb(255, 222, 32);
+$doc-link-color:                  palette(primary, x-accent);
+
+
+// ------------------------------
+// #HELPERS
+// ------------------------------
+
+%grid-wrapper {
+    padding-right: spacing-horizontal(base);
+    padding-left: spacing-horizontal(base);
+}
+
+// ------------------------------
+// #BASE RESET
+// ------------------------------
+// basic
+html, body {
+    height: 100%;
+    color: $text-base-color;
+}
+
+.doc {
+    @extend %depth-0;
+    background-color: palette(grayscale, white);
+}
+
+a {
+    color: $doc-link-color;
+}

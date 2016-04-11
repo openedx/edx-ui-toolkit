@@ -1,0 +1,61 @@
+# UI Toolkit Jekyll configuration
+
+title: edX UI Toolkit
+short_title: UI Toolkit
+tagline: A JavaScript library for building edX front end applications.
+
+author:
+    name: edX UI Toolkit Team
+    url: http://www.edx.org
+    email: npmjs@edx.org
+
+url: http://ui-toolkit.edx.org
+
+baseurl: /
+permalink: /:categories/:title/
+
+source: ./doc
+
+exclude: [
+    "bower.json",
+    "doc",
+    "Gemfile",
+    "Gemfile.lock",
+    "gulp",
+    "gulpfile.js",
+    "node_modules",
+    "package.json"
+]
+
+defaults:
+  -
+    scope:
+      path: ""
+      type: "testing"
+    values:
+      layout: "default"
+  -
+    scope:
+      path: ""
+      type: "utilities"
+    values:
+      layout: "default"
+  -
+    scope:
+      path: ""
+      type: "views"
+    values:
+      layout: "default"
+
+collections:
+    testing:
+        output: true
+    utilities:
+        output: true
+    views:
+        output: true
+
+markdown: kramdown
+highlighter: rouge
+
+port: 5000

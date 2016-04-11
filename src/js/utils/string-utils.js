@@ -1,5 +1,7 @@
 /**
  * Useful functions for dealing with strings.
+ *
+ * @module StringUtils
  */
 ;(function(define) {
     'use strict';
@@ -19,26 +21,31 @@
          * already valid HTML.
          *
          * Example:
-         *   HtmlUtils.interpolate(
-         *       'You are enrolling in {spanStart}{courseName}{spanEnd}',
-         *       {
-         *           courseName: 'Rock & Roll 101',
-         *           spanStart: HtmlUtils.HTML('<span class="course-title">'),
-         *           spanEnd: HtmlUtils.HTML('</span>')
-         *       }
-         *   );
+         *
+         *~~~ javascript
+         *    HtmlUtils.interpolate(
+         *        'You are enrolling in {spanStart}{courseName}{spanEnd}',
+         *        {
+         *            courseName: 'Rock & Roll 101',
+         *            spanStart: HtmlUtils.HTML('<span class="course-title">'),
+         *            spanEnd: HtmlUtils.HTML('</span>')
+         *        }
+         *    );
+         *~~~
          *
          * returns:
-         *   'You are enrolling in <span class="course-title">Rock &amp; Roll 101</span>'
+         *   `'You are enrolling in <span class="course-title">Rock &amp; Roll 101</span>'`
          *
          * Note: typically the formatString will need to be internationalized, in which
          * case it will be wrapped with a call to an i18n lookup function. In Django,
          * this would look like:
          *
-         *   HtmlUtils.interpolate(
-         *       gettext('You are enrolling in {spanStart}{courseName}{spanEnd}'),
-         *       ...
-         *   );
+         *~~~ javascript
+         *    HtmlUtils.interpolate(
+         *        gettext('You are enrolling in {spanStart}{courseName}{spanEnd}'),
+         *        ...
+         *    );
+         *~~~
          *
          * @param {string} formatString The string to be interpolated.
          * @param {Object} parameters An optional set of parameters to the template.
