@@ -1,9 +1,14 @@
 /**
  * Reusable constants
+ *
+ * @module constants
  */
 ;(function(define) {
     'use strict';
     define([], function() {
+        /**
+         * @member {Object} keyCodes A mapping of key names to their corresponding codes.
+         */
         return {
             keyCodes: {
                 tab: 9,

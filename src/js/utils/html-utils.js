@@ -3,6 +3,8 @@
  *
  * In particular, these functions default to being safe against
  * Cross Site Scripting (XSS) attacks.
+ *
+ * @module HtmlUtils
  */
 ;(function(define) {
     'use strict';
@@ -18,7 +20,6 @@
          * it does not need to further escape this HTML.
          *
          * @param {string} htmlString The string of HTML.
-         * @constructor
          */
         function HtmlSnippet(htmlString) {
             this.text = htmlString;
@@ -38,7 +39,6 @@
          *
          * @param {string} htmlString The string of HTML.
          * @returns {HtmlSnippet} An HTML snippet that can be safely rendered.
-         * @constructor
          */
         HTML = function(htmlString) {
             return new HtmlSnippet(htmlString);

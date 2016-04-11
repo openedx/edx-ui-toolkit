@@ -1,3 +1,8 @@
+/**
+ * Disclosure View description goes here...
+ * 
+ * @module js/disclosure/disclosure-view
+ */
 ;(function(define) {
     'use strict';
 
@@ -9,6 +14,8 @@
              * Set the following data attributes on the element:
              *  - data-collapsed-text: text to display when content collapsed
              *  - data-expanded-text: text to display when content expanded
+             *
+             * @class DisclosureView
              */
             var DisclosureView = Backbone.View.extend({
 

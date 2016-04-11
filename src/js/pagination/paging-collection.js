@@ -21,6 +21,8 @@
  *        'sort_order' is the query parameter used for sorting, with
  *        values of 'asc' for increasing sort and 'desc' for decreasing
  *        sort.
+ *
+ * @class PagingCollection
  */
 ;(function (define) {
     'use strict';

@@ -1,5 +1,7 @@
 /**
  * Useful functions for dealing with strings.
+ *
+ * @module StringUtils
  */
 ;(function(define) {
     'use strict';

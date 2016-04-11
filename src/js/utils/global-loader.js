@@ -1,5 +1,7 @@
 /**
  * An AMD loader that installs modules into the global edx namespace.
+ *
+ * @module GlobalLoader
  */
 (function() {
     'use strict';

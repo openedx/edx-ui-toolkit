@@ -41,7 +41,7 @@
              *          }
              *      ]
              *  parent: 'selecter for parent element that will be replaced with dropdown menu'
-             *
+             * @class DropdownMenuView
              */
             var DropdownMenuView = Backbone.View.extend({
                 tpl: _.template(DropdownTpl),
