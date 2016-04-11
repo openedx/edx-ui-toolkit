@@ -48,6 +48,9 @@ Desktop.ini
 # UI Toolkit
 *.map
 .sass-cache
+doc/public
+doc/_utilities
+doc/_views
 node_modules
 _preview_site
 _site
