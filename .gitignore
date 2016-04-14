@@ -20,6 +20,7 @@ build
 *.log
 
 # IDE
+.idea/
 .project
 .pydevproject
 .settings
@@ -44,7 +45,13 @@ tramp
 Thumbs.db
 Desktop.ini
 
-.idea/
-node_modules/
-bower_components/
-coverage/
+# UI Toolkit
+*.map
+.sass-cache
+doc/public
+doc/_utilities
+doc/_views
+node_modules
+_preview_site
+_site
+_tmp_preview_config.yml
