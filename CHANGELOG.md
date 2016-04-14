@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.10.0 (2016-04-14)
+* Update README to gulp test-debug (with a hyphen)
+* Update getActivefilterfields, add getFilterFieldValue
+* Fix issues with karma hanging on exit
+
+- - -
 ## 0.9.1 (2016-03-31)
 * Fixed relative path issue with dropdown menu component
 
@@ -20,7 +26,7 @@
 
 ## 0.7.0 (2016-03-22)
 * Dropdown Menu improved a11y to trap focus in the dropdown for
-* tab navigation and added a11y test coverage 
+* tab navigation and added a11y test coverage
 * Dropdown Menu updated to utilize Pattern Library classes for styling
 * and can add Pattern Library icons by passing an icon class via the model
 
