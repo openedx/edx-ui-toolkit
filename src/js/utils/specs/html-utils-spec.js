@@ -226,6 +226,28 @@ define(
                     expect($element.html()).toEqual(expectedString + '<p>Hello, world</p>');
                 });
             });
+
+            describe('forJQuery', function() {
+                SpecHelpers.withData({
+                    'HTML escapes text strings': [
+                        'Rock & Roll',
+                        'Rock &amp; Roll'
+                    ],
+                    'HTML escapes full HTML strings': [
+                        '<a href="world">Rock &amp; Roll</a>',
+                        '&lt;a href="world"&gt;Rock &amp;amp; Roll&lt;/a&gt;'
+                    ],
+                    'does not escape HTML snippets': [
+                        HtmlUtils.HTML('<a href="world">Rock &amp; Roll</a>'),
+                        '<a href="world">Rock &amp; Roll</a>'
+                    ]
+                }, function(input, expectedString) {
+                    // Converts input to HTML as string for use with JQuery
+                    htmlForJQuery = HtmlUtils.forJQuery(input);
+                    expect(htmlForJQuery).toEqual(expectedString);
+                    expect(typeof(htmlForJQuery)).toEqual('string');
+                });
+            });
         });
     }
 );

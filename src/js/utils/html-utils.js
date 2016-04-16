@@ -64,6 +64,23 @@
         };
 
         /**
+         * A function to allow an HTML snippet to be used with any native JQuery
+         * function that takes HTML.
+         *
+         * If an HTML snippet is provided then it is used directly.
+         * If the value is a string then it is assumed to be unescaped and
+         * so it is first escaped before being used.
+         *
+         * @param {(string|HtmlSnippet)} html The desired HTML, either as a
+         * plain string or as an HTML snippet.
+         * @returns {string} An HTML string that can be used with any of the
+         * the JQuery functions that take HTML (e.g. before, after, etc.).
+         */
+        forJQuery = function(html) {
+            return this.ensureHtml(html).toString();
+        };
+
+        /**
          * Returns an HTML snippet by interpolating the provided parameters.
          *
          * The text is provided as a tokenized format string where parameters
@@ -173,7 +190,7 @@
          * @returns {JQuery} The JQuery object representing the element or elements.
          */
         setHtml = function(element, html) {
-            return $(element).html(ensureHtml(html).toString());
+            return $(element).html(forJQuery(html));
         };
 
         /**
@@ -189,7 +206,7 @@
          * @returns {JQuery} The JQuery object representing the element or elements.
          */
         append = function(element, html) {
-            return $(element).append(ensureHtml(html).toString());
+            return $(element).append(forJQuery(html));
         };
 
         /**
@@ -205,12 +222,13 @@
          * @returns {JQuery} The JQuery object representing the element or elements.
          */
         prepend = function(element, html) {
-            return $(element).prepend(ensureHtml(html).toString());
+            return $(element).prepend(forJQuery(html));
         };
 
         return {
             append: append,
             ensureHtml: ensureHtml,
+            forJQuery: forJQuery,
             HTML: HTML,
             HtmlSnippet: HtmlSnippet,
             interpolateHtml: interpolateHtml,
