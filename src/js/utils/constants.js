@@ -1,9 +1,25 @@
 /**
- * Reusable constants
+ * Reusable constants.
  */
 ;(function(define) {
     'use strict';
     define([], function() {
+        /**
+         * Reusable constants.
+         *
+         * ### keyCodes - A mapping of key names to their corresponding codes.
+         *
+         * - `constants.keyCodes.tab` - the tab key
+         * - `constants.keyCodes.enter` - the enter key
+         * - `constants.keyCodes.esc` - the escape key
+         * - `constants.keyCodes.space` - the space key
+         * - `constants.keyCodes.left` - the left arrow key
+         * - `constants.keyCodes.up` - the up arrow key
+         * - `constants.keyCodes.right` - the right arrow key
+         * - `constants.keyCodes.down` - the down arrow key
+         *
+         * @class constants
+         */
         return {
             keyCodes: {
                 tab: 9,

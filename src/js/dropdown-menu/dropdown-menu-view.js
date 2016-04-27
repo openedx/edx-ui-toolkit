@@ -1,3 +1,40 @@
+/**
+ * A Backbone view that renders a fully accessible dropdown menu.
+ *
+ * Initialize the view by passing in the following attributes:
+ *
+ *~~~ javascript
+ *  className: 'space separated string of classes for element',
+ *  model: with the following attributes (example values added)
+ *      main: {
+ *          image: 'http://placehold.it/40x40'',
+ *          screenreader_label: 'Dashboard for: ',
+ *          text: 'username',
+ *          url: 'dashboard'
+ *      },
+ *      button: {
+ *          icon: 'icon-angle-down',
+ *          label: 'User options dropdown'
+ *      },
+ *      items: [
+ *          {
+ *              text: 'Dashboard',
+ *              url: 'dashboard'
+ *          }, {
+ *              text: 'Account',
+ *              url: 'account_settings'
+ *          }, {
+ *              text: 'Profile',
+ *              url: 'learner_profile'
+ *          }, {
+ *              text: 'Sign Out',
+ *              url: 'logout'
+ *          }
+ *      ]
+ *  parent: 'selecter for parent element that will be replaced with dropdown menu'
+ *~~~
+ * @module DropdownMenuView
+ */
 ;(function(define) {
     'use strict';
     define([
@@ -8,41 +45,6 @@
             'text!./dropdown.underscore'
         ],
         function(Backbone, $, _, constants, DropdownTpl) {
-
-            /**
-             *  To render a Dropdown Menu View which is fully accessible
-             *
-             *  Initialize the view by passing in the following attributes
-             *  className: 'space separated string of classes for element',
-             *  model: with the following attributes (example values added)
-             *      main: {
-             *          image: 'http://placehold.it/40x40'',
-             *          screenreader_label: 'Dashboard for: ',
-             *          text: 'username',
-             *          url: 'dashboard'
-             *      },
-             *      button: {
-             *          icon: 'icon-angle-down',
-             *          label: 'User options dropdown'
-             *      },
-             *      items: [
-             *          {
-             *              text: 'Dashboard',
-             *              url: 'dashboard'
-             *          }, {
-             *              text: 'Account',
-             *              url: 'account_settings'
-             *          }, {
-             *              text: 'Profile',
-             *              url: 'learner_profile'
-             *          }, {
-             *              text: 'Sign Out',
-             *              url: 'logout'
-             *          }
-             *      ]
-             *  parent: 'selecter for parent element that will be replaced with dropdown menu'
-             *
-             */
             var DropdownMenuView = Backbone.View.extend({
                 tpl: _.template(DropdownTpl),
 
@@ -93,24 +95,27 @@
                 },
 
                 /**
-                 * Function to track analytics
+                 * Function to track analytics.
+                 *
                  * By default it doesn't do anything, to utilize please
-                 * extend the View (example code commented out in the function)
-                 */
-                analyticsLinkClick: function(event) {
-                    /**
-                     *  Example code:
-                     *
-                     *  var $link = $(event.target),
-                     *      label = $link.hasClass('menu-title') ? 'Dashboard' : $link.html().trim();
-                     *
-                     *  window.analytics.track('user_dropdown.clicked', {
+                 * extend the View and implement a method such as the
+                 * following:
+                 *
+                 *~~~ javascript
+                 *  var $link = $(event.target),
+                 *      label = $link.hasClass('menu-title') ? 'Dashboard' : $link.html().trim();
+                 *
+                 *  window.analytics.track('user_dropdown.clicked', {
                  *      category: 'navigation',
                  *      label: label,
                  *      link: $link.attr('href')
                  *  });
-                     */
-
+                 *~~~
+                 *
+                 * @param {object} event The event to be tracked. 
+                 * @returns {*} The event.
+                 */
+                analyticsLinkClick: function(event) {
                     return event;
                 },
 
@@ -118,14 +123,10 @@
                     var $el = $(event.target) || $(document),
                         $btn;
 
-                    /** When using edX Pattern Library icons the target
-                     *  is sometimes not the button
-                     */
+                    // When using edX Pattern Library icons the target
+                    // is sometimes not the button.
                     if (!$el.hasClass(this.dropdownButton)) {
-                        /**
-                         *  If there is a parent dropdown button
-                         *  that is the element to test
-                         */
+                        // If there is a parent dropdown button that is the element to test
                         $btn = $el.closest(this.dropdownButton);
                         if ($btn.length > 0) {
                             $el = $btn;

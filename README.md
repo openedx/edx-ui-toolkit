@@ -6,6 +6,9 @@ A JavaScript toolkit for building edX user interfaces.
 [![npm version](https://badge.fury.io/js/edx-ui-toolkit.svg)](https://badge.fury.io/js/edx-ui-toolkit)
 [![Bower version](https://badge.fury.io/bo/edx-ui-toolkit.svg)](https://badge.fury.io/bo/edx-ui-toolkit)
 [![CoverageStatus](https://img.shields.io/coveralls/edx/edx-ui-toolkit.svg)](https://coveralls.io/r/edx/edx-ui-toolkit?branch=master)
+
+<a href="https://nodei.co/npm/edx-ui-toolkit/"><img src="https://nodei.co/npm/edx-ui-toolkit.png?downloads=true&downloadRank=true&stars=true"></a>
+
 - - -
 
 ## Table of Contents
