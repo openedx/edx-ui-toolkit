@@ -79,6 +79,7 @@ define(['jquery',
 
             it('can set the sort field', AjaxHelpers.requests(
                 function (requests) {
+                    expect(collection.sortDisplayName()).toBe('');
                     collection.registerSortableField('test_field', 'Test Field');
                     collection.setSortField('test_field', false);
                     collection.refresh();
@@ -97,12 +98,25 @@ define(['jquery',
 
             it('can set a filter field', AjaxHelpers.requests(
                 function (requests) {
+                    expect(collection.filterDisplayName('test_field')).toBe('');
                     collection.registerFilterableField('test_field', 'Test Field');
                     collection.setFilterField('test_field', 'test_value');
                     collection.refresh();
                     assertQueryParams(requests, {'test_field': 'test_value'});
                     expect(collection.filterDisplayName('test_field')).toBe('Test Field');
-                    expect(collection.filterableFields.test_field.value).toBe('test_value');
+                    expect(collection.getFilterFieldValue('test_field')).toBe('test_value');
+                }
+            ));
+
+            it('can set a filter field to an array', AjaxHelpers.requests(
+                function (requests) {
+                    expect(collection.filterDisplayName('test_field')).toBe('');
+                    collection.registerFilterableField('test_field', 'Test Field');
+                    collection.setFilterField('test_field', ['a', 'b', 'c']);
+                    collection.refresh();
+                    assertQueryParams(requests, {'test_field': 'a,b,c'});
+                    expect(collection.filterDisplayName('test_field')).toBe('Test Field');
+                    expect(collection.getFilterFieldValue('test_field')).toEqual(['a', 'b', 'c']);
                 }
             ));
 
@@ -150,8 +164,25 @@ define(['jquery',
                 collection.registerFilterableField('test_field_3', 'Test Field 3');
                 collection.setFilterField('test_field_1', 'test_value_1');
                 collection.setFilterField('test_field_3', 'test_value_3');
+                collection.setSearchString('test string');
                 expect(collection.getActiveFilterFields())
                     .toEqual({test_field_1: 'test_value_1', test_field_3: 'test_value_3'});
+            });
+
+            it('can return the currently active filter fields, including search', function () {
+                var expectedRequestBody;
+                collection.registerFilterableField('test_field', 'Test Field');
+                collection.setFilterField('test_field', 'test value');
+                collection.setSearchString('test search');
+                expectedRequestBody = {test_field: 'test value'};
+                expectedRequestBody[PagingCollection.DefaultSearchKey] = 'test search';
+                expect(collection.getActiveFilterFields(true)).toEqual(expectedRequestBody);
+            });
+
+            it('can tell if there is an active search', function () {
+                expect(collection.hasActiveSearch()).toBe(false);
+                collection.setSearchString('test search');
+                expect(collection.hasActiveSearch()).toBe(true);
             });
 
             it('can get the value of a particular filter field', function () {
@@ -160,9 +191,9 @@ define(['jquery',
                 collection.setFilterField('test_field_1', 'test_value_1');
                 expect(collection.getFilterFieldValue('test_field_1')).toEqual('test_value_1');
                 collection.unsetFilterField('test_field_1');
-                expect(collection.getFilterFieldValue('test_field_1')).toBe(undefined);
-                expect(collection.getFilterFieldValue('test_field_2')).toBe(undefined);
-                expect(collection.getFilterFieldValue('no_such_field')).toBe(undefined);
+                expect(collection.getFilterFieldValue('test_field_1')).toBe(null);
+                expect(collection.getFilterFieldValue('test_field_2')).toBe(null);
+                expect(collection.getFilterFieldValue('no_such_field')).toBe(null);
             });
 
             it('can set the sort direction', AjaxHelpers.requests(
@@ -212,6 +243,12 @@ define(['jquery',
                 collection.unsetSearchString();
                 collection.refresh();
                 expect('text_search' in getUrlParams(requests[requests.length - 1])).not.toBe(true);
+            }));
+
+            it('can get the current search string', AjaxHelpers.requests(function (requests) {
+                collection.setSearchString('test string');
+                collection.refresh();
+                expect(collection.getSearchString()).toBe('test string')
             }));
 
             it('does not refresh itself if the search string is unchanged',
