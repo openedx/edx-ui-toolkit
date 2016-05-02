@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+
+<head>
+    <base href="/">
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="favicon.ico">
+
+    <title>
+        
+        paging-collection &middot; edX UI Toolkit
+        
+    </title>
+
+    <meta name="description" content="A JavaScript library for building edX front end applications.">
+
+    <link rel="stylesheet" type="text/css" href="/public/ui-toolkit.css">
+
+</head>
+
+
+<body class="doc view-view">
+<div class="doc-nav-skip sr-only">
+    <a class="doc-action-skip" href="#content-main">Skip to the main content</a>
+</div>
+
+<hr class="doc-divider sr-only">
+
+<div class="doc-wrapper-view">
+    <div class="doc-wrapper-header-site">
+    <header class="doc-header-site" role="banner" aria-labelledby="doc-header-site-title">
+        <div class="layout-1t2t layout">
+            <main class="layout-col layout-col-a">
+                <h1 id="doc-header-site-title" class="hd-2 de-emphasized doc-header-site-title">
+                    <a href="/">
+                        <img class="doc-header-logo" src="/./static/images/logo-edx.svg"
+                             alt="edX UI Toolkit home" />
+                        <span>UI Toolkit</span>
+                    </a>
+                </h1>
+            </main>
+        </div>
+    </header>
+</div>
+
+
+    <div class="doc-wrapper-content" id="content-top" tabindex="-1">
+        <div class="doc-content">
+            <div class="doc-wrapper-content-supplemental">
+                <nav class="doc-nav doc-nav-internal" role="navigation" aria-label="">
+    <h2 class="doc-heading doc-nav-title hd-6">edX UI Toolkit</h2>
+    <ul class="list-unstyled list-patterns">
+        <li class="item no-indent">
+            <a class="doc-link" href="/">
+            Introduction
+            </a>
+        </li>
+    </ul>
+</nav>
+
+
+<nav class="doc-nav doc-nav-internal" role="navigation" aria-label="Utilities">
+    <h2 class="doc-heading doc-nav-title hd-6">Utilities</h2>
+    <ul class="list-unstyled list-patterns">
+    
+        <li class="item no-indent ">
+            
+                <a class="pattern-title pattern doc-link" href="/./utilities/constants/">
+            
+            constants
+            
+                </a>
+            
+        </li>
+    
+        <li class="item no-indent ">
+            
+                <a class="pattern-title pattern doc-link" href="/./utilities/global-loader/">
+            
+            global-loader
+            
+                </a>
+            
+        </li>
+    
+        <li class="item no-indent ">
+            
+                <a class="pattern-title pattern doc-link" href="/./utilities/html-utils/">
+            
+            html-utils
+            
+                </a>
+            
+        </li>
+    
+        <li class="item no-indent ">
+            
+                <a class="pattern-title pattern doc-link" href="/./utilities/string-utils/">
+            
+            string-utils
+            
+                </a>
+            
+        </li>
+    
+    </ul>
+</nav>
+
+
+
+<nav class="doc-nav doc-nav-internal" role="navigation" aria-label="Views">
+    <h2 class="doc-heading doc-nav-title hd-6">Views</h2>
+    <ul class="list-unstyled list-patterns">
+    
+        <li class="item no-indent ">
+            
+                <a class="pattern-title pattern doc-link" href="/./views/disclosure/disclosure-view/">
+            
+            disclosure-view
+            
+                </a>
+            
+        </li>
+    
+        <li class="item no-indent ">
+            
+                <a class="pattern-title pattern doc-link" href="/./views/dropdown-menu/dropdown-menu-view/">
+            
+            dropdown-menu-view
+            
+                </a>
+            
+        </li>
+    
+        <li class="item no-indent is-current">
+            
+            paging-collection
+            
+        </li>
+    
+    </ul>
+</nav>
+
+
+
+<nav class="doc-nav doc-nav-internal" role="navigation" aria-label="Testing">
+    <h2 class="doc-heading doc-nav-title hd-6">Testing</h2>
+    <ul class="list-unstyled list-patterns">
+    
+        <li class="item no-indent ">
+            
+                <a class="pattern-title pattern doc-link" href="/./testing/ajax-helpers/">
+            
+            ajax-helpers
+            
+                </a>
+            
+        </li>
+    
+        <li class="item no-indent ">
+            
+                <a class="pattern-title pattern doc-link" href="/./testing/spec-helpers/">
+            
+            spec-helpers
+            
+                </a>
+            
+        </li>
+    
+    </ul>
+</nav>
+
+
+            </div>
+
+            <hr class="doc-divider sr-only">
+
+            <div class="doc-wrapper-content-main">
+                <main class="doc-content-main" id="content-main" aria-label="Content">
+                    
+                        <div class="doc-links">
+                            <a rel="external" href="https://github.com/edx/edx-ui-toolkit/blob/master/src/js/pagination/paging-collection.js">
+                                View on Github
+                            </a>
+                        </div>
+                    
+
+                    <h1 id="pagingcollection">PagingCollection</h1>
+
+<p>A generic server paging collection.</p>
+
+<p>By default this collection is designed to work with Django Rest
+Framework APIs, but can be configured to work with others. There is
+support for ascending or descending sort on a particular field, as
+well as filtering on a field. While the backend API may use either
+zero or one indexed page numbers, this collection uniformly exposes a
+one indexed interface to make consumption easier for views.</p>
+
+<p>Subclasses may want to override the following properties:</p>
+
+<ul>
+  <li>url (<code class="highlighter-rouge">string</code>): The base URL for the API endpoint.</li>
+  <li>state (<code class="highlighter-rouge">object</code>): Object to overrride default state values
+provided to <code class="highlighter-rouge">Backbone.paginator</code>.</li>
+  <li>queryParams (<code class="highlighter-rouge">object</code>): Specifies Query parameters for the API
+call using the <code class="highlighter-rouge">Backbone.paginator</code> API.  In the case of built-
+in <code class="highlighter-rouge">Backbone.paginator</code> state keys, this maps those state keys
+to query parameter keys.  queryParams can also map query
+parameter keys to functions providing values for such keys.
+Subclasses may add entries as necessary. By default,
+<code class="highlighter-rouge">'sort_order'</code> is the query parameter used for sorting, with
+values of <code class="highlighter-rouge">'asc'</code> for increasing sort and <code class="highlighter-rouge">'desc'</code> for decreasing
+sort.</li>
+</ul>
+
+<hr />
+
+<h3 id="pagingcollectionparsestate">PagingCollection.parseState()</h3>
+
+<p>Parses state from the server response.  Used only by
+backbone.paginator.</p>
+
+<h3 id="pagingcollectiongetpagenumber">PagingCollection.getPageNumber()</h3>
+
+<p>Returns the current page number as if numbering starts on
+page one, regardless of the indexing of the underlying
+server API.</p>
+
+<p><strong>Returns</strong>: <code class="highlighter-rouge">integer</code>, The current page number.</p>
+
+<h3 id="pagingcollectionsetpagepage">PagingCollection.setPage(page)</h3>
+
+<p>Sets the current page of the collection. Page is assumed
+to be one indexed, regardless of the indexing of the
+underlying server API. If there is an error fetching the
+page, the Backbone ‘error’ event is triggered and the
+page does not change. A ‘page_changed’ event is triggered
+on a successful page change.</p>
+
+<p><strong>Parameters</strong></p>
+
+<p><strong>page</strong>: <code class="highlighter-rouge">integer</code>, one-indexed page to change to.</p>
+
+<h3 id="pagingcollectionrefresh">PagingCollection.refresh()</h3>
+
+<p>Refreshes the collection if it has been marked as stale.</p>
+
+<p><strong>Returns</strong>: <code class="highlighter-rouge">promise</code>, Returns a promise representing the
+    refresh.</p>
+
+<h3 id="pagingcollectionhasnextpage">PagingCollection.hasNextPage()</h3>
+
+<p>Returns true if the collection has a next page, false
+otherwise.</p>
+
+<p><strong>Returns</strong>: <code class="highlighter-rouge">boolean</code>, Returns true if the collection has a next page.</p>
+
+<h3 id="pagingcollectionhaspreviouspage">PagingCollection.hasPreviousPage()</h3>
+
+<p>Returns true if the collection has a previous page, false
+otherwise.</p>
+
+<p><strong>Returns</strong>: <code class="highlighter-rouge">boolean</code>, Returns true if the collection has a previous page.</p>
+
+<h3 id="pagingcollectionnextpage">PagingCollection.nextPage()</h3>
+
+<p>Moves the collection to the next page if it exists.</p>
+
+<h3 id="pagingcollectionpreviouspage">PagingCollection.previousPage()</h3>
+
+<p>Moves the collection to the previous page if it exists.</p>
+
+<h3 id="pagingcollectionregistersortablefieldfieldname-displayname">PagingCollection.registerSortableField(fieldName, displayName)</h3>
+
+<p>Adds the given field to the list of fields that can be
+sorted on.</p>
+
+<p><strong>Parameters</strong></p>
+
+<p><strong>fieldName</strong>: <code class="highlighter-rouge">string</code>, name of the field for the server API</p>
+
+<p><strong>displayName</strong>: <code class="highlighter-rouge">string</code>, name of the field to display to the
+    user</p>
+
+<h3 id="pagingcollectionregisterfilterablefieldfieldname-displayname">PagingCollection.registerFilterableField(fieldName, displayName)</h3>
+
+<p>Adds the given field to the list of fields that can be
+filtered on.</p>
+
+<p><strong>Parameters</strong></p>
+
+<p><strong>fieldName</strong>: <code class="highlighter-rouge">string</code>, name of the field for the server API</p>
+
+<p><strong>displayName</strong>: <code class="highlighter-rouge">string</code>, name of the field to display to the
+    user</p>
+
+<h3 id="pagingcollectionaddfieldfields-fieldname-displayname">PagingCollection.addField(fields, fieldName, displayName)</h3>
+
+<p>For internal use only. Adds the given field to the given
+collection of fields.</p>
+
+<p><strong>Parameters</strong></p>
+
+<p><strong>fields</strong>: <code class="highlighter-rouge">object</code>, object of existing fields</p>
+
+<p><strong>fieldName</strong>: <code class="highlighter-rouge">string</code>, name of the field for the server API</p>
+
+<p><strong>displayName</strong>: <code class="highlighter-rouge">string</code>, name of the field to display to the
+    user</p>
+
+<h3 id="pagingcollectionsortdisplayname">PagingCollection.sortDisplayName()</h3>
+
+<p>Returns the display name of the field that the collection
+is currently sorted on.</p>
+
+<p><strong>Returns</strong>: <code class="highlighter-rouge">string</code>, The display name of the sort field.</p>
+
+<h3 id="pagingcollectionfilterdisplaynamefieldname">PagingCollection.filterDisplayName(fieldName)</h3>
+
+<p>Returns the display name of a specified filterable field.</p>
+
+<p><strong>Parameters</strong></p>
+
+<p><strong>fieldName</strong>: <code class="highlighter-rouge">string</code>, querystring parameter name for the
+    filterable field</p>
+
+<p><strong>Returns</strong>: <code class="highlighter-rouge">string</code>, The display name of the specified filterable field.</p>
+
+<h3 id="pagingcollectionsetsortfieldfieldname-toggledirection">PagingCollection.setSortField(fieldName, toggleDirection)</h3>
+
+<p>Sets the field to sort on and marks the collection as
+stale.</p>
+
+<p><strong>Parameters</strong></p>
+
+<p><strong>fieldName</strong>: <code class="highlighter-rouge">string</code>, name of the field to sort on</p>
+
+<p><strong>toggleDirection</strong>: <code class="highlighter-rouge">boolean</code>, if true, the sort direction is
+    toggled if the given field was already set</p>
+
+<h3 id="pagingcollectionsortdirection">PagingCollection.sortDirection()</h3>
+
+<p>Returns the direction of the current sort.</p>
+
+<p>The return value is one of the following:</p>
+
+<ul>
+  <li><code class="highlighter-rouge">asc</code> - indicates that the sort is ascending.</li>
+  <li><code class="highlighter-rouge">desc</code> - indicates that the sort is descending.</li>
+</ul>
+
+<p><strong>Returns</strong>: <code class="highlighter-rouge">string</code>, Returns the direction of the current sort.</p>
+
+<h3 id="pagingcollectionsetsortdirectiondirection">PagingCollection.setSortDirection(direction)</h3>
+
+<p>Sets the direction of the sort and marks the collection
+as stale.  Assumes (and requires) that the sort key has
+already been set.</p>
+
+<p><strong>Parameters</strong></p>
+
+<p><strong>direction</strong>: <code class="highlighter-rouge">string</code>, either ASCENDING or DESCENDING from
+    PagingCollection.SortDirection.</p>
+
+<h3 id="pagingcollectionflipsortdirection">PagingCollection.flipSortDirection()</h3>
+
+<p>Flips the sort order.</p>
+
+<h3 id="pagingcollectionhasregisteredfilterfieldfieldname">PagingCollection.hasRegisteredFilterField(fieldName)</h3>
+
+<p>Returns whether this collection has defined a given
+filterable field.</p>
+
+<p><strong>Parameters</strong></p>
+
+<p><strong>fieldName</strong>: <code class="highlighter-rouge">string</code>, querystring parameter name for the
+    filterable field</p>
+
+<p><strong>Returns</strong>: <code class="highlighter-rouge">boolean</code>, Returns true if this collection has the specified field.</p>
+
+<h3 id="pagingcollectionhassetfilterfieldfieldname">PagingCollection.hasSetFilterField(fieldName)</h3>
+
+<p>Returns whether this collection has set a filterable field.</p>
+
+<p><strong>Parameters</strong></p>
+
+<p><strong>fieldName</strong>: <code class="highlighter-rouge">string</code>, querystring parameter name for the
+    filterable field</p>
+
+<p><strong>Returns</strong>: <code class="highlighter-rouge">boolean</code>, Returns true if this collection has set the specified field.</p>
+
+<h3 id="pagingcollectiongetactivefilterfields">PagingCollection.getActiveFilterFields()</h3>
+
+<p>Gets an object of currently active (applied) filters.</p>
+
+<p><strong>Returns</strong>: <code class="highlighter-rouge">Object</code>, An object mapping the names of
+    currently active filter fields to their values.</p>
+
+<h3 id="pagingcollectiongetfilterfieldvalue">PagingCollection.getFilterFieldValue()</h3>
+
+<p>Gets the value of the given filter field.</p>
+
+<p><strong>Returns</strong>: <code class="highlighter-rouge">string</code>, the current value of the requested
+    filter field.  null or undefined means that the
+    filter field is not active.</p>
+
+<h3 id="pagingcollectionsetfilterfieldfieldname-value">PagingCollection.setFilterField(fieldName, value)</h3>
+
+<p>Sets a filter field to a given value and marks the
+collection as stale.</p>
+
+<p><strong>Parameters</strong></p>
+
+<p><strong>fieldName</strong>: <code class="highlighter-rouge">string</code>, querystring parameter name for the
+    filterable field</p>
+
+<p><strong>value</strong>: <code class="highlighter-rouge">*</code>, value for the filterable field</p>
+
+<h3 id="pagingcollectionunsetfilterfieldfieldname">PagingCollection.unsetFilterField(fieldName)</h3>
+
+<p>Unsets a filterable field and marks the collection as
+stale.</p>
+
+<p><strong>Parameters</strong></p>
+
+<p><strong>fieldName</strong>: <code class="highlighter-rouge">string</code>, querystring parameter name for the
+    filterable field</p>
+
+<h3 id="pagingcollectionunsetallfilterfields">PagingCollection.unsetAllFilterFields()</h3>
+
+<p>Unsets all of the collections filterable fields and marks
+the collection as stale.</p>
+
+<h3 id="pagingcollectionsetsearchstringsearchstring">PagingCollection.setSearchString(searchString)</h3>
+
+<p>Sets the string to use for a text search and marks the
+collection as stale.</p>
+
+<p><strong>Parameters</strong></p>
+
+<p><strong>searchString</strong>: <code class="highlighter-rouge">string</code>, A string to search on, or null if no
+    search is to be applied.</p>
+
+<h3 id="pagingcollectionunsetsearchstring">PagingCollection.unsetSearchString()</h3>
+
+<p>Unsets the string to use for a text search and marks the
+collection as stale.</p>
+
+<hr />
+
+
+                </main>
+            </div>
+        </div>
+    </div>
+
+    <footer class="doc-footer-site">
+    <div class="doc-footer-site-copyright">
+        <p class="doc-copy copy-micro">
+            &copy; <time datetime="2016-05-02T12:11:31-04:00">2016</time>, edX Inc.
+            and licensed under a Creative Commons Attribution-ShareAlike 4.0 International License unless
+            otherwise specified.
+        </p>
+    </div>
+</footer>
+
+</div>
+
+<script src="/public/ui-toolkit-doc-factory.js"></script>
+
+</body>
+</html>
+

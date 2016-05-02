@@ -11,7 +11,7 @@
 
     <title>
         
-        edX UI Toolkit &middot; A JavaScript library for building edX front end applications.
+        global-loader &middot; edX UI Toolkit
         
     </title>
 
@@ -22,7 +22,7 @@
 </head>
 
 
-<body class="doc view-index">
+<body class="doc view-utility">
 <div class="doc-nav-skip sr-only">
     <a class="doc-action-skip" href="#content-main">Skip to the main content</a>
 </div>
@@ -76,13 +76,9 @@
             
         </li>
     
-        <li class="item no-indent ">
-            
-                <a class="pattern-title pattern doc-link" href="/./utilities/global-loader/">
+        <li class="item no-indent is-current">
             
             global-loader
-            
-                </a>
             
         </li>
     
@@ -185,18 +181,61 @@
             <div class="doc-wrapper-content-main">
                 <main class="doc-content-main" id="content-main" aria-label="Content">
                     
+                        <div class="doc-links">
+                            <a rel="external" href="https://github.com/edx/edx-ui-toolkit/blob/master/src/js/utils/global-loader.js">
+                                View on Github
+                            </a>
+                        </div>
+                    
 
-                    <p>The edX UI Toolkit is a JavaScript library for building edX web applications. It consists of:</p>
+                    <h1 id="globalloader">GlobalLoader</h1>
 
-<ul>
-  <li>Backbone views to implement patterns as defined by the <a href="http://ux.edx.org">edX Pattern Library</a>.</li>
-  <li>Utility methods to simplify the creation and testing of user interfaces.</li>
-</ul>
+<p>An AMD loader that installs modules into the global edx namespace.</p>
 
-<p>The toolkit is an open source library that is hosted on <a href="https://github.com/edx/edx-ui-toolkit">GitHub</a>,
-and that can be installed as an <a href="https://www.npmjs.com/package/edx-ui-toolkit">npm package</a>.</p>
+<hr />
 
-<p>You can read more on the <a href="https://openedx.atlassian.net/wiki/display/FEDX/">edX Front End Development wiki</a>.</p>
+<h3 id="globalloaderdefineasname-path">GlobalLoader.defineAs(name, path)</h3>
+
+<p>Define a module that can be accessed globally in the edx namespace.</p>
+
+<p>This function will typically be used in situations where UI Toolkit
+functionally is needed in code where RequireJS is not available.
+The module definition should be wrapped in boilerplate as follows:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="p">;(</span><span class="kd">function</span><span class="p">(</span><span class="nx">define</span><span class="p">)</span> <span class="p">{</span>
+    <span class="s1">'use strict'</span><span class="p">;</span>
+    <span class="nx">define</span><span class="p">([...],</span> <span class="kd">function</span><span class="p">(...)</span> <span class="p">{</span>
+        <span class="p">...</span>
+    <span class="p">});</span>
+<span class="p">}).</span><span class="nx">call</span><span class="p">(</span>
+    <span class="k">this</span><span class="p">,</span>
+    <span class="c1">// Pick a define function as follows:</span>
+    <span class="c1">// 1. Use the default 'define' function if it is available</span>
+    <span class="c1">// 2. If not, use 'RequireJS.define' if that is available</span>
+    <span class="c1">// 3. else use the GlobalLoader to install the class into the edx namespace</span>
+    <span class="k">typeof</span> <span class="nx">define</span> <span class="o">===</span> <span class="s1">'function'</span> <span class="o">&amp;&amp;</span> <span class="nx">define</span><span class="p">.</span><span class="nx">amd</span> <span class="p">?</span> <span class="nx">define</span> <span class="p">:</span>
+        <span class="p">(</span><span class="k">typeof</span> <span class="nx">RequireJS</span> <span class="o">!==</span> <span class="s1">'undefined'</span> <span class="p">?</span> <span class="nx">RequireJS</span><span class="p">.</span><span class="nx">define</span> <span class="p">:</span>
+            <span class="nx">edx</span><span class="p">.</span><span class="nx">GlobalLoader</span><span class="p">.</span><span class="nx">defineAs</span><span class="p">(</span><span class="s1">'ModuleName'</span><span class="p">,</span> <span class="s1">'PATH/TO/MODULE'</span><span class="p">))</span>
+<span class="p">);</span>
+</code></pre>
+</div>
+
+<p><strong>Parameters</strong></p>
+
+<p><strong>name</strong>: <code class="highlighter-rouge">string</code>, The name by which the module will be accessed.</p>
+
+<p><strong>path</strong>: <code class="highlighter-rouge">string</code>, The module’s path.</p>
+
+<p><strong>Returns</strong>: <code class="highlighter-rouge">function</code>, A function that will create the module.</p>
+
+<h3 id="globalloaderclear">GlobalLoader.clear()</h3>
+
+<p>Clears all registered modules.</p>
+
+<p>Note: this function is only provided for unit testing.</p>
+
+<hr />
+
 
                 </main>
             </div>

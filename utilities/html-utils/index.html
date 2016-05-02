@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+
+<head>
+    <base href="/">
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="favicon.ico">
+
+    <title>
+        
+        html-utils &middot; edX UI Toolkit
+        
+    </title>
+
+    <meta name="description" content="A JavaScript library for building edX front end applications.">
+
+    <link rel="stylesheet" type="text/css" href="/public/ui-toolkit.css">
+
+</head>
+
+
+<body class="doc view-utility">
+<div class="doc-nav-skip sr-only">
+    <a class="doc-action-skip" href="#content-main">Skip to the main content</a>
+</div>
+
+<hr class="doc-divider sr-only">
+
+<div class="doc-wrapper-view">
+    <div class="doc-wrapper-header-site">
+    <header class="doc-header-site" role="banner" aria-labelledby="doc-header-site-title">
+        <div class="layout-1t2t layout">
+            <main class="layout-col layout-col-a">
+                <h1 id="doc-header-site-title" class="hd-2 de-emphasized doc-header-site-title">
+                    <a href="/">
+                        <img class="doc-header-logo" src="/./static/images/logo-edx.svg"
+                             alt="edX UI Toolkit home" />
+                        <span>UI Toolkit</span>
+                    </a>
+                </h1>
+            </main>
+        </div>
+    </header>
+</div>
+
+
+    <div class="doc-wrapper-content" id="content-top" tabindex="-1">
+        <div class="doc-content">
+            <div class="doc-wrapper-content-supplemental">
+                <nav class="doc-nav doc-nav-internal" role="navigation" aria-label="">
+    <h2 class="doc-heading doc-nav-title hd-6">edX UI Toolkit</h2>
+    <ul class="list-unstyled list-patterns">
+        <li class="item no-indent">
+            <a class="doc-link" href="/">
+            Introduction
+            </a>
+        </li>
+    </ul>
+</nav>
+
+
+<nav class="doc-nav doc-nav-internal" role="navigation" aria-label="Utilities">
+    <h2 class="doc-heading doc-nav-title hd-6">Utilities</h2>
+    <ul class="list-unstyled list-patterns">
+    
+        <li class="item no-indent ">
+            
+                <a class="pattern-title pattern doc-link" href="/./utilities/constants/">
+            
+            constants
+            
+                </a>
+            
+        </li>
+    
+        <li class="item no-indent ">
+            
+                <a class="pattern-title pattern doc-link" href="/./utilities/global-loader/">
+            
+            global-loader
+            
+                </a>
+            
+        </li>
+    
+        <li class="item no-indent is-current">
+            
+            html-utils
+            
+        </li>
+    
+        <li class="item no-indent ">
+            
+                <a class="pattern-title pattern doc-link" href="/./utilities/string-utils/">
+            
+            string-utils
+            
+                </a>
+            
+        </li>
+    
+    </ul>
+</nav>
+
+
+
+<nav class="doc-nav doc-nav-internal" role="navigation" aria-label="Views">
+    <h2 class="doc-heading doc-nav-title hd-6">Views</h2>
+    <ul class="list-unstyled list-patterns">
+    
+        <li class="item no-indent ">
+            
+                <a class="pattern-title pattern doc-link" href="/./views/disclosure/disclosure-view/">
+            
+            disclosure-view
+            
+                </a>
+            
+        </li>
+    
+        <li class="item no-indent ">
+            
+                <a class="pattern-title pattern doc-link" href="/./views/dropdown-menu/dropdown-menu-view/">
+            
+            dropdown-menu-view
+            
+                </a>
+            
+        </li>
+    
+        <li class="item no-indent ">
+            
+                <a class="pattern-title pattern doc-link" href="/./views/pagination/paging-collection/">
+            
+            paging-collection
+            
+                </a>
+            
+        </li>
+    
+    </ul>
+</nav>
+
+
+
+<nav class="doc-nav doc-nav-internal" role="navigation" aria-label="Testing">
+    <h2 class="doc-heading doc-nav-title hd-6">Testing</h2>
+    <ul class="list-unstyled list-patterns">
+    
+        <li class="item no-indent ">
+            
+                <a class="pattern-title pattern doc-link" href="/./testing/ajax-helpers/">
+            
+            ajax-helpers
+            
+                </a>
+            
+        </li>
+    
+        <li class="item no-indent ">
+            
+                <a class="pattern-title pattern doc-link" href="/./testing/spec-helpers/">
+            
+            spec-helpers
+            
+                </a>
+            
+        </li>
+    
+    </ul>
+</nav>
+
+
+            </div>
+
+            <hr class="doc-divider sr-only">
+
+            <div class="doc-wrapper-content-main">
+                <main class="doc-content-main" id="content-main" aria-label="Content">
+                    
+                        <div class="doc-links">
+                            <a rel="external" href="https://github.com/edx/edx-ui-toolkit/blob/master/src/js/utils/html-utils.js">
+                                View on Github
+                            </a>
+                        </div>
+                    
+
+                    <h1 id="htmlutils">HtmlUtils</h1>
+
+<p>Useful functions for dealing with HTML.</p>
+
+<p>In particular, these functions default to being safe against
+Cross Site Scripting (XSS) attacks. You can read more about
+the best practices for handling proper escaping in the Open edX
+platform with
+<a href="http://edx.readthedocs.org/projects/edx-developer-guide/en/latest/conventions/safe_templates.html">Preventing Cross Site Scripting Vulnerabilities</a>.</p>
+
+<hr />
+
+<h3 id="htmlutilshtmlsnippethtmlstring">HtmlUtils.HtmlSnippet(htmlString)</h3>
+
+<p>Creates an HTML snippet.</p>
+
+<p>The intention of an HTML snippet is to communicate that the string
+it represents contains HTML that has been safely escaped as necessary.
+As an example, this allows <code class="highlighter-rouge">HtmlUtils.interpolate</code> to understand that
+it does not need to further escape this HTML.</p>
+
+<p><strong>Parameters</strong></p>
+
+<p><strong>htmlString</strong>: <code class="highlighter-rouge">string</code>, The string of HTML.</p>
+
+<h3 id="htmlutilshtmlhtmlstring">HtmlUtils.HTML(htmlString)</h3>
+
+<p>Helper function to create an HTML snippet from a string.</p>
+
+<p>The intention of an HTML snippet is to communicate that the string
+it represents contains HTML that has been safely escaped as necessary.</p>
+
+<p><strong>Parameters</strong></p>
+
+<p><strong>htmlString</strong>: <code class="highlighter-rouge">string</code>, The string of HTML.</p>
+
+<p><strong>Returns</strong>: <code class="highlighter-rouge">HtmlSnippet</code>, An HTML snippet that can be safely rendered.</p>
+
+<h3 id="htmlutilsensurehtmlhtml">HtmlUtils.ensureHtml(html)</h3>
+
+<p>Ensures that the provided text is properly HTML-escaped.</p>
+
+<p>If a plain text string is provided, then it will be HTML-escaped and
+returned as an HtmlSnippet. If the parameter is an HTML snippet
+then it will be returned directly so as not to double escape it.</p>
+
+<p><strong>Parameters</strong></p>
+
+<p><strong>html</strong>: <code class="highlighter-rouge">string | HtmlSnippet</code>, Either a plain text string
+or an HTML snippet.</p>
+
+<p><strong>Returns</strong>: <code class="highlighter-rouge">HtmlSnippet</code>, A safely escaped HTML snippet.</p>
+
+<h3 id="htmlutilsinterpolatehtmlformatstring-parameters">HtmlUtils.interpolateHtml(formatString, parameters)</h3>
+
+<p>Returns an HTML snippet by interpolating the provided parameters.</p>
+
+<p>The text is provided as a tokenized format string where parameters
+are indicated via curly braces, e.g. <code class="highlighter-rouge">'Hello {name}'</code>. These tokens are
+replaced by the parameter value of the same name.</p>
+
+<p>Parameter values will be rendered using their toString methods and then
+HTML-escaped. The only exception is that instances of the class HTML
+are rendered without escaping as their contract declares that they are
+already valid HTML.</p>
+
+<p>Example:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="nx">HtmlUtils</span><span class="p">.</span><span class="nx">interpolateHtml</span><span class="p">(</span>
+    <span class="s1">'You are enrolling in {spanStart}{courseName}{spanEnd}'</span><span class="p">,</span>
+    <span class="p">{</span>
+        <span class="na">courseName</span><span class="p">:</span> <span class="s1">'Rock &amp; Roll 101'</span><span class="p">,</span>
+        <span class="na">spanStart</span><span class="p">:</span> <span class="nx">HtmlUtils</span><span class="p">.</span><span class="nx">HTML</span><span class="p">(</span><span class="s1">'&lt;span class="course-title"&gt;'</span><span class="p">),</span>
+        <span class="na">spanEnd</span><span class="p">:</span> <span class="nx">HtmlUtils</span><span class="p">.</span><span class="nx">HTML</span><span class="p">(</span><span class="s1">'&lt;/span&gt;'</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">);</span>
+</code></pre>
+</div>
+
+<p>returns:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="s1">'You are enrolling in &lt;span class="course-title"&gt;Rock &amp;amp; Roll 101&lt;/span&gt;'</span>
+</code></pre>
+</div>
+
+<p>Note: typically the formatString will need to be internationalized, in which
+case it will be wrapped with a call to an i18n lookup function. If using
+the Django i18n library this would look like:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="nx">HtmlUtils</span><span class="p">.</span><span class="nx">interpolateHtml</span><span class="p">(</span>
+    <span class="nx">gettext</span><span class="p">(</span><span class="s1">'You are enrolling in {spanStart}{courseName}{spanEnd}'</span><span class="p">),</span>
+    <span class="p">...</span>
+<span class="p">);</span>
+</code></pre>
+</div>
+
+<p><strong>Parameters</strong></p>
+
+<p><strong>formatString</strong>: <code class="highlighter-rouge">string</code>, The string to be interpolated.</p>
+
+<p><strong>parameters</strong>: <code class="highlighter-rouge">Object</code>, An optional set of parameters for interpolation.</p>
+
+<p><strong>Returns</strong>: <code class="highlighter-rouge">HtmlSnippet</code>, The resulting safely escaped HTML snippet.</p>
+
+<h3 id="htmlutilsjoinhtmlitems">HtmlUtils.joinHtml(items)</h3>
+
+<p>Joins multiple strings and/or HTML snippets together to produce
+a single safely escaped HTML snippet.</p>
+
+<p>For each item, if it is provided as an HTML snippet then it is joined
+directly. If the item is a string then it is assumed to be unescaped and
+so it is first escaped before being joined.</p>
+
+<p><strong>Parameters</strong></p>
+
+<p><strong>items</strong>: <code class="highlighter-rouge">string | HtmlSnippet</code>, The strings and/or HTML snippets
+to be joined together.</p>
+
+<p><strong>Returns</strong>: <code class="highlighter-rouge">HtmlSnippet</code>, The resulting safely escaped HTML snippet.</p>
+
+<h3 id="htmlutilstemplatetext-settings">HtmlUtils.template(text, settings)</h3>
+
+<p>Returns a function that renders an Underscore template as an HTML snippet.</p>
+
+<p>Note: This helper function makes the following context parameters
+available to the template in addition to those passed in:</p>
+
+<ul>
+  <li><code class="highlighter-rouge">HtmlUtils</code>: the <code class="highlighter-rouge">HtmlUtils</code> helper class</li>
+  <li><code class="highlighter-rouge">StringUtils</code>: the <code class="highlighter-rouge">StringUtils</code> helper class</li>
+</ul>
+
+<p><strong>Parameters</strong></p>
+
+<p><strong>text</strong>: <code class="highlighter-rouge">string</code>, Returns a function that renders an Underscore template as an HTML snippet.</p>
+
+<p>Note: This helper function makes the following context parameters
+available to the template in addition to those passed in:</p>
+
+<ul>
+  <li><code class="highlighter-rouge">HtmlUtils</code>: the <code class="highlighter-rouge">HtmlUtils</code> helper class</li>
+  <li><code class="highlighter-rouge">StringUtils</code>: the <code class="highlighter-rouge">StringUtils</code> helper class</li>
+</ul>
+
+<p><strong>settings</strong>: <code class="highlighter-rouge">object</code>, Returns a function that renders an Underscore template as an HTML snippet.</p>
+
+<p>Note: This helper function makes the following context parameters
+available to the template in addition to those passed in:</p>
+
+<ul>
+  <li><code class="highlighter-rouge">HtmlUtils</code>: the <code class="highlighter-rouge">HtmlUtils</code> helper class</li>
+  <li><code class="highlighter-rouge">StringUtils</code>: the <code class="highlighter-rouge">StringUtils</code> helper class</li>
+</ul>
+
+<p><strong>Returns</strong>: <code class="highlighter-rouge">function</code>, A function that returns a rendered HTML snippet.</p>
+
+<h3 id="htmlutilssethtmlelement-html">HtmlUtils.setHtml(element, html)</h3>
+
+<p>A wrapper for <code class="highlighter-rouge">$.html</code> that safely escapes the provided HTML.</p>
+
+<p>If the HTML is provided as an HTML snippet then it is used directly.
+If the value is a string then it is assumed to be unescaped and
+so it is first escaped before being used.</p>
+
+<p><strong>Parameters</strong></p>
+
+<p><strong>element</strong>: <code class="highlighter-rouge">element</code>, The element or elements to be updated.</p>
+
+<p><strong>html</strong>: <code class="highlighter-rouge">string | HtmlSnippet</code>, The desired HTML, either as a
+plain string or as an HTML snippet.</p>
+
+<p><strong>Returns</strong>: <code class="highlighter-rouge">JQuery</code>, The JQuery object representing the element or elements.</p>
+
+<h3 id="htmlutilsappendelement-html">HtmlUtils.append(element, html)</h3>
+
+<p>A wrapper for <code class="highlighter-rouge">$.append</code> that safely escapes the provided HTML.</p>
+
+<p>If the HTML is provided as an HTML snippet then it is used directly.
+If the value is a string then it is assumed to be unescaped and
+so it is first escaped before being used.</p>
+
+<p><strong>Parameters</strong></p>
+
+<p><strong>element</strong>: <code class="highlighter-rouge">element</code>, The element or elements to be updated.</p>
+
+<p><strong>html</strong>: <code class="highlighter-rouge">string | HtmlSnippet</code>, The desired HTML, either as a
+plain string or as an HTML snippet.</p>
+
+<p><strong>Returns</strong>: <code class="highlighter-rouge">JQuery</code>, The JQuery object representing the element or elements.</p>
+
+<h3 id="htmlutilsprependelement-html">HtmlUtils.prepend(element, html)</h3>
+
+<p>A wrapper for <code class="highlighter-rouge">$.prepend</code> that safely escapes the provided HTML.</p>
+
+<p>If the HTML is provided as an HTML snippet then it is used directly.
+If the value is a string then it is assumed to be unescaped and
+so it is first escaped before being used.</p>
+
+<p><strong>Parameters</strong></p>
+
+<p><strong>element</strong>: <code class="highlighter-rouge">element</code>, The element or elements to be updated.</p>
+
+<p><strong>html</strong>: <code class="highlighter-rouge">string | HtmlSnippet</code>, The desired HTML, either as a
+plain string or as an HTML snippet.</p>
+
+<p><strong>Returns</strong>: <code class="highlighter-rouge">JQuery</code>, The JQuery object representing the element or elements.</p>
+
+<hr />
+
+
+                </main>
+            </div>
+        </div>
+    </div>
+
+    <footer class="doc-footer-site">
+    <div class="doc-footer-site-copyright">
+        <p class="doc-copy copy-micro">
+            &copy; <time datetime="2016-05-02T12:11:31-04:00">2016</time>, edX Inc.
+            and licensed under a Creative Commons Attribution-ShareAlike 4.0 International License unless
+            otherwise specified.
+        </p>
+    </div>
+</footer>
+
+</div>
+
+<script src="/public/ui-toolkit-doc-factory.js"></script>
+
+</body>
+</html>
+

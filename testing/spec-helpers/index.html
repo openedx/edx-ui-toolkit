@@ -11,7 +11,7 @@
 
     <title>
         
-        edX UI Toolkit &middot; A JavaScript library for building edX front end applications.
+        spec-helpers &middot; edX UI Toolkit
         
     </title>
 
@@ -22,7 +22,7 @@
 </head>
 
 
-<body class="doc view-index">
+<body class="doc view-testing">
 <div class="doc-nav-skip sr-only">
     <a class="doc-action-skip" href="#content-main">Skip to the main content</a>
 </div>
@@ -164,13 +164,9 @@
             
         </li>
     
-        <li class="item no-indent ">
-            
-                <a class="pattern-title pattern doc-link" href="/./testing/spec-helpers/">
+        <li class="item no-indent is-current">
             
             spec-helpers
-            
-                </a>
             
         </li>
     
@@ -185,18 +181,51 @@
             <div class="doc-wrapper-content-main">
                 <main class="doc-content-main" id="content-main" aria-label="Content">
                     
+                        <div class="doc-links">
+                            <a rel="external" href="https://github.com/edx/edx-ui-toolkit/blob/master/src/js/utils/spec-helpers/spec-helpers.js">
+                                View on Github
+                            </a>
+                        </div>
+                    
 
-                    <p>The edX UI Toolkit is a JavaScript library for building edX web applications. It consists of:</p>
+                    <h1 id="spechelpers">SpecHelpers</h1>
 
-<ul>
-  <li>Backbone views to implement patterns as defined by the <a href="http://ux.edx.org">edX Pattern Library</a>.</li>
-  <li>Utility methods to simplify the creation and testing of user interfaces.</li>
-</ul>
+<p>Generally useful helper functions for writing Jasmine unit tests.</p>
 
-<p>The toolkit is an open source library that is hosted on <a href="https://github.com/edx/edx-ui-toolkit">GitHub</a>,
-and that can be installed as an <a href="https://www.npmjs.com/package/edx-ui-toolkit">npm package</a>.</p>
+<hr />
 
-<p>You can read more on the <a href="https://openedx.atlassian.net/wiki/display/FEDX/">edX Front End Development wiki</a>.</p>
+<h3 id="spechelperswithdatadata-func">SpecHelpers.withData(data, func)</h3>
+
+<p>Runs func as a test case multiple times, using entries from data as arguments.
+You can think of this as like Python’s DDT.</p>
+
+<p><strong>Parameters</strong></p>
+
+<p><strong>data</strong>: <code class="highlighter-rouge">object</code>, An object mapping test names to arrays of function parameters.
+The name is passed to it() as the name of the test case, and the list of arguments
+is applied as arguments to func.</p>
+
+<p><strong>func</strong>: <code class="highlighter-rouge">function</code>, The function that actually expresses the logic of the test.</p>
+
+<h3 id="spechelperswithconfigurationconfig-setup-test">SpecHelpers.withConfiguration(config, setup, test)</h3>
+
+<p>Runs test multiple times, wrapping each call in a describe with beforeEach
+specified by setup and arguments and name coming from entries in config.</p>
+
+<p><strong>Parameters</strong></p>
+
+<p><strong>config</strong>: <code class="highlighter-rouge">object</code>, An object mapping configuration names to arrays of setup
+function parameters. The name is passed to describe as the name of the group
+of tests, and the list of arguments is applied as arguments to setup.</p>
+
+<p><strong>setup</strong>: <code class="highlighter-rouge">function</code>, The function to setup the given configuration before
+each test case. Runs in beforeEach.</p>
+
+<p><strong>test</strong>: <code class="highlighter-rouge">function</code>, The function that actually express the logic of the test.
+May include it() or more describe().</p>
+
+<hr />
+
 
                 </main>
             </div>

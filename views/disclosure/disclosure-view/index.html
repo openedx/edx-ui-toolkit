@@ -11,7 +11,7 @@
 
     <title>
         
-        edX UI Toolkit &middot; A JavaScript library for building edX front end applications.
+        disclosure-view &middot; edX UI Toolkit
         
     </title>
 
@@ -22,7 +22,7 @@
 </head>
 
 
-<body class="doc view-index">
+<body class="doc view-view">
 <div class="doc-nav-skip sr-only">
     <a class="doc-action-skip" href="#content-main">Skip to the main content</a>
 </div>
@@ -115,13 +115,9 @@
     <h2 class="doc-heading doc-nav-title hd-6">Views</h2>
     <ul class="list-unstyled list-patterns">
     
-        <li class="item no-indent ">
-            
-                <a class="pattern-title pattern doc-link" href="/./views/disclosure/disclosure-view/">
+        <li class="item no-indent is-current">
             
             disclosure-view
-            
-                </a>
             
         </li>
     
@@ -185,18 +181,36 @@
             <div class="doc-wrapper-content-main">
                 <main class="doc-content-main" id="content-main" aria-label="Content">
                     
+                        <div class="doc-links">
+                            <a rel="external" href="https://github.com/edx/edx-ui-toolkit/blob/master/src/js/disclosure/disclosure-view.js">
+                                View on Github
+                            </a>
+                        </div>
+                    
 
-                    <p>The edX UI Toolkit is a JavaScript library for building edX web applications. It consists of:</p>
+                    <h1 id="disclosureview">DisclosureView</h1>
+
+<p>Clickable view that expands or collapses a section.</p>
+
+<p>Set the following data attributes on the element:</p>
 
 <ul>
-  <li>Backbone views to implement patterns as defined by the <a href="http://ux.edx.org">edX Pattern Library</a>.</li>
-  <li>Utility methods to simplify the creation and testing of user interfaces.</li>
+  <li><code class="highlighter-rouge">data-collapsed-text</code>: text to display when content collapsed</li>
+  <li><code class="highlighter-rouge">data-expanded-text</code>: text to display when content expanded</li>
 </ul>
 
-<p>The toolkit is an open source library that is hosted on <a href="https://github.com/edx/edx-ui-toolkit">GitHub</a>,
-and that can be installed as an <a href="https://www.npmjs.com/package/edx-ui-toolkit">npm package</a>.</p>
+<hr />
 
-<p>You can read more on the <a href="https://openedx.atlassian.net/wiki/display/FEDX/">edX Front End Development wiki</a>.</p>
+<h3 id="disclosureviewtogglestateisvisible">DisclosureView.toggleState(isVisible)</h3>
+
+<p>Toggles the visibility of the section.</p>
+
+<p><strong>Parameters</strong></p>
+
+<p><strong>isVisible</strong>: <code class="highlighter-rouge">boolean</code>, True if the section should be visible (default: false).</p>
+
+<hr />
+
 
                 </main>
             </div>

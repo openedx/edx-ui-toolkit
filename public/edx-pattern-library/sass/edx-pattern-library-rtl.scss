@@ -1,0 +1,12 @@
+// ------------------------------
+// edX Pattern Library: Static Style Compile - RTL
+
+// About: Sass compile for the edX Pattern Library's static CSS, for use in right-to-left styling.
+
+
+// ------------------------------
+// #BUILD
+// ------------------------------
+@import 'global/lib';                    // third-party libraries
+@import 'global/rtl';                    // LTR-specifc settings and utilities
+@import 'edx-pattern-library';           // shared compile/build order for both LTR and RTL UI

@@ -11,7 +11,7 @@
 
     <title>
         
-        edX UI Toolkit &middot; A JavaScript library for building edX front end applications.
+        dropdown-menu-view &middot; edX UI Toolkit
         
     </title>
 
@@ -22,7 +22,7 @@
 </head>
 
 
-<body class="doc view-index">
+<body class="doc view-view">
 <div class="doc-nav-skip sr-only">
     <a class="doc-action-skip" href="#content-main">Skip to the main content</a>
 </div>
@@ -125,13 +125,9 @@
             
         </li>
     
-        <li class="item no-indent ">
-            
-                <a class="pattern-title pattern doc-link" href="/./views/dropdown-menu/dropdown-menu-view/">
+        <li class="item no-indent is-current">
             
             dropdown-menu-view
-            
-                </a>
             
         </li>
     
@@ -185,18 +181,77 @@
             <div class="doc-wrapper-content-main">
                 <main class="doc-content-main" id="content-main" aria-label="Content">
                     
+                        <div class="doc-links">
+                            <a rel="external" href="https://github.com/edx/edx-ui-toolkit/blob/master/src/js/dropdown-menu/dropdown-menu-view.js">
+                                View on Github
+                            </a>
+                        </div>
+                    
 
-                    <p>The edX UI Toolkit is a JavaScript library for building edX web applications. It consists of:</p>
+                    <h1 id="dropdownmenuview">DropdownMenuView</h1>
 
-<ul>
-  <li>Backbone views to implement patterns as defined by the <a href="http://ux.edx.org">edX Pattern Library</a>.</li>
-  <li>Utility methods to simplify the creation and testing of user interfaces.</li>
-</ul>
+<p>A Backbone view that renders a fully accessible dropdown menu.</p>
 
-<p>The toolkit is an open source library that is hosted on <a href="https://github.com/edx/edx-ui-toolkit">GitHub</a>,
-and that can be installed as an <a href="https://www.npmjs.com/package/edx-ui-toolkit">npm package</a>.</p>
+<p>Initialize the view by passing in the following attributes:</p>
 
-<p>You can read more on the <a href="https://openedx.atlassian.net/wiki/display/FEDX/">edX Front End Development wiki</a>.</p>
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="nx">view</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">DropdownMenuView</span><span class="p">({</span>
+    <span class="na">className</span><span class="p">:</span> <span class="s1">'space separated string of classes for element'</span><span class="p">,</span>
+    <span class="na">model</span><span class="p">:</span> <span class="k">new</span> <span class="nx">Backbone</span><span class="p">.</span><span class="nx">Model</span><span class="p">({</span>
+        <span class="na">main</span><span class="p">:</span> <span class="p">{</span>
+            <span class="na">image</span><span class="p">:</span> <span class="s1">'http://placehold.it/40x40'</span><span class="p">,</span>
+            <span class="na">screenreader_label</span><span class="p">:</span> <span class="s1">'Dashboard for: '</span><span class="p">,</span>
+            <span class="na">text</span><span class="p">:</span> <span class="s1">'username'</span><span class="p">,</span>
+            <span class="na">url</span><span class="p">:</span> <span class="s1">'dashboard'</span>
+        <span class="p">},</span>
+        <span class="na">button</span><span class="p">:</span> <span class="p">{</span>
+            <span class="na">icon</span><span class="p">:</span> <span class="s1">'icon-angle-down'</span><span class="p">,</span>
+            <span class="na">label</span><span class="p">:</span> <span class="s1">'User options dropdown'</span>
+        <span class="p">},</span>
+        <span class="na">items</span><span class="p">:</span> <span class="p">[</span>
+            <span class="p">{</span>
+                <span class="na">text</span><span class="p">:</span> <span class="s1">'Account'</span><span class="p">,</span>
+                <span class="na">url</span><span class="p">:</span> <span class="s1">'account_settings'</span>
+            <span class="p">},</span> <span class="p">{</span>
+                <span class="na">text</span><span class="p">:</span> <span class="s1">'Sign Out'</span><span class="p">,</span>
+                <span class="na">url</span><span class="p">:</span> <span class="s1">'logout'</span>
+            <span class="p">}</span>
+        <span class="p">]</span>
+    <span class="p">}),</span>
+    <span class="na">parent</span><span class="p">:</span> <span class="s1">'selector for parent element that will be replaced with dropdown menu'</span><span class="p">,</span>
+    <span class="p">...</span>
+<span class="p">});</span>
+</code></pre>
+</div>
+
+<hr />
+
+<h3 id="dropdownmenuviewanalyticslinkclickevent">DropdownMenuView.analyticsLinkClick(event)</h3>
+
+<p>Function to track analytics.</p>
+
+<p>By default it doesn’t do anything, to utilize please
+extend the View and implement a method such as the
+following:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">$link</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="nx">event</span><span class="p">.</span><span class="nx">target</span><span class="p">),</span>
+    <span class="nx">label</span> <span class="o">=</span> <span class="nx">$link</span><span class="p">.</span><span class="nx">hasClass</span><span class="p">(</span><span class="s1">'menu-title'</span><span class="p">)</span> <span class="p">?</span> <span class="s1">'Dashboard'</span> <span class="p">:</span> <span class="nx">$link</span><span class="p">.</span><span class="nx">html</span><span class="p">().</span><span class="nx">trim</span><span class="p">();</span>
+
+<span class="nb">window</span><span class="p">.</span><span class="nx">analytics</span><span class="p">.</span><span class="nx">track</span><span class="p">(</span><span class="s1">'user_dropdown.clicked'</span><span class="p">,</span> <span class="p">{</span>
+    <span class="na">category</span><span class="p">:</span> <span class="s1">'navigation'</span><span class="p">,</span>
+    <span class="na">label</span><span class="p">:</span> <span class="nx">label</span><span class="p">,</span>
+    <span class="na">link</span><span class="p">:</span> <span class="nx">$link</span><span class="p">.</span><span class="nx">attr</span><span class="p">(</span><span class="s1">'href'</span><span class="p">)</span>
+<span class="p">});</span>
+</code></pre>
+</div>
+
+<p><strong>Parameters</strong></p>
+
+<p><strong>event</strong>: <code class="highlighter-rouge">object</code>, The event to be tracked.</p>
+
+<p><strong>Returns</strong>: <code class="highlighter-rouge">*</code>, The event.</p>
+
+<hr />
+
 
                 </main>
             </div>
