@@ -78,3 +78,7 @@ To generate this documentation, run the following command:
 To upload a preview of the documentation to S3:
         
         $ gulp preview
+
+To update the hosted documentation:
+        
+        $ gulp doc-publish

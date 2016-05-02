@@ -16,6 +16,7 @@ var gulp = require('gulp'),
     generateDoc = require('../utils/generate-doc'),
     rename = require('gulp-rename'),
     webpack = require('webpack-stream'),
+    ghPages = require('gulp-gh-pages'),
     renameAsMarkdown,
     generateDocFor;
 
@@ -38,11 +39,18 @@ generateDocFor = function(options) {
 
 gulp.task('doc', function(callback) {
     runSequence(
+        'doc-build',
+        'doc-serve',
+        callback
+    );
+});
+
+gulp.task('doc-build', function(callback) {
+    runSequence(
         ['doc-testing', 'doc-utils', 'doc-views'],
         'copy-pattern-library',
         'webpack',
         'jekyll-build',
-        'doc-serve',
         callback
     );
 });
@@ -103,4 +111,9 @@ gulp.task('jekyll-build', function(done) {
 
 gulp.task('jekyll-rebuild', ['jekyll-build'], function() {
     browserSync.reload();
+});
+
+gulp.task('doc-publish', ['doc-build'], function() {
+    return gulp.src(config.gitHubPages.files)
+        .pipe(ghPages());
 });

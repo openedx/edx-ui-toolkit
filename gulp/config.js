@@ -1,8 +1,3 @@
-var dest = './doc/public',
-    src = './pattern-library',
-    siteDir = './_site',
-    docDir = './doc';
-
 module.exports = {
     documentation: {
         testing: {
@@ -28,7 +23,7 @@ module.exports = {
         },
         browserSync: {
             server: {
-                baseDir: siteDir
+                baseDir: './_site'
             },
             ui: {
                 port: 5000,
@@ -44,6 +39,9 @@ module.exports = {
         ],
         static: [
             './doc/static/**/*'
-        ]
+        ],
+        gitHubPages: {
+            files: './_site/**/*'
+        }
     }
 };
