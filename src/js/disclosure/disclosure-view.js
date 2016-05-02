@@ -1,15 +1,18 @@
+/**
+ * Clickable view that expands or collapses a section.
+ *
+ * Set the following data attributes on the element:
+ *
+ * - `data-collapsed-text`: text to display when content collapsed
+ * - `data-expanded-text`: text to display when content expanded
+ *
+ * @module DisclosureView
+ */
 ;(function(define) {
     'use strict';
 
     define(['backbone', 'underscore'],
         function(Backbone, _) {
-            /**
-             * Click-able view that expands or collapses a section.
-             *
-             * Set the following data attributes on the element:
-             *  - data-collapsed-text: text to display when content collapsed
-             *  - data-expanded-text: text to display when content expanded
-             */
             var DisclosureView = Backbone.View.extend({
 
                 initialize: function(options) {
@@ -22,6 +25,11 @@
                     self.render();
                 },
 
+                /**
+                 * Toggles the visibility of the section.
+                 *
+                 * @param {boolean} isVisible True if the section should be visible (default: false).
+                 */
                 toggleState: function(isVisible) {
                     var self = this,
                         $textEl = self.$el.find(self.options.toggleTextSelector);

@@ -1,20 +1,22 @@
+/**
+ * These utility methods are used by Jasmine tests to create a mock server or
+ * get reference to mock requests. In either case, the cleanup (restore) is done with
+ * an after function.
+ *
+ * This pattern is being used instead of the more common beforeEach/afterEach pattern
+ * because we were seeing sporadic failures in the afterEach restore call. The cause of the
+ * errors were that one test suite was incorrectly being linked as the parent of an unrelated
+ * test suite (causing both suites' afterEach methods to be called). No solution for the root
+ * cause has been found, but initializing sinon and cleaning it up on a method-by-method
+ * basis seems to work. For more details, see STUD-1264.
+ *
+ * @module AjaxHelpers
+ */
 define(['sinon', 'underscore', 'URI'], function(sinon, _, URI) {
     'use strict';
 
     var fakeRequests, expectRequest, expectJsonRequest, expectPostRequest, expectRequestURL,
         respondWithJson, respondWithError, respondWithTextError, respondWithNoContent;
-
-    /* These utility methods are used by Jasmine tests to create a mock server or
-     * get reference to mock requests. In either case, the cleanup (restore) is done with
-     * an after function.
-     *
-     * This pattern is being used instead of the more common beforeEach/afterEach pattern
-     * because we were seeing sporadic failures in the afterEach restore call. The cause of the
-     * errors were that one test suite was incorrectly being linked as the parent of an unrelated
-     * test suite (causing both suites' afterEach methods to be called). No solution for the root
-     * cause has been found, but initializing sinon and cleaning it up on a method-by-method
-     * basis seems to work. For more details, see STUD-1264.
-     */
 
     /**
      * Keep track of all requests to a fake server, and call `spec`

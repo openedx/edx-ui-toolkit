@@ -1,0 +1,323 @@
+// ------------------------------
+// edX Pattern Library Site: Components
+
+// About: styling for specific UI components ranging from global to modular.
+
+// #CONTROLS
+// #SYSTEM FEEDBACK
+// #HEADER
+// #NAVIGATION
+// #SIDEBAR
+// #MAIN CONTENT
+// #FOOTER
+// #PATTERNS
+// #SPECIFIC PATTERNS
+// #EXAMPLE - GRID
+// #EXAMPLE - LAYOUTS
+
+
+// ------------------------------
+// #CONTROLS
+// ------------------------------
+
+// tab panels and examples
+.example-set {
+    @extend %clear-last-child;
+    @include clearfix();
+    padding-bottom: spacing-vertical(base);
+    border-bottom: rem(2) solid palette(grayscale-cool, x-light);
+    margin-bottom: spacing-vertical(base);
+
+    .button-overlay-demo {
+        @include linear-gradient(50deg, palette(primary, accent) 0%, palette(primary, base) 100%);
+        padding: spacing-vertical(mid-large) spacing-horizontal(mid-large);
+    }
+}
+
+// copyable patterns
+.is-copyable {
+    display: inline-block;
+    white-space: nowrap;
+    font-family: $font-family-monospace;
+}
+
+// ------------------------------
+// #SYSTEM FEEDBACK
+// ------------------------------
+.badge {
+    @include text-align(center);
+    border-radius: rem(15);
+    padding: spacing-vertical(xxx-small) spacing-horizontal(small);
+    font-size: font-size(xxx-small);
+    font-weight: font-weight(bold);
+    text-transform: uppercase;
+    white-space: nowrap;
+    letter-spacing: letter-spacing(loose);
+
+    .badge-abbreviation {
+        border-bottom: none;
+    }
+}
+
+// ------------------------------
+// #HEADER
+// ------------------------------
+.doc-wrapper-header-site {
+    background: palette(grayscale, white);
+}
+
+
+.doc-header-site {
+
+}
+
+// ------------------------------
+// #NAVIGATION
+// ------------------------------
+// navigation - sidebar-based
+
+%spaced-nav {
+    @include padding-left(spacing-horizontal(x-small));
+    @include padding-right(spacing-horizontal(x-small));
+}
+
+.doc-nav {
+    padding-bottom: spacing-vertical(small);
+
+    &:last-child {
+        padding-bottom: 0;
+    }
+
+    .doc-link {
+        // STATE: hover, active, and focus
+        &:hover,
+        &:active,
+        &:focus {
+
+        }
+
+        // CASE: item is current
+        &.is-current {
+
+            .doc-link:before {
+                display: inline-block;
+            }
+        }
+    }
+
+    // CASE: pattern listing
+    .list-patterns {
+
+        .pattern {
+            @include clearfix();
+
+            .pattern-title,
+            .badge {
+                display: inline-block;
+            }
+
+            .pattern-title {
+                width: 80%;
+            }
+
+            .badge {
+                @include float(right);
+            }
+        }
+    }
+
+    .doc-nav-title {
+        @extend %spaced-nav;
+        text-transform: uppercase;
+        color: palette(primary, x-dark);
+        font-size: font-size(small);
+    }
+
+    .item {
+        @extend %spaced-nav;
+        display: inline-block;
+
+        @include susy-media($bp-screen-md) {
+            display: block;
+        }
+
+        .doc-link {
+            display: block;
+            width: 100%;
+        }
+    }
+
+    .is-current {
+        color: palette(primary, dark);
+        background-color: palette(grayscale-cool, x-trans);
+    }
+
+}
+
+// internal site navigation
+.doc-nav-internal {
+
+}
+
+// external site navigation
+.doc-nav-external {
+
+}
+
+.doc-tab {
+
+    &:focus {
+        outline: none;
+    }
+}
+
+.doc-tab-content {
+    @extend %depth-2;
+    @include transition(box-shadow timing(fast) ease-in-out);
+    border: rem(1) solid palette(grayscale, x-light);
+    padding: spacing-vertical(base) spacing-horizontal(base);
+
+    @include susy-breakpoint($bp-screen-md, $susy-default) {
+       padding: spacing-vertical(base) spacing-horizontal(mid-large);
+    }
+}
+
+.doc-settings {
+    background: palette(grayscale, xx-light);
+    margin-bottom: spacing-vertical(large);
+    padding: spacing-vertical(small) spacing-horizontal(small);
+}
+
+.doc-setting {
+    display: inline-block;
+    vertical-align: middle;
+    @include margin-right(spacing-horizontal(small));
+
+    &:last-child {
+         @include margin-right(0);
+    }
+}
+
+// ------------------------------
+// #SIDEBAR
+// ------------------------------
+.doc-wrapper-content-supplemental {
+
+}
+
+// ------------------------------
+// #MAIN CONTENT
+// ------------------------------
+.doc-wrapper-content-main {
+
+}
+
+// ------------------------------
+// #FOOTER
+// ------------------------------
+.doc-footer-site {
+    @extend %grid-container;
+
+    padding-top: spacing-horizontal(small);
+}
+
+.doc-footer-site-copyright {
+
+    .doc-copy {
+        font-size: font-size(small);
+    }
+}
+
+// ------------------------------
+// #PATTERNS
+// ------------------------------
+.doc-pattern {
+
+    .example-set-hd {
+        margin-bottom: spacing-vertical(small);
+    }
+}
+
+.doc-pattern-header {
+    margin-bottom: spacing-vertical(small);
+    padding-bottom: spacing-vertical(small);
+}
+
+
+// pattern info tabs
+.doc-tab-labels {
+    @include clearfix();
+    @extend %reset-lists;
+    border-bottom: $doc-tab-label-height solid palette(grayscale, x-light);
+}
+
+.doc-tab-heading {
+    @extend %a11y-hide;
+}
+
+.doc-tab-label {
+    @include float(left);
+    position: relative;
+    bottom: -(spacing-vertical(xx-small));
+    margin-bottom: 0;
+
+    .doc-link {
+        display: block;
+        margin: 0;
+        border-width: 0 0 $doc-tab-label-height 0;
+        border-color: $transparent;
+        border-style: solid;
+        background: $transparent;
+        padding: spacing-vertical(x-small) spacing-horizontal(mid-small);
+        font-weight: font-weight(semi-bold);
+        color: palette(grayscale, dark);
+
+        &:hover,
+        &:focus {
+            border-bottom-color: palette(primary, accent);
+            color: palette(primary, accent);
+        }
+
+        &.is-active {
+            border-bottom-color: palette(grayscale, x-dark);
+            color: palette(grayscale, x-dark);
+        }
+    }
+}
+
+
+// ------------------------------
+// #EXAMPLE - LAYOUTS
+// ------------------------------
+%demo-layout-column {
+    background: $grid-debug-color;
+    border: 1px solid saturate($grid-debug-color, 100%);
+
+    @include susy-breakpoint($bp-screen-md, $susy-default) {
+        background: saturate($grid-debug-color, 33%);
+    }
+
+    @include susy-breakpoint($bp-screen-lg, $susy-default) {
+        background: saturate($grid-debug-color, 66%);
+    }
+
+    @include susy-breakpoint($bp-screen-xl, $susy-default) {
+        background: saturate($grid-debug-color, 100%);
+    }
+}
+
+.example-layout {
+
+    .layout-col,
+    .layout-view-col
+     {
+       @extend %demo-layout-column;
+       padding: spacing-vertical(small) spacing-horizontal(small);
+    }
+
+    .example-label {
+        @extend %copy-micro;
+        display: block;
+        color: palette(grayscale, black-t);
+    }
+}
