@@ -32,7 +32,6 @@
 
             sortableFields: {},
 
-            searchString: '',
             filterableFields: {},
 
             state: {
@@ -46,7 +45,6 @@
                 pageSize: 'page_size',
                 sortKey: 'order_by',
                 order: 'sort_order',
-                text_search: function () { return this.searchString || null; }
             },
 
             constructor: function (models, options) {
@@ -302,30 +300,36 @@
             },
 
             /**
-             * Gets an object of currently active (applied) filters.
-             * @returns {Object} An object mapping the names of
-             *     currently active filter fields to their values.
+             * Gets an object of currently active (applied) filters.  Excludes
+             * the active search by default.
+             * @param {bool} includeSearch - Whether search should be included
+             * in the result.
+             * @returns {Object} An object mapping the names of currently active
+             * filter fields to their values.
              */
-            getActiveFilterFields: function () {
-                return _.chain(this.filterableFields)
+            getActiveFilterFields: function (includeSearch) {
+                var activeFilterFields = _.chain(this.filterableFields)
                     .pick(function (fieldData, fieldName) {
                         return !_.isNull(fieldData.value) && !_.isUndefined(fieldData.value);
                     })
                     .mapObject(function (data) {
                         return data.value;
-                    })
-                    .value();
+                    });
+                if (!includeSearch) {
+                    activeFilterFields = activeFilterFields.omit(PagingCollection.DefaultSearchKey);
+                }
+                return activeFilterFields.value();
             },
 
             /**
              * Gets the value of the given filter field.
              *
-             * @returns {String} the current value of the requested
-             *     filter field.  null or undefined means that the
-             *     filter field is not active.
+             * @returns {String} the current value of the requested filter
+             *     field.  null means that the filter field is not active.
              */
             getFilterFieldValue: function (filterFieldName) {
-                return this.getActiveFilterFields()[filterFieldName];
+                var val = this.getActiveFilterFields(true)[filterFieldName]
+                return (_.isNull(val) || _.isUndefined(val)) ? null : val;
             },
 
             /**
@@ -336,18 +340,19 @@
              * @param value value for the filterable field
              */
             setFilterField: function (fieldName, value) {
+                var queryStringValue;
                 if (!this.hasRegisteredFilterField(fieldName)) {
                     this.registerFilterableField(fieldName, '');
                 }
-                if (Array.isArray(value)) {
-                    value = value.join(',');
-                }
                 this.filterableFields[fieldName].value = value;
-                if (_.isUndefined(this.queryParams.fieldName)) {
-                    this.queryParams[fieldName] = function () {
-                        return this.filterableFields[fieldName].value || null;
-                    };
+                if (_.isArray(value)) {
+                    queryStringValue = value.join(',');
+                } else {
+                    queryStringValue = value;
                 }
+                this.queryParams[fieldName] = function () {
+                    return queryStringValue || null;
+                };
                 this.isStale = true;
             },
 
@@ -372,15 +377,34 @@
             },
 
             /**
+             * Gets the value of the current search string.
+             *
+             * @returns {String} the current value of the search string.  null
+             * or undefined means that the filter field is not active.
+             */
+            getSearchString: function () {
+                return this.getFilterFieldValue(PagingCollection.DefaultSearchKey);
+            },
+
+            /**
+             * Tells whether a search is currently applied.
+             *
+             * @returns {bool} - whether a search is currently applied.
+             */
+            hasActiveSearch: function () {
+                var currentSearch = this.getSearchString();
+                return !_.isNull(currentSearch) && currentSearch !== '';
+            },
+
+            /**
              * Sets the string to use for a text search and marks the
              * collection as stale.
              * @param searchString A string to search on, or null if no
              *     search is to be applied.
              */
             setSearchString: function (searchString) {
-                if (searchString !== this.searchString) {
-                    this.searchString = searchString;
-                    this.isStale = true;
+                if (searchString !== this.getSearchString()) {
+                    this.setFilterField(PagingCollection.DefaultSearchKey, searchString);
                 }
             },
 
@@ -389,15 +413,13 @@
              * collection as stale.
              */
             unsetSearchString: function () {
-                this.setSearchString(null);
+                this.unsetFilterField(PagingCollection.DefaultSearchKey);
             }
         }, {
+            DefaultSearchKey: 'text_search',
             SortDirection: {
                 ASCENDING: 'asc',
-                DESCENDING: 'desc',
-                flip: function (direction) {
-                    return direction === this.ASCENDING ? this.DESCENDING : this.ASCENDING;
-                }
+                DESCENDING: 'desc'
             }
         });
 
