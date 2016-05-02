@@ -392,20 +392,25 @@ filterable field.</p>
 
 <p><strong>Returns</strong>: <code class="highlighter-rouge">boolean</code>, Returns true if this collection has set the specified field.</p>
 
-<h3 id="pagingcollectiongetactivefilterfields">PagingCollection.getActiveFilterFields()</h3>
+<h3 id="pagingcollectiongetactivefilterfieldsincludesearch">PagingCollection.getActiveFilterFields(includeSearch)</h3>
 
-<p>Gets an object of currently active (applied) filters.</p>
+<p>Gets an object of currently active (applied) filters.  Excludes
+the active search by default.</p>
 
-<p><strong>Returns</strong>: <code class="highlighter-rouge">Object</code>, An object mapping the names of
-    currently active filter fields to their values.</p>
+<p><strong>Parameters</strong></p>
+
+<p><strong>includeSearch</strong>: <code class="highlighter-rouge">bool</code>, Whether search should be included
+in the result.</p>
+
+<p><strong>Returns</strong>: <code class="highlighter-rouge">Object</code>, An object mapping the names of currently active
+filter fields to their values.</p>
 
 <h3 id="pagingcollectiongetfilterfieldvalue">PagingCollection.getFilterFieldValue()</h3>
 
 <p>Gets the value of the given filter field.</p>
 
-<p><strong>Returns</strong>: <code class="highlighter-rouge">string</code>, the current value of the requested
-    filter field.  null or undefined means that the
-    filter field is not active.</p>
+<p><strong>Returns</strong>: <code class="highlighter-rouge">String</code>, the current value of the requested filter
+    field.  null means that the filter field is not active.</p>
 
 <h3 id="pagingcollectionsetfilterfieldfieldname-value">PagingCollection.setFilterField(fieldName, value)</h3>
 
@@ -434,6 +439,19 @@ stale.</p>
 <p>Unsets all of the collections filterable fields and marks
 the collection as stale.</p>
 
+<h3 id="pagingcollectiongetsearchstring">PagingCollection.getSearchString()</h3>
+
+<p>Gets the value of the current search string.</p>
+
+<p><strong>Returns</strong>: <code class="highlighter-rouge">String</code>, the current value of the search string.  null
+or undefined means that the filter field is not active.</p>
+
+<h3 id="pagingcollectionhasactivesearch">PagingCollection.hasActiveSearch()</h3>
+
+<p>Tells whether a search is currently applied.</p>
+
+<p><strong>Returns</strong>: <code class="highlighter-rouge">bool</code>, - whether a search is currently applied.</p>
+
 <h3 id="pagingcollectionsetsearchstringsearchstring">PagingCollection.setSearchString(searchString)</h3>
 
 <p>Sets the string to use for a text search and marks the
@@ -460,7 +478,7 @@ collection as stale.</p>
     <footer class="doc-footer-site">
     <div class="doc-footer-site-copyright">
         <p class="doc-copy copy-micro">
-            &copy; <time datetime="2016-05-02T12:11:31-04:00">2016</time>, edX Inc.
+            &copy; <time datetime="2016-05-02T16:02:21-04:00">2016</time>, edX Inc.
             and licensed under a Creative Commons Attribution-ShareAlike 4.0 International License unless
             otherwise specified.
         </p>
