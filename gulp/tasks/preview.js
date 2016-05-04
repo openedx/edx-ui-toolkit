@@ -55,7 +55,6 @@ gulp.task('preview-webpack', function() {
     var outputPath =  previewSiteDir + '/public/',
         branch = gitUtils.currentBranch();
     process.env.SITE_ROOT = '/' + branch + '/';
-    console.log('Site root: ' + process.env.SITE_ROOT);
     return gulp.src('')
         .pipe(webpack(require('../../webpack.config.js')))
         .pipe(gulp.dest(outputPath));

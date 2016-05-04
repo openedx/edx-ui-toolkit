@@ -217,14 +217,13 @@
 // ------------------------------
 .doc-footer-site {
     @extend %grid-container;
-
-    padding-top: spacing-horizontal(small);
 }
 
 .doc-footer-site-copyright {
 
     .doc-copy {
         font-size: font-size(small);
+        margin: 0;
     }
 }
 
