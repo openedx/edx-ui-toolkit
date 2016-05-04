@@ -12,4 +12,6 @@ The edX UI Toolkit is a JavaScript library for building edX web applications. It
 The toolkit is an open source library that is hosted on [GitHub]({{ site.data.edx-ui-toolkit.url_github }}),
 and that can be installed as an [npm package](https://www.npmjs.com/package/edx-ui-toolkit).
 
+[![edX Pattern Library](https://nodei.co/npm/edx-ui-toolkit.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/edx-ui-toolkit/)
+
 You can read more on the [edX Front End Development wiki](https://openedx.atlassian.net/wiki/display/FEDX/).

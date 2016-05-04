@@ -1,11 +1,7 @@
-<nav class="doc-nav doc-nav-internal" role="navigation" aria-label="{{ include.title }}">
-    <h2 class="doc-heading doc-nav-title hd-6">{{ site.data.edx-ui-toolkit.name }}</h2>
+<nav class="doc-nav doc-nav-internal" role="navigation" aria-label="{{ site.title }}">
+    <h2 class="doc-heading doc-nav-title hd-6">{{ site.title }}</h2>
     <ul class="list-unstyled list-patterns">
-        <li class="item no-indent">
-            <a class="doc-link" href="{{ site.baseurl }}">
-            Introduction
-            </a>
-        </li>
+        {% include navigation-item.html title="Introduction" url="/" %}
     </ul>
 </nav>
 
