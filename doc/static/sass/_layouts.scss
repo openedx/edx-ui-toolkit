@@ -1,11 +1,6 @@
 // UI Toolkit layouts
 
-.doc-wrapper-header-site {
-    @extend %grid-wrapper;
-    padding-top: spacing-vertical(small);
-}
-
-.doc-wrapper-header-site {
+.doc-wrapper-header-site, .doc-wrapper-footer-site {
     @extend %grid-wrapper;
 }
 
@@ -30,7 +25,7 @@
 .doc-content {
     @extend %grid-container;
     margin-top: spacing-vertical(x-small);
-    padding-bottom: spacing-vertical(small);
+    padding-bottom: spacing-vertical(x-small);
 }
 
 .doc-links {

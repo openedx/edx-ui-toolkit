@@ -47,6 +47,7 @@ Desktop.ini
 
 # UI Toolkit
 *.map
+.publish
 .sass-cache
 doc/public
 doc/_testing
