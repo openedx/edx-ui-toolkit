@@ -6790,7 +6790,7 @@ Note: sure .FONT_NAME comes first for adjoining classes bug in IE7.
           color: #0079bc;
           text-decoration: underline; }
 
-.doc-wrapper-header-site, .doc-wrapper-content {
+.doc-wrapper-header-site, .doc-wrapper-footer-site, .doc-wrapper-content {
   padding-right: 1.25rem;
   padding-left: 1.25rem; }
 
@@ -6900,11 +6900,9 @@ a {
   .doc-setting:last-child {
     margin-right: 0; }
 
-.doc-footer-site {
-  padding-top: 0.625rem; }
-
 .doc-footer-site-copyright .doc-copy {
-  font-size: 0.875rem; }
+  font-size: 0.875rem;
+  margin: 0; }
 
 .doc-pattern .example-set-hd {
   margin-bottom: 1.25rem; }
@@ -6967,9 +6965,6 @@ a {
   display: block;
   color: black; }
 
-.doc-wrapper-header-site {
-  padding-top: 1.25rem; }
-
 .doc-header-site-title {
   padding: 0 1.25rem;
   margin-bottom: 0;
@@ -6982,7 +6977,7 @@ a {
 
 .doc-content {
   margin-top: 0.625rem;
-  padding-bottom: 1.25rem; }
+  padding-bottom: 0.625rem; }
 
 .doc-links {
   float: right ; }
@@ -7073,6 +7068,10 @@ a {
   margin-bottom: 2.5rem; }
   .doc-view-example .example:last-child {
     margin-bottom: 0; }
+
+.highlight {
+  max-width: 100%;
+  white-space: pre-wrap; }
 
 .highlight .hll {
   background-color: #ffc; }
