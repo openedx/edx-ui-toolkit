@@ -4,6 +4,11 @@
     @extend %grid-wrapper;
 }
 
+.doc-header-site {
+    @extend %grid-container;
+    padding-top: spacing-vertical(x-small);
+}
+
 .doc-header-site-title {
     padding: 0 spacing-vertical(small);
     margin-bottom: 0;
