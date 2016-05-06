@@ -104,9 +104,8 @@ gulp.task('webpack-rebuild', function(callback) {
     );
 });
 
-gulp.task('jekyll-build', function(done) {
-    return childProcess.spawn('jekyll', ['build'], {stdio: 'inherit'})
-        .on('close', done);
+gulp.task('jekyll-build', function() {
+    childProcess.execSync('jekyll build');
 });
 
 gulp.task('jekyll-rebuild', ['jekyll-build'], function() {

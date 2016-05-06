@@ -13,8 +13,7 @@
 
 'use strict';
 
-var path = require('path'),
-    gulp = require('gulp'),
+var gulp = require('gulp'),
     runSequence = require('run-sequence'),
     childProcess = require('child_process'),
     webpack = require('webpack-stream'),
