@@ -65,6 +65,53 @@ define(['jquery',
                 expect(newCollection.queryParams.currentPage).toBe('page');
             });
 
+            SpecHelpers.withData({
+                'correctly sets state when parse is set to true after instantiating': [null, null],
+                'correctly sets state when parse is set to true in set method': ['set', {
+                    page: 3,
+                    numPages: 5,
+                    pageSize: 10
+                }],
+                'correctly sets state when parse is set to true in reset method': ['reset', {
+                    page: 3,
+                    numPages: 3,
+                    pageSize: 15
+                }]
+            }, function (method, expectedState) {
+                var newCollection;
+                newCollection = new PagingCollection({
+                    count: 43,
+                    page: 2,
+                    num_pages: 6,
+                    page_size: 8,
+                    results: []
+                }, {parse: true});
+
+                expect(newCollection.getPageSize()).toBe(8);
+                expect(newCollection.getPageNumber()).toBe(2);
+                expect(newCollection.getTotalRecords()).toBe(43);
+                expect(newCollection.getTotalPages()).toBe(6);
+
+                if (method) {
+                    newCollection[method]({
+                        count: 43,
+                        page: expectedState.page,
+                        num_pages: expectedState.numPages,
+                        page_size: expectedState.pageSize,
+                        sort_order: -1,
+                        order_by: 'testcol',
+                        results: []
+                    }, {parse: true});
+
+                    expect(newCollection.getPageSize()).toBe(expectedState.pageSize);
+                    expect(newCollection.getPageNumber()).toBe(expectedState.page);
+                    expect(newCollection.getTotalPages()).toBe(expectedState.numPages);
+                    expect(newCollection.getTotalRecords()).toBe(43);
+                    expect(newCollection.state.sortKey).toBe('testcol');
+                    expect(newCollection.state.order).toBe(-1);
+                }
+            });
+
             it('can register sortable fields', function () {
                 collection.registerSortableField('test_field', 'Test Field');
                 expect('test_field' in collection.sortableFields).toBe(true);
