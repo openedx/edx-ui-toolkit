@@ -1,13 +1,12 @@
 /*!
- * modernizr v3.0.0
- * Build http://modernizr.com/download?-fontface-generatedcontent-teststyles-dontmin
+ * modernizr v3.3.1
+ * Build http://modernizr.com/download?-fontface-generatedcontent-setclasses-dontmin
  *
  * Copyright (c)
  *  Faruk Ates
  *  Paul Irish
  *  Alex Sexton
  *  Ryan Seddon
- *  Alexander Farkas
  *  Patrick Kettner
  *  Stu Cox
  *  Richard Herrera
@@ -24,9 +23,6 @@
 */
 
 ;(function(window, document, undefined){
-  var classes = [];
-  
-
   var tests = [];
   
 
@@ -40,15 +36,15 @@
 
   var ModernizrProto = {
     // The current version, dummy
-    _version: '3.0.0',
+    _version: '3.3.1',
 
     // Any settings that don't work as separate modules
     // can go in here as configuration.
     _config: {
-      'classPrefix' : '',
-      'enableClasses' : true,
-      'enableJSClass' : true,
-      'usePrefixes' : true
+      'classPrefix': '',
+      'enableClasses': true,
+      'enableJSClass': true,
+      'usePrefixes': true
     },
 
     // Queue of tests
@@ -69,11 +65,11 @@
     },
 
     addTest: function(name, fn, options) {
-      tests.push({name : name, fn : fn, options : options});
+      tests.push({name: name, fn: fn, options: options});
     },
 
     addAsyncTest: function(fn) {
-      tests.push({name : null, fn : fn});
+      tests.push({name: null, fn: fn});
     }
   };
 
@@ -89,6 +85,9 @@
 
   
 
+  var classes = [];
+  
+
   /**
    * is returns a boolean if the typeof an obj is exactly type.
    *
@@ -102,7 +101,7 @@
   function is(obj, type) {
     return typeof obj === type;
   }
-
+  ;
 
   /**
    * Run through all tests and detect their support in the current UA.
@@ -120,57 +119,60 @@
     var featureNameSplit;
 
     for (var featureIdx in tests) {
-      featureNames = [];
-      feature = tests[featureIdx];
-      // run the test, throw the return value into the Modernizr,
-      // then based on that boolean, define an appropriate className
-      // and push it into an array of classes we'll join later.
-      //
-      // If there is no name, it's an 'async' test that is run,
-      // but not directly added to the object. That should
-      // be done with a post-run addTest call.
-      if (feature.name) {
-        featureNames.push(feature.name.toLowerCase());
-
-        if (feature.options && feature.options.aliases && feature.options.aliases.length) {
-          // Add all the aliases into the names list
-          for (aliasIdx = 0; aliasIdx < feature.options.aliases.length; aliasIdx++) {
-            featureNames.push(feature.options.aliases[aliasIdx].toLowerCase());
-          }
-        }
-      }
-
-      // Run the test, or use the raw value if it's not a function
-      result = is(feature.fn, 'function') ? feature.fn() : feature.fn;
-
-
-      // Set each of the names on the Modernizr object
-      for (nameIdx = 0; nameIdx < featureNames.length; nameIdx++) {
-        featureName = featureNames[nameIdx];
-        // Support dot properties as sub tests. We don't do checking to make sure
-        // that the implied parent tests have been added. You must call them in
-        // order (either in the test, or make the parent test a dependency).
+      if (tests.hasOwnProperty(featureIdx)) {
+        featureNames = [];
+        feature = tests[featureIdx];
+        // run the test, throw the return value into the Modernizr,
+        // then based on that boolean, define an appropriate className
+        // and push it into an array of classes we'll join later.
         //
-        // Cap it to TWO to make the logic simple and because who needs that kind of subtesting
-        // hashtag famous last words
-        featureNameSplit = featureName.split('.');
+        // If there is no name, it's an 'async' test that is run,
+        // but not directly added to the object. That should
+        // be done with a post-run addTest call.
+        if (feature.name) {
+          featureNames.push(feature.name.toLowerCase());
 
-        if (featureNameSplit.length === 1) {
-          Modernizr[featureNameSplit[0]] = result;
-        } else {
-          // cast to a Boolean, if not one already
-          /* jshint -W053 */
-          if (Modernizr[featureNameSplit[0]] && !(Modernizr[featureNameSplit[0]] instanceof Boolean)) {
-            Modernizr[featureNameSplit[0]] = new Boolean(Modernizr[featureNameSplit[0]]);
+          if (feature.options && feature.options.aliases && feature.options.aliases.length) {
+            // Add all the aliases into the names list
+            for (aliasIdx = 0; aliasIdx < feature.options.aliases.length; aliasIdx++) {
+              featureNames.push(feature.options.aliases[aliasIdx].toLowerCase());
+            }
           }
-
-          Modernizr[featureNameSplit[0]][featureNameSplit[1]] = result;
         }
 
-        classes.push((result ? '' : 'no-') + featureNameSplit.join('-'));
+        // Run the test, or use the raw value if it's not a function
+        result = is(feature.fn, 'function') ? feature.fn() : feature.fn;
+
+
+        // Set each of the names on the Modernizr object
+        for (nameIdx = 0; nameIdx < featureNames.length; nameIdx++) {
+          featureName = featureNames[nameIdx];
+          // Support dot properties as sub tests. We don't do checking to make sure
+          // that the implied parent tests have been added. You must call them in
+          // order (either in the test, or make the parent test a dependency).
+          //
+          // Cap it to TWO to make the logic simple and because who needs that kind of subtesting
+          // hashtag famous last words
+          featureNameSplit = featureName.split('.');
+
+          if (featureNameSplit.length === 1) {
+            Modernizr[featureNameSplit[0]] = result;
+          } else {
+            // cast to a Boolean, if not one already
+            /* jshint -W053 */
+            if (Modernizr[featureNameSplit[0]] && !(Modernizr[featureNameSplit[0]] instanceof Boolean)) {
+              Modernizr[featureNameSplit[0]] = new Boolean(Modernizr[featureNameSplit[0]]);
+            }
+
+            Modernizr[featureNameSplit[0]][featureNameSplit[1]] = result;
+          }
+
+          classes.push((result ? '' : 'no-') + featureNameSplit.join('-'));
+        }
       }
     }
   }
+  ;
 
   /**
    * docElement is a convenience wrapper to grab the root element of the document
@@ -220,10 +222,12 @@
     if (Modernizr._config.enableClasses) {
       // Add the new classes
       className += ' ' + classPrefix + classes.join(' ' + classPrefix);
-      if (isSVG) { docElement.className.baseVal = className; } else { docElement.className = className; }
+      isSVG ? docElement.className.baseVal = className : docElement.className = className;
     }
 
   }
+
+  ;
 
   /**
    * createElement is a convenience wrapper around document.createElement. Since we
@@ -248,6 +252,8 @@
     }
   }
 
+  ;
+
   /**
    * getBody returns the body of a document, or an element that can stand in for
    * the body if a real body does not exist
@@ -270,6 +276,8 @@
 
     return body;
   }
+
+  ;
 
   /**
    * injectElementWithStyles injects an element with style element and some CSS rules
@@ -334,7 +342,7 @@
       body.parentNode.removeChild(body);
       docElement.style.overflow = docOverflow;
       // Trigger layout so kinetic scrolling isn't disabled in iOS6+
-      docElement.offsetHeight();
+      docElement.offsetHeight;
     } else {
       div.parentNode.removeChild(div);
     }
@@ -342,6 +350,8 @@
     return !!ret;
 
   }
+
+  ;
 
   /**
    * testStyles injects an element with style element and some CSS rules
@@ -409,8 +419,8 @@
   "authors": ["Diego Perini", "Mat Marquis"],
   "tags": ["css"],
   "knownBugs": [
-    "False Positive: WebOS http://github.com/Modernizr/Modernizr/issues/342",
-    "False Postive: WP7 http://github.com/Modernizr/Modernizr/issues/538"
+    "False Positive: WebOS https://github.com/Modernizr/Modernizr/issues/342",
+    "False Postive: WP7 https://github.com/Modernizr/Modernizr/issues/538"
   ],
   "notes": [{
     "name": "@font-face detection routine by Diego Perini",
@@ -423,7 +433,7 @@
     "href": "https://docs.google.com/spreadsheet/ccc?key=0Ag5_yGvxpINRdHFYeUJPNnZMWUZKR2ItMEpRTXZPdUE#gid=0"
   },{
     "name": "CSS fonts on Android",
-    "href": "http://stackoverflow.com/questions/3200069/css-fonts-on-android"
+    "href": "https://stackoverflow.com/questions/3200069/css-fonts-on-android"
   },{
     "name": "@font-face and Android",
     "href": "http://archivist.incutio.com/viewlist/css-discuss/115960"
@@ -450,6 +460,7 @@
       Modernizr.addTest('fontface', bool);
     });
   }
+;
 /*!
 {
   "name": "CSS Generated Content",
@@ -458,7 +469,7 @@
   "warnings": ["Android won't return correct height for anything below 7px #738"],
   "notes": [{
     "name": "W3C CSS Selectors Level 3 spec",
-    "href": "http://www.w3.org/TR/css3-selectors/#gen-content"
+    "href": "https://www.w3.org/TR/css3-selectors/#gen-content"
   },{
     "name": "MDN article on :before",
     "href": "https://developer.mozilla.org/en-US/docs/Web/CSS/::before"
@@ -490,5 +501,8 @@
 
   // Leak Modernizr namespace
   window.Modernizr = Modernizr;
+
+
+;
 
 })(window, document);
