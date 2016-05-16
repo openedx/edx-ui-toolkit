@@ -18,12 +18,14 @@ var gulp = require('gulp'),
     childProcess = require('child_process'),
     webpack = require('webpack-stream'),
     gitUtils = require('../utils/git-utils'),
+    config  = require('../config').documentation,
     previewConfigFile = '_tmp_preview_config.yml',
-    previewSiteDir = '_preview_site',
     previewDomain = process.env.S3_PREVIEW_DOMAIN;
 
 gulp.task('preview', function(callback) {
     runSequence(
+        'clean',
+        'doc-build',
         'jekyll-build-preview',
         'preview-webpack',
         'upload-preview',
@@ -43,7 +45,7 @@ gulp.task('jekyll-build-preview', function() {
     // Generate the preview version of the site
     console.log('Generating preview for branch ' + branch);
     childProcess.execSync(
-        'jekyll build --config _config.yml,' + previewConfigFile + ' --destination ' + previewSiteDir
+        'jekyll build --config _config.yml,' + previewConfigFile + ' --destination ' + config.previewTargetDir
     );
 
     // Remove the configuration file since it is no longer needed
@@ -51,7 +53,7 @@ gulp.task('jekyll-build-preview', function() {
 });
 
 gulp.task('preview-webpack', function() {
-    var outputPath =  previewSiteDir + '/public/',
+    var outputPath =  config.previewTargetDir + '/public/',
         branch = gitUtils.currentBranch();
     process.env.SITE_ROOT = '/' + branch + '/';
     return gulp.src('')
@@ -63,7 +65,7 @@ gulp.task('upload-preview', function() {
     var branch = gitUtils.currentBranch();
     if (previewDomain) {
         childProcess.execSync(
-            'aws s3 sync ' + previewSiteDir + ' s3://' + previewDomain + '/' + branch
+            'aws s3 sync ' + config.previewTargetDir + ' s3://' + previewDomain + '/' + branch
         );
         console.log('Preview site ready at http://' + previewDomain + '/' + branch);
     } else {

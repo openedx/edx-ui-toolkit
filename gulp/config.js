@@ -1,5 +1,7 @@
 module.exports = {
     documentation: {
+        targetDir: './_site',
+        previewTargetDir: './_preview_site',
         testing: {
             sources: [
                 './src/js/utils/spec-helpers/*.js'

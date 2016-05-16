@@ -112,7 +112,7 @@ gulp.task('jekyll-rebuild', ['jekyll-build'], function() {
     browserSync.reload();
 });
 
-gulp.task('doc-publish', ['doc-build'], function() {
+gulp.task('doc-publish', ['clean', 'doc-build'], function() {
     return gulp.src(config.gitHubPages.files)
         .pipe(ghPages());
 });
