@@ -1,11 +1,19 @@
 # Changelog
 
+## 1.0.0 (2016-05-17)
+* First public release of the UI Toolkit!
+* API documentation available at http://ui-toolkit.edx.org
+* Minor bug fixes
+
+- - -
+
 ## 0.10.0 (2016-04-14)
 * Update README to gulp test-debug (with a hyphen)
 * Update getActivefilterfields, add getFilterFieldValue
 * Fix issues with karma hanging on exit
 
 - - -
+
 ## 0.9.1 (2016-03-31)
 * Fixed relative path issue with dropdown menu component
 
