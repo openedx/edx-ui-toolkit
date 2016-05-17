@@ -104,16 +104,15 @@ gulp.task('webpack-rebuild', function(callback) {
     );
 });
 
-gulp.task('jekyll-build', function(done) {
-    return childProcess.spawn('jekyll', ['build'], {stdio: 'inherit'})
-        .on('close', done);
+gulp.task('jekyll-build', function() {
+    childProcess.execSync('jekyll build');
 });
 
 gulp.task('jekyll-rebuild', ['jekyll-build'], function() {
     browserSync.reload();
 });
 
-gulp.task('doc-publish', ['doc-build'], function() {
+gulp.task('doc-publish', ['clean', 'doc-build'], function() {
     return gulp.src(config.gitHubPages.files)
         .pipe(ghPages());
 });
