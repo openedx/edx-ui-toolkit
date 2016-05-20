@@ -48,6 +48,8 @@
                 pageSize: 'page_size',
                 sortKey: 'order_by',
                 order: 'sort_order',
+                totalPages: null,
+                totalRecords: null
             },
 
             constructor: function (models, options) {
