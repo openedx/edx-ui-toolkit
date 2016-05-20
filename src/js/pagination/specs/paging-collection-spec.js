@@ -45,6 +45,13 @@ define(['jquery',
                 });
             };
 
+            var assertNotInQueryParams = function (requests, params) {
+                var urlParams = getUrlParams(requests[requests.length - 1]);
+                params.forEach(function (param) {
+                    expect(urlParams[param]).toBe(undefined);
+                });
+            };
+
             beforeEach(function () {
                 collection = new PagingCollection([], {state: {pageSize: 10}});
                 collection.url = '/test';
@@ -86,6 +93,28 @@ define(['jquery',
                     assertQueryParams(requests, {'sort_order': 'asc'});
                     expect(collection.state.sortKey).toBe('test_field');
                     expect(collection.sortDisplayName()).toBe('Test Field');
+                }
+            ));
+
+            it('doesn\'t send unnecessary parameters in request (total pages, total records)', AjaxHelpers.requests(
+                function (requests) {
+                    // After first fetch the state is updated with returned response
+                    collection.fetch();
+                    server.respond(requests);
+                    collection.fetch();
+                    assertNotInQueryParams(requests, ['total_entries', 'total_pages']);
+
+                    var newCollection = new PagingCollection([], {
+                        state: {
+                            pageSize: 10,
+                            totalPages: 10,
+                            totalRecords: 100
+                        }
+                    });
+
+                    newCollection.url = '/test';
+                    newCollection.fetch();
+                    assertNotInQueryParams(requests, ['total_entries', 'total_pages']);
                 }
             ));
 
