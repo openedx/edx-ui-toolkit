@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.1.0 (2016-05-26)
+* Removed parseState method from PagingCollection in favor of PageableCollection
+* Added getters in PagingCollection to get the state attributes
+
+- - -
+
 ## 1.0.0 (2016-05-17)
 * First public release of the UI Toolkit!
 * API documentation available at http://ui-toolkit.edx.org
