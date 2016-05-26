@@ -46,8 +46,10 @@
             queryParams: {
                 currentPage: 'page',
                 pageSize: 'page_size',
+                totalRecords: 'count',
+                totalPages: 'num_pages',
                 sortKey: 'order_by',
-                order: 'sort_order',
+                order: 'sort_order'
             },
 
             constructor: function (models, options) {
@@ -77,15 +79,6 @@
                 return PageableCollection.prototype.parse.call(this, modifiedResponse, options);
             },
 
-            /* jshint unused:false */
-            /**
-             * Parses state from the server response.  Used only by
-             * backbone.paginator.
-             */
-            parseState: function (response, queryParams, state, options) {
-                return {totalRecords: response[0].count, totalPages: response[0].num_pages};
-            },
-
             /**
              * Returns the current page number as if numbering starts on
              * page one, regardless of the indexing of the underlying
@@ -95,6 +88,34 @@
              */
             getPageNumber: function () {
                 return this.state.currentPage + (1 - this.state.firstPage);
+            },
+
+            /**
+             * Returns the total pages of the collection based on
+             * total records and page size
+             *
+             * @returns {integer} Total number of pages.
+             */
+            getTotalPages: function () {
+                return this.state.totalPages;
+            },
+
+            /**
+             * Returns the total number of records the collection has
+             *
+             * @returns {integer} Total number of records.
+             */
+            getTotalRecords: function () {
+                return this.state.totalRecords;
+            },
+
+            /**
+             * Returns the number of records per page
+             *
+             * @returns {integer} Number of records per page.
+             */
+            getPageSize: function () {
+                return this.state.pageSize;
             },
 
             /**
