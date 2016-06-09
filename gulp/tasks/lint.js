@@ -1,12 +1,12 @@
 (function() {
     'use strict';
 
-    var jshint = require('gulp-jshint'),
+    var eslint = require('gulp-eslint'),
         gulp = require('gulp'),
         paths = {
             lint: [
                 'test/**/!(jquery.simulate)*.js',
-                'components/**/*.js',
+                'src/**/*.js',
                 'gulp/tasks/*.js',
                 'gulpfile.js'
             ]
@@ -14,8 +14,8 @@
 
     gulp.task('lint', function() {
         return gulp.src(paths.lint)
-            .pipe(jshint())
-            .pipe(jshint.reporter('default'))
-            .pipe(jshint.reporter('fail'));
+            .pipe(eslint())
+            .pipe(eslint.format())
+            .pipe(eslint.failAfterError());
     });
 }());
