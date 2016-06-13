@@ -350,7 +350,7 @@ define([
                 beforeEach(function() {
                     dropdownModel.set({
                         button: {
-                            icon: 'icon-angle-down',
+                            icon: 'fa fa-angle-down',
                             label: 'User options dropdown'
                         }
                     });
