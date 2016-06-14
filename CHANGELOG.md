@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.2.0 (2016-06-14)
+* In dropdown menu component icons switched to Font Awesome for accessibility
+
+- - -
+
 ## 1.1.0 (2016-05-26)
 * Removed parseState method from PagingCollection in favor of PageableCollection
 * Added getters in PagingCollection to get the state attributes
