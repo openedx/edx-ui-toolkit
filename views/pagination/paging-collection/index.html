@@ -232,11 +232,6 @@ sort.</li>
 
 <hr />
 
-<h3 id="pagingcollectionparsestate">PagingCollection.parseState()</h3>
-
-<p>Parses state from the server response.  Used only by
-backbone.paginator.</p>
-
 <h3 id="pagingcollectiongetpagenumber">PagingCollection.getPageNumber()</h3>
 
 <p>Returns the current page number as if numbering starts on
@@ -244,6 +239,25 @@ page one, regardless of the indexing of the underlying
 server API.</p>
 
 <p><strong>Returns</strong>: <code class="highlighter-rouge">integer</code>, The current page number.</p>
+
+<h3 id="pagingcollectiongettotalpages">PagingCollection.getTotalPages()</h3>
+
+<p>Returns the total pages of the collection based on
+total records and page size</p>
+
+<p><strong>Returns</strong>: <code class="highlighter-rouge">integer</code>, Total number of pages.</p>
+
+<h3 id="pagingcollectiongettotalrecords">PagingCollection.getTotalRecords()</h3>
+
+<p>Returns the total number of records the collection has</p>
+
+<p><strong>Returns</strong>: <code class="highlighter-rouge">integer</code>, Total number of records.</p>
+
+<h3 id="pagingcollectiongetpagesize">PagingCollection.getPageSize()</h3>
+
+<p>Returns the number of records per page</p>
+
+<p><strong>Returns</strong>: <code class="highlighter-rouge">integer</code>, Number of records per page.</p>
 
 <h3 id="pagingcollectionsetpagepage">PagingCollection.setPage(page)</h3>
 
@@ -493,7 +507,7 @@ collection as stale.</p>
     <footer class="doc-footer-site">
         <div class="doc-footer-site-copyright">
             <p class="doc-copy copy-micro">
-                Copyright &copy; <time datetime="2016-05-17T16:41:17-04:00">2016</time> edX.
+                Copyright &copy; <time datetime="2016-06-14T16:32:29-04:00">2016</time> edX.
             </p>
             <p class="doc-copy copy-micro">
                 <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" src="https://i.creativecommons.org/l/by-sa/4.0/80x15.png" /></a>
