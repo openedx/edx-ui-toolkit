@@ -1,4 +1,4 @@
-(function() {
+(function () {
     'use strict';
 
     var eslint = require('gulp-eslint'),
@@ -12,7 +12,7 @@
             ]
         };
 
-    gulp.task('lint', function() {
+    gulp.task('lint', function () {
         return gulp.src(paths.lint)
             .pipe(eslint())
             .pipe(eslint.format())

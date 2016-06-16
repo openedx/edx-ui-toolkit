@@ -1,6 +1,6 @@
 // Karma configuration
 
-module.exports = function(config, options) {
+module.exports = function (config, options) {
     'use strict';
 
     // If not being overridden, then specify the default headless configuration

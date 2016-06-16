@@ -3,12 +3,12 @@
  *
  * @module GlobalLoader
  */
-(function() {
+(function () {
     'use strict';
 
     window.edx = window.edx || {};
 
-    window.edx.GlobalLoader = (function() {
+    window.edx.GlobalLoader = (function () {
         var registeredModules = {};
 
         // Register standard libraries
@@ -44,9 +44,9 @@
              * @param {string} path The module's path.
              * @returns {Function} A function that will create the module.
              */
-            defineAs: function(name, path) {
+            defineAs: function (name, path) {
 
-                return function(requiredPaths, moduleFunction) {
+                return function (requiredPaths, moduleFunction) {
                     var requiredModules = [],
                         pathCount = requiredPaths.length,
                         requiredModule,
@@ -67,7 +67,7 @@
              *
              * Note: this function is only provided for unit testing.
              */
-            clear: function() {
+            clear: function () {
                 registeredModules = {};
             }
         };

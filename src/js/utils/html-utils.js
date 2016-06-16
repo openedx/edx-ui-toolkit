@@ -9,9 +9,9 @@
  *
  * @module HtmlUtils
  */
-;(function(define) {
+(function (define) {
     'use strict';
-    define(['underscore', 'jquery', 'edx-ui-toolkit/js/utils/string-utils'], function(_, $, StringUtils) {
+    define(['underscore', 'jquery', 'edx-ui-toolkit/js/utils/string-utils'], function (_, $, StringUtils) {
         var ensureHtml, interpolateHtml, joinHtml, HTML, template, setHtml, append, prepend;
 
         /**
@@ -27,10 +27,10 @@
         function HtmlSnippet(htmlString) {
             this.text = htmlString;
         }
-        HtmlSnippet.prototype.valueOf = function() {
+        HtmlSnippet.prototype.valueOf = function () {
             return this.text;
         };
-        HtmlSnippet.prototype.toString = function() {
+        HtmlSnippet.prototype.toString = function () {
             return this.text;
         };
 
@@ -43,7 +43,7 @@
          * @param {string} htmlString The string of HTML.
          * @returns {HtmlSnippet} An HTML snippet that can be safely rendered.
          */
-        HTML = function(htmlString) {
+        HTML = function (htmlString) {
             return new HtmlSnippet(htmlString);
         };
 
@@ -58,7 +58,7 @@
          * or an HTML snippet.
          * @returns {HtmlSnippet} A safely escaped HTML snippet.
          */
-        ensureHtml = function(html) {
+        ensureHtml = function (html) {
             if (html instanceof HtmlSnippet) {
                 return html;
             } else {
@@ -112,7 +112,7 @@
          * @param {Object} parameters An optional set of parameters for interpolation.
          * @returns {HtmlSnippet} The resulting safely escaped HTML snippet.
          */
-        interpolateHtml = function(formatString, parameters) {
+        interpolateHtml = function (formatString, parameters) {
             var result = StringUtils.interpolate(
                 ensureHtml(formatString).toString(),
                 _.mapObject(parameters, ensureHtml)
@@ -132,7 +132,7 @@
          * to be joined together.
          * @returns {HtmlSnippet} The resulting safely escaped HTML snippet.
          */
-        joinHtml = function() {
+        joinHtml = function () {
             var html = '',
                 argumentCount = arguments.length,
                 i;
@@ -155,10 +155,10 @@
          * @param {object} settings
          * @returns {function} A function that returns a rendered HTML snippet.
          */
-        template = function(text, settings) {
+        template = function (text, settings) {
             var HtmlUtils = this,
                 rawTemplate = _.template(text, settings),
-                template = function(data) {
+                template = function (data) {
                     var augmentedData = _.extend(
                         {
                             HtmlUtils: HtmlUtils,
@@ -183,7 +183,7 @@
          * plain string or as an HTML snippet.
          * @returns {JQuery} The JQuery object representing the element or elements.
          */
-        setHtml = function(element, html) {
+        setHtml = function (element, html) {
             return $(element).html(ensureHtml(html).toString());
         };
 
@@ -199,7 +199,7 @@
          * plain string or as an HTML snippet.
          * @returns {JQuery} The JQuery object representing the element or elements.
          */
-        append = function(element, html) {
+        append = function (element, html) {
             return $(element).append(ensureHtml(html).toString());
         };
 
@@ -215,7 +215,7 @@
          * plain string or as an HTML snippet.
          * @returns {JQuery} The JQuery object representing the element or elements.
          */
-        prepend = function(element, html) {
+        prepend = function (element, html) {
             return $(element).prepend(ensureHtml(html).toString());
         };
 

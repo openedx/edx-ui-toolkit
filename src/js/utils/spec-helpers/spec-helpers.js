@@ -3,7 +3,7 @@
  *
  * @module SpecHelpers
  */
-define([], function() {
+define([], function () {
     'use strict';
 
     /**
@@ -15,12 +15,12 @@ define([], function() {
      * is applied as arguments to func.
      * @param {function} func The function that actually expresses the logic of the test.
      */
-    var withData = function(data, func) {
+    var withData = function (data, func) {
         /* jshint loopfunc:true */
         for (var name in data) {
             if (data.hasOwnProperty(name)) {
-                (function(name) {
-                    it(name, function() {
+                (function (name) {
+                    it(name, function () {
                         func.apply(this, data[name]);
                     });
                 })(name);
@@ -40,13 +40,13 @@ define([], function() {
      * @param {function} test The function that actually express the logic of the test.
      * May include it() or more describe().
      */
-    var withConfiguration = function(config, setup, test) {
+    var withConfiguration = function (config, setup, test) {
         /* jshint loopfunc:true */
         for (var name in config) {
             if (config.hasOwnProperty(name)) {
-                (function(name) {
-                    describe(name, function() {
-                        beforeEach(function() {
+                (function (name) {
+                    describe(name, function () {
+                        beforeEach(function () {
                             setup.apply(this, config[name]);
                         });
                         test();

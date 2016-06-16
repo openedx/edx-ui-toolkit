@@ -2,28 +2,28 @@ define(
     [
         'edx-ui-toolkit/js/utils/global-loader'
     ],
-    function(GlobalLoader) {
+    function (GlobalLoader) {
         'use strict';
 
-        describe('GlobalLoader', function() {
-            beforeEach(function() {
+        describe('GlobalLoader', function () {
+            beforeEach(function () {
                 GlobalLoader.defineAs('TestModule', 'js/test-module')(
                     [],
-                    function() {
+                    function () {
                         return {name: 'TestModule'};
                     }
                 );
             });
 
-            it('installs a module into the edx namespace', function() {
+            it('installs a module into the edx namespace', function () {
                 expect(edx.TestModule).toBeDefined();
                 expect(edx.TestModule.name).toBe('TestModule');
             });
 
-            it('handles standard libraries', function() {
+            it('handles standard libraries', function () {
                 GlobalLoader.defineAs('TestModule2', 'js/test-module2')(
                     ['jquery', 'underscore'],
-                    function($, _) {
+                    function ($, _) {
                         return {name: 'TestModule2', $: $, _: _};
                     }
                 );
@@ -32,10 +32,10 @@ define(
                 expect(edx.TestModule2._).toBe(_);
             });
 
-            it('loads dependent modules', function() {
+            it('loads dependent modules', function () {
                 GlobalLoader.defineAs('TestModule2', 'js/test-module2')(
                     ['js/test-module'],
-                    function(TestModule) {
+                    function (TestModule) {
                         return {name: 'TestModule2', dependsOn: TestModule};
                     }
                 );

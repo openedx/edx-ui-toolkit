@@ -25,7 +25,7 @@
  *
  * @module PagingCollection
  */
-;(function (define) {
+(function (define) {
     'use strict';
     define(['jquery', 'underscore', 'backbone.paginator'], function ($, _, PageableCollection) {
         var PagingCollection = PageableCollection.extend({
@@ -152,11 +152,11 @@
              * @returns {promise} Returns a promise representing the
              *     refresh.
              */
-            refresh: function() {
+            refresh: function () {
                 var deferred = $.Deferred();
                 if (this.isStale) {
                     this.setPage(1)
-                        .done(function() {
+                        .done(function () {
                             deferred.resolve();
                         });
                 } else {
@@ -385,7 +385,7 @@
              *     field.  null means that the filter field is not active.
              */
             getFilterFieldValue: function (filterFieldName) {
-                var val = this.getActiveFilterFields(true)[filterFieldName]
+                var val = this.getActiveFilterFields(true)[filterFieldName];
                 return (_.isNull(val) || _.isUndefined(val)) ? null : val;
             },
 

@@ -1,6 +1,6 @@
 // Karma configuration for debugging
 
-module.exports = function(config) {
+module.exports = function (config) {
     'use strict';
 
     var baseConfig = require('./karma.conf');

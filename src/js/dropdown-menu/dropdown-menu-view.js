@@ -33,16 +33,16 @@
  *~~~
  * @module DropdownMenuView
  */
-;(function(define) {
+(function (define) {
     'use strict';
     define([
-            'backbone',
-            'jquery',
-            'underscore',
-            'edx-ui-toolkit/js/utils/constants',
-            'text!./dropdown.underscore'
-        ],
-        function(Backbone, $, _, constants, DropdownTpl) {
+        'backbone',
+        'jquery',
+        'underscore',
+        'edx-ui-toolkit/js/utils/constants',
+        'text!./dropdown.underscore'
+    ],
+        function (Backbone, $, _, constants, DropdownTpl) {
             var DropdownMenuView = Backbone.View.extend({
                 tpl: _.template(DropdownTpl),
 
@@ -56,7 +56,7 @@
 
                 menu: '.dropdown-menu',
 
-                initialize: function(options) {
+                initialize: function (options) {
                     if (options.parent) {
                         this.$parent = $(options.parent);
                     }
@@ -67,11 +67,11 @@
                     this.keyClose = [constants.keyCodes.esc, constants.keyCodes.space];
                 },
 
-                className: function() {
+                className: function () {
                     return this.options.className;
                 },
 
-                render: function() {
+                render: function () {
                     /**
                      * Set in the render function to prevent error when
                      * view is used with a pre-rendered DOM
@@ -85,7 +85,7 @@
                     return this;
                 },
 
-                postRender: function() {
+                postRender: function () {
                     this.$menu = this.$('.dropdown-menu');
                     this.$page = $(document);
                     this.$dropdownButton = this.$(this.dropdownButton);
@@ -110,14 +110,14 @@
                  * });
                  *~~~
                  *
-                 * @param {object} event The event to be tracked. 
+                 * @param {object} event The event to be tracked.
                  * @returns {*} The event.
                  */
-                analyticsLinkClick: function(event) {
+                analyticsLinkClick: function (event) {
                     return event;
                 },
 
-                clickCloseDropdown: function(event, context) {
+                clickCloseDropdown: function (event, context) {
                     var $el = $(event.target) || $(document),
                         $btn;
 
@@ -136,12 +136,12 @@
                     }
                 },
 
-                clickOpenDropdown: function(event) {
+                clickOpenDropdown: function (event) {
                     event.preventDefault();
                     this.openMenu(this.$dropdownButton);
                 },
 
-                closeDropdownMenu: function() {
+                closeDropdownMenu: function () {
                     var $open = this.$(this.menu);
 
                     $open.removeClass('is-visible')
@@ -152,15 +152,15 @@
                         .attr('aria-expanded', 'false');
                 },
 
-                focusFirstItem: function() {
+                focusFirstItem: function () {
                     this.$menu.find('.dropdown-item:first-child .action').focus();
                 },
 
-                focusLastItem: function() {
+                focusLastItem: function () {
                     this.$lastItem.focus();
                 },
 
-                handlerIsAction: function(key, $el) {
+                handlerIsAction: function (key, $el) {
                     if (_.contains(this.keyForward, key)) {
                         this.nextMenuItemLink($el);
                     } else if (_.contains(this.keyBack, key)) {
@@ -168,7 +168,7 @@
                     }
                 },
 
-                handlerIsButton: function(key, event) {
+                handlerIsButton: function (key, event) {
                     if (_.contains(this.keyForward, key)) {
                         this.focusFirstItem();
                         // if up arrow or left arrow key pressed or shift+tab
@@ -178,7 +178,7 @@
                     }
                 },
 
-                handlerIsMenu: function(key) {
+                handlerIsMenu: function (key) {
                     if (_.contains(this.keyForward, key)) {
                         this.focusFirstItem();
                     } else if (_.contains(this.keyBack, key)) {
@@ -186,16 +186,16 @@
                     }
                 },
 
-                handlerPageClicks: function(context) {
+                handlerPageClicks: function (context) {
                     // Only want 1 event listener for click.dropdown
                     // on the page so unbind for instantiating
                     this.$page.off('click.dropdown');
-                    this.$page.on('click.dropdown', function(event) {
+                    this.$page.on('click.dropdown', function (event) {
                         context.clickCloseDropdown(event, context);
                     });
                 },
 
-                nextMenuItemLink: function($el) {
+                nextMenuItemLink: function ($el) {
                     var items = this.$('.dropdown-menu').children('.dropdown-item').find('.action'),
                         itemsCount = items.length - 1,
                         index = items.index($el),
@@ -208,7 +208,7 @@
                     }
                 },
 
-                openMenu: function($btn) {
+                openMenu: function ($btn) {
                     var $menu = this.$menu;
                     if ($menu.hasClass('is-visible')) {
                         this.closeDropdownMenu();
@@ -225,7 +225,7 @@
                     }
                 },
 
-                previousMenuItemLink: function($el) {
+                previousMenuItemLink: function ($el) {
                     var items = this.$('.dropdown-menu').children('.dropdown-item').find('.action'),
                         index = items.index($el),
                         prev = index - 1;
@@ -237,7 +237,7 @@
                     }
                 },
 
-                setOrientation: function() {
+                setOrientation: function () {
                     var midpoint = $(window).width() / 2,
                         alignClass = (this.$dropdownButton.offset().left > midpoint) ? 'align-right' : 'align-left';
 
@@ -246,7 +246,7 @@
                         .addClass(alignClass);
                 },
 
-                viewKeypress: function(event) {
+                viewKeypress: function (event) {
                     var key = event.keyCode,
                         $el = $(event.target);
 

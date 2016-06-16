@@ -12,7 +12,7 @@ var gulp = require('gulp'),
     childProcess = require('child_process'),
     browserSync = require('browser-sync'),
     runSequence = require('run-sequence'),
-    config  = require('../config').documentation,
+    config = require('../config').documentation,
     generateDoc = require('../utils/generate-doc'),
     rename = require('gulp-rename'),
     webpack = require('webpack-stream'),
@@ -20,12 +20,12 @@ var gulp = require('gulp'),
     renameAsMarkdown,
     generateDocFor;
 
-renameAsMarkdown = function(path) {
+renameAsMarkdown = function (path) {
     path.extname = '.md';
     return path;
 };
 
-generateDocFor = function(options) {
+generateDocFor = function (options) {
     var i, sources;
     for (i = 0; i < options.sources.length; i++) {
         sources = options.sources[i];
@@ -37,7 +37,7 @@ generateDocFor = function(options) {
     }
 };
 
-gulp.task('doc', function(callback) {
+gulp.task('doc', function (callback) {
     runSequence(
         'doc-build',
         'doc-serve',
@@ -45,7 +45,7 @@ gulp.task('doc', function(callback) {
     );
 });
 
-gulp.task('doc-build', function(callback) {
+gulp.task('doc-build', function (callback) {
     runSequence(
         ['doc-testing', 'doc-utils', 'doc-views'],
         'copy-pattern-library',
@@ -55,7 +55,7 @@ gulp.task('doc-build', function(callback) {
     );
 });
 
-gulp.task('doc-serve', function() {
+gulp.task('doc-serve', function () {
     // Run browserSync to serve the doc site
     browserSync(config.browserSync);
 
@@ -71,24 +71,24 @@ gulp.task('doc-serve', function() {
     gulp.watch(config.templates, ['jekyll-rebuild']);
 });
 
-gulp.task('doc-testing', function() {
+gulp.task('doc-testing', function () {
     generateDocFor(config.testing);
 });
 
-gulp.task('doc-utils', function() {
+gulp.task('doc-utils', function () {
     generateDocFor(config.utilities);
 });
 
-gulp.task('doc-views', function() {
+gulp.task('doc-views', function () {
     generateDocFor(config.views);
 });
 
-gulp.task('copy-pattern-library', function() {
+gulp.task('copy-pattern-library', function () {
     gulp.src(['./node_modules/edx-pattern-library/pattern-library/**/*'])
         .pipe(gulp.dest('doc/public/edx-pattern-library'));
 });
 
-gulp.task('webpack', function() {
+gulp.task('webpack', function () {
     var webpackConfig = require('../../webpack.config.js');
     return gulp.src('')
         .pipe(webpack(webpackConfig))
@@ -96,7 +96,7 @@ gulp.task('webpack', function() {
         .pipe(browserSync.stream());
 });
 
-gulp.task('webpack-rebuild', function(callback) {
+gulp.task('webpack-rebuild', function (callback) {
     runSequence(
         'webpack',
         'jekyll-rebuild',
@@ -104,15 +104,15 @@ gulp.task('webpack-rebuild', function(callback) {
     );
 });
 
-gulp.task('jekyll-build', function() {
+gulp.task('jekyll-build', function () {
     childProcess.execSync('jekyll build');
 });
 
-gulp.task('jekyll-rebuild', ['jekyll-build'], function() {
+gulp.task('jekyll-rebuild', ['jekyll-build'], function () {
     browserSync.reload();
 });
 
-gulp.task('doc-publish', ['clean', 'doc-build'], function() {
+gulp.task('doc-publish', ['clean', 'doc-build'], function () {
     return gulp.src(config.gitHubPages.files)
         .pipe(ghPages());
 });
