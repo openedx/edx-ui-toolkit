@@ -14,7 +14,8 @@
             var self = this;
             if (file.isStream()) {
                 jsdocParser(file.history, function (err, result) {
-                    var frontMatter, data, markdown, title, relativePath, requirePath, gitHubPath;
+                    var frontMatter, data, markdown, title, relativePath, requirePath, gitHubPath,
+                        fileToPush = file;
                     if (err) {
                         console.error('Error generating docs for file', file, err);
                         next(err);
@@ -37,9 +38,9 @@
                         markdown = generateMD(data, jsdoxTemplatesDir);
 
                         // set the result to the front matter followed by the markdown
-                        file.contents = new Buffer(frontMatter + markdown);
+                        fileToPush.contents = new Buffer(frontMatter + markdown);
                     }
-                    self.push(file);
+                    self.push(fileToPush);
                     next();
                 });
             } else {

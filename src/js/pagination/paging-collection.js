@@ -236,9 +236,11 @@
              *     user
              */
             addField: function (fields, fieldName, displayName) {
-                fields[fieldName] = {
+                var newField = {};
+                newField[fieldName] = {
                     displayName: displayName
                 };
+                _.extend(fields, newField);
             },
 
             /**

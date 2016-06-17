@@ -21,8 +21,9 @@ var gulp = require('gulp'),
     generateDocFor;
 
 renameAsMarkdown = function (path) {
-    path.extname = '.md';
-    return path;
+    var renamedPath = path;
+    renamedPath.extname = '.md';
+    return renamedPath;
 };
 
 generateDocFor = function (options) {
