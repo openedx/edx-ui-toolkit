@@ -3,6 +3,7 @@
  *
  * @module GlobalLoader
  */
+/* global $, _ */
 (function () {
     'use strict';
 

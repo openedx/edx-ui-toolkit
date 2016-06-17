@@ -1,3 +1,4 @@
+/* global $, _ */
 define(
     [
         'edx-ui-toolkit/js/utils/global-loader'

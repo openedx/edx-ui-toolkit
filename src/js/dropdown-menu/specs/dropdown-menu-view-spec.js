@@ -1,11 +1,12 @@
 define([
     'jquery',
     'underscore',
+    'backbone',
     '../dropdown-menu-view.js',
     '../../utils/constants.js',
     'jquery.simulate'
 ],
-    function ($, _, DropdownMenuView, constants) {
+    function ($, _, Backbone, DropdownMenuView, constants) {
         'use strict';
 
         describe('Dropdown Menu View', function () {

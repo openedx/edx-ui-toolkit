@@ -1,0 +1,6 @@
+{
+    "extends": "eslint-config-edx",
+    "globals": {
+        "setFixtures": true  // added globally by jasmine-jquery (bad)
+    }
+}

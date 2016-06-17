@@ -30,6 +30,7 @@ require.config({
             exports: 'Backbone',
             init: function (_, $) {
                 'use strict';
+                var Backbone;
                 Backbone.$ = $;
                 return Backbone;
             }

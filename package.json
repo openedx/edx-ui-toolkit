@@ -68,8 +68,5 @@
     "through2": "~2.0.0",
     "webpack": "~1.12.14",
     "webpack-stream": "~3.2.0"
-  },
-  "eslintConfig": {
-    "extends": "eslint-config-edx"
   }
 }

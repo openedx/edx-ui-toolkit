@@ -22,4 +22,4 @@ config.baseUrl = '/base';
 config.deps = specs;
 config.callback = window.__karma__.start;
 
-requirejs.config(config);
+require.config(config);
