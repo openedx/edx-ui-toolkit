@@ -1,0 +1,10 @@
+test/jquery.simulate.js
+node_modules
+build
+coverage
+_site
+_preview_site
+doc/public
+doc/_testing
+doc/_utilities
+doc/_views
