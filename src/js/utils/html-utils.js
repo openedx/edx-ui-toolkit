@@ -5,7 +5,8 @@
  * Cross Site Scripting (XSS) attacks. You can read more about
  * the best practices for handling proper escaping in the Open edX
  * platform with
- * [Preventing Cross Site Scripting Vulnerabilities](http://edx.readthedocs.org/projects/edx-developer-guide/en/latest/conventions/safe_templates.html).
+ * [Preventing Cross Site Scripting Vulnerabilities][1].
+ * [1]: http://edx.readthedocs.org/projects/edx-developer-guide/en/latest/conventions/safe_templates.html
  *
  * @module HtmlUtils
  */
