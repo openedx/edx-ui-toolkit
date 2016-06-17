@@ -26,8 +26,8 @@
     define(['backbone'], function (Backbone) {
         var BreadcrumbsModel = Backbone.Model.extend({
             defaults: {
-                'breadcrumbs': null,
-                'label': ''
+                breadcrumbs: null,
+                label: ''
             }
         });
 
