@@ -1,8 +1,9 @@
+var childProcess = require('child_process');
+
 (function() {
     'use strict';
 
-    var childProcess = require('child_process'),
-        gitBranchCommand = 'git rev-parse --abbrev-ref HEAD';
+    var gitBranchCommand = 'git rev-parse --abbrev-ref HEAD';
 
     module.exports = {
         /**
@@ -13,4 +14,4 @@
             return branch.toString().trim();
         }
     };
-})();
+}());

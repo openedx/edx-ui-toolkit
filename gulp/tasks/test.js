@@ -1,10 +1,11 @@
+var gulp = require('gulp'),
+    karma = require('karma'),
+    path = require('path');
+
 (function() {
     'use strict';
 
-    var gulp = require('gulp'),
-        karma = require('karma'),
-        path = require('path'),
-        configFile;
+    var configFile;
 
     gulp.task('test', function(callback) {
         if (process.argv.indexOf('--ci') !== -1) {

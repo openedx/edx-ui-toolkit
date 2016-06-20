@@ -1,10 +1,13 @@
+var jsdox = require('jsdox'),
+    path = require('path'),
+    through = require('through2'),
+    GulpUtil = require('gulp-util'),
+    jsdocParser = require('jsdoc3-parser');
+
 (function() {
-    var jsdox = require('jsdox'),
-        path = require('path'),
-        through = require('through2'),
-        GulpUtil = require('gulp-util'),
-        jsdocParser = require('jsdoc3-parser'),
-        PLUGIN_NAME = 'generate-doc',
+    'use strict';
+
+    var PLUGIN_NAME = 'generate-doc',
         analyze = jsdox.analyze,
         generateMD = jsdox.generateMD,
         jsdoxTemplatesDir = 'node_modules/jsdox/templates';
