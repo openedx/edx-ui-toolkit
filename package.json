@@ -15,11 +15,13 @@
   "homepage": "https://github.com/edx/edx-ui-toolkit",
   "scripts": {
     "test": "gulp test",
-    "lint": "gulp lint"
+    "lint": "eslint ."
   },
   "dependencies": {
     "backbone": "~1.2.3",
     "backbone.paginator": "~2.0.3",
+    "eslint": "^2.13.1",
+    "gulp-shell": "^0.5.2",
     "jquery": "~2.2.0",
     "requirejs": "~2.1.22",
     "requirejs-text": "~2.0.12",
@@ -37,7 +39,6 @@
     "extract-text-webpack-plugin": "~1.0.1",
     "gulp": "~3.9.1",
     "gulp-coveralls": "~0.1.4",
-    "gulp-eslint": "^2.0.0",
     "gulp-gh-pages": "~0.5.4",
     "gulp-karma": "~0.0.5",
     "gulp-rename": "~1.2.2",
