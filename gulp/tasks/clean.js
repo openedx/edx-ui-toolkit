@@ -4,7 +4,7 @@ var gulp = require('gulp'),
     config = require('../config'),
     del = require('del');
 
-gulp.task('clean', function () {
+gulp.task('clean', function() {
     return del([
         // Remove the Jekyll site
         config.documentation.targetDir,

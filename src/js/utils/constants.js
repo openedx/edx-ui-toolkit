@@ -1,9 +1,9 @@
 /**
  * Reusable constants.
  */
-(function (define) {
+(function(define) {
     'use strict';
-    define([], function () {
+    define([], function() {
         /**
          * Reusable constants.
          *

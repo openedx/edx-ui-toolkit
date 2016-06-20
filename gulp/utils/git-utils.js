@@ -1,4 +1,4 @@
-(function () {
+(function() {
     'use strict';
 
     var childProcess = require('child_process'),
@@ -8,7 +8,7 @@
         /**
          * Returns the current Git branch for the current directory.
          */
-        currentBranch: function () {
+        currentBranch: function() {
             var branch = childProcess.execSync(gitBranchCommand);
             return branch.toString().trim();
         }

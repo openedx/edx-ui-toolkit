@@ -5,7 +5,7 @@ require(
         'edx-pattern-library/js/afontgarde',
         'edx-pattern-library/js/edx-icons'
     ],
-    function () {
+    function() {
         'use strict';
     }
 );

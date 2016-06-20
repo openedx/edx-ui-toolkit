@@ -1,6 +1,6 @@
 // Karma configuration
 
-module.exports = function (config, overrideOptions) {
+module.exports = function(config, overrideOptions) {
     'use strict';
 
     var options;

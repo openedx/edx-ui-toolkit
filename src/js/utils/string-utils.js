@@ -3,9 +3,9 @@
  *
  * @module StringUtils
  */
-(function (define) {
+(function(define) {
     'use strict';
-    define([], function () {
+    define([], function() {
         var interpolate;
 
         /**
@@ -54,9 +54,9 @@
          * @param {Object} parameters An optional set of parameters to the template.
          * @returns {string} A string with the values interpolated.
          */
-        interpolate = function (formatString, parameters) {
+        interpolate = function(formatString, parameters) {
             return formatString.replace(/{\w+}/g,
-                function (parameter) {
+                function(parameter) {
                     var parameterName = parameter.slice(1, -1);
                     return String(parameters[parameterName]);
                 });
