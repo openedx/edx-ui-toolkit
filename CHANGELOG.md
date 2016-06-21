@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.4.0 (2016-06-21)
+* Add model and view for accessible breadcrumb navigation
+
+- - -
+
 ## 1.3.0 (2016-06-21)
 * Extend AjaxHelpers with capabilities from edx-platform
 
