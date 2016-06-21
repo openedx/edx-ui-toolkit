@@ -215,141 +215,186 @@ test suite (causing both suites’ afterEach methods to be called). No solution 
 cause has been found, but initializing sinon and cleaning it up on a method-by-method
 basis seems to work. For more details, see STUD-1264.</p>
 
+<p><strong>Members:</strong></p>
+
+<ul>
+  <li>XHR_READY_STATES</li>
+</ul>
+
 <hr />
+
+<h3 id="ajaxhelpersfakeserverresponse">AjaxHelpers.fakeServer(response)</h3>
+
+<p>Get a reference to the mocked server, and respond to all requests
+with the specified response.</p>
+
+<p><strong>Parameters</strong></p>
+
+<p><strong>response</strong>: <code class="highlighter-rouge">string</code>, the fake response.</p>
+
+<p><strong>Returns</strong>: <code class="highlighter-rouge">*</code>, The current request.</p>
 
 <h3 id="ajaxhelpersfakerequests">AjaxHelpers.fakeRequests()</h3>
 
-<p>Keep track of all requests to a fake server, and call <code class="highlighter-rouge">spec</code>
-with a reference to the server. Allows tests to respond to
-individual requests.</p>
+<p>Keep track of all requests to a fake server, and return a reference to the Array.
+This allows tests to respond to individual requests.</p>
 
-<h3 id="ajaxhelpersexpectrequestrequests-method-url-body-requestindex">AjaxHelpers.expectRequest(requests, method, url, body, requestIndex)</h3>
+<p><strong>Returns</strong>: <code class="highlighter-rouge">Array</code>, An array tracking the fake requests.</p>
+
+<h3 id="ajaxhelperswithfakerequeststest">AjaxHelpers.withFakeRequests(test)</h3>
+
+<p>Wraps a test function so that it is invoked with an additional parameter
+containing an array of fake HTTP requests.</p>
+
+<p><strong>Parameters</strong></p>
+
+<p><strong>test</strong>: <code class="highlighter-rouge">function</code>, A function to be invoked with the fake requests.</p>
+
+<p><strong>Returns</strong>: <code class="highlighter-rouge">function</code>, A wrapped version of the input function.</p>
+
+<h3 id="ajaxhelperscurrentrequestrequests">AjaxHelpers.currentRequest(requests)</h3>
+
+<p>Returns the request that has not yet been responded to. If no such request
+is available then the current test will fail.</p>
+
+<p><strong>Parameters</strong></p>
+
+<p><strong>requests</strong>: <code class="highlighter-rouge">object</code>, an array of fired sinon requests</p>
+
+<p><strong>Returns</strong>: <code class="highlighter-rouge">*</code>, The current request.</p>
+
+<h3 id="ajaxhelpersexpectrequestrequests-method-url-body">AjaxHelpers.expectRequest(requests, method, url, body)</h3>
 
 <p>Expect that a request was made as expected.</p>
 
 <p><strong>Parameters</strong></p>
 
-<p><strong>requests</strong>: , an array of fired sinon requests</p>
+<p><strong>requests</strong>: <code class="highlighter-rouge">object</code>, an array of fired sinon requests</p>
 
-<p><strong>method</strong>: , the expected method of the request</p>
+<p><strong>method</strong>: <code class="highlighter-rouge">string</code>, the expected method of the request</p>
 
-<p><strong>url</strong>: , the expected url of the request</p>
+<p><strong>url</strong>: <code class="highlighter-rouge">string</code>, the expected url of the request</p>
 
-<p><strong>body</strong>: , the expected request body</p>
+<p><strong>body</strong>: <code class="highlighter-rouge">string</code>, the expected request body</p>
 
-<p><strong>requestIndex</strong>: , the expected index of the request in the
-    array (higher indices occur later).  Defaults to
-    requests.length - 1.</p>
+<h3 id="ajaxhelpersexpectnorequestsrequests">AjaxHelpers.expectNoRequests(requests)</h3>
 
-<h3 id="ajaxhelpersexpectjsonrequestrequests-method-url-jsonbody-requestindex">AjaxHelpers.expectJsonRequest(requests, method, url, jsonBody, requestIndex)</h3>
+<p>Verifies that there are no unconsumed requests.</p>
+
+<p><strong>Parameters</strong></p>
+
+<p><strong>requests</strong>: <code class="highlighter-rouge">object</code>, an array of fired sinon requests</p>
+
+<h3 id="ajaxhelpersexpectjsonrequestrequests-method-url-jsonrequest">AjaxHelpers.expectJsonRequest(requests, method, url, jsonRequest)</h3>
 
 <p>Expect that a request with a JSON payload was made as expected.</p>
 
 <p><strong>Parameters</strong></p>
 
-<p><strong>requests</strong>: , an array of fired sinon requests</p>
+<p><strong>requests</strong>: <code class="highlighter-rouge">object</code>, an array of fired sinon requests</p>
 
-<p><strong>method</strong>: , the expected method of the request</p>
+<p><strong>method</strong>: <code class="highlighter-rouge">string</code>, the expected method of the request</p>
 
-<p><strong>url</strong>: , the expected url of the request</p>
+<p><strong>url</strong>: <code class="highlighter-rouge">string</code>, the expected url of the request</p>
 
-<p><strong>jsonBody</strong>: , the expected request body as an object</p>
+<p><strong>jsonRequest</strong>: <code class="highlighter-rouge">object</code>, the expected request body as an object</p>
 
-<p><strong>requestIndex</strong>: , the expected index of the request in the
-    array (higher indices occur later).  Defaults to
-    requests.length - 1.</p>
-
-<h3 id="ajaxhelpersexpectrequesturlrequests-expectedurl-expectedparameters-requestindex">AjaxHelpers.expectRequestURL(requests, expectedUrl, expectedParameters, requestIndex)</h3>
+<h3 id="ajaxhelpersexpectrequesturlrequests-expectedurl-expectedparameters">AjaxHelpers.expectRequestURL(requests, expectedUrl, expectedParameters)</h3>
 
 <p>Expect that a JSON request be made with the given URL and parameters.</p>
 
 <p><strong>Parameters</strong></p>
 
-<p><strong>requests</strong>: , The collected requests</p>
+<p><strong>requests</strong>: <code class="highlighter-rouge">object</code>, The collected requests</p>
 
-<p><strong>expectedUrl</strong>: , The expected URL excluding the parameters</p>
+<p><strong>expectedUrl</strong>: <code class="highlighter-rouge">string</code>, The expected URL excluding the parameters</p>
 
-<p><strong>expectedParameters</strong>: , An object representing the URL parameters</p>
+<p><strong>expectedParameters</strong>: <code class="highlighter-rouge">object</code>, An object representing the URL parameters</p>
 
-<p><strong>requestIndex</strong>: , An optional index for the request (by default, the last request is used)</p>
+<h3 id="ajaxhelpersexpectpostrequestrequests-url-body">AjaxHelpers.expectPostRequest(requests, url, body)</h3>
 
-<h3 id="ajaxhelpersexpectpostrequestrequests-url-body-requestindex">AjaxHelpers.expectPostRequest(requests, url, body, requestIndex)</h3>
-
-<p>Intended for use with POST requests using
-application/x-www-form-urlencoded.</p>
+<p>Intended for use with POST requests using application/x-www-form-urlencoded.</p>
 
 <p><strong>Parameters</strong></p>
 
-<p><strong>requests</strong>: , an array of fired sinon requests</p>
+<p><strong>requests</strong>: <code class="highlighter-rouge">object</code>, an array of fired sinon requests</p>
 
-<p><strong>url</strong>: , the expected url of the request</p>
+<p><strong>url</strong>: <code class="highlighter-rouge">string</code>, the expected url of the request</p>
 
-<p><strong>body</strong>: , the expected body of the request</p>
+<p><strong>body</strong>: <code class="highlighter-rouge">string</code>, the expected body of the request</p>
 
-<p><strong>requestIndex</strong>: , the expected index of the request in the
-    array (higher indices occur later).  Defaults to
-    requests.length - 1.</p>
+<h3 id="ajaxhelpersskipresetrequestrequests">AjaxHelpers.skipResetRequest(requests)</h3>
 
-<h3 id="ajaxhelpersrespondwithjsonrequests-jsonresponse-requestindex">AjaxHelpers.respondWithJson(requests, jsonResponse, requestIndex)</h3>
+<p>Verify that the HTTP request was marked as reset, and then skip it.</p>
+
+<p>Note: this is typically used when code has explicitly canceled a request
+after it has been sent. A good example is when a user chooses to cancel
+a slow running search.</p>
+
+<p><strong>Parameters</strong></p>
+
+<p><strong>requests</strong>: <code class="highlighter-rouge">object</code>, an array of fired sinon requests</p>
+
+<h3 id="ajaxhelpersrespondrequests-options">AjaxHelpers.respond(requests, options)</h3>
+
+<p>Respond to a server request with a set of options:</p>
+
+<ul>
+  <li><code class="highlighter-rouge">statusCode</code>: the status code to be returned (defaults to 200)</li>
+  <li><code class="highlighter-rouge">contentType</code>: the content type of the response (defaults to ‘application/json’)</li>
+  <li><code class="highlighter-rouge">body</code>: the body of the response (if JSON, it will be converted to a string)</li>
+</ul>
+
+<p><strong>Parameters</strong></p>
+
+<p><strong>requests</strong>: <code class="highlighter-rouge">object</code>, an array of fired sinon requests</p>
+
+<p><strong>options</strong>: <code class="highlighter-rouge">object</code>, the options to provide to the response</p>
+
+<h3 id="ajaxhelpersrespondwithjsonrequests-body">AjaxHelpers.respondWithJson(requests, body)</h3>
 
 <p>Respond to a request with JSON.</p>
 
 <p><strong>Parameters</strong></p>
 
-<p><strong>requests</strong>: , an array of fired sinon requests</p>
+<p><strong>requests</strong>: <code class="highlighter-rouge">object</code>, an array of fired sinon requests</p>
 
-<p><strong>jsonResponse</strong>: , an object to be serialized to the response</p>
+<p><strong>body</strong>: <code class="highlighter-rouge">object</code>, an object to be serialized to the response</p>
 
-<p><strong>requestIndex</strong>: , the expected index of the request in the
-    array (higher indices occur later).  Defaults to
-    requests.length - 1.</p>
-
-<h3 id="ajaxhelpersrespondwitherrorrequests-statuscode-jsonresponse-requestindex">AjaxHelpers.respondWithError(requests, statusCode, jsonResponse, requestIndex)</h3>
+<h3 id="ajaxhelpersrespondwitherrorrequests-statuscode-body">AjaxHelpers.respondWithError(requests, statusCode, body)</h3>
 
 <p>Respond to a request with an error status code and a JSON
 payload.</p>
 
 <p><strong>Parameters</strong></p>
 
-<p><strong>requests</strong>: , an array of fired sinon requests</p>
+<p><strong>requests</strong>: <code class="highlighter-rouge">object</code>, an array of fired sinon requests</p>
 
-<p><strong>statusCode</strong>: , the HTTP status code of the response
+<p><strong>statusCode</strong>: <code class="highlighter-rouge">int</code>, the HTTP status code of the response
     (defaults to 500)</p>
 
-<p><strong>jsonResponse</strong>: , an object to be serialized to the response</p>
+<p><strong>body</strong>: <code class="highlighter-rouge">object</code>, an object to be serialized to the response</p>
 
-<p><strong>requestIndex</strong>: , the expected index of the request in the
-    array (higher indices occur later).  Defaults to
-    requests.length - 1.</p>
-
-<h3 id="ajaxhelpersrespondwithtexterrorrequests-statuscode-textresponse-requestindex">AjaxHelpers.respondWithTextError(requests, statusCode, textResponse, requestIndex)</h3>
+<h3 id="ajaxhelpersrespondwithtexterrorrequests-statuscode-body">AjaxHelpers.respondWithTextError(requests, statusCode, body)</h3>
 
 <p>Respond to a request with an error status code.</p>
 
 <p><strong>Parameters</strong></p>
 
-<p><strong>requests</strong>: , an array of fired sinon requests</p>
+<p><strong>requests</strong>: <code class="highlighter-rouge">object</code>, an array of fired sinon requests</p>
 
-<p><strong>statusCode</strong>: , the HTTP status code of the response
+<p><strong>statusCode</strong>: <code class="highlighter-rouge">int</code>, the HTTP status code of the response
     (defaults to 500)</p>
 
-<p><strong>textResponse</strong>: , the response body as a string</p>
+<p><strong>body</strong>: <code class="highlighter-rouge">object</code>, the response body as a string</p>
 
-<p><strong>requestIndex</strong>: , the expected index of the request in the
-    array (higher indices occur later).  Defaults to
-    requests.length - 1.</p>
-
-<h3 id="ajaxhelpersrespondwithnocontentrequests-requestindex">AjaxHelpers.respondWithNoContent(requests, requestIndex)</h3>
+<h3 id="ajaxhelpersrespondwithnocontentrequests">AjaxHelpers.respondWithNoContent(requests)</h3>
 
 <p>Respond to a request with an HTTP 204.</p>
 
 <p><strong>Parameters</strong></p>
 
-<p><strong>requests</strong>: , an array of fired sinon requests</p>
-
-<p><strong>requestIndex</strong>: , the expected index of the request in the
-    array (higher indices occur later).  Defaults to
-    requests.length - 1.</p>
+<p><strong>requests</strong>: <code class="highlighter-rouge">object</code>, an array of fired sinon requests</p>
 
 <hr />
 
@@ -363,7 +408,7 @@ payload.</p>
     <footer class="doc-footer-site">
         <div class="doc-footer-site-copyright">
             <p class="doc-copy copy-micro">
-                Copyright &copy; <time datetime="2016-06-14T16:32:29-04:00">2016</time> edX.
+                Copyright &copy; <time datetime="2016-06-21T13:29:17-04:00">2016</time> edX.
             </p>
             <p class="doc-copy copy-micro">
                 <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" src="https://i.creativecommons.org/l/by-sa/4.0/80x15.png" /></a>
