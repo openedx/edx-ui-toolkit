@@ -4,7 +4,7 @@
  * Initialize the view by passing in the following attributes:
  *
  *~~~ javascript
- * var view = new DropdownMenuView({
+ * var view = new BreadcrumbsView({
  *     el: $('selector for element that will contain breadcrumbs'),
  *     model: new BreadcrumbsModel({
  *         breadcrumbs: [{url: '/', title: 'Overview'}]
