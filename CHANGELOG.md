@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.3.0 (2016-06-21)
+* Extend AjaxHelpers with capabilities from edx-platform
+
+- - -
+
 ## 1.2.0 (2016-06-14)
 * In dropdown menu component icons switched to Font Awesome for accessibility
 
