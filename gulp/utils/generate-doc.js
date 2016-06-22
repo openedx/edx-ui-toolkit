@@ -52,4 +52,4 @@ var jsdox = require('jsdox'),
             }
         });
     };
-})();
+}());

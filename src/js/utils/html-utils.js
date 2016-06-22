@@ -13,7 +13,7 @@
 (function(define) {
     'use strict';
     define(['underscore', 'jquery', 'edx-ui-toolkit/js/utils/string-utils'], function(_, $, StringUtils) {
-        var ensureHtml, interpolateHtml, joinHtml, HTML, template, setHtml, append, prepend;
+        var HtmlUtils, ensureHtml, interpolateHtml, joinHtml, HTML, template, setHtml, append, prepend;
 
         /**
          * Creates an HTML snippet.
@@ -157,19 +157,16 @@
          * @returns {function} A function that returns a rendered HTML snippet.
          */
         template = function(text, settings) {
-            var HtmlUtils = this,
-                rawTemplate = _.template(text, settings),
-                template = function(data) {
-                    var augmentedData = _.extend(
-                        {
-                            HtmlUtils: HtmlUtils,
-                            StringUtils: StringUtils
-                        },
-                        data || {}
-                    );
-                    return HTML(rawTemplate(augmentedData));
-                };
-            return template;
+            return function(data) {
+                var augmentedData = _.extend(
+                    {
+                        HtmlUtils: HtmlUtils,
+                        StringUtils: StringUtils
+                    },
+                    data || {}
+                );
+                return HTML(_.template(text, settings)(augmentedData));
+            };
         };
 
         /**
@@ -220,7 +217,7 @@
             return $(element).prepend(ensureHtml(html).toString());
         };
 
-        return {
+        HtmlUtils = {
             append: append,
             ensureHtml: ensureHtml,
             HTML: HTML,
@@ -231,6 +228,8 @@
             setHtml: setHtml,
             template: template
         };
+
+        return HtmlUtils;
     });
 }).call(
     this,
@@ -238,6 +237,7 @@
     // 1. Use the default 'define' function if it is available
     // 2. If not, use 'RequireJS.define' if that is available
     // 3. else use the GlobalLoader to install the class into the edx namespace
+    // eslint-disable-next-line no-nested-ternary
     typeof define === 'function' && define.amd ? define :
         (typeof RequireJS !== 'undefined' ? RequireJS.define :
             edx.GlobalLoader.defineAs('HtmlUtils', 'edx-ui-toolkit/js/utils/html-utils'))

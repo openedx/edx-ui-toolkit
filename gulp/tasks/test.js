@@ -10,8 +10,7 @@ var gulp = require('gulp'),
     gulp.task('test', function(callback) {
         if (process.argv.indexOf('--ci') !== -1) {
             configFile = 'test/karma.ci.conf.js';
-        }
-        else {
+        } else {
             configFile = 'test/karma.conf.js';
         }
         new karma.Server({

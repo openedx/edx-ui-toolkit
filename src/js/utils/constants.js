@@ -39,6 +39,7 @@
     // 1. Use the default 'define' function if it is available
     // 2. If not, use 'RequireJS.define' if that is available
     // 3. else use the GlobalLoader to install the class into the edx namespace
+    // eslint-disable-next-line no-nested-ternary
     typeof define === 'function' && define.amd ? define :
         (typeof RequireJS !== 'undefined' ? RequireJS.define :
             edx.GlobalLoader.defineAs('constants', 'edx-ui-toolkit/js/utils/constants'))

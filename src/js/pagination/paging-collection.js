@@ -368,7 +368,7 @@
              */
             getActiveFilterFields: function(includeSearch) {
                 var activeFilterFields = _.chain(this.filterableFields)
-                    .pick(function(fieldData, fieldName) {
+                    .pick(function(fieldData) {
                         return !_.isNull(fieldData.value) && !_.isUndefined(fieldData.value);
                     })
                     .mapObject(function(data) {

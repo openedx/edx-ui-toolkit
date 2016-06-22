@@ -18,15 +18,11 @@ define([], function() {
      * @param {function} func The function that actually expresses the logic of the test.
      */
     withData = function(data, func) {
-        for (var name in data) {
-            if (data.hasOwnProperty(name)) {
-                (function(name) {
-                    it(name, function() {
-                        func.apply(this, data[name]);
-                    });
-                })(name);
-            }
-        }
+        Object.keys(data).forEach(function(key) {
+            it(key, function() {
+                func.apply(this, data[key]);
+            });
+        });
     };
 
     /**
@@ -42,18 +38,14 @@ define([], function() {
      * May include it() or more describe().
      */
     withConfiguration = function(config, setup, test) {
-        for (var name in config) {
-            if (config.hasOwnProperty(name)) {
-                (function(name) {
-                    describe(name, function() {
-                        beforeEach(function() {
-                            setup.apply(this, config[name]);
-                        });
-                        test();
-                    });
-                })(name);
-            }
-        }
+        Object.keys(config).forEach(function(key) {
+            describe(key, function() {
+                beforeEach(function() {
+                    setup.apply(this, config[key]);
+                });
+                test();
+            });
+        });
     };
 
     return {

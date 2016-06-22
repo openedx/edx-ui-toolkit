@@ -10,13 +10,14 @@
     window.edx = window.edx || {};
 
     window.edx.GlobalLoader = (function() {
-        var registeredModules = {};
+        var registeredModules = {},
+            GlobalLoader;
 
         // Register standard libraries
         registeredModules.jquery = $;
         registeredModules.underscore = _;
 
-        return {
+        GlobalLoader = {
             /**
              * Define a module that can be accessed globally in the edx namespace.
              *
@@ -46,7 +47,6 @@
              * @returns {Function} A function that will create the module.
              */
             defineAs: function(name, path) {
-
                 return function(requiredPaths, moduleFunction) {
                     var requiredModules = [],
                         pathCount = requiredPaths.length,
@@ -57,7 +57,7 @@
                         requiredModule = registeredModules[requiredPaths[i]];
                         requiredModules.push(requiredModule);
                     }
-                    module = moduleFunction.apply(this, requiredModules);
+                    module = moduleFunction.apply(GlobalLoader, requiredModules);
                     registeredModules[path] = module;
                     edx[name] = module;
                 };
@@ -72,5 +72,7 @@
                 registeredModules = {};
             }
         };
-    })();
+
+        return GlobalLoader;
+    }());
 }).call(this);
