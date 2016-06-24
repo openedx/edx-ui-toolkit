@@ -6,15 +6,14 @@
     'use strict';
 
     var specs = [],
-        config = {},
-        file;
+        config = {};
 
     // you can automatically get the test files using karma's configs
-    for (file in window.__karma__.files) {
+    Object.keys(window.__karma__.files).forEach(function(file) {
         if (/spec\.js$/.test(file)) {
             specs.push(file);
         }
-    }
+    });
 
     // This is where karma puts the files
     config.baseUrl = '/base';
