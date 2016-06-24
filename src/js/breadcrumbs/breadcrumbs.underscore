@@ -1,4 +1,3 @@
-<div class="sr-is-focusable" tabindex="-1"></div>
 <% if (breadcrumbs !== null && breadcrumbs.length > 0) { %>
     <nav class="breadcrumbs list-inline" aria-label="<%- label %>">
         <% _.each(breadcrumbs.slice(0, -1), function (breadcrumb) { %>
