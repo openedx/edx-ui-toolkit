@@ -1,3 +1,6 @@
+// The Karma plugin we're using installs itself on window.__karma__, so disable the dangling underscore ESLint rule
+/* eslint-disable no-underscore-dangle */
+
 /**
  * This is where your tests go.  It should happen automatically when you
  * add files to the karma configuration.
