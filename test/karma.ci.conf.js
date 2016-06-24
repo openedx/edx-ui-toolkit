@@ -1,9 +1,8 @@
-// Karma configuration to run in Travis
+var baseConfig = require('./karma.conf');
 
+// Karma configuration to run in Travis
 module.exports = function(config) {
     'use strict';
-
-    var baseConfig = require('./karma.conf');
 
     baseConfig(config, {
         singleRun: true,

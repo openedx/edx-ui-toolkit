@@ -14,7 +14,8 @@ var gulp = require('gulp'),
     generateDoc = require('../utils/generate-doc'),
     rename = require('gulp-rename'),
     webpack = require('webpack-stream'),
-    ghPages = require('gulp-gh-pages');
+    ghPages = require('gulp-gh-pages'),
+    webpackConfig = require('../../webpack.config.js');
 
 (function() {
     'use strict';
@@ -91,7 +92,6 @@ var gulp = require('gulp'),
     });
 
     gulp.task('webpack', function() {
-        var webpackConfig = require('../../webpack.config.js');
         return gulp.src('')
             .pipe(webpack(webpackConfig))
             .pipe(gulp.dest(webpackConfig.output.path))

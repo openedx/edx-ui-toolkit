@@ -1,10 +1,11 @@
+var path = require('path'),
+    Webpack = require('webpack'),
+    ExtractTextPlugin = require('extract-text-webpack-plugin');
+
 (function() {
     'use strict';
 
-    var path = require('path'),
-        Webpack = require('webpack'),
-        ExtractTextPlugin = require('extract-text-webpack-plugin'),
-        outputRoot = process.env.OUTPUT_ROOT ? process.env.OUTPUT_ROOT : 'doc/public/',
+    var outputRoot = process.env.OUTPUT_ROOT ? process.env.OUTPUT_ROOT : 'doc/public/',
         siteRoot = process.env.SITE_ROOT !== undefined ? process.env.SITE_ROOT : '/',
         publicStaticRoot = 'public/static/',
         patternLibraryPath = path.resolve(__dirname, './node_modules/edx-pattern-library/pattern-library');
