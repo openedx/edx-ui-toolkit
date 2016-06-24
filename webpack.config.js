@@ -55,4 +55,4 @@ var path = require('path'),
         debug: true,
         devtool: 'inline-source-map'
     };
-})();
+}());
