@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.4.1 (2016-06-24)
+* Fix minor issue with unnecessary DOM node in breadcrumbs
+
+- - -
+
 ## 1.4.0 (2016-06-21)
 * Add model and view for accessible breadcrumb navigation
 
