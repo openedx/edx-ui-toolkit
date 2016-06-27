@@ -29,8 +29,9 @@ var gulp = require('gulp'),
     };
 
     generateDocFor = function(options) {
-        var i, sources;
-        for (i = 0; i < options.sources.length; i++) {
+        var i, sources,
+            sourceLength = options.sources.length;
+        for (i = 0; i < sourceLength; i++) {
             sources = options.sources[i];
             console.log('Generating documentation for ' + sources);
             gulp.src(sources, {buffer: false})

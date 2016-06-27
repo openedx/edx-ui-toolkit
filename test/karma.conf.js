@@ -6,7 +6,9 @@ module.exports = function(config, overrideOptions) {
     var options;
 
     // If not being overridden, then specify the default headless configuration
-    if (!overrideOptions) {
+    if (overrideOptions) {
+        options = overrideOptions;
+    } else {
         options = {
             singleRun: true,
             autoWatch: false,
@@ -18,8 +20,6 @@ module.exports = function(config, overrideOptions) {
             },
             reporters: ['spec', 'coverage']
         };
-    } else {
-        options = overrideOptions;
     }
 
     config.set({
