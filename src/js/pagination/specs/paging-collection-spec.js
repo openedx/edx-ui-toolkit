@@ -350,29 +350,25 @@ define(['jquery',
 
                     it('triggers an error event when the requested page is out of range',
                         AjaxHelpers.withFakeRequests(function(requests) {
-                            // TODO: Re-enable expectations and remove eslint ignores
-
-                            var errorTriggered = false;  // eslint-disable-line no-unused-vars
+                            var errorTriggered = false;
                             collection.on('error', function() { errorTriggered = true; });
                             collection.setPage(17);
                             server.respond(requests);
-                            // expect(errorTriggered).toBe(true);
+                            expect(errorTriggered).toBe(true);
                         })
                     );
 
                     it('triggers an error event if the server responds with a 500',
                         AjaxHelpers.withFakeRequests(function(requests) {
-                            // TODO: Re-enable expectations and remove eslint ignores
-
-                            var errorTriggered = false;  // eslint-disable-line no-unused-vars
+                            var errorTriggered = false;
                             collection.on('error', function() { errorTriggered = true; });
                             collection.setPage(2);
                             expect(collection.getPageNumber()).toBe(2);
                             server.respond(requests);
                             collection.setPage(3);
                             AjaxHelpers.respondWithError(requests);
-                            // expect(errorTriggered).toBe(true);
-                            // expect(collection.getPageNumber()).toBe(2);
+                            expect(errorTriggered).toBe(true);
+                            expect(collection.getPageNumber()).toBe(2);
                         })
                     );
                 });
