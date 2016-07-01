@@ -1,10 +1,13 @@
+var jsdox = require('jsdox'),
+    path = require('path'),
+    through = require('through2'),
+    GulpUtil = require('gulp-util'),
+    jsdocParser = require('jsdoc3-parser');
+
 (function() {
-    var jsdox = require('jsdox'),
-        path = require('path'),
-        through = require('through2'),
-        GulpUtil = require('gulp-util'),
-        jsdocParser = require('jsdoc3-parser'),
-        PLUGIN_NAME = 'generate-doc',
+    'use strict';
+
+    var PLUGIN_NAME = 'generate-doc',
         analyze = jsdox.analyze,
         generateMD = jsdox.generateMD,
         jsdoxTemplatesDir = 'node_modules/jsdox/templates';
@@ -14,7 +17,8 @@
             var self = this;
             if (file.isStream()) {
                 jsdocParser(file.history, function(err, result) {
-                    var frontMatter, data, markdown, title, relativePath, requirePath, gitHubPath;
+                    var frontMatter, data, markdown, title, relativePath, requirePath, gitHubPath,
+                        fileToPush = file;
                     if (err) {
                         console.error('Error generating docs for file', file, err);
                         next(err);
@@ -37,9 +41,9 @@
                         markdown = generateMD(data, jsdoxTemplatesDir);
 
                         // set the result to the front matter followed by the markdown
-                        file.contents = new Buffer(frontMatter + markdown);
+                        fileToPush.contents = new Buffer(frontMatter + markdown);
                     }
-                    self.push(file);
+                    self.push(fileToPush);
                     next();
                 });
             } else {
@@ -48,4 +52,4 @@
             }
         });
     };
-})();
+}());

@@ -3,7 +3,7 @@
  *
  * @module StringUtils
  */
-;(function(define) {
+(function(define) {
     'use strict';
     define([], function() {
         var interpolate;
@@ -57,7 +57,7 @@
         interpolate = function(formatString, parameters) {
             return formatString.replace(/{\w+}/g,
                 function(parameter) {
-                    var parameterName = parameter.slice(1,-1);
+                    var parameterName = parameter.slice(1, -1);
                     return String(parameters[parameterName]);
                 });
         };
@@ -72,6 +72,7 @@
     // 1. Use the default 'define' function if it is available
     // 2. If not, use 'RequireJS.define' if that is available
     // 3. else use the GlobalLoader to install the class into the edx namespace
+    // eslint-disable-next-line no-nested-ternary
     typeof define === 'function' && define.amd ? define :
         (typeof RequireJS !== 'undefined' ? RequireJS.define :
             edx.GlobalLoader.defineAs('StringUtils', 'edx-ui-toolkit/js/utils/string-utils'))

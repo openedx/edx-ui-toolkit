@@ -33,15 +33,15 @@
  *~~~
  * @module DropdownMenuView
  */
-;(function(define) {
+(function(define) {
     'use strict';
     define([
-            'backbone',
-            'jquery',
-            'underscore',
-            'edx-ui-toolkit/js/utils/constants',
-            'text!./dropdown.underscore'
-        ],
+        'backbone',
+        'jquery',
+        'underscore',
+        'edx-ui-toolkit/js/utils/constants',
+        'text!./dropdown.underscore'
+    ],
         function(Backbone, $, _, constants, DropdownTpl) {
             var DropdownMenuView = Backbone.View.extend({
                 tpl: _.template(DropdownTpl),
@@ -110,7 +110,7 @@
                  * });
                  *~~~
                  *
-                 * @param {object} event The event to be tracked. 
+                 * @param {object} event The event to be tracked.
                  * @returns {*} The event.
                  */
                 analyticsLinkClick: function(event) {

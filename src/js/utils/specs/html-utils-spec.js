@@ -116,7 +116,7 @@ define(
                         'Rock &amp; Roll all over the <a href="world">world</a>'
                     ]
                 }, function(items, expectedString) {
-                    var result = HtmlUtils.joinHtml.apply(this, items);
+                    var result = HtmlUtils.joinHtml.apply(null, items);
                     expect(result instanceof HtmlUtils.HtmlSnippet).toBeTruthy();
                     expect(result.toString()).toEqual(expectedString);
                 });

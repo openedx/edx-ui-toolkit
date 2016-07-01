@@ -1,11 +1,12 @@
 define([
-        'jquery',
-        'underscore',
-        '../dropdown-menu-view.js',
-        '../../utils/constants.js',
-        'jquery.simulate'
-    ],
-    function($, _, DropdownMenuView, constants) {
+    'jquery',
+    'underscore',
+    'backbone',
+    '../dropdown-menu-view.js',
+    '../../utils/constants.js',
+    'jquery.simulate'
+],
+    function($, _, Backbone, DropdownMenuView, constants) {
         'use strict';
 
         describe('Dropdown Menu View', function() {
@@ -256,19 +257,19 @@ define([
                     closeOnKeypressTest(constants.keyCodes.space);
                 });
 
-                it('should return to the button after pressing down arrow key while at bottom of dropdown menu', function() {
+                it('should return to the button after pressing ↓ while at bottom of dropdown menu', function() {
                     focusTrapDown(constants.keyCodes.down, 4);
                 });
 
-                it('should return to the button after pressing right arrow key while at bottom of dropdown menu', function() {
+                it('should return to the button after pressing → while at bottom of dropdown menu', function() {
                     focusTrapDown(constants.keyCodes.right, 4);
                 });
 
-                it('should return to the bottom of dropdown menu after pressing up arrow key while on button', function() {
+                it('should return to the bottom of dropdown menu after pressing ↑ while on button', function() {
                     focusTrapUp(constants.keyCodes.up);
                 });
 
-                it('should return to the bottom of dropdown menu after pressing left arrow key while on button', function() {
+                it('should return to the bottom of dropdown menu after pressing ← while on button', function() {
                     focusTrapUp(constants.keyCodes.left);
                 });
 

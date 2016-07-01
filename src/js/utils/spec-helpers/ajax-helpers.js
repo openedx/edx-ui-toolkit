@@ -207,7 +207,8 @@ define(['sinon', 'underscore', 'URI'], function(sinon, _, URI) {
     skipResetRequest = function(requests) {
         var request = currentRequest(requests);
         expect(request.readyState).toEqual(XHR_READY_STATES.UNSENT);
-        requests.currentIndex++;
+        // Our ESLint config bans mutating params, but fixing this would require breaking AjaxHelpers API
+        requests.currentIndex++;  // eslint-disable-line no-param-reassign
     };
 
     /**
@@ -229,7 +230,7 @@ define(['sinon', 'underscore', 'URI'], function(sinon, _, URI) {
             {'Content-Type': contentType},
             contentType === 'application/json' ? JSON.stringify(body || {}) : body
         );
-        requests.currentIndex++;
+        requests.currentIndex++;  // eslint-disable-line no-param-reassign
     };
 
     /**

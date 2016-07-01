@@ -14,15 +14,17 @@
   ],
   "homepage": "https://github.com/edx/edx-ui-toolkit",
   "scripts": {
-    "test": "gulp test"
+    "test": "gulp test",
+    "lint": "eslint ."
   },
   "dependencies": {
     "backbone": "~1.2.3",
     "backbone.paginator": "~2.0.3",
+    "gulp-shell": "^0.5.2",
     "jquery": "~2.2.0",
     "requirejs": "~2.1.22",
     "requirejs-text": "~2.0.12",
-    "sinon": "~1.17.3",
+    "sinon": "1.17.3 || >1.17.4",
     "underscore": "~1.8.3",
     "urijs": "~1.16.1"
   },
@@ -31,12 +33,12 @@
     "css-loader": "~0.23.1",
     "del": "~2.2.0",
     "edx-pattern-library": "~0.12.5",
+    "eslint": "~2.13.1",
+    "eslint-config-edx": "~1.0.0",
     "extract-text-webpack-plugin": "~1.0.1",
     "gulp": "~3.9.1",
     "gulp-coveralls": "~0.1.4",
     "gulp-gh-pages": "~0.5.4",
-    "gulp-jscs": "~3.0.2",
-    "gulp-jshint": "~2.0.0",
     "gulp-karma": "~0.0.5",
     "gulp-rename": "~1.2.2",
     "gulp-util": "~3.0.7",
@@ -44,8 +46,6 @@
     "jasmine-core": "~2.4.1",
     "jsdoc3-parser": "~1.1.0",
     "jsdox": "~0.4.9",
-    "jscs": "~2.9.0",
-    "jshint": "~2.9.1",
     "karma": "~0.13.22",
     "karma-chrome-launcher": "~0.2.2",
     "karma-coverage": "~0.5.3",

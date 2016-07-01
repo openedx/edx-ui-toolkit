@@ -8,7 +8,7 @@
  *
  * @module DisclosureView
  */
-;(function(define) {
+(function(define) {
     'use strict';
 
     define(['backbone', 'underscore'],

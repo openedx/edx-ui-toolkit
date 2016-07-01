@@ -25,9 +25,9 @@
  *
  * @module PagingCollection
  */
-;(function (define) {
+(function(define) {
     'use strict';
-    define(['jquery', 'underscore', 'backbone.paginator'], function ($, _, PageableCollection) {
+    define(['jquery', 'underscore', 'backbone.paginator'], function($, _, PageableCollection) {
         var PagingCollection = PageableCollection.extend({
             mode: 'server',
 
@@ -52,13 +52,13 @@
                 order: 'sort_order'
             },
 
-            constructor: function (models, options) {
+            constructor: function(models, options) {
                 this.state = _.extend({}, PagingCollection.prototype.state, this.state);
                 this.queryParams = _.extend({}, PagingCollection.prototype.queryParams, this.queryParams);
                 PageableCollection.prototype.constructor.call(this, models, options);
             },
 
-            initialize: function (models, options) {
+            initialize: function(models, options) {
                 // These must be initialized in the constructor
                 // because otherwise all PagingCollections would point
                 // to the same object references for sortableFields
@@ -68,7 +68,7 @@
                 PageableCollection.prototype.initialize.call(this, models, options);
             },
 
-            parse: function (response, options) {
+            parse: function(response, options) {
                 // PageableCollection expects the response to be an
                 // array of two elements - the server-side state
                 // metadata (page, size, etc.), and the array of
@@ -86,7 +86,7 @@
              *
              * @returns {integer} The current page number.
              */
-            getPageNumber: function () {
+            getPageNumber: function() {
                 return this.state.currentPage + (1 - this.state.firstPage);
             },
 
@@ -96,7 +96,7 @@
              *
              * @returns {integer} Total number of pages.
              */
-            getTotalPages: function () {
+            getTotalPages: function() {
                 return this.state.totalPages;
             },
 
@@ -105,7 +105,7 @@
              *
              * @returns {integer} Total number of records.
              */
-            getTotalRecords: function () {
+            getTotalRecords: function() {
                 return this.state.totalRecords;
             },
 
@@ -114,7 +114,7 @@
              *
              * @returns {integer} Number of records per page.
              */
-            getPageSize: function () {
+            getPageSize: function() {
                 return this.state.pageSize;
             },
 
@@ -128,17 +128,17 @@
              *
              * @param page {integer} one-indexed page to change to.
              */
-            setPage: function (page) {
+            setPage: function(page) {
                 var oldPage = this.state.currentPage,
                     self = this,
                     deferred = $.Deferred();
                 this.getPage(page - (1 - this.state.firstPage), {reset: true}).then(
-                    function () {
+                    function() {
                         self.isStale = false;
                         self.trigger('page_changed');
                         deferred.resolve();
                     },
-                    function () {
+                    function() {
                         self.state.currentPage = oldPage;
                         deferred.fail();
                     }
@@ -171,7 +171,7 @@
              *
              * @returns {boolean} Returns true if the collection has a next page.
              */
-            hasNextPage: function () {
+            hasNextPage: function() {
                 return this.getPageNumber() < this.state.totalPages;
             },
 
@@ -181,14 +181,14 @@
              *
              * @returns {boolean} Returns true if the collection has a previous page.
              */
-            hasPreviousPage: function () {
+            hasPreviousPage: function() {
                 return this.getPageNumber() > 1;
             },
 
             /**
              * Moves the collection to the next page if it exists.
              */
-            nextPage: function () {
+            nextPage: function() {
                 if (this.hasNextPage()) {
                     this.setPage(this.getPageNumber() + 1);
                 }
@@ -197,7 +197,7 @@
             /**
              * Moves the collection to the previous page if it exists.
              */
-            previousPage: function () {
+            previousPage: function() {
                 if (this.hasPreviousPage()) {
                     this.setPage(this.getPageNumber() - 1);
                 }
@@ -211,7 +211,7 @@
              * @param displayName {string} name of the field to display to the
              *     user
              */
-            registerSortableField: function (fieldName, displayName) {
+            registerSortableField: function(fieldName, displayName) {
                 this.addField(this.sortableFields, fieldName, displayName);
             },
 
@@ -223,7 +223,7 @@
              * @param displayName {string} name of the field to display to the
              *     user
              */
-            registerFilterableField: function (fieldName, displayName) {
+            registerFilterableField: function(fieldName, displayName) {
                 this.addField(this.filterableFields, fieldName, displayName);
             },
 
@@ -235,10 +235,12 @@
              * @param displayName {string} name of the field to display to the
              *     user
              */
-            addField: function (fields, fieldName, displayName) {
-                fields[fieldName] = {
+            addField: function(fields, fieldName, displayName) {
+                var newField = {};
+                newField[fieldName] = {
                     displayName: displayName
                 };
+                _.extend(fields, newField);
             },
 
             /**
@@ -247,7 +249,7 @@
              *
              * @returns {string} The display name of the sort field.
              */
-            sortDisplayName: function () {
+            sortDisplayName: function() {
                 if (this.state.sortKey) {
                     return this.sortableFields[this.state.sortKey].displayName;
                 } else {
@@ -262,7 +264,7 @@
              *     filterable field
              * @returns {string} The display name of the specified filterable field.
              */
-            filterDisplayName: function (fieldName) {
+            filterDisplayName: function(fieldName) {
                 if (!_.isUndefined(this.filterableFields[fieldName])) {
                     return this.filterableFields[fieldName].displayName;
                 } else {
@@ -278,7 +280,7 @@
              * @param toggleDirection {boolean} if true, the sort direction is
              *     toggled if the given field was already set
              */
-            setSortField: function (fieldName, toggleDirection) {
+            setSortField: function(fieldName, toggleDirection) {
                 var direction = toggleDirection ? 0 - this.state.order : this.state.order;
                 if (fieldName !== this.state.sortKey || toggleDirection) {
                     this.setSorting(fieldName, direction);
@@ -296,7 +298,7 @@
              *
              * @returns {string} Returns the direction of the current sort.
              */
-            sortDirection: function () {
+            sortDirection: function() {
                 return (this.state.order === -1) ?
                     PagingCollection.SortDirection.ASCENDING :
                     PagingCollection.SortDirection.DESCENDING;
@@ -310,7 +312,7 @@
              * @param direction {string} either ASCENDING or DESCENDING from
              *     PagingCollection.SortDirection.
              */
-            setSortDirection: function (direction) {
+            setSortDirection: function(direction) {
                 var currentOrder = this.state.order,
                     newOrder = currentOrder;
                 if (direction === PagingCollection.SortDirection.ASCENDING) {
@@ -327,7 +329,7 @@
             /**
              * Flips the sort order.
              */
-            flipSortDirection: function () {
+            flipSortDirection: function() {
                 this.setSorting(this.state.sortKey, 0 - this.state.order);
                 this.isStale = true;
             },
@@ -340,7 +342,7 @@
              *     filterable field
              * @return {boolean} Returns true if this collection has the specified field.
              */
-            hasRegisteredFilterField: function (fieldName) {
+            hasRegisteredFilterField: function(fieldName) {
                 return _.has(this.filterableFields, fieldName) &&
                     !_.isUndefined(this.filterableFields[fieldName].displayName);
             },
@@ -352,7 +354,7 @@
              *     filterable field
              * @return {boolean} Returns true if this collection has set the specified field.
              */
-            hasSetFilterField: function (fieldName) {
+            hasSetFilterField: function(fieldName) {
                 return _.has(this.filterableFields, fieldName) && !_.isNull(this.filterableFields[fieldName].value);
             },
 
@@ -364,12 +366,12 @@
              * @returns {Object} An object mapping the names of currently active
              * filter fields to their values.
              */
-            getActiveFilterFields: function (includeSearch) {
+            getActiveFilterFields: function(includeSearch) {
                 var activeFilterFields = _.chain(this.filterableFields)
-                    .pick(function (fieldData, fieldName) {
+                    .pick(function(fieldData) {
                         return !_.isNull(fieldData.value) && !_.isUndefined(fieldData.value);
                     })
-                    .mapObject(function (data) {
+                    .mapObject(function(data) {
                         return data.value;
                     });
                 if (!includeSearch) {
@@ -384,8 +386,8 @@
              * @returns {String} the current value of the requested filter
              *     field.  null means that the filter field is not active.
              */
-            getFilterFieldValue: function (filterFieldName) {
-                var val = this.getActiveFilterFields(true)[filterFieldName]
+            getFilterFieldValue: function(filterFieldName) {
+                var val = this.getActiveFilterFields(true)[filterFieldName];
                 return (_.isNull(val) || _.isUndefined(val)) ? null : val;
             },
 
@@ -397,7 +399,7 @@
              *     filterable field
              * @param value {*} value for the filterable field
              */
-            setFilterField: function (fieldName, value) {
+            setFilterField: function(fieldName, value) {
                 var queryStringValue;
                 if (!this.hasRegisteredFilterField(fieldName)) {
                     this.registerFilterableField(fieldName, '');
@@ -408,7 +410,7 @@
                 } else {
                     queryStringValue = value;
                 }
-                this.queryParams[fieldName] = function () {
+                this.queryParams[fieldName] = function() {
                     return queryStringValue || null;
                 };
                 this.isStale = true;
@@ -421,7 +423,7 @@
              * @param fieldName {string} querystring parameter name for the
              *     filterable field
              */
-            unsetFilterField: function (fieldName) {
+            unsetFilterField: function(fieldName) {
                 if (this.hasSetFilterField(fieldName)) {
                     this.setFilterField(fieldName, null);
                 }
@@ -431,7 +433,7 @@
              * Unsets all of the collections filterable fields and marks
              * the collection as stale.
              */
-            unsetAllFilterFields: function () {
+            unsetAllFilterFields: function() {
                 _.each(_.keys(this.filterableFields), _.bind(this.unsetFilterField, this));
             },
 
@@ -441,7 +443,7 @@
              * @returns {String} the current value of the search string.  null
              * or undefined means that the filter field is not active.
              */
-            getSearchString: function () {
+            getSearchString: function() {
                 return this.getFilterFieldValue(PagingCollection.DefaultSearchKey);
             },
 
@@ -450,7 +452,7 @@
              *
              * @returns {bool} - whether a search is currently applied.
              */
-            hasActiveSearch: function () {
+            hasActiveSearch: function() {
                 var currentSearch = this.getSearchString();
                 return !_.isNull(currentSearch) && currentSearch !== '';
             },
@@ -462,7 +464,7 @@
              * @param searchString {string} A string to search on, or null if no
              *     search is to be applied.
              */
-            setSearchString: function (searchString) {
+            setSearchString: function(searchString) {
                 if (searchString !== this.getSearchString()) {
                     this.setFilterField(PagingCollection.DefaultSearchKey, searchString);
                 }
@@ -472,7 +474,7 @@
              * Unsets the string to use for a text search and marks the
              * collection as stale.
              */
-            unsetSearchString: function () {
+            unsetSearchString: function() {
                 this.unsetFilterField(PagingCollection.DefaultSearchKey);
             }
         }, {

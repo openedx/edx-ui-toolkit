@@ -37,6 +37,9 @@ tramp
 *.swp
 *.swo
 
+# Linters
+.eslintcache
+
 # Mac
 .DS_Store
 ._*

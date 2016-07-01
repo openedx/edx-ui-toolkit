@@ -6,6 +6,8 @@
 define([], function() {
     'use strict';
 
+    var withData, withConfiguration;
+
     /**
      * Runs func as a test case multiple times, using entries from data as arguments.
      * You can think of this as like Python's DDT.
@@ -15,17 +17,12 @@ define([], function() {
      * is applied as arguments to func.
      * @param {function} func The function that actually expresses the logic of the test.
      */
-    var withData = function(data, func) {
-        /* jshint loopfunc:true */
-        for (var name in data) {
-            if (data.hasOwnProperty(name)) {
-                (function(name) {
-                    it(name, function() {
-                        func.apply(this, data[name]);
-                    });
-                })(name);
-            }
-        }
+    withData = function(data, func) {
+        Object.keys(data).forEach(function(key) {
+            it(key, function() {
+                func.apply(this, data[key]);
+            });
+        });
     };
 
     /**
@@ -40,20 +37,15 @@ define([], function() {
      * @param {function} test The function that actually express the logic of the test.
      * May include it() or more describe().
      */
-    var withConfiguration = function(config, setup, test) {
-        /* jshint loopfunc:true */
-        for (var name in config) {
-            if (config.hasOwnProperty(name)) {
-                (function(name) {
-                    describe(name, function() {
-                        beforeEach(function() {
-                            setup.apply(this, config[name]);
-                        });
-                        test();
-                    });
-                })(name);
-            }
-        }
+    withConfiguration = function(config, setup, test) {
+        Object.keys(config).forEach(function(key) {
+            describe(key, function() {
+                beforeEach(function() {
+                    setup.apply(this, config[key]);
+                });
+                test();
+            });
+        });
     };
 
     return {

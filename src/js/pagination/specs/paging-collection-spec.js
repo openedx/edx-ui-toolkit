@@ -10,43 +10,44 @@ define(['jquery',
         'use strict';
 
         describe('PagingCollection', function() {
-            var collection;
-            var server = {
-                isZeroIndexed: false,
-                count: 43,
-                respond: function(requests) {
-                    var request = AjaxHelpers.currentRequest(requests),
-                        params = (new URI(request.url)).query(true),
-                        page = parseInt(params.page, 10),
-                        pageSize = parseInt(params.page_size, 10),
-                        pageCount = Math.ceil(this.count / pageSize);
+            var collection,
+                server = {
+                    isZeroIndexed: false,
+                    count: 43,
+                    respond: function(requests) {
+                        var request = AjaxHelpers.currentRequest(requests),
+                            params = (new URI(request.url)).query(true),
+                            page = parseInt(params.page, 10),
+                            pageSize = parseInt(params.page_size, 10),
+                            pageCount = Math.ceil(this.count / pageSize),
+                            zeroPage;
 
-                    // Make zeroPage consistently start at zero for ease of calculation
-                    var zeroPage = page - (this.isZeroIndexed ? 0 : 1);
-                    if (zeroPage < 0 || zeroPage > pageCount) {
-                        AjaxHelpers.respondWithError(requests, 404);
-                    } else {
-                        AjaxHelpers.respondWithJson(requests, {
-                            count: this.count,
-                            current_page: page,
-                            num_pages: pageCount,
-                            start: zeroPage * pageSize,
-                            results: []
-                        });
+                        // Make zeroPage consistently start at zero for ease of calculation
+                        zeroPage = page - (this.isZeroIndexed ? 0 : 1);
+                        if (zeroPage < 0 || zeroPage > pageCount) {
+                            AjaxHelpers.respondWithError(requests, 404);
+                        } else {
+                            AjaxHelpers.respondWithJson(requests, {
+                                count: this.count,
+                                current_page: page,
+                                num_pages: pageCount,
+                                start: zeroPage * pageSize,
+                                results: []
+                            });
+                        }
                     }
-                }
-            };
-            var getUrlParams = function(request) {
-                return (new URI(request.url)).query(true);
-            };
-            var assertQueryParams = function(requests, params) {
-                var request = AjaxHelpers.currentRequest(requests),
-                    urlParams = getUrlParams(request);
-                _.each(params, function(value, key) {
-                    expect(urlParams[key]).toBe(value);
-                });
-                server.respond(requests);
-            };
+                },
+                getUrlParams = function(request) {
+                    return (new URI(request.url)).query(true);
+                },
+                assertQueryParams = function(requests, params) {
+                    var request = AjaxHelpers.currentRequest(requests),
+                        urlParams = getUrlParams(request);
+                    _.each(params, function(value, key) {
+                        expect(urlParams[key]).toBe(value);
+                    });
+                    server.respond(requests);
+                };
 
             beforeEach(function() {
                 collection = new PagingCollection([], {state: {pageSize: 10}});
@@ -132,7 +133,7 @@ define(['jquery',
                 collection.registerSortableField('test_field', 'Test Field');
                 collection.setSortField('test_field', false);
                 collection.refresh();
-                assertQueryParams(requests, {'sort_order': 'asc'});
+                assertQueryParams(requests, {sort_order: 'asc'});
                 expect(collection.state.sortKey).toBe('test_field');
                 expect(collection.sortDisplayName()).toBe('Test Field');
             }));
@@ -149,7 +150,7 @@ define(['jquery',
                 collection.registerFilterableField('test_field', 'Test Field');
                 collection.setFilterField('test_field', 'test_value');
                 collection.refresh();
-                assertQueryParams(requests, {'test_field': 'test_value'});
+                assertQueryParams(requests, {test_field: 'test_value'});
                 expect(collection.filterDisplayName('test_field')).toBe('Test Field');
                 expect(collection.getFilterFieldValue('test_field')).toBe('test_value');
             }));
@@ -159,7 +160,7 @@ define(['jquery',
                 collection.registerFilterableField('test_field', 'Test Field');
                 collection.setFilterField('test_field', ['a', 'b', 'c']);
                 collection.refresh();
-                assertQueryParams(requests, {'test_field': 'a,b,c'});
+                assertQueryParams(requests, {test_field: 'a,b,c'});
                 expect(collection.filterDisplayName('test_field')).toBe('Test Field');
                 expect(collection.getFilterFieldValue('test_field')).toEqual(['a', 'b', 'c']);
             }));
@@ -213,7 +214,7 @@ define(['jquery',
                     .toEqual({test_field_1: 'test_value_1', test_field_3: 'test_value_3'});
             });
 
-            it('can return the currently active filter fields', AjaxHelpers.withFakeRequests(function(requests) {
+            it('can return the currently active filter fields', AjaxHelpers.withFakeRequests(function() {
                 var expectedRequestBody;
                 collection.registerFilterableField('test_field', 'Test Field');
                 collection.setFilterField('test_field', 'test value');
@@ -244,21 +245,21 @@ define(['jquery',
                 collection.setSortField('test_field');
                 collection.setSortDirection(PagingCollection.SortDirection.DESCENDING);
                 collection.refresh();
-                assertQueryParams(requests, {'sort_order': PagingCollection.SortDirection.DESCENDING});
+                assertQueryParams(requests, {sort_order: PagingCollection.SortDirection.DESCENDING});
                 expect(collection.sortDirection()).toBe(PagingCollection.SortDirection.DESCENDING);
                 collection.setSortDirection(PagingCollection.SortDirection.ASCENDING);
                 collection.refresh();
-                assertQueryParams(requests, {'sort_order': PagingCollection.SortDirection.ASCENDING});
+                assertQueryParams(requests, {sort_order: PagingCollection.SortDirection.ASCENDING});
                 expect(collection.sortDirection()).toBe(PagingCollection.SortDirection.ASCENDING);
             }));
 
             it('can flip the sort direction', AjaxHelpers.withFakeRequests(function(requests) {
                 collection.setSortField('test_field');
                 collection.refresh();
-                assertQueryParams(requests, {'sort_order': PagingCollection.SortDirection.ASCENDING});
+                assertQueryParams(requests, {sort_order: PagingCollection.SortDirection.ASCENDING});
                 collection.flipSortDirection();
                 collection.refresh();
-                assertQueryParams(requests, {'sort_order': PagingCollection.SortDirection.DESCENDING});
+                assertQueryParams(requests, {sort_order: PagingCollection.SortDirection.DESCENDING});
             }));
 
             it('can toggle the sort direction when setting the sort field', function() {
@@ -279,7 +280,7 @@ define(['jquery',
             it('can set and unset the search string', AjaxHelpers.withFakeRequests(function(requests) {
                 collection.setSearchString('testString');
                 collection.refresh();
-                assertQueryParams(requests, {'text_search': 'testString'});
+                assertQueryParams(requests, {text_search: 'testString'});
                 collection.unsetSearchString();
                 collection.refresh();
                 expect('text_search' in getUrlParams(AjaxHelpers.currentRequest(requests))).not.toBe(true);
@@ -292,7 +293,8 @@ define(['jquery',
                 expect(collection.getSearchString()).toBe('test string');
             }));
 
-            it('does not refresh if search string is unchanged', AjaxHelpers.withFakeRequests(function(requests) {
+            it('does not refresh if search string is unchanged',
+                AjaxHelpers.withFakeRequests(function(requests) {
                     var testString = 'testString';
                     collection.setSearchString(testString);
                     collection.refresh();
@@ -312,7 +314,10 @@ define(['jquery',
                 collection.setSortField('test_field');
                 collection.setPage(3);
                 assertQueryParams(requests, {
-                    'page': page.toString(), 'page_size': '5', 'order_by': 'test_field', 'sort_order': 'asc'
+                    page: page.toString(),
+                    page_size: '5',
+                    order_by: 'test_field',
+                    sort_order: 'asc'
                 });
             }));
 
@@ -349,8 +354,7 @@ define(['jquery',
                             collection.on('error', function() { errorTriggered = true; });
                             collection.setPage(17);
                             server.respond(requests);
-                            // TODO: re-enable this...
-                            // expect(errorTriggered).toBe(true);
+                            expect(errorTriggered).toBe(true);
                         })
                     );
 
@@ -363,9 +367,8 @@ define(['jquery',
                             server.respond(requests);
                             collection.setPage(3);
                             AjaxHelpers.respondWithError(requests);
-                            // TODO: re-enable this...
-                            // expect(errorTriggered).toBe(true);
-                            // expect(collection.getPageNumber()).toBe(2);
+                            expect(errorTriggered).toBe(true);
+                            expect(collection.getPageNumber()).toBe(2);
                         })
                     );
                 });

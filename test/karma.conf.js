@@ -1,10 +1,14 @@
 // Karma configuration
 
-module.exports = function(config, options) {
+module.exports = function(config, overrideOptions) {
     'use strict';
 
+    var options;
+
     // If not being overridden, then specify the default headless configuration
-    if (!options) {
+    if (overrideOptions) {
+        options = overrideOptions;
+    } else {
         options = {
             singleRun: true,
             autoWatch: false,
