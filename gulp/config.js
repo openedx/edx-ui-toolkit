@@ -1,3 +1,5 @@
+'use strict';
+
 module.exports = {
     documentation: {
         targetDir: './_site',
