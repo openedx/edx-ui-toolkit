@@ -1,5 +1,5 @@
 {
-    "extends": "eslint-config-edx",
+    "extends": "eslint-config-airbnb-base",
     "globals": {
         "setFixtures": true  // added globally by jasmine-jquery (bad)
     }

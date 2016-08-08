@@ -22,16 +22,16 @@
 (function(define) {
     'use strict';
     define(['backbone', 'edx-ui-toolkit/js/utils/html-utils', 'text!./breadcrumbs.underscore'],
-        function(Backbone, HtmlUtils, breadcrumbsTemplate) {
-            var BreadcrumbsView = Backbone.View.extend({
-                initialize: function() {
+        (Backbone, HtmlUtils, breadcrumbsTemplate) => {
+            const BreadcrumbsView = Backbone.View.extend({
+                initialize: () => {
                     this.template = HtmlUtils.template(breadcrumbsTemplate);
                     this.listenTo(this.model, 'change', this.render);
                     this.render();
                 },
 
-                render: function() {
-                    var json = this.model.attributes;
+                render: () => {
+                    const json = this.model.attributes;
                     HtmlUtils.setHtml(this.$el, this.template(json));
                     return this;
                 }

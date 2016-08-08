@@ -52,6 +52,7 @@
     "jsdoc3-parser": "~1.1.0",
     "jsdox": "~0.4.9",
     "karma": "~0.13.22",
+    "karma-babel-preprocessor": "^6.0.1",
     "karma-chrome-launcher": "~0.2.2",
     "karma-coverage": "~0.5.3",
     "karma-coveralls": "^1.1.2",

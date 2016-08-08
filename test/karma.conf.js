@@ -16,7 +16,7 @@ module.exports = function(config, overrideOptions) {
             browsers: ['PhantomJS'],
             logLevel: config.LOG_INFO,
             preprocessors: {
-                'src/js/**/*.js': ['coverage']
+                'src/js/**/*.js': ['babel', 'coverage']
             },
             reporters: ['spec', 'coverage']
         };
@@ -73,7 +73,8 @@ module.exports = function(config, overrideOptions) {
             'karma-coveralls',
             'karma-sinon',
             'karma-jasmine-html-reporter',
-            'karma-spec-reporter'
+            'karma-spec-reporter',
+            'karma-babel-preprocessor'
         ],
 
         // preprocess each file according to the specified options
@@ -117,6 +118,13 @@ module.exports = function(config, overrideOptions) {
 
         // Continuous Integration mode
         // if true, Karma captures browsers, runs the tests and exits
-        singleRun: options.singleRun
+        singleRun: options.singleRun,
+
+        babelPreprocessor: {
+            options: {
+                presets: ['es2015'],
+                sourceMap: 'inline'
+            }
+        }
     });
 };

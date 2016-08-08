@@ -9,7 +9,9 @@ module.exports = function(config) {
         autoWatch: true,
         browsers: ['Chrome'],
         logLevel: baseConfig.LOG_DEBUG,
-        preprocessors: [],
+        preprocessors: {
+            'src/js/**/*.js': ['babel']
+        },
         reporters: ['kjhtml']
     });
 };
