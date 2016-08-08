@@ -49,7 +49,7 @@
                 events: {
                     'click .js-dropdown-button': 'clickOpenDropdown',
                     'click a': 'analyticsLinkClick',
-                    'keydown': 'viewKeypress'
+                    keydown: 'viewKeypress'
                 },
 
                 dropdownButton: '.js-dropdown-button',
