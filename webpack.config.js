@@ -23,11 +23,11 @@ var path = require('path'),
         modulesDirectories: ['node_modules'],
         resolve: {
             alias: {
-                'afontgarde': 'edx-pattern-library/js/afontgarde',
-                'modernizr': 'edx-pattern-library/js/modernizr-custom',
+                afontgarde: 'edx-pattern-library/js/afontgarde',
+                modernizr: 'edx-pattern-library/js/modernizr-custom',
                 'edx-pattern-library': patternLibraryPath,
                 'edx-ui-toolkit': path.resolve(__dirname, 'src'),
-                'doc': path.resolve(__dirname, 'doc/static')
+                doc: path.resolve(__dirname, 'doc/static')
             }
         },
         module: {

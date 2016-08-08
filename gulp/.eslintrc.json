@@ -1,4 +1,9 @@
 {
+    "parserOptions": {
+        "ecmaFeatures": {
+          "globalReturn": true
+        }
+    },
     "rules": {
         "no-console": "off"
     }
