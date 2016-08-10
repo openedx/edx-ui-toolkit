@@ -27,8 +27,8 @@
         const BreadcrumbsModel = Backbone.Model.extend({
             defaults: {
                 breadcrumbs: null,
-                label: ''
-            }
+                label: '',
+            },
         });
 
         return BreadcrumbsModel;

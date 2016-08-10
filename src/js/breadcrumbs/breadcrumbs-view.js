@@ -34,7 +34,7 @@
                     const json = this.model.attributes;
                     HtmlUtils.setHtml(this.$el, this.template(json));
                     return this;
-                }
+                },
             });
 
             return BreadcrumbsView;
