@@ -24,12 +24,14 @@
     'use strict';
 
     define(['backbone'], (Backbone) => {
-        const BreadcrumbsModel = Backbone.Model.extend({
-            defaults: {
-                breadcrumbs: null,
-                label: '',
-            },
-        });
+        class BreadcrumbsModel extends Backbone.Model {
+            defaults() {
+                return {
+                    breadcrumbs: null,
+                    label: ''
+                };
+            }
+        }
 
         return BreadcrumbsModel;
     });

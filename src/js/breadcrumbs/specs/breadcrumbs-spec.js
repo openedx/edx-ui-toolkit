@@ -6,7 +6,7 @@
         '../../utils/html-utils.js',
         '../../utils/spec-helpers/spec-helpers.js',
         '../breadcrumbs-view.js',
-        '../breadcrumbs-model.js',
+        '../breadcrumbs-model.js'
     ],
     ($, HtmlUtils, SpecHelpers, BreadcrumbsView, BreadcrumbsModel) => {
         describe('BreadcrumbsView', () => {
@@ -16,7 +16,7 @@
             beforeEach(() => {
                 model = new BreadcrumbsModel();
                 view = new BreadcrumbsView({
-                    model,
+                    model
                 });
             });
 
@@ -27,18 +27,18 @@
             SpecHelpers.withData({
                 'with no breadcrumbs': [[]],
                 'with one breadcrumb': [[
-                    {url: 'url1', title: 'Crumb 1'},
+                    {url: 'url1', title: 'Crumb 1'}
                 ]],
                 'with two breadcrumbs': [[
                     {url: 'url1', title: 'Crumb 1'},
-                    {url: 'url2', title: 'Crumb 2'},
+                    {url: 'url2', title: 'Crumb 2'}
                 ]],
                 'with unicode breadcrumbs': [[
-                    {url: '', title: '☃'},
+                    {url: '', title: '☃'}
                 ]],
                 'with breadcrumbs containing HTML': [[
-                    {url: '', title: '<h1>crumb!</h1>'},
-                ]],
+                    {url: '', title: '<h1>crumb!</h1>'}
+                ]]
             }, (breadcrumbs) => {
                 model.set('breadcrumbs', breadcrumbs);
 

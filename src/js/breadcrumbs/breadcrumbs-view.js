@@ -23,19 +23,19 @@
     'use strict';
     define(['backbone', 'edx-ui-toolkit/js/utils/html-utils', 'text!./breadcrumbs.underscore'],
         (Backbone, HtmlUtils, breadcrumbsTemplate) => {
-            const BreadcrumbsView = Backbone.View.extend({
-                initialize: () => {
+            class BreadcrumbsView extends Backbone.View {
+                initialize() {
                     this.template = HtmlUtils.template(breadcrumbsTemplate);
                     this.listenTo(this.model, 'change', this.render);
                     this.render();
-                },
+                }
 
-                render: () => {
+                render() {
                     const json = this.model.attributes;
                     HtmlUtils.setHtml(this.$el, this.template(json));
                     return this;
-                },
-            });
+                }
+            }
 
             return BreadcrumbsView;
         });

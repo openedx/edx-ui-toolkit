@@ -63,6 +63,7 @@ module.exports = function(config, overrideOptions) {
 
         // plugins required for running the karma tests
         plugins: [
+            'karma-babel-preprocessor',
             'karma-jasmine',
             'karma-jasmine-jquery',
             'karma-requirejs',
@@ -73,8 +74,7 @@ module.exports = function(config, overrideOptions) {
             'karma-coveralls',
             'karma-sinon',
             'karma-jasmine-html-reporter',
-            'karma-spec-reporter',
-            'karma-babel-preprocessor'
+            'karma-spec-reporter'
         ],
 
         // preprocess each file according to the specified options
