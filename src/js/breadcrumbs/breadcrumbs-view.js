@@ -4,13 +4,13 @@
  * Initialize the view by passing in the following attributes:
  *
  *~~~ javascript
- * var view = new BreadcrumbsView({
+ * const view = new BreadcrumbsView({
  *     el: $('selector for element that will contain breadcrumbs'),
  *     model: new BreadcrumbsModel({
  *         breadcrumbs: [{url: '/', title: 'Overview'}]
  *     }),
  *     events: {
- *         'click nav.breadcrumbs a.nav-item': function (event) {
+ *         'click nav.breadcrumbs a.nav-item': (event) => {
  *             event.preventDefault();
  *             window.location = $(event.currentTarget).attr('href');
  *         }
@@ -19,7 +19,7 @@
  *~~~
  * @module BreadcrumbsView
  */
-(function(define) {
+((define) => {
     'use strict';
     define(['backbone', 'edx-ui-toolkit/js/utils/html-utils', 'text!./breadcrumbs.underscore'],
         (Backbone, HtmlUtils, breadcrumbsTemplate) => {

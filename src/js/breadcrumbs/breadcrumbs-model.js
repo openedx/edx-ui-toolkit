@@ -20,7 +20,7 @@
  *~~~
  * @module BreadcrumbsModel
  */
-(function(define) {
+((define) => {
     'use strict';
 
     define(['backbone'], (Backbone) => {

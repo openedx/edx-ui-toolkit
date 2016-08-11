@@ -1,4 +1,4 @@
-(function(define) {
+((define) => {
     'use strict';
 
     define([
