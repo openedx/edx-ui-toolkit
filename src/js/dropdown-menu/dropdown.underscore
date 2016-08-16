@@ -14,7 +14,7 @@
     <span class="sr-only"><%- button.label %></span>
 </button>
 <ul class="dropdown-menu list-divided is-hidden" id="<%- menuId %>" tabindex="-1">
-    <% _.each(items, function(item, index) { %>
+    <% items.forEach((item, index) => { %>
         <li class="dropdown-item item has-block-link">
             <a href="<%- item.url %>" class="action"><%- item.text %></a>
         </li>
