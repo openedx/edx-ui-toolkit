@@ -1,11 +1,11 @@
 'use strict';
 
-var gulp = require('gulp'),
+const gulp = require('gulp'),
     config = require('../config'),
     del = require('del');
 
-gulp.task('clean', function() {
-    return del([
+gulp.task('clean', () =>
+    del([
         // Remove the Jekyll site
         config.documentation.targetDir,
 
@@ -16,5 +16,5 @@ gulp.task('clean', function() {
         config.documentation.testing.output,
         config.documentation.utilities.output,
         config.documentation.views.output
-    ]);
-});
+    ])
+);

@@ -1,6 +1,6 @@
 'use strict';
 
-var jsdox = require('jsdox'),
+const jsdox = require('jsdox'),
     path = require('path'),
     through = require('through2'),
     GulpUtil = require('gulp-util'),
@@ -10,29 +10,32 @@ var jsdox = require('jsdox'),
     generateMD = jsdox.generateMD,
     jsdoxTemplatesDir = 'node_modules/jsdox/templates';
 
-module.exports = function(viewClass) {
-    return through.obj(function(file, enc, next) {
-        var self = this;
+module.exports = (viewClass) =>
+    through.obj((file, enc, next) => {
         if (file.isStream()) {
-            jsdocParser(file.history, function(err, result) {
-                var frontMatter, data, markdown, title, relativePath, requirePath, gitHubPath,
-                    fileToPush = file;
+            jsdocParser(file.history, (err, result) => {
+                let frontMatter, data, markdown, title, relativePath, requirePath, gitHubPath;
+                const fileToPush = file;
+
                 if (err) {
                     console.error('Error generating docs for file', file, err);
                     next(err);
                 } else {
                     // Generate the front matter
                     relativePath = path.relative(path.resolve('src'), file.path);
-                    requirePath = 'edx-ui-toolkit/' + relativePath.slice(0, -3);
-                    gitHubPath = 'blob/master/src/' + relativePath;
-                    // title = path.relative(path.resolve('src/js'), file.path).slice(0, -3);
+                    requirePath = `edx-ui-toolkit/${relativePath.slice(0, -3)}`;
+                    gitHubPath = `blob/master/src/${relativePath}`;
+
                     title = path.basename(file.path, '.js');
-                    frontMatter = '---\n' +
-                        'title: ' + title + '\n' +
-                        'requirePath: ' + requirePath + '\n' +
-                        'githubPath: ' + gitHubPath + '\n' +
-                        'viewClass: ' + viewClass + '\n' +
-                        '---\n\n';
+                    frontMatter = `
+---
+title: ${title}
+requirePath: ${requirePath}
+githubPath: ${gitHubPath}
+viewClass: ${viewClass}
+---
+
+`;
 
                     // Generate the markdown
                     data = analyze(result, {});
@@ -49,4 +52,3 @@ module.exports = function(viewClass) {
             next();
         }
     });
-};

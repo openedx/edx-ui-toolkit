@@ -39,13 +39,14 @@ Contributions are very welcome. The easiest way is to fork this repo, and then
 make a pull request from your fork. The first time you make a pull request, you
 may be asked to sign a Contributor Agreement.
 
-Please refer to our [contributor guidelines](https://github.com/edx/edx-ui-toolkit/blob/master/CONTRIBUTING.md) 
+Please refer to our [contributor guidelines](https://github.com/edx/edx-ui-toolkit/blob/master/CONTRIBUTING.md)
 for important additional information.
 
 ## Getting Started
 
 1. Get the code (e.g. clone the repository).
-2. Install the Node requirements:
+2. Install a supported version of Node.js (4.x)
+3. Install the Node requirements:
 
         $ npm install
 
@@ -74,11 +75,11 @@ The UI Toolkit has auto-generated documentation available here: [http://ui-toolk
 To generate this documentation, run the following command:
 
         $ gulp doc
-        
+
 To upload a preview of the documentation to S3:
-        
+
         $ gulp preview
 
 To update the hosted documentation:
-        
+
         $ gulp doc-publish
