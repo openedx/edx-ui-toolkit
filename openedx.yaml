@@ -4,5 +4,5 @@
 nick: uitk
 oeps: {}
 openedx-release: {ref: master}
-owner: edx/edx-ux-team
+owner: edx/fedX-team
 track-pulls: true
