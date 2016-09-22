@@ -60,3 +60,5 @@ node_modules
 _preview_site
 _site
 _tmp_preview_config.yml
+
+coverage/coverage-js/

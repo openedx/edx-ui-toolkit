@@ -54,6 +54,8 @@ module.exports = function(config, overrideOptions) {
             {pattern: 'node_modules/requirejs-text/text.js', included: false},
             {pattern: 'node_modules/sinon/**/*.js', included: false},
             {pattern: 'node_modules/urijs/src/*.js', included: false},
+            {pattern: 'node_modules/moment/min/moment-with-locales.min.js', included: false},
+            {pattern: 'node_modules/moment-timezone/builds/moment-timezone-with-data.js', included: false},
             {pattern: 'test/jquery.simulate.js', included: false},
 
             // register all the UI Toolkit source and Underscore templates

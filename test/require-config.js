@@ -13,6 +13,8 @@ require.config({
         text: 'node_modules/requirejs-text/text',
         underscore: 'node_modules/underscore/underscore',
         sinon: 'node_modules/sinon/lib/sinon',
+        moment: 'node_modules/moment/min/moment-with-locales.min',
+        'moment-timezone': 'node_modules/moment-timezone/builds/moment-timezone-with-data',
 
         // URI and its dependencies
         URI: 'node_modules/urijs/src/URI',
