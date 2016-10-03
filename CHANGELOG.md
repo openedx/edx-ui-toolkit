@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.5.0 (2016-10-03)
+* Add DateUtils
+
+- - -
+
 ## 1.4.1 (2016-06-24)
 * Fix minor issue with unnecessary DOM node in breadcrumbs
 
