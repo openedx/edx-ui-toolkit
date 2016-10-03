@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+
+<head>
+    <base href="/">
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="favicon.ico">
+
+    <title>
+        
+        date-utils &middot; edX UI Toolkit
+        
+    </title>
+
+    <meta name="description" content="A JavaScript library for building edX front end applications.">
+
+    <link rel="stylesheet" type="text/css" href="/public/ui-toolkit.css">
+
+</head>
+
+
+<body class="doc view-utility">
+<div class="doc-nav-skip sr-only">
+    <a class="doc-action-skip" href="#content-main">Skip to the main content</a>
+</div>
+
+<hr class="doc-divider sr-only">
+
+<div class="doc-wrapper-view">
+    <div class="doc-wrapper-header-site">
+    <header class="doc-header-site" role="banner" aria-labelledby="doc-header-site-title">
+        <div class="layout-1t2t layout">
+            <main class="layout-col layout-col-a">
+                <h1 id="doc-header-site-title" class="hd-2 de-emphasized doc-header-site-title">
+                    <a href="/">
+                        <img class="doc-header-logo" src="/./static/images/edx-logo.svg"
+                             alt="edX UI Toolkit home" />
+                        <span>UI Toolkit</span>
+                    </a>
+                </h1>
+            </main>
+        </div>
+    </header>
+</div>
+
+
+    <div class="doc-wrapper-content" id="content-top" tabindex="-1">
+        <div class="doc-content">
+            <div class="doc-wrapper-content-supplemental">
+                <nav class="doc-nav doc-nav-internal" role="navigation" aria-label="edX UI Toolkit">
+    <h2 class="doc-heading doc-nav-title hd-6">edX UI Toolkit</h2>
+    <ul class="list-unstyled list-patterns">
+        <li class="item no-indent ">
+    
+        <a class="pattern-title pattern pldoc-link" href="/./">
+    
+    Introduction
+    
+        </a>
+    
+</li>
+
+    </ul>
+</nav>
+
+
+<nav class="doc-nav doc-nav-internal" role="navigation" aria-label="Utilities">
+    <h2 class="doc-heading doc-nav-title hd-6">Utilities</h2>
+    <ul class="list-unstyled list-patterns">
+    
+        <li class="item no-indent ">
+    
+        <a class="pattern-title pattern pldoc-link" href="/./utilities/constants/">
+    
+    constants
+    
+        </a>
+    
+</li>
+
+    
+        <li class="item no-indent is-current">
+    
+    date-utils
+    
+</li>
+
+    
+        <li class="item no-indent ">
+    
+        <a class="pattern-title pattern pldoc-link" href="/./utilities/global-loader/">
+    
+    global-loader
+    
+        </a>
+    
+</li>
+
+    
+        <li class="item no-indent ">
+    
+        <a class="pattern-title pattern pldoc-link" href="/./utilities/html-utils/">
+    
+    html-utils
+    
+        </a>
+    
+</li>
+
+    
+        <li class="item no-indent ">
+    
+        <a class="pattern-title pattern pldoc-link" href="/./utilities/string-utils/">
+    
+    string-utils
+    
+        </a>
+    
+</li>
+
+    
+    </ul>
+</nav>
+
+
+
+<nav class="doc-nav doc-nav-internal" role="navigation" aria-label="Views">
+    <h2 class="doc-heading doc-nav-title hd-6">Views</h2>
+    <ul class="list-unstyled list-patterns">
+    
+        <li class="item no-indent ">
+    
+        <a class="pattern-title pattern pldoc-link" href="/./views/breadcrumbs/breadcrumbs-model/">
+    
+    breadcrumbs-model
+    
+        </a>
+    
+</li>
+
+    
+        <li class="item no-indent ">
+    
+        <a class="pattern-title pattern pldoc-link" href="/./views/breadcrumbs/breadcrumbs-view/">
+    
+    breadcrumbs-view
+    
+        </a>
+    
+</li>
+
+    
+        <li class="item no-indent ">
+    
+        <a class="pattern-title pattern pldoc-link" href="/./views/disclosure/disclosure-view/">
+    
+    disclosure-view
+    
+        </a>
+    
+</li>
+
+    
+        <li class="item no-indent ">
+    
+        <a class="pattern-title pattern pldoc-link" href="/./views/dropdown-menu/dropdown-menu-view/">
+    
+    dropdown-menu-view
+    
+        </a>
+    
+</li>
+
+    
+        <li class="item no-indent ">
+    
+        <a class="pattern-title pattern pldoc-link" href="/./views/pagination/paging-collection/">
+    
+    paging-collection
+    
+        </a>
+    
+</li>
+
+    
+    </ul>
+</nav>
+
+
+
+<nav class="doc-nav doc-nav-internal" role="navigation" aria-label="Testing">
+    <h2 class="doc-heading doc-nav-title hd-6">Testing</h2>
+    <ul class="list-unstyled list-patterns">
+    
+        <li class="item no-indent ">
+    
+        <a class="pattern-title pattern pldoc-link" href="/./testing/ajax-helpers/">
+    
+    ajax-helpers
+    
+        </a>
+    
+</li>
+
+    
+        <li class="item no-indent ">
+    
+        <a class="pattern-title pattern pldoc-link" href="/./testing/spec-helpers/">
+    
+    spec-helpers
+    
+        </a>
+    
+</li>
+
+    
+    </ul>
+</nav>
+
+
+            </div>
+
+            <hr class="doc-divider sr-only">
+
+            <div class="doc-wrapper-content-main">
+                <main class="doc-content-main" id="content-main" aria-label="Content">
+                    
+                        <div class="doc-links">
+                            <a rel="external" href="https://github.com/edx/edx-ui-toolkit/blob/master/src/js/utils/date-utils.js">
+                                View on Github
+                            </a>
+                        </div>
+                    
+
+                    <h1 id="dateutils">DateUtils</h1>
+
+<p>Create a formatted, locale-aware string representation of a datetime.</p>
+
+<p>This module contains general purpose functions for localizing and displaying
+date-times by timezone, locale and preferred language.”</p>
+
+<p>Most of the heavy lifting is done by the <a href="http://momentjs.com/ |'moments' js library">http://momentjs.com/ |’moments’ js library</a>
+with the moment-with-locales and moment-timezones add-ons.</p>
+
+<p>Example:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">context</span> <span class="o">=</span> <span class="p">{</span>
+   <span class="na">datetime</span><span class="p">:</span> <span class="s1">'2016-10-14 08:00:00+00:00'</span><span class="p">,</span>
+   <span class="na">timezone</span><span class="p">:</span> <span class="s1">'Pacific/Kiritimati'</span><span class="p">,</span>
+   <span class="na">language</span><span class="p">:</span> <span class="s1">'ar'</span><span class="p">,</span>
+   <span class="na">format</span><span class="p">:</span> <span class="nx">DateUtils</span><span class="p">.</span><span class="nx">dateFormats</span><span class="p">.</span><span class="nx">shortDate</span>
+<span class="p">};</span>
+<span class="nx">localized_date</span> <span class="o">=</span> <span class="nx">DateUtils</span><span class="p">.</span><span class="nx">localize</span><span class="p">(</span><span class="nx">context</span><span class="p">);</span>
+</code></pre>
+</div>
+
+<hr />
+
+<h3 id="dateutilslocalizecontext">DateUtils.localize(context)</h3>
+
+<p>Renders a localized date/time in a standard format.</p>
+
+<p><strong>Parameters</strong></p>
+
+<p><strong>context</strong>: <code class="highlighter-rouge">string</code>, - datetime:  The (UTC) datetime server-side string.
+- timezone: {string} (optional) the user set time zone preference, or ‘None’ if unset.
+This should be in a format like ‘Region/Locale’, e.g. ‘Atlantic/Azores’. Defaults to ‘UTC’.
+- language: {string} (optional), the user set language, an ISO 639-1 language string, defaults to ‘en’
+- format: {object} (optional), a format constant. Defaults to DEFAULT_FORMAT.</p>
+
+<p><strong>Returns</strong>: <code class="highlighter-rouge">string</code>, A formatted, timezone-offset, internationalized date and time.</p>
+
+<h3 id="dateutilsstringtomoment">DateUtils.stringToMoment()</h3>
+
+<p>Converts a string to mutable ‘moment’ datetime object.</p>
+
+<p>The input datetimeString can be just a date, a date and time,
+or a complex date/time string with TZ offset. This is fairly wide-open, as
+many strings will satisfy this requirement.
+(e.g. 01-01-16 and Jan 1, 2016, and 2016-01-01 01:00:00+00:00 will work)</p>
+
+<p>The recommendation is to use a fully informed string, e.g. ‘2016-01-01 01:00:00+00:00’,
+to limit possible date, time, and timezone ambiguities.</p>
+
+<p><strong>Parameters</strong></p>
+
+<ul>
+  <li><strong>datetimeString.</strong>: <code class="highlighter-rouge">string</code>, A string representation of a datetime.</li>
+</ul>
+
+<p><strong>Returns</strong>: <code class="highlighter-rouge">object</code>, A moment.js UTC datetime object.</p>
+
+<h3 id="dateutilslocalizetimedatetimeobject-timezone">DateUtils.localizeTime(dateTimeObject, timezone)</h3>
+
+<p>Returns a new time that is offset by the requested timezone.</p>
+
+<p><strong>Parameters</strong></p>
+
+<p><strong>dateTimeObject</strong>: <code class="highlighter-rouge">Object</code>, A moment.js datetime object.</p>
+
+<p><strong>timezone</strong>: <code class="highlighter-rouge">string</code>, A timezone representation, e.g. ‘America/New_York’.</p>
+
+<p><strong>Returns</strong>: <code class="highlighter-rouge">object</code>, A moment.js datetime object in a determined timezone.</p>
+
+<h3 id="dateutilsgetsystimezone">DateUtils.getSysTimezone()</h3>
+
+<p>Helper function to determine system timezone, and fallback to UTC
+Determines timezone from argument, falling back to system/browser settings, then UTC.</p>
+
+<p><strong>Returns</strong>: <code class="highlighter-rouge">string</code>, Will attempt to return a determined timezone string, with a fallback to UTC.</p>
+
+<h3 id="dateutilsgetdisplaytimelocaltime-language-format">DateUtils.getDisplayTime(localTime, language, format)</h3>
+
+<p>Generate a timezone-aware and language-aware string.</p>
+
+<p>This includes a param for standard formatting constants.</p>
+
+<p>Browser preferred language is currently overridden by platform-set language preference.
+If no preference is set, the function attempts to determine the locale settings
+(e.g. en-US) from the browser preferences.</p>
+
+<p>This function will default to UTC/en-US display in default format in the case of
+an unresolvable language or timezone</p>
+
+<p>preferred_language = ‘en’ yields Oct. 14, 2016 09:00 BST</p>
+
+<p>preferred_language = ‘ru’ yields 14 окт 2016 г. 09:00 BST</p>
+
+<p><strong>Parameters</strong></p>
+
+<p><strong>localTime</strong>: <code class="highlighter-rouge">object</code>, A moment.js datetime object offset to a determined timezone.</p>
+
+<p><strong>language</strong>: <code class="highlighter-rouge">string</code>, an ISO 639-1 language code (e.g. ‘en-US’, ‘fr’)</p>
+
+<p><strong>format</strong>: <code class="highlighter-rouge">object</code>, (optional) A desired date format, via the dateFormatEnum.</p>
+
+<p><strong>Returns</strong>: <code class="highlighter-rouge">string</code>, A language/timezone aware localized string</p>
+
+<h3 id="dateutilsgetdisplaylanglanguage">DateUtils.getDisplayLang(language)</h3>
+
+<p>Helper function to determine sys/browser language (if unpassed)</p>
+
+<p><strong>Parameters</strong></p>
+
+<p><strong>language</strong>: <code class="highlighter-rouge">string</code>, (optional) an ISO 639-1 language code (e.g. ‘en-US’, ‘fr’)</p>
+
+<p><strong>Returns</strong>: <code class="highlighter-rouge">string</code>, an ISO 639-1 language code (e.g. ‘en-US’, ‘fr’)</p>
+
+<h3 id="dateutilsgetdisplayformatformat">DateUtils.getDisplayFormat(format)</h3>
+
+<p>Helper function to determine format constant.</p>
+
+<p>Defaults to DEFAULT_FORMAT if malformed or unpassed.</p>
+
+<p><strong>Parameters</strong></p>
+
+<p><strong>format</strong>: <code class="highlighter-rouge">object</code>, (optional) A format constant.</p>
+
+<p><strong>Returns</strong>: <code class="highlighter-rouge">string</code>, A format constant.</p>
+
+<h3 id="dateutilsisvalidcandidatevariable">DateUtils.isValid(candidateVariable)</h3>
+
+<p>Helper function to determine variable/context validity.</p>
+
+<p><strong>Parameters</strong></p>
+
+<p><strong>candidateVariable</strong>: <code class="highlighter-rouge">string</code>, to test</p>
+
+<p><strong>Returns</strong>: <code class="highlighter-rouge">boolean</code></p>
+
+<hr />
+
+
+                </main>
+            </div>
+        </div>
+    </div>
+
+    <div class="doc-wrapper-footer-site">
+    <footer class="doc-footer-site">
+        <div class="doc-footer-site-copyright">
+            <p class="doc-copy copy-micro">
+                Copyright &copy; <time datetime="2016-10-03T15:58:58-04:00">2016</time> edX.
+            </p>
+            <p class="doc-copy copy-micro">
+                <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" src="https://i.creativecommons.org/l/by-sa/4.0/80x15.png" /></a>
+            </p>
+            <p class="doc-copy copy-micro">
+                These works by <a xmlns:cc="http://creativecommons.org/ns#" href="http://open.edx.org" property="cc:attributionName" rel="cc:attributionURL">edX Inc.</a>
+                are licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+            </p>
+        </div>
+    </footer>
+</div>
+
+</div>
+
+<script src="/public/ui-toolkit-doc-factory.js"></script>
+
+</body>
+</html>
+
