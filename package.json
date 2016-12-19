@@ -70,5 +70,11 @@
     "through2": "~2.0.0",
     "webpack": "~1.12.14",
     "webpack-stream": "~3.2.0"
+  },
+  "peerDependencies": {
+    "backbone.paginator": "~2.0.3",
+    "moment": "^2.15.1",
+    "moment-timezone": "~0.5.5",
+    "sinon": "1.17.3 || >1.17.4"
   }
 }
