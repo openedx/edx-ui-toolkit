@@ -49,8 +49,10 @@
         var dateFormatEnum = Object.freeze({
             shortDate: 'll', // example: Jan 01, 2016
             longDate: 'LLLL', // example: Friday, January 01, 2016
-            time: 'LTS z', // example: Jan 01, 2016 15:30 UTC
-            defaultFormat: 'll HH[:]mm z' // example: Jan 01, 2016 15:30 UTC
+            time: 'LTS z', // example: 15:30:32 UTC
+            defaultFormat: 'll HH[:]mm z', // example: Jan 01, 2016 15:30 UTC
+            defaultWithParen: 'll HH[:]mm (z)', // example: Jan 01, 2016 15:30 (UTC)
+            longDateTime: 'dddd, ll HH[:]mm z' // example: Friday, Jan 01, 2016 15:30 UTC
         });
 
         var DEFAULT_LANG = 'en';
