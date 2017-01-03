@@ -42,36 +42,36 @@
         'edx-ui-toolkit/js/utils/constants',
         'text!./dropdown.underscore'
     ],
-        function(Backbone, $, _, constants, DropdownTpl) {
-            var DropdownMenuView = Backbone.View.extend({
-                tpl: _.template(DropdownTpl),
+        (Backbone, $, _, constants, DropdownTpl) => {
+            class DropdownMenuView extends Backbone.View {
+                events() {
+                    return {
+                        'click .js-dropdown-button': 'clickOpenDropdown',
+                        'click a': 'analyticsLinkClick',
+                        keydown: 'viewKeypress'
+                    };
+                }
 
-                events: {
-                    'click .js-dropdown-button': 'clickOpenDropdown',
-                    'click a': 'analyticsLinkClick',
-                    keydown: 'viewKeypress'
-                },
-
-                dropdownButton: '.js-dropdown-button',
-
-                menu: '.dropdown-menu',
-
-                initialize: function(options) {
+                initialize(options) {
                     if (options.parent) {
                         this.$parent = $(options.parent);
                     }
 
-                    this.menuId = options.menuId || 'dropdown-menu-' + this.cid;
+                    this.menuId = options.menuId || `dropdown-menu-${this.cid}`;
                     this.keyBack = [constants.keyCodes.up, constants.keyCodes.left];
                     this.keyForward = [constants.keyCodes.down, constants.keyCodes.right];
                     this.keyClose = [constants.keyCodes.esc, constants.keyCodes.space];
-                },
 
-                className: function() {
+                    this.dropdownButton = '.js-dropdown-button';
+                    this.menu = '.dropdown-menu';
+                    this.tpl = _.template(DropdownTpl);
+                }
+
+                className() {
                     return this.options.className;
-                },
+                }
 
-                render: function() {
+                render() {
                     /**
                      * Set in the render function to prevent error when
                      * view is used with a pre-rendered DOM
@@ -83,14 +83,14 @@
                     this.postRender();
 
                     return this;
-                },
+                }
 
-                postRender: function() {
+                postRender() {
                     this.$menu = this.$('.dropdown-menu');
                     this.$page = $(document);
                     this.$dropdownButton = this.$(this.dropdownButton);
                     this.$lastItem = this.$menu.find('li:last-child a');
-                },
+                }
 
                 /**
                  * Function to track analytics.
@@ -100,12 +100,12 @@
                  * following:
                  *
                  *~~~ javascript
-                 * var $link = $(event.target),
+                 * const $link = $(event.target),
                  *     label = $link.hasClass('menu-title') ? 'Dashboard' : $link.html().trim();
                  *
                  * window.analytics.track('user_dropdown.clicked', {
                  *     category: 'navigation',
-                 *     label: label,
+                 *     label,
                  *     link: $link.attr('href')
                  * });
                  *~~~
@@ -113,12 +113,12 @@
                  * @param {object} event The event to be tracked.
                  * @returns {*} The event.
                  */
-                analyticsLinkClick: function(event) {
+                analyticsLinkClick(event) {
                     return event;
-                },
+                }
 
-                clickCloseDropdown: function(event, context) {
-                    var $el = $(event.target) || $(document),
+                clickCloseDropdown(event, context) {
+                    let $el = $(event.target) || $(document),
                         $btn;
 
                     // When using edX Pattern Library icons the target
@@ -134,15 +134,15 @@
                     if (!$el.hasClass('button-more') && !$el.hasClass('has-dropdown')) {
                         context.closeDropdownMenu();
                     }
-                },
+                }
 
-                clickOpenDropdown: function(event) {
+                clickOpenDropdown(event) {
                     event.preventDefault();
                     this.openMenu(this.$dropdownButton);
-                },
+                }
 
-                closeDropdownMenu: function() {
-                    var $open = this.$(this.menu);
+                closeDropdownMenu() {
+                    const $open = this.$(this.menu);
 
                     $open.removeClass('is-visible')
                         .addClass('is-hidden');
@@ -150,53 +150,53 @@
                     this.$dropdownButton
                         .removeClass('is-active')
                         .attr('aria-expanded', 'false');
-                },
+                }
 
-                focusFirstItem: function() {
+                focusFirstItem() {
                     this.$menu.find('.dropdown-item:first-child .action').focus();
-                },
+                }
 
-                focusLastItem: function() {
+                focusLastItem() {
                     this.$lastItem.focus();
-                },
+                }
 
-                handlerIsAction: function(key, $el) {
-                    if (_.contains(this.keyForward, key)) {
+                handlerIsAction(key, $el) {
+                    if (this.keyForward.includes(key)) {
                         this.nextMenuItemLink($el);
-                    } else if (_.contains(this.keyBack, key)) {
+                    } else if (this.keyBack.includes(key)) {
                         this.previousMenuItemLink($el);
                     }
-                },
+                }
 
-                handlerIsButton: function(key, event) {
-                    if (_.contains(this.keyForward, key)) {
+                handlerIsButton(key, event) {
+                    if (this.keyForward.includes(key)) {
                         this.focusFirstItem();
                         // if up arrow or left arrow key pressed or shift+tab
-                    } else if (_.contains(this.keyBack, key) || key === constants.keyCodes.tab && event.shiftKey) {
+                    } else if (this.keyBack.includes(key) || key === constants.keyCodes.tab && event.shiftKey) {
                         event.preventDefault();
                         this.focusLastItem();
                     }
-                },
+                }
 
-                handlerIsMenu: function(key) {
-                    if (_.contains(this.keyForward, key)) {
+                handlerIsMenu(key) {
+                    if (this.keyForward.includes(key)) {
                         this.focusFirstItem();
-                    } else if (_.contains(this.keyBack, key)) {
+                    } else if (this.keyBack.includes(key)) {
                         this.$dropdownButton.focus();
                     }
-                },
+                }
 
-                handlerPageClicks: function(context) {
+                handlerPageClicks(context) {
                     // Only want 1 event listener for click.dropdown
                     // on the page so unbind for instantiating
                     this.$page.off('click.dropdown');
-                    this.$page.on('click.dropdown', function(event) {
+                    this.$page.on('click.dropdown', (event) => {
                         context.clickCloseDropdown(event, context);
                     });
-                },
+                }
 
-                nextMenuItemLink: function($el) {
-                    var items = this.$('.dropdown-menu').children('.dropdown-item').find('.action'),
+                nextMenuItemLink($el) {
+                    const items = this.$('.dropdown-menu').children('.dropdown-item').find('.action'),
                         itemsCount = items.length - 1,
                         index = items.index($el),
                         next = index + 1;
@@ -206,10 +206,10 @@
                     } else {
                         items.eq(next).focus();
                     }
-                },
+                }
 
-                openMenu: function($btn) {
-                    var $menu = this.$menu;
+                openMenu($btn) {
+                    const $menu = this.$menu;
                     if ($menu.hasClass('is-visible')) {
                         this.closeDropdownMenu();
                     } else {
@@ -223,10 +223,10 @@
                         this.setOrientation();
                         this.handlerPageClicks(this);
                     }
-                },
+                }
 
-                previousMenuItemLink: function($el) {
-                    var items = this.$('.dropdown-menu').children('.dropdown-item').find('.action'),
+                previousMenuItemLink($el) {
+                    const items = this.$('.dropdown-menu').children('.dropdown-item').find('.action'),
                         index = items.index($el),
                         prev = index - 1;
 
@@ -235,22 +235,23 @@
                     } else {
                         items.eq(prev).focus();
                     }
-                },
+                }
 
-                setOrientation: function() {
-                    var midpoint = $(window).width() / 2,
+                setOrientation() {
+                    debugger;
+                    const midpoint = $(window).width() / 2,
                         alignClass = (this.$dropdownButton.offset().left > midpoint) ? 'align-right' : 'align-left';
 
                     this.$menu
                         .removeClass('align-left align-right')
                         .addClass(alignClass);
-                },
+                }
 
-                viewKeypress: function(event) {
-                    var key = event.keyCode,
+                viewKeypress(event) {
+                    const key = event.keyCode,
                         $el = $(event.target);
 
-                    if (_.contains(this.keyForward, key) || _.contains(this.keyBack, key)) {
+                    if (this.keyForward.includes(key) || this.keyBack.includes(key)) {
                         // Prevent default behavior if one of our trigger keys
                         event.preventDefault();
                     }
@@ -258,7 +259,7 @@
                     if (key === constants.keyCodes.tab && !event.shiftKey && _.first($el) === _.first(this.$lastItem)) {
                         event.preventDefault();
                         this.$dropdownButton.focus();
-                    } else if (_.contains(this.keyClose, key)) {
+                    } else if (this.keyClose.includes(key)) {
                         this.closeDropdownMenu();
                         this.$dropdownButton.focus();
                     } else if ($el.hasClass('action')) {
@@ -272,7 +273,7 @@
                         this.handlerIsButton(key, event);
                     }
                 }
-            });
+            }
 
             return DropdownMenuView;
         }

@@ -6,47 +6,37 @@ define([
     '../../utils/constants.js',
     'jquery.simulate'
 ],
-    function($, _, Backbone, DropdownMenuView, constants) {
+    ($, _, Backbone, DropdownMenuView, constants) => {
         'use strict';
 
-        describe('Dropdown Menu View', function() {
-            var view = {},
-                dropdownModel = new Backbone.Model(),
-                ExtendedDropdownMenuView,
-                singleKeyDown = function(key) {
-                    $(document.activeElement).simulate('keydown', {keyCode: key});
-                },
-                focusTrapDown,
-                focusTrapUp,
-                menuIsClosed,
-                menuIsOpen,
-                openMenuTest,
-                closeMenuTest,
-                closeMenuOnPageClickTest,
-                closeOnKeypressTest,
-                timeoutInt = 100;
+        describe('Dropdown Menu View', () => {
+            const timeoutInt = 100,
+                dropdownModel = new Backbone.Model();
+            let view;
 
-            focusTrapDown = function(key, listLength) {
-                var $btn = view.$el.find('.js-dropdown-button');
+            const singleKeyDown = (key) => {
+                $(document.activeElement).simulate('keydown', {keyCode: key});
+            };
+
+            const focusTrapDown = (key, listLength) => {
+                const $btn = view.$el.find('.js-dropdown-button');
 
                 $btn.click();
 
-                setTimeout(function() {
-                    var i;
-
+                setTimeout(() => {
                     expect($(document.activeElement)).not.toHaveClass('js-dropdown-button');
 
-                    for (i = 0; i < listLength; i++) {
+                    for (let i = 0; i < listLength; i++) {
                         singleKeyDown(key);
                     }
                 }, timeoutInt);
 
-                setTimeout(function() {
+                setTimeout(() => {
                     expect($(document.activeElement)).not.toHaveClass('js-dropdown-button');
                     singleKeyDown(key);
                 }, timeoutInt * 2);
 
-                setTimeout(function() {
+                setTimeout(() => {
                     expect($(document.activeElement)).toHaveClass('js-dropdown-button');
                 }, timeoutInt * 3);
 
@@ -55,23 +45,23 @@ define([
                 jasmine.clock().tick((timeoutInt * 3) + 1);
             };
 
-            focusTrapUp = function(key) {
-                var $btn = view.$el.find('.js-dropdown-button');
+            const focusTrapUp = (key) => {
+                const $btn = view.$el.find('.js-dropdown-button');
 
                 $btn.click();
 
-                setTimeout(function() {
+                setTimeout(() => {
                     expect($(document.activeElement)).not.toHaveClass('js-dropdown-button');
                     singleKeyDown(key);
                 }, timeoutInt);
 
-                setTimeout(function() {
+                setTimeout(() => {
                     expect($(document.activeElement)).toHaveClass('js-dropdown-button');
                     singleKeyDown(key);
                 }, timeoutInt * 2);
 
-                setTimeout(function() {
-                    var $active = $(document.activeElement),
+                setTimeout(() => {
+                    const $active = $(document.activeElement),
                         lastItem = _.last(view.model.get('items'));
 
                     expect($active).toHaveClass('action');
@@ -83,45 +73,45 @@ define([
                 jasmine.clock().tick((timeoutInt * 3) + 1);
             };
 
-            menuIsClosed = function($btn, $menu) {
+            const menuIsClosed = ($btn, $menu) => {
                 expect($btn).not.toHaveClass('is-active');
                 expect($btn.attr('aria-expanded')).toEqual('false');
                 expect($menu).toHaveClass('is-hidden');
             };
 
-            menuIsOpen = function($btn, $menu) {
+            const menuIsOpen = ($btn, $menu) => {
                 expect($btn).toHaveClass('is-active');
                 expect($btn.attr('aria-expanded')).toEqual('true');
                 expect($menu).not.toHaveClass('is-hidden');
             };
 
-            openMenuTest = function() {
-                var $btn = view.$('.js-dropdown-button'),
+            const openMenuTest = () => {
+                const $btn = view.$('.js-dropdown-button'),
                     $menu = view.$('ul.dropdown-menu');
 
                 menuIsClosed($btn, $menu);
                 $btn.click();
 
-                setTimeout(function() {
+                setTimeout(() => {
                     menuIsOpen($btn, $menu);
                 }, timeoutInt);
 
                 jasmine.clock().tick(timeoutInt + 1);
             };
 
-            closeMenuTest = function() {
-                var $btn = view.$('.js-dropdown-button'),
+            const closeMenuTest = () => {
+                const $btn = view.$('.js-dropdown-button'),
                     $menu = view.$('ul.dropdown-menu');
 
                 menuIsClosed($btn, $menu);
                 $btn.click();
 
-                setTimeout(function() {
+                setTimeout(() => {
                     menuIsOpen($btn, $menu);
                     $btn.click();
                 }, timeoutInt);
 
-                setTimeout(function() {
+                setTimeout(() => {
                     menuIsClosed($btn, $menu);
                 }, timeoutInt * 2);
 
@@ -129,19 +119,19 @@ define([
                 jasmine.clock().tick((timeoutInt * 2) + 1);
             };
 
-            closeMenuOnPageClickTest = function() {
-                var $btn = view.$('.js-dropdown-button'),
+            const closeMenuOnPageClickTest = () => {
+                const $btn = view.$('.js-dropdown-button'),
                     $menu = view.$('ul.dropdown-menu');
 
                 menuIsClosed($btn, $menu);
                 $btn.click();
 
-                setTimeout(function() {
+                setTimeout(() => {
                     menuIsOpen($btn, $menu);
                     $(document).click();
                 }, timeoutInt);
 
-                setTimeout(function() {
+                setTimeout(() => {
                     menuIsClosed($btn, $menu);
                 }, timeoutInt * 2);
 
@@ -149,19 +139,19 @@ define([
                 jasmine.clock().tick((timeoutInt * 2) + 1);
             };
 
-            closeOnKeypressTest = function(key) {
-                var $btn = view.$('.js-dropdown-button'),
+            const closeOnKeypressTest = function(key) {
+                const $btn = view.$('.js-dropdown-button'),
                     $menu = view.$('ul.dropdown-menu');
 
                 menuIsClosed($btn, $menu);
                 $btn.click();
 
-                setTimeout(function() {
+                setTimeout(() => {
                     menuIsOpen($btn, $menu);
                     singleKeyDown(key);
                 }, timeoutInt);
 
-                setTimeout(function() {
+                setTimeout(() => {
                     menuIsClosed($btn, $menu);
                 }, timeoutInt * 2);
 
@@ -169,25 +159,25 @@ define([
                 jasmine.clock().tick((timeoutInt * 2) + 1);
             };
 
-            beforeEach(function() {
-                // Extend the view to add analytics for testing
-                ExtendedDropdownMenuView = DropdownMenuView.extend({
-                    analyticsLinkClick: function(event) {
-                        var $link = $(event.target),
-                            label = $link.hasClass('menu-title') ? 'Dashboard' : $link.html().trim();
+            // Extend the view to add analytics for testing
+            class ExtendedDropdownMenuView extends DropdownMenuView {
+                analyticsLinkClick(event) {
+                    const $link = $(event.target),
+                        label = $link.hasClass('menu-title') ? 'Dashboard' : $link.html().trim();
 
-                        /**
-                         *  Add your own analytics tracking here
-                         *  for example:
-                         */
-                        window.analytics.track('user_dropdown.clicked', {
-                            category: 'navigation',
-                            label: label,
-                            link: $link.attr('href')
-                        });
-                    }
-                });
+                    /**
+                     *  Add your own analytics tracking here
+                     *  for example:
+                     */
+                    window.analytics.track('user_dropdown.clicked', {
+                        category: 'navigation',
+                        label,
+                        link: $link.attr('href')
+                    });
+                }
+            }
 
+            beforeEach(() => {
                 // Set the DOM
                 setFixtures('<div class="js-user-cta"></div>');
 
@@ -217,13 +207,13 @@ define([
                 });
             });
 
-            afterEach(function() {
+            afterEach(() => {
                 view.remove();
                 jasmine.clock().uninstall();
             });
 
-            describe('Default icon usage', function() {
-                beforeEach(function() {
+            describe('Default icon usage', () => {
+                beforeEach(() => {
                     view = new ExtendedDropdownMenuView({
                         className: 'wrapper-more-actions user-menu logged-in',
                         menuId: 'edx-user-menu',
@@ -236,12 +226,12 @@ define([
                     jasmine.clock().install();
                 });
 
-                afterEach(function() {
+                afterEach(() => {
                     view.remove();
                     jasmine.clock().uninstall();
                 });
 
-                it('should exist', function() {
+                it('should exist', () => {
                     expect(view).toBeDefined();
                 });
 
@@ -249,35 +239,35 @@ define([
 
                 it('should close the user menu on click of the button', closeMenuTest);
 
-                it('should close the user menu on keypress of the esc key', function() {
+                it('should close the user menu on keypress of the esc key', () => {
                     closeOnKeypressTest(constants.keyCodes.esc);
                 });
 
-                it('should close the user menu on keypress of the space bar', function() {
+                it('should close the user menu on keypress of the space bar', () => {
                     closeOnKeypressTest(constants.keyCodes.space);
                 });
 
-                it('should return to the button after pressing ↓ while at bottom of dropdown menu', function() {
+                it('should return to the button after pressing ↓ while at bottom of dropdown menu', () => {
                     focusTrapDown(constants.keyCodes.down, 4);
                 });
 
-                it('should return to the button after pressing → while at bottom of dropdown menu', function() {
+                it('should return to the button after pressing → while at bottom of dropdown menu', () => {
                     focusTrapDown(constants.keyCodes.right, 4);
                 });
 
-                it('should return to the bottom of dropdown menu after pressing ↑ while on button', function() {
+                it('should return to the bottom of dropdown menu after pressing ↑ while on button', () => {
                     focusTrapUp(constants.keyCodes.up);
                 });
 
-                it('should return to the bottom of dropdown menu after pressing ← while on button', function() {
+                it('should return to the bottom of dropdown menu after pressing ← while on button', () => {
                     focusTrapUp(constants.keyCodes.left);
                 });
 
                 it('should close the user menu on page click', closeMenuOnPageClickTest);
 
-                it('should add a screenreader label to the user link if provided', function() {
-                    var $srLabel = view.$el.find('.menu-title .sr-only'),
-                        srLabelText = 'Dashboard for:';
+                it('should add a screenreader label to the user link if provided', () => {
+                    let $srLabel = view.$el.find('.menu-title .sr-only');
+                    const srLabelText = 'Dashboard for:';
 
                     expect($srLabel.length).toEqual(0);
 
@@ -294,9 +284,9 @@ define([
                     expect($srLabel.html().trim()).toEqual(srLabelText);
                 });
 
-                it('should add a user image to the user link if provided', function() {
-                    var $img = view.$el.find('.menu-title .menu-image'),
-                        imgSrc = 'http://placehold.it/350x150';
+                it('should add a user image to the user link if provided', () => {
+                    let $img = view.$el.find('.menu-title .menu-image');
+                    const imgSrc = 'http://placehold.it/350x150';
                     expect($img.length).toEqual(0);
 
                     view.model.set({
@@ -312,8 +302,8 @@ define([
                     expect($img.attr('src')).toEqual(imgSrc);
                 });
 
-                it('should open track analytics for user title clicks', function() {
-                    var $userTitle = view.$el.find('.menu-title'),
+                it('should open track analytics for user title clicks', () => {
+                    const $userTitle = view.$el.find('.menu-title'),
                         analyticsData = {
                             category: 'navigation',
                             label: 'Dashboard',
@@ -322,15 +312,15 @@ define([
 
                     $userTitle.click();
 
-                    setTimeout(function() {
+                    setTimeout(() => {
                         expect(window.analytics.track).toHaveBeenCalledWith('user_dropdown.clicked', analyticsData);
                     }, timeoutInt);
 
                     jasmine.clock().tick(timeoutInt + 1);
                 });
 
-                it('should open track analytics for user menu link clicks', function() {
-                    var $userTitle = view.$el.find('.dropdown-item').last().find('a'),
+                it('should open track analytics for user menu link clicks', () => {
+                    const $userTitle = view.$el.find('.dropdown-item').last().find('a'),
                         analyticsData = {
                             category: 'navigation',
                             label: 'Sign Out',
@@ -339,7 +329,7 @@ define([
 
                     $userTitle.click();
 
-                    setTimeout(function() {
+                    setTimeout(() => {
                         expect(window.analytics.track).toHaveBeenCalledWith('user_dropdown.clicked', analyticsData);
                     }, timeoutInt);
 
@@ -347,8 +337,8 @@ define([
                 });
             });
 
-            describe('Pattern Library icon usage', function() {
-                beforeEach(function() {
+            describe('Pattern Library icon usage', () => {
+                beforeEach(() => {
                     dropdownModel.set({
                         button: {
                             icon: 'fa fa-angle-down',
@@ -367,12 +357,12 @@ define([
                     jasmine.clock().install();
                 });
 
-                afterEach(function() {
+                afterEach(() => {
                     view.remove();
                     jasmine.clock().uninstall();
                 });
 
-                it('should exist', function() {
+                it('should exist', () => {
                     expect(view).toBeDefined();
                 });
 
@@ -382,20 +372,20 @@ define([
 
                 it('should close the user menu on page click', closeMenuOnPageClickTest);
 
-                it('should toggle the menu on icon click', function() {
-                    var $btn = view.$('.js-dropdown-button'),
+                it('should toggle the menu on icon click', () => {
+                    const $btn = view.$('.js-dropdown-button'),
                         $icon = $btn.find('.icon'),
                         $menu = view.$('ul.dropdown-menu');
 
                     menuIsClosed($btn, $menu);
                     $icon.click();
 
-                    setTimeout(function() {
+                    setTimeout(() => {
                         menuIsOpen($btn, $menu);
                         $icon.click();
                     }, timeoutInt);
 
-                    setTimeout(function() {
+                    setTimeout(() => {
                         menuIsClosed($btn, $menu);
                     }, timeoutInt * 2);
 

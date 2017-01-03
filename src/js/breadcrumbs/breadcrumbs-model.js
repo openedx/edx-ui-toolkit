@@ -4,7 +4,7 @@
  * Here's what initializing a BreadcrumbsModel looks like:
  *
  *~~~ javascript
- * var model = new BreadcrumbsModel({
+ * const model = new BreadcrumbsModel({
  *     breadcrumbs: [
  *         {
  *             url: '/',
@@ -20,16 +20,18 @@
  *~~~
  * @module BreadcrumbsModel
  */
-(function(define) {
+((define) => {
     'use strict';
 
-    define(['backbone'], function(Backbone) {
-        var BreadcrumbsModel = Backbone.Model.extend({
-            defaults: {
-                breadcrumbs: null,
-                label: ''
+    define(['backbone'], (Backbone) => {
+        class BreadcrumbsModel extends Backbone.Model {
+            defaults() {
+                return {
+                    breadcrumbs: null,
+                    label: ''
+                };
             }
-        });
+        }
 
         return BreadcrumbsModel;
     });

@@ -18,6 +18,7 @@ source: ./doc
 
 exclude: [
     "bower.json",
+    "dist",
     "doc",
     "Gemfile",
     "Gemfile.lock",

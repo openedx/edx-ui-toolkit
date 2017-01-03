@@ -52,6 +52,7 @@ Desktop.ini
 *.map
 .publish
 .sass-cache
+dist
 doc/public
 doc/_testing
 doc/_utilities

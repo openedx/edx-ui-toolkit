@@ -1,9 +1,9 @@
-define(['jquery', '../disclosure-view.js'], function($, DisclosureView) {
+define(['jquery', '../disclosure-view.js'], ($, DisclosureView) => {
     'use strict';
 
-    describe('Disclosure view', function() {
-        it('should display toggle display', function() {
-            var disclosureEl = document.createElement('div'),
+    describe('Disclosure view', () => {
+        it('should display toggle display', () => {
+            const disclosureEl = document.createElement('div'),
                 toggleText = document.createElement('div'),
                 toggleContent = document.createElement('div'),
                 view = new DisclosureView({

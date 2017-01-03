@@ -1,9 +1,8 @@
 'use strict';
 
-var gulp = require('gulp'),
+const gulp = require('gulp'),
     coveralls = require('gulp-coveralls');
 
-gulp.task('coverage', function() {
-    return gulp.src('coverage/**/lcov.info')
-        .pipe(coveralls());
-});
+gulp.task('coverage', () =>
+    gulp.src('coverage/**/lcov.info').pipe(coveralls())
+);
