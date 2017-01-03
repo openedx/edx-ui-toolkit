@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.5.1 (2017-01-03)
+* Add two format constants to DateUtils, update format comments
+
+- - -
+
 ## 1.5.0 (2016-10-03)
 * Add DateUtils
 
