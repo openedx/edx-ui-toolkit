@@ -1,6 +1,6 @@
 {
   "name": "edx-ui-toolkit",
-  "version": "1.5.1",
+  "version": "2.0.0",
   "description": "A JavaScript toolkit for building edX user interfaces",
   "license": "Apache-2.0",
   "repository": {
@@ -13,68 +13,5 @@
     "javascript"
   ],
   "homepage": "https://github.com/edx/edx-ui-toolkit",
-  "scripts": {
-    "test": "gulp test",
-    "lint": "eslint ."
-  },
-  "dependencies": {
-    "backbone": "~1.2.3",
-    "backbone.paginator": "~2.0.3",
-    "gulp-shell": "^0.5.2",
-    "jquery": "~2.2.0",
-    "moment": "^2.15.1",
-    "moment-timezone": "~0.5.5",
-    "requirejs": "~2.1.22",
-    "requirejs-text": "~2.0.12",
-    "sinon": "1.17.3 || >1.17.4",
-    "underscore": "~1.8.3",
-    "urijs": "~1.16.1"
-  },
-  "devDependencies": {
-    "browser-sync": "~2.11.2",
-    "css-loader": "~0.23.1",
-    "del": "~2.2.0",
-    "edx-pattern-library": "~0.12.5",
-    "eslint": "~2.13.1",
-    "eslint-config-edx": "~1.2.1",
-    "extract-text-webpack-plugin": "~1.0.1",
-    "gulp": "~3.9.1",
-    "gulp-coveralls": "~0.1.4",
-    "gulp-gh-pages": "~0.5.4",
-    "gulp-karma": "~0.0.5",
-    "gulp-rename": "~1.2.2",
-    "gulp-util": "~3.0.7",
-    "jasmine": "~2.4.1",
-    "jasmine-core": "~2.4.1",
-    "jsdoc3-parser": "~1.1.0",
-    "jsdox": "~0.4.9",
-    "karma": "~0.13.22",
-    "karma-chrome-launcher": "~0.2.2",
-    "karma-coverage": "~0.5.3",
-    "karma-coveralls": "^1.1.2",
-    "karma-firefox-launcher": "~0.1.6",
-    "karma-jasmine": "~0.3.8",
-    "karma-jasmine-html-reporter": "~0.2.0",
-    "karma-jasmine-jquery": "~0.1.1",
-    "karma-phantomjs-launcher": "~1.0.0",
-    "karma-requirejs": "~0.2.2",
-    "karma-sinon": "~1.0.3",
-    "karma-spec-reporter": "~0.0.24",
-    "node-sass": "~3.7.0",
-    "phantomjs-prebuilt": "~2.1.7",
-    "require-dir": "latest",
-    "requirejs-plugins": "~1.0.2",
-    "run-sequence": "~1.1.5",
-    "sass-loader": "~3.2.0",
-    "style-loader": "~0.13.1",
-    "through2": "~2.0.0",
-    "webpack": "~1.12.14",
-    "webpack-stream": "~3.2.0"
-  },
-  "peerDependencies": {
-    "backbone.paginator": "~2.0.3",
-    "moment": "^2.15.1",
-    "moment-timezone": "~0.5.5",
-    "sinon": "1.17.3 || >1.17.4"
-  }
+  "scripts": {}
 }

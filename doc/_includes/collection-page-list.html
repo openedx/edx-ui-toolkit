@@ -1,8 +1,0 @@
-<nav class="doc-nav doc-nav-internal" role="navigation" aria-label="{{ include.title }}">
-    <h2 class="doc-heading doc-nav-title hd-6">{{ include.title }}</h2>
-    <ul class="list-unstyled list-patterns">
-    {% for collection_page in include.pages %}
-        {% include navigation-item.html title=collection_page.title url=collection_page.url %}
-    {% endfor %}
-    </ul>
-</nav>

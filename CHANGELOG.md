@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.0.0 (TBD)
+* Complete rewrite
+
+- - -
+
 ## 1.5.1 (2017-01-03)
 * Add two format constants to DateUtils, update format comments
 
