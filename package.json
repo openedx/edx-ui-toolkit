@@ -13,5 +13,33 @@
     "javascript"
   ],
   "homepage": "https://github.com/edx/edx-ui-toolkit",
-  "scripts": {}
+  "scripts": {
+    "lint": "eslint . && stylelint .",
+    "test": "jest",
+    "webpack": "webpack -pc",
+    "start": "styleguidist"
+  },
+  "devDependencies": {
+    "autoprefixer": "^6.7.6",
+    "babel-plugin-transform-object-rest-spread": "^6.23.0",
+    "babel-preset-env": "^1.2.1",
+    "enzyme": "^2.7.1",
+    "enzyme-to-json": "^1.5.0",
+    "eslint": "^3.17.1",
+    "eslint-config-airbnb": "^14.1.0",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-jsx-a11y": "^4.0.0",
+    "eslint-plugin-react": "^6.10.0",
+    "jest": "^19.0.2",
+    "node-sass": "^4.5.0",
+    "postcss": "^5.2.16",
+    "react-styleguidist": "^4.6.3",
+    "stylelint": "^7.9.0",
+    "webpack": "^2.2.1"
+  },
+  "dependencies": {
+    "bootstrap": "^4.0.0-alpha.6",
+    "react": "^15.4.2",
+    "react-dom": "^15.4.2"
+  }
 }

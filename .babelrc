@@ -1,0 +1,35 @@
+{
+  "presets": [
+    ["env", {
+      "targets": {
+        "browsers": [
+          "last 2 versions",
+          "IE 11"
+        ]
+      },
+      "useBuiltIns": true,
+      "modules": false,
+      "exclude": [
+        "transform-regenerator"
+      ]
+    }],
+    "react"
+  ],
+  "plugins": [
+    "transform-object-rest-spread"
+  ],
+  "env":{
+    "test": {
+      "presets": [
+        // Jest runs in Node and needs to transpile ES6 modules to CommonJS.
+        // For normal builds, Webpack 2 supports ES modules natively.
+        ["env", {
+          "targets": {
+            "node": 6
+          },
+          "modules": "commonjs"
+        }]
+      ]
+    }
+  }
+}
