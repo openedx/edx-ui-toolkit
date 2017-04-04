@@ -15,7 +15,8 @@ var gulp = require('gulp'),
     config = require('../config').documentation,
     generateDoc = require('../utils/generate-doc'),
     rename = require('gulp-rename'),
-    webpack = require('webpack-stream'),
+    webpack = require('webpack'),
+    webpackStream = require('webpack-stream'),
     ghPages = require('gulp-gh-pages'),
     webpackConfig = require('../../webpack.config.js'),
     renameAsMarkdown,
@@ -93,7 +94,7 @@ gulp.task('copy-pattern-library', function() {
 
 gulp.task('webpack', function() {
     return gulp.src('')
-        .pipe(webpack(webpackConfig))
+        .pipe(webpackStream(webpackConfig, webpack))
         .pipe(gulp.dest(webpackConfig.output.path))
         .pipe(browserSync.stream());
 });

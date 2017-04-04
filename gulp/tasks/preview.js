@@ -16,7 +16,8 @@
 var gulp = require('gulp'),
     runSequence = require('run-sequence'),
     childProcess = require('child_process'),
-    webpack = require('webpack-stream'),
+    webpack = require('webpack'),
+    webpackStream = require('webpack-stream'),
     gitUtils = require('../utils/git-utils'),
     config = require('../config').documentation,
     webpackConfig = require('../../webpack.config.js'),
@@ -58,7 +59,7 @@ gulp.task('preview-webpack', function() {
         branch = gitUtils.currentBranch();
     process.env.SITE_ROOT = '/' + branch + '/';
     return gulp.src('')
-        .pipe(webpack(webpackConfig))
+        .pipe(webpackStream(webpackConfig, webpack))
         .pipe(gulp.dest(outputPath));
 });
 
