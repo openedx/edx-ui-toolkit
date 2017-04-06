@@ -7,20 +7,33 @@
         /**
          * Reusable constants.
          *
-         * ### keyCodes - A mapping of key names to their corresponding codes.
+         * ### keys - A mapping of key names to their corresponding identifiers.
+         * ### keyCodes - A mapping of key names to their corresponding keyCodes (DEPRECATED).
          *
-         * - `constants.keyCodes.tab` - the tab key
-         * - `constants.keyCodes.enter` - the enter key
-         * - `constants.keyCodes.esc` - the escape key
-         * - `constants.keyCodes.space` - the space key
-         * - `constants.keyCodes.left` - the left arrow key
-         * - `constants.keyCodes.up` - the up arrow key
-         * - `constants.keyCodes.right` - the right arrow key
-         * - `constants.keyCodes.down` - the down arrow key
+         * - `constants.keys.tab` - the tab key
+         * - `constants.keys.enter` - the enter key
+         * - `constants.keys.esc` - the escape key
+         * - `constants.keys.space` - the space key
+         * - `constants.keys.left` - the left arrow key
+         * - `constants.keys.up` - the up arrow key
+         * - `constants.keys.right` - the right arrow key
+         * - `constants.keys.down` - the down arrow key
          *
          * @class constants
          */
         return {
+            keys: {
+                tab: 'Tab',
+                enter: 'Enter',
+                esc: 'Escape',
+                space: 'Space',
+                left: 'ArrowLeft',
+                up: 'ArrowUp',
+                right: 'ArrowRight',
+                down: 'ArrowDown'
+            },
+            // NOTE: keyCode is deprecated. Use the `key` or `code` event property if possible.
+            // See: https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/keyCode
             keyCodes: {
                 tab: 9,
                 enter: 13,
