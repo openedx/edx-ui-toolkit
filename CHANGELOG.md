@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.5.2 (2017-04-10)
+* Update and pin dependencies
+* Introduce yarn for dependency management
+* Add alternative to deprecated keyCodes
+
+- - -
+
 ## 1.5.1 (2017-01-03)
 * Add two format constants to DateUtils, update format comments
 
