@@ -20,7 +20,6 @@ var path = require('path'),
             publicPath: siteRoot + publicStaticRoot,
             filename: 'ui-toolkit-doc-factory.js'
         },
-        modulesDirectories: ['node_modules'],
         resolve: {
             alias: {
                 afontgarde: 'edx-pattern-library/js/afontgarde',
@@ -28,13 +27,28 @@ var path = require('path'),
                 'edx-pattern-library': patternLibraryPath,
                 'edx-ui-toolkit': path.resolve(__dirname, 'src'),
                 doc: path.resolve(__dirname, 'doc/static')
-            }
+            },
+            modules: ['node_modules']
         },
         module: {
-            loaders: [
+            rules: [
                 {
                     test: /\.scss$/,
-                    loader: ExtractTextPlugin.extract('style', 'css!sass')
+                    loader: ExtractTextPlugin.extract({
+                        fallback: 'style-loader',
+                        use: [{
+                            loader: 'css-loader'
+                        }, {
+                            loader: 'sass-loader',
+                            options: {
+                                includePaths: [
+                                    path.resolve(__dirname, './node_modules')
+                                ],
+                                data: '$pattern-library-path: \'' + siteRoot +
+                                      './public/edx-pattern-library\' !default;'
+                            }
+                        }]
+                    })
                 }
             ]
         },
@@ -43,16 +57,11 @@ var path = require('path'),
                 $: 'jquery'
             }),
             new Webpack.IgnorePlugin(/^(config.js)$/),
+            new Webpack.LoaderOptionsPlugin({
+                debug: true
+            }),
             new ExtractTextPlugin('ui-toolkit.css')
         ],
-        sassLoader: {
-            includePaths: [
-                path.resolve(__dirname, './node_modules'),
-                path.resolve(__dirname, './node_modules/edx-pattern-library/node_modules')
-            ],
-            data: '$pattern-library-path: \'' + siteRoot + './public/edx-pattern-library\' !default;'
-        },
-        debug: true,
         devtool: 'inline-source-map'
     };
 }());

@@ -44,10 +44,12 @@ for important additional information.
 
 ## Getting Started
 
+The UI Toolkit uses [yarn](https://yarnpkg.com) to manage its dependencies. To work with the repo locally, you will need to have yarn installed. Check [the official documentation](https://yarnpkg.com/en/docs/install) for instructions on installing on your system.
+
 1. Get the code (e.g. clone the repository).
 2. Install the Node requirements:
 
-        $ npm install
+        $ yarn
 
 ## Linting
 
