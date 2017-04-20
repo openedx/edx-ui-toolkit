@@ -36,7 +36,7 @@ define([
 
                     expect($(document.activeElement)).not.toHaveClass('js-dropdown-button');
 
-                    for (i = 0; i < listLength; i++) {
+                    for (i = 0; i < listLength; i += 1) {
                         singleKeyDown(key);
                     }
                 }, timeoutInt);

@@ -34,7 +34,7 @@ define(
                     $.ajax(testUrl);
 
                     expect(requests instanceof Array).toBeTruthy();
-                    expect(requests.hasOwnProperty('currentIndex')).toBeTruthy();
+                    expect('currentIndex' in requests).toBeTruthy();
                     AjaxHelpers.expectRequest(requests, 'GET', testUrl);
                 });
             });

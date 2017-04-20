@@ -85,7 +85,8 @@ module.exports = function(config, overrideOptions) {
         reporters: options.reporters,
 
         coverageReporter: {
-            dir: 'build', subdir: 'coverage-js',
+            dir: 'build',
+            subdir: 'coverage-js',
             reporters: [
                 {type: 'html', subdir: 'coverage-js/html'},
                 {type: 'cobertura', file: 'coverage.xml'},
