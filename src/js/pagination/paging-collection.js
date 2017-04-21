@@ -27,6 +27,7 @@
  */
 (function(define) {
     'use strict';
+
     define(['jquery', 'underscore', 'backbone.paginator'], function($, _, PageableCollection) {
         var PagingCollection = PageableCollection.extend({
             mode: 'server',

@@ -35,6 +35,7 @@
  */
 (function(define) {
     'use strict';
+
     define([
         'backbone',
         'jquery',
@@ -172,7 +173,7 @@
                     if (_.contains(this.keyForward, key)) {
                         this.focusFirstItem();
                         // if up arrow or left arrow key pressed or shift+tab
-                    } else if (_.contains(this.keyBack, key) || key === constants.keyCodes.tab && event.shiftKey) {
+                    } else if (_.contains(this.keyBack, key) || (key === constants.keyCodes.tab && event.shiftKey)) {
                         event.preventDefault();
                         this.focusLastItem();
                     }

@@ -53,7 +53,7 @@
                         requiredModule,
                         module,
                         i;
-                    for (i = 0; i < pathCount; i++) {
+                    for (i = 0; i < pathCount; i += 1) {
                         requiredModule = registeredModules[requiredPaths[i]];
                         requiredModules.push(requiredModule);
                     }

@@ -21,6 +21,7 @@
  */
 (function(define) {
     'use strict';
+
     define(['backbone', 'edx-ui-toolkit/js/utils/html-utils', 'text!./breadcrumbs.underscore'],
         function(Backbone, HtmlUtils, breadcrumbsTemplate) {
             var BreadcrumbsView = Backbone.View.extend({

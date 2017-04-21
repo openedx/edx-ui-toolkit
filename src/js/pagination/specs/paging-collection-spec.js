@@ -1,11 +1,11 @@
 define(['jquery',
-        'backbone',
-        'underscore',
-        'URI',
-        '../paging-collection.js',
-        '../../utils/spec-helpers/ajax-helpers.js',
-        '../../utils/spec-helpers/spec-helpers.js'
-    ],
+    'backbone',
+    'underscore',
+    'URI',
+    '../paging-collection.js',
+    '../../utils/spec-helpers/ajax-helpers.js',
+    '../../utils/spec-helpers/spec-helpers.js'
+],
     function($, Backbone, _, URI, PagingCollection, AjaxHelpers, SpecHelpers) {
         'use strict';
 

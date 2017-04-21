@@ -12,6 +12,7 @@
  */
 (function(define) {
     'use strict';
+
     define(['underscore', 'jquery', 'edx-ui-toolkit/js/utils/string-utils'], function(_, $, StringUtils) {
         var HtmlUtils, ensureHtml, interpolateHtml, joinHtml, HTML, template, setHtml, append, prepend;
 
@@ -137,7 +138,7 @@
             var html = '',
                 argumentCount = arguments.length,
                 i;
-            for (i = 0; i < argumentCount; i++) {
+            for (i = 0; i < argumentCount; i += 1) {
                 html += ensureHtml(arguments[i]);
             }
             return HTML(html);
