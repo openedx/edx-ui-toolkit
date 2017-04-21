@@ -1,6 +1,6 @@
 {
   "name": "edx-ui-toolkit",
-  "version": "1.5.2",
+  "version": "1.5.3",
   "description": "A JavaScript toolkit for building edX user interfaces",
   "license": "Apache-2.0",
   "repository": {
