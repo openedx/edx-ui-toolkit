@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.5.3 (2017-04-21)
+* Upgrade eslint and add new eslint configs (eslint-config-edx, eslint-config-edx-es5)
+* Fix resulting linter errors
+
+- - -
+
 ## 1.5.2 (2017-04-10)
 * Update and pin dependencies
 * Introduce yarn for dependency management
