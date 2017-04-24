@@ -60,5 +60,6 @@ node_modules
 _preview_site
 _site
 _tmp_preview_config.yml
+dist
 
 coverage/coverage-js/
