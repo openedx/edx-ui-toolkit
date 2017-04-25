@@ -2,6 +2,7 @@
   "name": "edx-ui-toolkit",
   "version": "1.5.3",
   "description": "A JavaScript toolkit for building edX user interfaces",
+  "main": "dist/uitk.min.js",
   "license": "Apache-2.0",
   "repository": {
     "type": "git",

@@ -6,8 +6,8 @@
     entry: [path.resolve(__dirname + '/src/components/index.js')],
     output: {
       path: path.resolve(__dirname + '/dist'),
-      filename: 'uitk.bundle.js',
-      library: 'EdxUitk',
+      filename: 'uitk.min.js',
+      library: 'edxUitk',
       libraryTarget: 'umd'
     },
     externals: [{
