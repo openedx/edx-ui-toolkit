@@ -2,6 +2,7 @@
   "name": "edx-ui-toolkit",
   "version": "1.5.3",
   "description": "A JavaScript toolkit for building edX user interfaces",
+  "main": "dist/uitk.min.js",
   "license": "Apache-2.0",
   "repository": {
     "type": "git",
@@ -14,8 +15,9 @@
   ],
   "homepage": "https://github.com/edx/edx-ui-toolkit",
   "scripts": {
-    "test": "gulp test",
-    "lint": "eslint ."
+    "build": "webpack --config=webpack-components.config.js",
+    "lint": "eslint .",
+    "test": "gulp test"
   },
   "dependencies": {
     "backbone": "~1.2.3",
@@ -31,13 +33,20 @@
     "urijs": "~1.16.1"
   },
   "devDependencies": {
+    "babel-cli": "^6.24.1",
+    "babel-loader": "^6.4.1",
+    "babel-preset-env": "^1.4.0",
+    "babel-preset-react": "^6.24.1",
     "browser-sync": "~2.11.2",
     "css-loader": "~0.23.1",
     "del": "~2.2.0",
     "edx-pattern-library": "~0.12.5",
     "eslint": "^3.16.0",
+    "eslint-config-airbnb": "^14.1.0",
     "eslint-config-edx": "^2.0.0",
     "eslint-config-edx-es5": "^3.0.0",
+    "eslint-plugin-jsx-a11y": "^4.0.0",
+    "eslint-plugin-react": "^6.10.3",
     "extract-text-webpack-plugin": "^2.1.0",
     "gulp": "~3.9.1",
     "gulp-coveralls": "~0.1.4",
