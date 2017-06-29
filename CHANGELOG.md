@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.5.4 (2017-06-29)
+* Add AJAX spec helper functions which get the last request of a specific URL.
+
+- - -
+
 ## 1.5.3 (2017-04-21)
 * Upgrade eslint and add new eslint configs (eslint-config-edx, eslint-config-edx-es5)
 * Fix resulting linter errors

@@ -9,6 +9,7 @@ define(
 
         describe('AjaxHelpers', function() {
             var testUrl = 'https://example.com',
+                testUrl2 = 'https://example2.com',
                 testData = {foo: 'bar', fizz: 'buzz'},
                 testQuerystring = $.param(testData);
 
@@ -53,6 +54,30 @@ define(
                         });
                         AjaxHelpers.expectRequest(requests, 'POST', testUrl, 'foobar');
                     }));
+                });
+
+                describe('expectLastRequestWithURL', function() {
+                    it('verifies the last request of the specified url', AjaxHelpers.withFakeRequests(
+                        function(requests) {
+                            $.ajax(testUrl);
+                            $.ajax(testUrl2);
+                            AjaxHelpers.expectLastRequestWithURL(requests, 'GET', testUrl, undefined);
+                        }
+                    ));
+
+                    it('verifies a more complex request of the last specified url', AjaxHelpers.withFakeRequests(
+                        function(requests) {
+                            $.ajax(testUrl, {
+                                method: 'POST',
+                                data: 'foobar'
+                            });
+                            $.ajax(testUrl2, {
+                                method: 'POST',
+                                data: 'foobar'
+                            });
+                            AjaxHelpers.expectLastRequestWithURL(requests, 'POST', testUrl, 'foobar');
+                        }
+                    ));
                 });
 
                 describe('expectNoRequests', function() {

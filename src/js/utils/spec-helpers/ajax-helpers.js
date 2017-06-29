@@ -16,8 +16,9 @@ define(['sinon', 'underscore', 'URI'], function(sinon, _, URI) {
     'use strict';
 
     var XHR_READY_STATES, fakeServer, createFakeRequests, withFakeRequests, fakeRequests, currentRequest,
-        expectRequest, expectNoRequests, expectJsonRequest, expectPostRequest, expectRequestURL, skipResetRequest,
-        respond, respondWithJson, respondWithError, respondWithTextError, respondWithNoContent;
+        lastRequestWithURL, expectRequest, expectLastRequestWithURL, expectNoRequests, expectJsonRequest,
+        expectPostRequest, expectRequestURL, skipResetRequest, respond, respondWithJson, respondWithError,
+        respondWithTextError, respondWithNoContent;
 
     /**
      * An enumeration of valid XHR ready states.
@@ -119,6 +120,26 @@ define(['sinon', 'underscore', 'URI'], function(sinon, _, URI) {
     };
 
     /**
+     * Returns the last request that used the passed in url as an endpoint. If no such
+     * request is available then the current test will fail.
+     *
+     * @param {object} requests an array of fired sinon requests
+     * @param {string} url the expected url of the request
+     * @returns {*} The last request with the passed in url.
+     */
+    lastRequestWithURL = function(requests, url) {
+        var index;
+        expect(requests.length).toBeGreaterThan(requests.currentIndex);
+        for (index = requests.length - 1; index >= 0; index -= 1) {
+            if (requests[index].url === url) {
+                break;
+            }
+        }
+        expect(index).toBeGreaterThan(-1);
+        return requests[index];
+    };
+
+    /**
      * Expect that a request was made as expected.
      *
      * @param {object} requests an array of fired sinon requests
@@ -128,6 +149,28 @@ define(['sinon', 'underscore', 'URI'], function(sinon, _, URI) {
      */
     expectRequest = function(requests, method, url, body) {
         var request = currentRequest(requests);
+        expect(request.readyState).toEqual(XHR_READY_STATES.OPENED);
+        expect(request.url).toEqual(url);
+        expect(request.method).toEqual(method);
+        if (typeof body === 'undefined') {
+            // The body of the request may not be germane to the current test,
+            // such as a call by a library, so allow it to be ignored.
+            return;
+        }
+        expect(request.requestBody).toEqual(body);
+    };
+
+    /**
+     * Expect that the last request with url as its endpoint was
+     * made as expected.
+     *
+     * @param {object} requests an array of fired sinon requests
+     * @param {string} method the expected method of the request
+     * @param {string} url the last expected url of the request
+     * @param {string} body the expected request body
+     */
+    expectLastRequestWithURL = function(requests, method, url, body) {
+        var request = lastRequestWithURL(requests, url);
         expect(request.readyState).toEqual(XHR_READY_STATES.OPENED);
         expect(request.url).toEqual(url);
         expect(request.method).toEqual(method);
@@ -293,7 +336,9 @@ define(['sinon', 'underscore', 'URI'], function(sinon, _, URI) {
         requests: fakeRequests,
         withFakeRequests: withFakeRequests,
         currentRequest: currentRequest,
+        lastRequestWithURL: lastRequestWithURL,
         expectRequest: expectRequest,
+        expectLastRequestWithURL: expectLastRequestWithURL,
         expectNoRequests: expectNoRequests,
         expectJsonRequest: expectJsonRequest,
         expectPostRequest: expectPostRequest,
