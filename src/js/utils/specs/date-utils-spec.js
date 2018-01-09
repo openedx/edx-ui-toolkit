@@ -93,7 +93,7 @@ define(
                     var TestLangs = {
                         en: 'Oct 14, 2016 08:00 UTC',
                         ru: '14 окт. 2016 г. 08:00 UTC',
-                        ar: '١٤ تشرين الأول أكتوبر ٢٠١٦ ٠٨:٠٠ UTC'
+                        ar: '١٤ أكتوبر ٢٠١٦ ٠٨:٠٠ UTC'
                     };
                     Object.keys(TestLangs).forEach(function(key) {
                         var context = {
@@ -139,7 +139,7 @@ define(
                     };
                     expect(
                         DateUtils.localize(context)
-                    ).toEqual('الجمعة ١٤ تشرين الأول أكتوبر ٢٠١٦ ٢٢:٠٠');
+                    ).toEqual('الجمعة ١٤ أكتوبر ٢٠١٦ ٢٢:٠٠');
                 });
             });
         });
