@@ -3,7 +3,7 @@ language: node_js
 sudo: false
 
 node_js:
-    - 6
+    - 8
 
 before_install:
     - export CHROME_BIN=chromium-browser
@@ -12,7 +12,6 @@ before_install:
 
 install:
     - rvm install 2.2.2
-    - yarn --frozen-lockfile
     - bundle install
 
 script: gulp default --ci
