@@ -12,6 +12,7 @@ before_install:
 
 install:
     - rvm install 2.2.2
+    - npm install
     - bundle install
 
 script: gulp default --ci
