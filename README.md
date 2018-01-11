@@ -39,17 +39,17 @@ Contributions are very welcome. The easiest way is to fork this repo, and then
 make a pull request from your fork. The first time you make a pull request, you
 may be asked to sign a Contributor Agreement.
 
-Please refer to our [contributor guidelines](https://github.com/edx/edx-ui-toolkit/blob/master/CONTRIBUTING.md) 
+Please refer to our [contributor guidelines](https://github.com/edx/edx-ui-toolkit/blob/master/CONTRIBUTING.md)
 for important additional information.
 
 ## Getting Started
 
-The UI Toolkit uses [yarn](https://yarnpkg.com) to manage its dependencies. To work with the repo locally, you will need to have yarn installed. Check [the official documentation](https://yarnpkg.com/en/docs/install) for instructions on installing on your system.
+The UI Toolkit uses Node 8 to manage its dependencies. To work with the repo locally, you will need to have Node 8 installed. We recommend [using n](https://github.com/tj/n) to manage node versions on your machine.
 
 1. Get the code (e.g. clone the repository).
 2. Install the Node requirements:
 
-        $ yarn
+        $ npm i
 
 ## Linting
 
@@ -76,11 +76,11 @@ The UI Toolkit has auto-generated documentation available here: [http://ui-toolk
 To generate this documentation, run the following command:
 
         $ gulp doc
-        
+
 To upload a preview of the documentation to S3:
-        
+
         $ gulp preview
 
 To update the hosted documentation:
-        
+
         $ gulp doc-publish
