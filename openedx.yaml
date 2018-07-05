@@ -3,6 +3,5 @@
 
 nick: uitk
 oeps: {}
-openedx-release: {ref: master}
 owner: edx/fedX-team
 track-pulls: true
