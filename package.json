@@ -44,7 +44,7 @@
     "gulp-gh-pages": "~0.5.4",
     "gulp-rename": "~1.2.2",
     "gulp-util": "~3.0.7",
-    "jasmine": "~2.4.1",
+    "jasmine": "^3.4.0",
     "jasmine-core": "^2.5.2",
     "jsdoc3-parser": "~1.1.0",
     "jsdox": "~0.4.9",
