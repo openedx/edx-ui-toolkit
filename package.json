@@ -1,6 +1,6 @@
 {
   "name": "edx-ui-toolkit",
-  "version": "1.5.4",
+  "version": "1.5.5",
   "description": "A JavaScript toolkit for building edX user interfaces",
   "license": "Apache-2.0",
   "repository": {
@@ -20,13 +20,11 @@
   "dependencies": {
     "backbone": "~1.2.3",
     "backbone.paginator": "~2.0.3",
-    "gulp-shell": "^0.5.2",
     "jquery": "~2.2.0",
     "moment": "^2.15.1",
     "moment-timezone": "0.5.5",
     "requirejs": "~2.1.22",
     "requirejs-text": "~2.0.12",
-    "sinon": "^1.17.7",
     "underscore": "~1.8.3",
     "urijs": "~1.16.1"
   },
@@ -43,6 +41,7 @@
     "gulp-coveralls": "~0.1.4",
     "gulp-gh-pages": "~0.5.4",
     "gulp-rename": "~1.2.2",
+    "gulp-shell": "^0.5.2",
     "gulp-util": "~3.0.7",
     "jasmine": "~2.4.1",
     "jasmine-core": "^2.5.2",
@@ -66,6 +65,7 @@
     "requirejs-plugins": "~1.0.2",
     "run-sequence": "~1.1.5",
     "sass-loader": "~3.2.0",
+    "sinon": "^1.17.7",
     "style-loader": "~0.13.1",
     "through2": "~2.0.0",
     "webpack": "^2.3.3",
