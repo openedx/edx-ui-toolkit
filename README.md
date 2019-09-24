@@ -1,3 +1,7 @@
+# No Longer Actively Maintained
+
+Deprecation is likely imminent. Folks should take a look-see at [Paragon](https://github.com/edx/paragon/) for up-to-date pattern-library development in the Open edX ecosystem.
+
 # edX UI Toolkit
 
 A JavaScript toolkit for building edX user interfaces.
