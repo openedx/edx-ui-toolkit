@@ -26,6 +26,10 @@ define(
                     'does not interpolate additional curly braces': [
                         'Hello, {name}. Here is a { followed by a }', {name: 'Andy'},
                         'Hello, Andy. Here is a { followed by a }'
+                    ],
+                    'does not escape html': [
+                        '<b>Hello</b>, {name}', {name: '<script>alert("boom");</script>'},
+                        '<b>Hello</b>, <script>alert("boom");</script>'
                     ]
                 }, function(template, options, expectedString) {
                     var result = StringUtils.interpolate(template, options);
