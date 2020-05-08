@@ -93,7 +93,7 @@
          * );
          *~~~
          *
-         * returns:
+         * returns an HtmlSnippet object whose .toString() method returns:
          *
          *~~~ javascript
          * 'You are enrolling in <span class="course-title">Rock &amp; Roll 101</span>'
@@ -108,6 +108,26 @@
          *     gettext('You are enrolling in {spanStart}{courseName}{spanEnd}'),
          *     ...
          * );
+         *~~~
+         *
+         * Since escaping is done by default, this is safe to use for rendering untrusted
+         * input within html. For example:
+         *
+         *~~~ javascript
+         * HtmlUtils.interpolateHtml(
+         *     'User said {emStart}{comment}{emEnd}',
+         *     {
+         *         emStart: HtmlUtils.HTML('<em>'),
+         *         comment: '<script>alert("test");</script>',
+         *         emEnd: HtmlUtils.HTML('</em>'),
+         *     }
+         * );
+         *~~~
+         *
+         * returns an HtmlSnippet object whose .toString() method returns:
+         *
+         *~~~ javascript
+         * 'User said <em>&lt;script&gt;alert(&quot;test&quot;);&lt;/script&gt;</em>'
          *~~~
          *
          * @param {string} formatString The string to be interpolated.

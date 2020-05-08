@@ -16,20 +16,18 @@
          * indicated via curly braces, e.g. 'Hello {name}'. These tokens are
          * replaced by the parameter value of the same name.
          *
-         * Parameter values will be rendered using their toString methods and then
-         * HTML-escaped. The only exception is that instances of the class HTML
-         * are rendered without escaping as their contract declares that they are
-         * already valid HTML.
+         * Parameter values will be rendered using their toString methods.
+         * **NO** HTML escaping or sanitizing of any form is performed.
+         * If HTML escaping is required (for example, if user supplied input is
+         * being interpolated), use HtmlUtils.interpolateHtml().
          *
          * Example:
          *
          *~~~ javascript
-         * HtmlUtils.interpolate(
-         *     'You are enrolling in {spanStart}{courseName}{spanEnd}',
+         * StringUtils.interpolate(
+         *     'You are enrolling in {courseName}',
          *     {
          *         courseName: 'Rock & Roll 101',
-         *         spanStart: HtmlUtils.HTML('<span class="course-title">'),
-         *         spanEnd: HtmlUtils.HTML('</span>')
          *     }
          * );
          *~~~
@@ -37,7 +35,7 @@
          * returns:
          *
          *~~~ javascript
-         * 'You are enrolling in <span class="course-title">Rock &amp; Roll 101</span>'
+         * 'You are enrolling in Rock & Roll 101'
          *~~~
          *
          * Note: typically the formatString will need to be internationalized, in which
@@ -45,8 +43,8 @@
          * this would look like:
          *
          *~~~ javascript
-         * HtmlUtils.interpolate(
-         *     gettext('You are enrolling in {spanStart}{courseName}{spanEnd}'),
+         * StringUtils.interpolate(
+         *     gettext('You are enrolling in {courseName}'),
          *     ...
          * );
          *~~~
