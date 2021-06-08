@@ -28,7 +28,7 @@
     "requirejs-text": "~2.0.12",
     "sinon": "^1.17.7",
     "underscore": "~1.8.3",
-    "urijs": "~1.16.1"
+    "urijs": "~1.19.6"
   },
   "devDependencies": {
     "browser-sync": "~2.11.2",
