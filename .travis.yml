@@ -13,7 +13,7 @@ before_install:
     - sh -e /etc/init.d/xvfb start
 
 install:
-    - rvm install 2.2.2
+    - rvm install 2.5.0
     - npm install
     - bundle install
 
