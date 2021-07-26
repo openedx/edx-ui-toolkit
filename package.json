@@ -64,7 +64,7 @@
     "phantomjs-prebuilt": "2.1.16",
     "require-dir": "latest",
     "requirejs-plugins": "1.0.2",
-    "run-sequence": "1.1.5",
+    "run-sequence": "1.2.2",
     "sass-loader": "3.2.3",
     "style-loader": "0.13.2",
     "through2": "2.0.5",
