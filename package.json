@@ -31,7 +31,7 @@
     "urijs": "1.19.7"
   },
   "devDependencies": {
-    "browser-sync": "2.27.4",
+    "browser-sync": "2.27.5",
     "css-loader": "1.0.1",
     "del": "2.2.2",
     "edx-pattern-library": "0.12.5",
