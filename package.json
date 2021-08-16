@@ -36,7 +36,7 @@
     "del": "2.2.2",
     "edx-pattern-library": "0.12.5",
     "eslint": "3.19.0",
-    "eslint-config-edx": "2.0.1",
+    "eslint-config-edx": "4.0.4",
     "eslint-config-edx-es5": "3.0.0",
     "extract-text-webpack-plugin": "2.1.2",
     "gulp": "3.9.1",
