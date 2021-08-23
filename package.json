@@ -37,7 +37,7 @@
     "edx-pattern-library": "0.12.5",
     "eslint": "3.19.0",
     "eslint-config-edx": "4.0.4",
-    "eslint-config-edx-es5": "3.0.0",
+    "eslint-config-edx-es5": "4.0.1",
     "extract-text-webpack-plugin": "2.1.2",
     "gulp": "3.9.1",
     "gulp-coveralls": "0.1.4",
