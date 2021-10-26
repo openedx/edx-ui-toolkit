@@ -1,7 +1,6 @@
 
 .gitignore
 .npmignore
-.travis.yml
 _config.yml
 _preview_site
 _site
