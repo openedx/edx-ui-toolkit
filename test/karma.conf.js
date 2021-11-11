@@ -108,7 +108,7 @@ module.exports = function(config, overrideOptions) {
         // enable / disable watching file and executing tests whenever any file changes
         autoWatch: options.autoWatch,
 
-        // Custom launchers for environments such as Travis
+        // Custom launchers for environments such as GitHub CI
         customLaunchers: options.customLaunchers,
 
         // start these browsers
