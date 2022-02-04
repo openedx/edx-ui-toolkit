@@ -3,46 +3,49 @@ name: Node CI
 on:
   push:
     branches:
-      - master
+    - master
   pull_request:
     branches:
-      - "**"
+    - '**'
 
 jobs:
-  build:
+  tests:
     runs-on: ubuntu-20.04
+    strategy:
+      matrix:
+        node: [12, 14, 16]
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
+    - name: Checkout
+      uses: actions/checkout@v2
 
-      - name: Setup Nodejs
-        uses: actions/setup-node@v2
-        with:
-          node-version: 8
+    - name: Setup Nodejs
+      uses: actions/setup-node@v2
+      with:
+        node-version: ${{ matrix.node }}
 
-      - name: Export CHROME_BIN Env Variable
-        run: export CHROME_BIN=chromium-browser
+    - name: Export CHROME_BIN Env Variable
+      run: export CHROME_BIN=chromium-browser
 
-      - name: Export Display Variable
-        run: export DISPLAY=:99.0
+    - name: Export Display Variable
+      run: export DISPLAY=:99.0
 
-      - name: Install Ruby
-        uses: ruby/setup-ruby@477b21f02be01bcb8030d50f37cfec92bfa615b6
-        with:
-          ruby-version: 2.2
+    - name: Install Ruby
+      uses: ruby/setup-ruby@477b21f02be01bcb8030d50f37cfec92bfa615b6
+      with:
+        ruby-version: 2.2
 
-      - name: Install Dependencies
-        run: npm install
+    - name: Install Dependencies
+      run: npm install
 
-      - name: Bundle Install
-        run: bundle install
+    - name: Bundle Install
+      run: bundle install
 
-      - name: Install Firefox
-        run: |
-          sudo apt-get update
-          sudo apt-get install --no-install-recommends -y firefox xvfb
+    - name: Install Firefox
+      run: |
+        sudo apt-get update
+        sudo apt-get install --no-install-recommends -y firefox xvfb
 
-      - name: Run Gulp
-        uses: GabrielBB/xvfb-action@v1
-        with:
-          run: gulp default --ci
+    - name: Run Gulp
+      uses: GabrielBB/xvfb-action@v1
+      with:
+        run: gulp default --ci
