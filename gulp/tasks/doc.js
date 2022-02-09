@@ -111,11 +111,11 @@ gulp.task('jekyll-build', function() {
     childProcess.execSync('jekyll build');
 });
 
-gulp.task('jekyll-rebuild', ['jekyll-build'], function() {
+gulp.task('jekyll-rebuild', gulp.series('jekyll-build'), function() {
     browserSync.reload();
 });
 
-gulp.task('doc-publish', ['clean', 'doc-build'], function() {
+gulp.task('doc-publish', gulp.series('clean', 'doc-build'), function() {
     return gulp.src(config.gitHubPages.files)
         .pipe(ghPages());
 });

@@ -2,8 +2,4 @@
 
 var gulp = require('gulp');
 
-gulp.task('default', [
-    'lint',
-    'test',
-    'doc-build'
-]);
+gulp.task('default', () => gulp.series('lint', 'test', 'doc-build'));

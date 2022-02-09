@@ -1,6 +1,6 @@
 var path = require('path'),
     Webpack = require('webpack'),
-    ExtractTextPlugin = require('extract-text-webpack-plugin');
+    MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 (function() {
     'use strict';
@@ -34,11 +34,13 @@ var path = require('path'),
             rules: [
                 {
                     test: /\.scss$/,
-                    loader: ExtractTextPlugin.extract({
-                        fallback: 'style-loader',
-                        use: [{
+                    use: [{
+                           loader: MiniCssExtractPlugin.loader
+                        },
+                        {
                             loader: 'css-loader'
-                        }, {
+                        },
+                        {
                             loader: 'sass-loader',
                             options: {
                                 includePaths: [
@@ -48,7 +50,6 @@ var path = require('path'),
                                       './public/edx-pattern-library\' !default;'
                             }
                         }]
-                    })
                 }
             ]
         },
@@ -60,7 +61,7 @@ var path = require('path'),
             new Webpack.LoaderOptionsPlugin({
                 debug: true
             }),
-            new ExtractTextPlugin('ui-toolkit.css')
+            new MiniCssExtractPlugin({filename : 'ui-toolkit.css'})
         ],
         devtool: 'inline-source-map'
     };
