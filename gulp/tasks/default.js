@@ -2,4 +2,7 @@
 
 var gulp = require('gulp');
 
-gulp.task('default', () => gulp.series('lint', 'test', 'doc-build'));
+gulp.task('default', function(done) {
+    gulp.series('lint', 'test', 'doc-build')
+    done();
+});
