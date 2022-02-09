@@ -36,11 +36,9 @@ var path = require('path'),
                     test: /\.scss$/,
                     use: [{
                            loader: MiniCssExtractPlugin.loader
-                        },
-                        {
+                        },{
                             loader: 'css-loader'
-                        },
-                        {
+                        },{
                             loader: 'sass-loader',
                             options: {
                                 includePaths: [
