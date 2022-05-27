@@ -36,7 +36,7 @@
     "css-loader": "1.0.1",
     "del": "2.2.2",
     "edx-pattern-library": "0.12.5",
-    "eslint": "8.12.0",
+    "eslint": "3.19.0",
     "eslint-config-edx": "4.0.4",
     "eslint-config-edx-es5": "4.0.1",
     "extract-text-webpack-plugin": "2.1.2",
