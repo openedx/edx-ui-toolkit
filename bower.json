@@ -1,10 +1,10 @@
 {
   "name": "edx-ui-toolkit",
   "version": "1.5.3",
-  "homepage": "https://github.com/edx/edx-ui-toolkit",
+  "homepage": "https://github.com/openedx/edx-ui-toolkit",
   "repository": {
     "type": "git",
-    "url": "git://github.com/edx/edx-ui-toolkit.git"
+    "url": "git://github.com/openedx/edx-ui-toolkit.git"
   },
   "ignore": [
     "**\/.*",
