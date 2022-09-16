@@ -21,7 +21,7 @@
     "backbone": "1.4.0",
     "backbone.paginator": "2.0.8",
     "gulp-shell": "0.8.0",
-    "jquery": "~2.2.0",
+    "jquery": "~3.5.0",
     "moment": "2.29.4",
     "moment-timezone": "0.5.5",
     "node-sass": "^3.7.0",
