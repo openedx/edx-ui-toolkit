@@ -31,7 +31,7 @@ This library contains the following:
 ## License
 
 The code in this repository uses the Apache 2.0 license unless otherwise
-noted. Please see the [LICENSE file](https://github.com/edx/edx-ui-toolkit/blob/master/LICENSE) for details.
+noted. Please see the [LICENSE file](https://github.com/openedx/edx-ui-toolkit/blob/master/LICENSE) for details.
 
 ## Contributions
 
@@ -39,7 +39,7 @@ Contributions are very welcome. The easiest way is to fork this repo, and then
 make a pull request from your fork. The first time you make a pull request, you
 may be asked to sign a Contributor Agreement.
 
-Please refer to our [contributor guidelines](https://github.com/edx/edx-ui-toolkit/blob/master/CONTRIBUTING.md)
+Please refer to our [contributor guidelines](https://github.com/openedx/edx-ui-toolkit/blob/master/CONTRIBUTING.md)
 for important additional information.
 
 ## Getting Started

@@ -4,9 +4,9 @@ name:               edX UI Toolkit
 
 description:
 
-url_github:         https://github.com/edx/edx-ui-toolkit
+url_github:         https://github.com/openedx/edx-ui-toolkit
 
 url_site:
-url_documentation:  https://github.com/edx/edx-ui-toolkit/blob/master/README.md
+url_documentation:  https://github.com/openedx/edx-ui-toolkit/blob/master/README.md
 
 path_components:    /blob/master/src/js/
