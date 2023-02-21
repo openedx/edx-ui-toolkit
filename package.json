@@ -49,7 +49,7 @@
     "jasmine-core": "2.8.0",
     "jsdoc3-parser": "1.1.0",
     "jsdox": "0.4.10",
-    "karma": "1.7.1",
+    "karma": "6.4.1",
     "karma-chrome-launcher": "2.2.0",
     "karma-coverage": "1.1.2",
     "karma-coveralls": "1.2.1",
