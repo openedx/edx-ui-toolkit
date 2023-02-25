@@ -24,7 +24,7 @@
     "jquery": "~2.2.0",
     "moment": "2.29.4",
     "moment-timezone": "0.5.5",
-    "node-sass": "^3.7.0",
+    "node-sass": "^7.0.0",
     "requirejs": "2.1.22",
     "requirejs-text": "2.0.16",
     "sinon": "1.17.7",
