@@ -40,7 +40,7 @@
     "eslint-config-edx": "4.0.4",
     "eslint-config-edx-es5": "4.0.1",
     "extract-text-webpack-plugin": "2.1.2",
-    "gulp": "3.9.1",
+    "gulp": "4.0.2",
     "gulp-coveralls": "0.1.4",
     "gulp-gh-pages": "0.5.4",
     "gulp-rename": "1.4.0",
