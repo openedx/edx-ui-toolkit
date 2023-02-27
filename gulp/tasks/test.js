@@ -5,6 +5,7 @@ var gulp = require('gulp'),
     path = require('path'),
     configFile;
 
+
 gulp.task('test', function(callback) {
     if (process.argv.indexOf('--ci') !== -1) {
         configFile = 'test/karma.ci.conf.js';
@@ -15,3 +16,5 @@ gulp.task('test', function(callback) {
         configFile: path.resolve(configFile)
     }, callback).start();
 });
+
+exports.test = 'test';

@@ -2,8 +2,8 @@
 
 var gulp = require('gulp');
 
-gulp.task('default', [
-    'lint',
-    'test',
-    'doc-build'
-]);
+var lint = require('./lint');
+var test = require('./test');
+var doc = require('./doc');
+
+exports.default = gulp.series(lint.lint, test.test, doc.docBuild);

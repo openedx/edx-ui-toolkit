@@ -18,3 +18,5 @@ gulp.task('clean', function() {
         config.documentation.views.output
     ]);
 });
+
+exports.clean = 'clean';

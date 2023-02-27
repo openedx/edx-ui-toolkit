@@ -19,6 +19,7 @@ var gulp = require('gulp'),
     webpackStream = require('webpack-stream'),
     ghPages = require('gulp-gh-pages'),
     webpackConfig = require('../../webpack.config.js'),
+    clean = require('./clean'),
     renameAsMarkdown,
     generateDocFor;
 
@@ -59,7 +60,7 @@ gulp.task('doc-build', function(callback) {
     );
 });
 
-gulp.task('doc-serve', function() {
+gulp.task('doc-serve', function(callback) {
     // Run browserSync to serve the doc site
     browserSync(config.browserSync);
 
@@ -73,27 +74,32 @@ gulp.task('doc-serve', function() {
 
     // Watch the doc site's templates
     gulp.watch(config.templates, ['jekyll-rebuild']);
+    callback();
 });
 
-gulp.task('doc-testing', function() {
+gulp.task('doc-testing', function(callback) {
     generateDocFor(config.testing);
+    callback();
 });
 
-gulp.task('doc-utils', function() {
+gulp.task('doc-utils', function(callback) {
     generateDocFor(config.utilities);
+    callback();
 });
 
-gulp.task('doc-views', function() {
+gulp.task('doc-views', function(callback) {
     generateDocFor(config.views);
+    callback();
 });
 
-gulp.task('copy-pattern-library', function() {
+gulp.task('copy-pattern-library', function(callback) {
     gulp.src(['./node_modules/edx-pattern-library/pattern-library/**/*'])
         .pipe(gulp.dest('doc/public/edx-pattern-library'));
+    callback();
 });
 
 gulp.task('webpack', function() {
-    return gulp.src('')
+    return gulp.src('.', {allowEmpty: true})
         .pipe(webpackStream(webpackConfig, webpack))
         .pipe(gulp.dest(webpackConfig.output.path))
         .pipe(browserSync.stream());
@@ -107,15 +113,24 @@ gulp.task('webpack-rebuild', function(callback) {
     );
 });
 
-gulp.task('jekyll-build', function() {
+gulp.task('jekyll-build', function(callback) {
     childProcess.execSync('jekyll build');
+    callback();
 });
 
-gulp.task('jekyll-rebuild', ['jekyll-build'], function() {
+gulp.task('jekyll-rebuild', gulp.series('jekyll-build', function(callback) {
     browserSync.reload();
-});
+    callback();
+}));
 
-gulp.task('doc-publish', ['clean', 'doc-build'], function() {
+gulp.task('doc-publish', gulp.series(clean.clean, 'doc-build', function() {
     return gulp.src(config.gitHubPages.files)
         .pipe(ghPages());
-});
+}));
+
+exports.docBuild = gulp.series(
+    gulp.parallel('doc-testing', 'doc-utils', 'doc-views'),
+    'copy-pattern-library',
+    'webpack',
+    'jekyll-build'
+);
