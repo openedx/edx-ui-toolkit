@@ -1,9 +1,12 @@
 'use strict';
 
-var gulp = require('gulp');
+var gulp = require('gulp'),
+    lint = require('./lint'),
+    test = require('./test'),
+    doc = require('./doc');
 
-gulp.task('default', [
-    'lint',
-    'test',
-    'doc-build'
-]);
+exports.default = gulp.series(
+    lint.lint,
+    test.test,
+    doc.docBuild
+);
