@@ -33,7 +33,7 @@
   },
   "devDependencies": {
     "browser-sync": "2.27.12",
-    "css-loader": "1.0.1",
+    "css-loader": "6.7.3",
     "del": "2.2.2",
     "edx-pattern-library": "0.12.5",
     "eslint": "3.19.0",
