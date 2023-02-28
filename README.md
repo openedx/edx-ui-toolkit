@@ -44,7 +44,7 @@ for important additional information.
 
 ## Getting Started
 
-The UI Toolkit uses Node 10 to manage its dependencies. To work with the repo locally, you will need to have Node 10 installed. We recommend [using n](https://github.com/tj/n) to manage node versions on your machine.
+The UI Toolkit uses Node 16 to manage its dependencies. To work with the repo locally, you will need to have Node 16 installed. We recommend [using n](https://github.com/tj/n) to manage node versions on your machine.
 
 1. Get the code (e.g. clone the repository).
 2. Install the Node requirements:
