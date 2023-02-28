@@ -25,16 +25,16 @@
     "mini-css-extract-plugin": "^2.7.2",
     "moment": "2.29.4",
     "moment-timezone": "0.5.41",
-    "node-sass": "^7.0.3",
     "requirejs": "2.1.22",
     "requirejs-text": "2.0.16",
+    "sass": "^1.58.3",
     "sinon": "1.17.7",
     "underscore": "~1.8.3",
     "urijs": "1.19.11"
   },
   "devDependencies": {
     "browser-sync": "2.27.12",
-    "css-loader": "1.0.1",
+    "css-loader": "^3.6.0",
     "del": "2.2.2",
     "edx-pattern-library": "0.12.5",
     "eslint": "3.19.0",
