@@ -47,7 +47,7 @@
     "gulp-util": "3.0.8",
     "jasmine": "2.99.0",
     "jasmine-core": "2.8.0",
-    "jsdoc3-parser": "1.1.0",
+    "jsdoc3-parser": "2.0.0",
     "jsdox": "0.4.10",
     "karma": "6.4.1",
     "karma-chrome-launcher": "2.2.0",
