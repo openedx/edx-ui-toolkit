@@ -4,6 +4,8 @@
  * @module GlobalLoader
  */
 /* global $, _ */
+var _ = require('underscore');
+
 (function() {
     'use strict';
 
