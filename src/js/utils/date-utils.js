@@ -24,19 +24,18 @@
  * @module DateUtils
  */
 
-
-(function(define) {
+(function (define) {
     'use strict';
 
     define([
         'jquery',
         'moment',
-        'moment-timezone'
-    ], function(
+        'moment-timezone',
+    ], function (
         $,
         moment,
-        momentTZ
-        ) {
+        momentTZ,
+    ) {
         var DateUtils,
             localize,
             stringToMoment,
@@ -53,7 +52,7 @@
             time: 'LTS z', // example: 15:30:32 UTC
             defaultFormat: 'll HH[:]mm z', // example: Jan 01, 2016 15:30 UTC
             defaultWithParen: 'll HH[:]mm (z)', // example: Jan 01, 2016 15:30 (UTC)
-            longDateTime: 'dddd, ll HH[:]mm z' // example: Friday, Jan 01, 2016 15:30 UTC
+            longDateTime: 'dddd, ll HH[:]mm z', // example: Friday, Jan 01, 2016 15:30 UTC
         });
 
         var DEFAULT_LANG = 'en';
@@ -75,14 +74,14 @@
          * @returns {string} A formatted, timezone-offset, internationalized date and time.
          *
          */
-        localize = function(context) {
+        localize = function (context) {
             var localTime;
             var displayTime = '';
 
             if (isValid(context.datetime)) {
                 localTime = localizeTime(
                     DateUtils.stringToMoment(context.datetime),
-                    context.timezone
+                    context.timezone,
                 );
                 displayTime = getDisplayTime(localTime, context.language, context.format);
             }
@@ -104,7 +103,7 @@
          * @returns {object} A moment.js UTC datetime object.
          *
         */
-        stringToMoment = function(datetimeString) {
+        stringToMoment = function (datetimeString) {
             var utcDateObject;
             if (isValid(datetimeString)) {
                 utcDateObject = moment(datetimeString).utc();
@@ -122,7 +121,7 @@
          * @param {string} timezone A timezone representation, e.g. 'America/New_York'.
          * @return {object} A moment.js datetime object in a determined timezone.
          */
-        localizeTime = function(dateTimeObject, timezone) {
+        localizeTime = function (dateTimeObject, timezone) {
             var localTime;
             if (isValid(dateTimeObject) && isValid(timezone)) {
                 localTime = dateTimeObject.tz(timezone);
@@ -142,7 +141,7 @@
          * @return {string} Will attempt to return a determined timezone string, with a fallback to UTC.
          *
          */
-        getSysTimezone = function() {
+        getSysTimezone = function () {
             var timezone = momentTZ.tz.guess();
             if (!isValid(timezone)) {
                 timezone = DEFAULT_TIMEZONE;
@@ -172,7 +171,7 @@
          * @param {object} format (optional) A desired date format, via the dateFormatEnum.
          * @return {string} A language/timezone aware localized string
         */
-        getDisplayTime = function(localTime, language, format) {
+        getDisplayTime = function (localTime, language, format) {
             var displayTime = '';
             var displayLang = getDisplayLang(language);
             var displayFormat = getDisplayFormat(format);
@@ -191,7 +190,7 @@
          * @param {string} language (optional) an ISO 639-1 language code (e.g. 'en-US', 'fr')
          * @returns {string} an ISO 639-1 language code (e.g. 'en-US', 'fr')
          */
-        getDisplayLang = function(language) {
+        getDisplayLang = function (language) {
             var displayLang;
             if (isValid(language)) {
                 displayLang = language;
@@ -201,9 +200,8 @@
             // default
             if (isValid(language)) {
                 return displayLang;
-            } else {
-                return DEFAULT_LANG;
             }
+            return DEFAULT_LANG;
         };
 
         /**
@@ -214,7 +212,7 @@
          * @param {object} format (optional) A format constant.
          * @returns {string} A format constant.
          */
-        getDisplayFormat = function(format) {
+        getDisplayFormat = function (format) {
             var displayFormat = DEFAULT_FORMAT;
             if (isValid(format)) {
                 displayFormat = format;
@@ -228,7 +226,7 @@
          * @param {string} candidateVariable to test
          * @returns {boolean}
          */
-        isValid = function(candidateVariable) {
+        isValid = function (candidateVariable) {
             return candidateVariable !== undefined
                 && candidateVariable !== ''
                 && candidateVariable !== 'Invalid date'
@@ -240,7 +238,7 @@
             localize: localize,
             stringToMoment: stringToMoment,
             getSysTimezone: getSysTimezone,
-            localizeTime: localizeTime
+            localizeTime: localizeTime,
         };
         return DateUtils;
     });
@@ -251,8 +249,7 @@
     // 2. If not, use 'RequireJS.define' if that is available
     // 3. else use the GlobalLoader to install the class into the edx namespace
     // eslint-disable-next-line no-nested-ternary
-    typeof define === 'function' && define.amd ? define :
-        (typeof RequireJS !== 'undefined' ? RequireJS.define :
-            edx.GlobalLoader.defineAs('DateUtils', 'edx-ui-toolkit/js/utils/date-utils'))
+    typeof define === 'function' && define.amd ? define
+        : (typeof RequireJS !== 'undefined' ? RequireJS.define
+            : edx.GlobalLoader.defineAs('DateUtils', 'edx-ui-toolkit/js/utils/date-utils')),
 );
-
