@@ -6,15 +6,17 @@ var jsdox = require('jsdox'),
     GulpUtil = require('gulp-util'),
     jsdocParser = require('jsdoc3-parser'),
     PLUGIN_NAME = 'generate-doc',
+    // eslint-disable-next-line prefer-destructuring
     analyze = jsdox.analyze,
+    // eslint-disable-next-line prefer-destructuring
     generateMD = jsdox.generateMD,
     jsdoxTemplatesDir = 'node_modules/jsdox/templates';
 
-module.exports = function(viewClass) {
-    return through.obj(function(file, enc, next) {
+module.exports = function (viewClass) {
+    return through.obj(function (file, enc, next) {
         var self = this;
         if (file.isStream()) {
-            jsdocParser(file.history, function(err, result) {
+            jsdocParser(file.history, function (err, result) {
                 var frontMatter, data, markdown, title, relativePath, requirePath, gitHubPath,
                     fileToPush = file;
                 if (err) {
@@ -27,18 +29,19 @@ module.exports = function(viewClass) {
                     gitHubPath = 'blob/master/src/' + relativePath;
                     // title = path.relative(path.resolve('src/js'), file.path).slice(0, -3);
                     title = path.basename(file.path, '.js');
-                    frontMatter = '---\n' +
-                        'title: ' + title + '\n' +
-                        'requirePath: ' + requirePath + '\n' +
-                        'githubPath: ' + gitHubPath + '\n' +
-                        'viewClass: ' + viewClass + '\n' +
-                        '---\n\n';
+                    frontMatter = '---\n'
+                        + 'title: ' + title + '\n'
+                        + 'requirePath: ' + requirePath + '\n'
+                        + 'githubPath: ' + gitHubPath + '\n'
+                        + 'viewClass: ' + viewClass + '\n'
+                        + '---\n\n';
 
                     // Generate the markdown
                     data = analyze(result, {});
                     markdown = generateMD(data, jsdoxTemplatesDir);
 
                     // set the result to the front matter followed by the markdown
+                    // eslint-disable-next-line no-buffer-constructor
                     fileToPush.contents = new Buffer(frontMatter + markdown);
                 }
                 self.push(fileToPush);

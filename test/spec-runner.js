@@ -5,14 +5,14 @@
  * This is where your tests go.  It should happen automatically when you
  * add files to the karma configuration.
  */
-(function() {
+(function () {
     'use strict';
 
     var specs = [],
         config = {};
 
     // you can automatically get the test files using karma's configs
-    Object.keys(window.__karma__.files).forEach(function(file) {
+    Object.keys(window.__karma__.files).forEach(function (file) {
         if (/spec\.js$/.test(file)) {
             specs.push(file);
         }

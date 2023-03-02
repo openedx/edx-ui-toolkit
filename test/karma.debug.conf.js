@@ -1,7 +1,7 @@
 var baseConfig = require('./karma.conf');
 
 // Karma configuration for debugging
-module.exports = function(config) {
+module.exports = function (config) {
     'use strict';
 
     baseConfig(config, {
@@ -10,6 +10,6 @@ module.exports = function(config) {
         browsers: ['Chrome'],
         logLevel: baseConfig.LOG_DEBUG,
         preprocessors: [],
-        reporters: ['kjhtml']
+        reporters: ['kjhtml'],
     });
 };
