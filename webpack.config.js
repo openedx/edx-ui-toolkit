@@ -38,7 +38,12 @@ var path = require('path'),
                         {
                             loader: MiniCssExtractPlugin.loader
                         },
-                        'css-loader',
+                        {
+                            loader: 'css-loader',
+                            options: {
+                                url: false
+                            }
+                        },
                         {
                             loader: 'sass-loader',
                             options: {
