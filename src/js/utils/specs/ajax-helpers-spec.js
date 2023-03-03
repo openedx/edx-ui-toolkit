@@ -13,25 +13,25 @@ define(
                 testQuerystring = $.param(testData);
 
             describe('fakeServer', function() {
+                var server = AjaxHelpers.server('foo');
+                var ajaxSpy = jasmine.createSpy('ajaxSpy');
+
+                $.ajax(testUrl).done(ajaxSpy);
+                server.respond();
+
                 it('responds with the contents of the first argument', function() {
-                    var ajaxSpy = jasmine.createSpy('ajaxSpy');
-                    var server = AjaxHelpers.server('foo');
-
-                    $.ajax(testUrl).done(ajaxSpy);
-                    server.respond();
-
                     expect(ajaxSpy).toHaveBeenCalledWith('foo', 'success', jasmine.any(Object));
                 });
             });
 
             describe('fakeRequests', function() {
+                var requests = AjaxHelpers.requests();
+                $.ajax(testUrl);
+
                 it('returns an array that tracks fake requests', function() {
                     // We're really already doing this already in all the tests that call AjaxHelpers.withFakeRequests
                     // down below, but Istanbul doesn't pick those up because they're not "in" a spec...
                     // so do a quick manual test.
-                    var requests = AjaxHelpers.requests();
-
-                    $.ajax(testUrl);
 
                     expect(requests instanceof Array).toBeTruthy();
                     expect('currentIndex' in requests).toBeTruthy();
