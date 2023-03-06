@@ -1,5 +1,4 @@
 /* global $, _ */
-// eslint-disable-next-line import/no-amd
 define(
     [
         'edx-ui-toolkit/js/utils/global-loader',

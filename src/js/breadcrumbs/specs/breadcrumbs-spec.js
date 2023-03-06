@@ -10,7 +10,6 @@
     ],
     function ($, HtmlUtils, SpecHelpers, BreadcrumbsView, BreadcrumbsModel) {
         describe('BreadcrumbsView', function () {
-            // eslint-disable-next-line one-var-declaration-per-line
             var model, view;
 
             beforeEach(function () {
@@ -40,7 +39,6 @@
                     { url: '', title: '<h1>crumb!</h1>' },
                 ]],
             }, function (breadcrumbs) {
-                // eslint-disable-next-line one-var-declaration-per-line
                 var crumbs, linkCrumbs, lastCrumb;
 
                 model.set('breadcrumbs', breadcrumbs);

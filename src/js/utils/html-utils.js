@@ -14,7 +14,6 @@
     'use strict';
 
     define(['underscore', 'jquery', 'edx-ui-toolkit/js/utils/string-utils'], function (_, $, StringUtils) {
-        // eslint-disable-next-line one-var-declaration-per-line
         var HtmlUtils, ensureHtml, interpolateHtml, joinHtml, HTML, template, setHtml, append, prepend;
 
         /**

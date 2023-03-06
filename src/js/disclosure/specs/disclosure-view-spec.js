@@ -1,4 +1,3 @@
-// eslint-disable-next-line import/no-amd
 define(['jquery', '../disclosure-view.js'], function ($, DisclosureView) {
     'use strict';
 

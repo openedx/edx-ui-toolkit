@@ -1,4 +1,3 @@
-// eslint-disable-next-line import/no-amd
 define(['jquery',
     'backbone',
     'underscore',
@@ -58,7 +57,6 @@ function ($, Backbone, _, URI, PagingCollection, AjaxHelpers, SpecHelpers) {
         });
 
         it('correctly merges state and queryParams in the extend statement', function () {
-            // eslint-disable-next-line one-var-declaration-per-line
             var MyPagingCollection, newCollection;
             MyPagingCollection = PagingCollection.extend({
                 state: { pageSize: 25 },

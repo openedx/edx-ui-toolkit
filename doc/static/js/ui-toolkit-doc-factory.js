@@ -1,4 +1,4 @@
-// eslint-disable-next-line import/no-amd, import/no-dynamic-require
+// eslint-disable-next-line import/no-dynamic-require
 require(
     [
         'jquery',

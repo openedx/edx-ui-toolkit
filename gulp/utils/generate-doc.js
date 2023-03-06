@@ -6,10 +6,8 @@ var jsdox = require('jsdox'),
     GulpUtil = require('gulp-util'),
     jsdocParser = require('jsdoc3-parser'),
     PLUGIN_NAME = 'generate-doc',
-    // eslint-disable-next-line prefer-destructuring
-    analyze = jsdox.analyze,
-    // eslint-disable-next-line prefer-destructuring
-    generateMD = jsdox.generateMD,
+    { analyze } = jsdox,
+    { generateMD } = jsdox,
     jsdoxTemplatesDir = 'node_modules/jsdox/templates';
 
 module.exports = function (viewClass) {
@@ -17,7 +15,6 @@ module.exports = function (viewClass) {
         var self = this;
         if (file.isStream()) {
             jsdocParser(file.history, function (err, result) {
-                // eslint-disable-next-line one-var-declaration-per-line
                 var frontMatter, data, markdown, title, relativePath, requirePath, gitHubPath,
                     fileToPush = file;
                 if (err) {

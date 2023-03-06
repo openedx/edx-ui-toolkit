@@ -1,4 +1,3 @@
-// eslint-disable-next-line import/no-amd
 define(
     [
         '../../utils/spec-helpers/spec-helpers.js',

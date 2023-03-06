@@ -12,15 +12,11 @@
  *
  * @module AjaxHelpers
  */
-// eslint-disable-next-line import/no-amd
 define(['sinon', 'underscore', 'URI'], function (sinon, _, URI) {
     'use strict';
 
-    // eslint-disable-next-line one-var-declaration-per-line
     var XHR_READY_STATES, fakeServer, createFakeRequests, withFakeRequests, fakeRequests, currentRequest,
-        // eslint-disable-next-line one-var-declaration-per-line
         expectRequest, expectNoRequests, expectJsonRequest, expectPostRequest, expectRequestURL, skipResetRequest,
-        // eslint-disable-next-line one-var-declaration-per-line
         respond, respondWithJson, respondWithError, respondWithTextError, respondWithNoContent;
 
     /**
@@ -214,7 +210,7 @@ define(['sinon', 'underscore', 'URI'], function (sinon, _, URI) {
         var request = currentRequest(requests);
         expect(request.readyState).toEqual(XHR_READY_STATES.UNSENT);
         // Our ESLint config bans mutating params, but fixing this would require breaking AjaxHelpers API
-        requests.currentIndex += 1; // eslint-disable-line no-param-reassign
+        requests.currentIndex += 1;
     };
 
     /**
@@ -236,7 +232,7 @@ define(['sinon', 'underscore', 'URI'], function (sinon, _, URI) {
             { 'Content-Type': contentType },
             contentType === 'application/json' ? JSON.stringify(body || {}) : body,
         );
-        requests.currentIndex += 1; // eslint-disable-line no-param-reassign
+        requests.currentIndex += 1;
     };
 
     /**

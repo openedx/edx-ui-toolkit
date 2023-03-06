@@ -3,11 +3,9 @@
  *
  * @module SpecHelpers
  */
-// eslint-disable-next-line import/no-amd
 define([], function () {
     'use strict';
 
-    // eslint-disable-next-line one-var-declaration-per-line
     var withData, withConfiguration;
 
     /**

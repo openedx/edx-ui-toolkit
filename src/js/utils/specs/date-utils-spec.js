@@ -1,4 +1,3 @@
-// eslint-disable-next-line import/no-amd
 define(
     [
         '../../utils/spec-helpers/spec-helpers.js',
@@ -62,7 +61,6 @@ define(
                     };
                     Object.keys(TestZones).forEach(function (key) {
                         expect(
-                            // eslint-disable-next-line new-cap
                             new DateUtils.localizeTime(testDate, key).format('lll'),
                         ).toEqual(TestZones[key]);
                     });
