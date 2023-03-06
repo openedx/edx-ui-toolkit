@@ -1,6 +1,24 @@
 {
-    "extends": "eslint-config-edx-es5",
+    "env": {
+        "amd": true
+    },
+    "extends": "@edx/eslint-config",
     "globals": {
         "setFixtures": true  // added globally by jasmine-jquery (bad)
+    },
+    "rules": {
+        "indent": ["error", 4],
+        "func-names": "off",
+        "import/no-extraneous-dependencies": "off",
+        "object-shorthand": "off",
+        "no-undef": "off",
+        "no-var": "off",
+        "one-var": "off",
+        "prefer-arrow-callback": "off",
+        "function-paren-newline": "off",
+        "one-var-declaration-per-line": "off",
+        "import/no-amd": "off",
+        "no-param-reassign": "off",
+        "new-cap": "off"
     }
 }

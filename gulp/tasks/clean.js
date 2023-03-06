@@ -1,10 +1,10 @@
 'use strict';
 
 var gulp = require('gulp'),
-    config = require('../config'),
-    del = require('del');
+    del = require('del'),
+    config = require('../config');
 
-gulp.task('clean', function() {
+gulp.task('clean', function () {
     return del([
         // Remove the Jekyll site
         config.documentation.targetDir,
@@ -15,7 +15,7 @@ gulp.task('clean', function() {
         // Remove the JSDoc generated markdown
         config.documentation.testing.output,
         config.documentation.utilities.output,
-        config.documentation.views.output
+        config.documentation.views.output,
     ]);
 });
 
