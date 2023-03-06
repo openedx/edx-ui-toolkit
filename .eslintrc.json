@@ -14,9 +14,7 @@
         "no-undef": "off",
         "no-var": "off",
         "one-var": "off",
-        "one-var-declaration-per-line": "off",
         "prefer-arrow-callback": "off",
-        "function-paren-newline": "off",
-        "prefer-template": "off"
+        "function-paren-newline": "off"
     }
 }

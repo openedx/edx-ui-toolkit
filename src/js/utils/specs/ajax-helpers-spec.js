@@ -83,6 +83,7 @@ define(
                     it('validates a JSON request made to a URL', AjaxHelpers.withFakeRequests(function (requests) {
                         var path = '/home/category';
 
+                        // eslint-disable-next-line prefer-template
                         $.ajax(testUrl + path + '?' + testQuerystring);
                         AjaxHelpers.expectRequestURL(requests, path, testData);
                     }));

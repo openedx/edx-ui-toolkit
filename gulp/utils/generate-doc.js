@@ -17,6 +17,7 @@ module.exports = function (viewClass) {
         var self = this;
         if (file.isStream()) {
             jsdocParser(file.history, function (err, result) {
+                // eslint-disable-next-line one-var-declaration-per-line
                 var frontMatter, data, markdown, title, relativePath, requirePath, gitHubPath,
                     fileToPush = file;
                 if (err) {
@@ -25,10 +26,13 @@ module.exports = function (viewClass) {
                 } else {
                     // Generate the front matter
                     relativePath = path.relative(path.resolve('src'), file.path);
+                    // eslint-disable-next-line prefer-template
                     requirePath = 'edx-ui-toolkit/' + relativePath.slice(0, -3);
+                    // eslint-disable-next-line prefer-template
                     gitHubPath = 'blob/master/src/' + relativePath;
                     // title = path.relative(path.resolve('src/js'), file.path).slice(0, -3);
                     title = path.basename(file.path, '.js');
+                    // eslint-disable-next-line prefer-template
                     frontMatter = '---\n'
                         + 'title: ' + title + '\n'
                         + 'requirePath: ' + requirePath + '\n'

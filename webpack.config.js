@@ -52,6 +52,7 @@ var path = require('path'),
                                         path.resolve(__dirname, './node_modules'),
                                     ],
                                 },
+                                // eslint-disable-next-line prefer-template
                                 additionalData: '$pattern-library-path: \'' + siteRoot
                                                         + './public/edx-pattern-library\' !default;',
                             },

@@ -62,6 +62,7 @@
                     this.$parent = $(options.parent);
                 }
 
+                // eslint-disable-next-line prefer-template
                 this.menuId = options.menuId || 'dropdown-menu-' + this.cid;
                 this.keyBack = [constants.keyCodes.up, constants.keyCodes.left];
                 this.keyForward = [constants.keyCodes.down, constants.keyCodes.right];

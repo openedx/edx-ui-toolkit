@@ -196,6 +196,7 @@ define(
                     // Appends correctly with a pre-existing child
                     $element.html('<p>Hello, world</p>');
                     HtmlUtils.append($element, input);
+                    // eslint-disable-next-line prefer-template
                     expect($element.html()).toEqual('<p>Hello, world</p>' + expectedString);
                 });
             });
@@ -224,6 +225,7 @@ define(
                     // Prepends correctly with a pre-existing child
                     $element.html('<p>Hello, world</p>');
                     HtmlUtils.prepend($element, input);
+                    // eslint-disable-next-line prefer-template
                     expect($element.html()).toEqual(expectedString + '<p>Hello, world</p>');
                 });
             });

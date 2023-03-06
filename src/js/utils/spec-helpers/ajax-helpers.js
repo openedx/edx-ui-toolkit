@@ -16,8 +16,11 @@
 define(['sinon', 'underscore', 'URI'], function (sinon, _, URI) {
     'use strict';
 
+    // eslint-disable-next-line one-var-declaration-per-line
     var XHR_READY_STATES, fakeServer, createFakeRequests, withFakeRequests, fakeRequests, currentRequest,
+        // eslint-disable-next-line one-var-declaration-per-line
         expectRequest, expectNoRequests, expectJsonRequest, expectPostRequest, expectRequestURL, skipResetRequest,
+        // eslint-disable-next-line one-var-declaration-per-line
         respond, respondWithJson, respondWithError, respondWithTextError, respondWithNoContent;
 
     /**
