@@ -34,7 +34,7 @@
   },
   "devDependencies": {
     "@edx/eslint-config": "^3.1.1",
-    "browser-sync": "2.28.3",
+    "browser-sync": "2.29.0",
     "css-loader": "^6.0.0",
     "del": "2.2.2",
     "edx-pattern-library": "0.12.5",
