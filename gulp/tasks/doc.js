@@ -11,7 +11,7 @@
 var gulp = require('gulp'),
     childProcess = require('child_process'),
     browserSync = require('browser-sync'),
-    runSequence = require('run-sequence'),
+    runSequence = require('gulp4-run-sequence'),
     rename = require('gulp-rename'),
     webpack = require('webpack'),
     webpackStream = require('webpack-stream'),
