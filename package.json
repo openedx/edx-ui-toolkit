@@ -48,7 +48,7 @@
     "gulp4-run-sequence": "^1.0.1",
     "jasmine": "2.99.0",
     "jasmine-core": "2.99.1",
-    "jsdoc3-parser": "2.0.0",
+    "jsdoc3-parser": "3.0.0",
     "jsdox": "0.4.10",
     "karma": "6.4.2",
     "karma-chrome-launcher": "2.2.0",
