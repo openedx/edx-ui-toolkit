@@ -14,7 +14,7 @@
 'use strict';
 
 var gulp = require('gulp'),
-    runSequence = require('run-sequence'),
+    runSequence = require('gulp4-run-sequence'),
     childProcess = require('child_process'),
     webpack = require('webpack'),
     webpackStream = require('webpack-stream'),
