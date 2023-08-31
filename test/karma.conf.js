@@ -1,5 +1,9 @@
 // Karma configuration
 
+const puppeteer = require('puppeteer');
+
+process.env.CHROME_BIN = puppeteer.executablePath();
+
 module.exports = function (config, overrideOptions) {
     'use strict';
 
@@ -13,7 +17,7 @@ module.exports = function (config, overrideOptions) {
             singleRun: true,
             autoWatch: false,
             customLaunchers: [],
-            browsers: ['PhantomJS'],
+            browsers: ['ChromeHeadless'],
             logLevel: config.LOG_INFO,
             preprocessors: {
                 'src/js/**/*.js': ['coverage'],
@@ -70,7 +74,7 @@ module.exports = function (config, overrideOptions) {
             'karma-requirejs',
             'karma-chrome-launcher',
             'karma-firefox-launcher',
-            'karma-phantomjs-launcher',
+            // 'karma-phantomjs-launcher',
             'karma-coverage',
             'karma-coveralls',
             'karma-sinon',
