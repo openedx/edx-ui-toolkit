@@ -74,7 +74,6 @@ module.exports = function (config, overrideOptions) {
             'karma-requirejs',
             'karma-chrome-launcher',
             'karma-firefox-launcher',
-            // 'karma-phantomjs-launcher',
             'karma-coverage',
             'karma-coveralls',
             'karma-sinon',
