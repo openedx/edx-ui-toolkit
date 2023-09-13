@@ -49,4 +49,9 @@ require.config({
             exports: 'edx.GlobalLoader',
         },
     },
+    config: {
+        text: {
+            useXhr: () => true,
+        },
+    },
 });
