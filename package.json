@@ -29,7 +29,7 @@
     "requirejs-text": "2.0.16",
     "sass": "^1.58.3",
     "sinon": "1.17.7",
-    "underscore": "^1.13.6",
+    "underscore": "~1.8.3",
     "urijs": "1.19.11"
   },
   "devDependencies": {
@@ -51,7 +51,7 @@
     "jsdoc3-parser": "3.0.0",
     "jsdox": "0.4.10",
     "karma": "6.4.2",
-    "karma-chrome-launcher": "2.2.0",
+    "karma-chrome-launcher": "^3.1.1",
     "karma-coverage": "2.2.1",
     "karma-coveralls": "2.1.0",
     "karma-firefox-launcher": "2.1.2",
@@ -62,7 +62,7 @@
     "karma-requirejs": "1.1.0",
     "karma-sinon": "1.0.5",
     "karma-spec-reporter": "0.0.36",
-    "phantomjs-prebuilt": "2.1.16",
+    "puppeteer": "^14.1.2",
     "require-dir": "latest",
     "requirejs-plugins": "1.0.2",
     "sass-loader": "^13.2.0",
