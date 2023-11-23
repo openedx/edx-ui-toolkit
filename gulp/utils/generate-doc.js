@@ -23,11 +23,16 @@ module.exports = function (viewClass) {
                 } else {
                     // Generate the front matter
                     relativePath = path.relative(path.resolve('src'), file.path);
-                    requirePath = `edx-ui-toolkit/${relativePath.slice(0, -3)}`;
-                    gitHubPath = `blob/master/src/${relativePath}`;
+                    requirePath = 'edx-ui-toolkit/' + relativePath.slice(0, -3);
+                    gitHubPath = 'blob/master/src/' + relativePath;
                     // title = path.relative(path.resolve('src/js'), file.path).slice(0, -3);
                     title = path.basename(file.path, '.js');
-                    frontMatter = `---\ntitle: ${title}\nrequirePath: ${requirePath}\ngithubPath: ${gitHubPath}\nviewClass: ${viewClass}\n---\n\n`;
+                    frontMatter = '---\n'
+                    + 'title: ' + title + '\n'
+                    + 'requirePath: ' + requirePath + '\n'
+                    + 'githubPath: ' + gitHubPath + '\n'
+                    + 'viewClass: ' + viewClass + '\n'
+                    + '---\n\n';
 
                     // Generate the markdown
                     data = analyze(result, {});

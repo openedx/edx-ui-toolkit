@@ -34,7 +34,7 @@ generateDocFor = function (options) {
         sourceLength = options.sources.length;
     for (i = 0; i < sourceLength; i += 1) {
         sources = options.sources[i];
-        console.log(`Generating documentation for ${sources}`);
+        console.log('Generating documentation for ' + sources);
         gulp.src(sources, { buffer: false })
             .pipe(generateDoc(options.viewClass))
             .pipe(rename(renameAsMarkdown))

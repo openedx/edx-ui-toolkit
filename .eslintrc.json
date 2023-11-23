@@ -19,6 +19,7 @@
         "one-var-declaration-per-line": "off",
         "import/no-amd": "off",
         "no-param-reassign": "off",
-        "new-cap": "off"
+        "new-cap": "off",
+        "prefer-template": "off"
     }
 }
