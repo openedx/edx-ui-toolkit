@@ -38,7 +38,7 @@
     "css-loader": "^6.0.0",
     "del": "2.2.2",
     "edx-pattern-library": "0.12.5",
-    "eslint": "7.32.0",
+    "eslint": "^8.35.0",
     "gulp": "^4.0.2",
     "gulp-coveralls": "0.1.4",
     "gulp-gh-pages": "0.5.4",
