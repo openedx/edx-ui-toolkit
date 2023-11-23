@@ -39,7 +39,6 @@
     "del": "2.2.2",
     "edx-pattern-library": "0.12.5",
     "eslint": "^8.35.0",
-    "eslint-config-edx": "4.0.4",
     "gulp": "^4.0.2",
     "gulp-coveralls": "0.1.4",
     "gulp-gh-pages": "0.5.4",
