@@ -6,46 +6,46 @@ module.exports = {
         previewTargetDir: './_preview_site',
         testing: {
             sources: [
-                './src/js/utils/spec-helpers/*.js',
+                './src/js/utils/spec-helpers/*.js'
             ],
             output: './doc/_testing',
-            viewClass: 'testing',
+            viewClass: 'testing'
         },
         utilities: {
             sources: [
-                './src/js/utils/*.js',
+                './src/js/utils/*.js'
             ],
             output: './doc/_utilities',
-            viewClass: 'utility',
+            viewClass: 'utility'
         },
         views: {
             sources: [
-                './src/js/!(utils)/*.js',
+                './src/js/!(utils)/*.js'
             ],
             output: './doc/_views',
-            viewClass: 'view',
+            viewClass: 'view'
         },
         browserSync: {
             server: {
-                baseDir: './_site',
+                baseDir: './_site'
             },
             ui: {
                 port: 5000,
                 weinre: {
-                    port: 5002,
-                },
-            },
+                    port: 5002
+                }
+            }
         },
         templates: [
             './doc/*.md',
             './doc/_data/**/*',
-            './doc/_layouts/**/*',
+            './doc/_layouts/**/*'
         ],
         static: [
-            './doc/static/**/*',
+            './doc/static/**/*'
         ],
         gitHubPages: {
-            files: './_site/**/*',
-        },
-    },
+            files: './_site/**/*'
+        }
+    }
 };

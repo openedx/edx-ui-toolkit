@@ -2,7 +2,7 @@
 // eslint-disable-next-line import/no-amd
 define(
     [
-        'edx-ui-toolkit/js/utils/global-loader',
+        'edx-ui-toolkit/js/utils/global-loader'
     ],
     function (GlobalLoader) {
         'use strict';
@@ -13,7 +13,7 @@ define(
                     [],
                     function () {
                         return { name: 'TestModule' };
-                    },
+                    }
                 );
             });
 
@@ -27,7 +27,7 @@ define(
                     ['jquery', 'underscore'],
                     function ($, _) {
                         return { name: 'TestModule2', $: $, _: _ };
-                    },
+                    }
                 );
                 expect(edx.TestModule2).toBeDefined();
                 expect(edx.TestModule2.$).toBe($);
@@ -39,7 +39,7 @@ define(
                     ['js/test-module'],
                     function (TestModule) {
                         return { name: 'TestModule2', dependsOn: TestModule };
-                    },
+                    }
                 );
 
                 expect(edx.TestModule2).toBeDefined();
@@ -47,5 +47,5 @@ define(
                 expect(edx.TestModule2.dependsOn).toBe(edx.TestModule);
             });
         });
-    },
+    }
 );

@@ -41,7 +41,7 @@
             state: {
                 firstPage: 1,
                 pageSize: 10,
-                sortKey: null,
+                sortKey: null
             },
 
             queryParams: {
@@ -50,7 +50,7 @@
                 totalRecords: 'count',
                 totalPages: 'num_pages',
                 sortKey: 'order_by',
-                order: 'sort_order',
+                order: 'sort_order'
             },
 
             constructor: function (models, options) {
@@ -142,7 +142,7 @@
                     function () {
                         self.state.currentPage = oldPage;
                         deferred.fail();
-                    },
+                    }
                 );
                 return deferred.promise();
             },
@@ -239,7 +239,7 @@
             addField: function (fields, fieldName, displayName) {
                 var newField = {};
                 newField[fieldName] = {
-                    displayName: displayName,
+                    displayName: displayName
                 };
                 _.extend(fields, newField);
             },
@@ -480,8 +480,8 @@
             DefaultSearchKey: 'text_search',
             SortDirection: {
                 ASCENDING: 'asc',
-                DESCENDING: 'desc',
-            },
+                DESCENDING: 'desc'
+            }
         });
 
         return PagingCollection;
@@ -489,5 +489,5 @@
 }).call(
     this,
     // Use the default 'define' function if available, else use 'RequireJS.define'
-    typeof define === 'function' && define.amd ? define : RequireJS.define,
+    typeof define === 'function' && define.amd ? define : RequireJS.define
 );

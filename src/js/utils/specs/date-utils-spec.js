@@ -4,13 +4,13 @@ define(
         '../../utils/spec-helpers/spec-helpers.js',
         '../date-utils.js',
         'moment',
-        'moment-timezone',
+        'moment-timezone'
     ],
     function (
         SpecHelpers,
         DateUtils,
         moment,
-        momentTZ,
+        momentTZ
     ) {
         'use strict';
 
@@ -25,7 +25,7 @@ define(
                 });
                 it('converts a string to a moment.js object', function () {
                     expect(
-                        DateUtils.stringToMoment('2016-10-14 08:00:00+00:00').format('ll'),
+                        DateUtils.stringToMoment('2016-10-14 08:00:00+00:00').format('ll')
                     ).toEqual('Oct 14, 2016');
                 });
             });
@@ -47,7 +47,7 @@ define(
                 it('tests sys time determiner', function () {
                     var testDate = DateUtils.stringToMoment('2016-10-14 08:00:00+00:00');
                     expect(
-                        moment(DateUtils.localizeTime(testDate).format()).isValid(),
+                        moment(DateUtils.localizeTime(testDate).format()).isValid()
                     ).toBeTruthy();
                 });
                 it('offsets time according to a determined timezone', function () {
@@ -58,12 +58,12 @@ define(
                         'Pacific/Honolulu': 'Oct 13, 2016 10:00 PM',
                         'Asia/Ho_Chi_Minh': 'Oct 14, 2016 3:00 PM',
                         'Atlantic/Reykjavik': 'Oct 14, 2016 8:00 AM',
-                        RANDOM_STRING: 'Oct 14, 2016 8:00 AM',
+                        RANDOM_STRING: 'Oct 14, 2016 8:00 AM'
                     };
                     Object.keys(TestZones).forEach(function (key) {
                         expect(
                             // eslint-disable-next-line new-cap
-                            new DateUtils.localizeTime(testDate, key).format('lll'),
+                            new DateUtils.localizeTime(testDate, key).format('lll')
                         ).toEqual(TestZones[key]);
                     });
                 });
@@ -73,12 +73,12 @@ define(
                 it('tests error conditions', function () {
                     var context = {};
                     expect(
-                        DateUtils.localize(context),
+                        DateUtils.localize(context)
                     ).toEqual('');
                     context = {
                         datetime: 'RANDOM_STRING',
                         timezone: 'RANDOM_STRING',
-                        language: 'RANDOM_STRING',
+                        language: 'RANDOM_STRING'
                     };
                     expect(DateUtils.localize(context)).toEqual('');
                 });
@@ -86,7 +86,7 @@ define(
                     var context = {
                         datetime: '2016-10-14 08:00:00+00:00',
                         timezone: 'RANDOM_STRING',
-                        language: 'RANDOM_STRING',
+                        language: 'RANDOM_STRING'
                     };
                     expect(DateUtils.localize(context)).toEqual('Oct 14, 2016 08:00 UTC');
                 });
@@ -95,13 +95,13 @@ define(
                     var TestLangs = {
                         en: 'Oct 14, 2016 08:00 UTC',
                         ru: '14 окт. 2016 г. 08:00 UTC',
-                        ar: '١٤ أكتوبر ٢٠١٦ ٠٨:٠٠ UTC',
+                        ar: '١٤ أكتوبر ٢٠١٦ ٠٨:٠٠ UTC'
                     };
                     Object.keys(TestLangs).forEach(function (key) {
                         var context = {
                             datetime: '2016-10-14 08:00:00+00:00',
                             timezone: 'UTC',
-                            language: key,
+                            language: key
                         };
                         expect(DateUtils.localize(context)).toEqual(TestLangs[key]);
                     });
@@ -111,14 +111,14 @@ define(
                         time: '8:00:00 AM UTC',
                         shortDate: 'Oct 14, 2016',
                         longDate: 'Friday, October 14, 2016 8:00 AM',
-                        undefined: 'Oct 14, 2016 08:00 UTC',
+                        undefined: 'Oct 14, 2016 08:00 UTC'
                     };
                     Object.keys(TestFormats).forEach(function (key) {
                         var context = {
                             datetime: '2016-10-14 08:00:00+00:00',
                             timezone: 'UTC',
                             language: 'en',
-                            format: DateUtils.dateFormatEnum[key],
+                            format: DateUtils.dateFormatEnum[key]
                         };
                         expect(DateUtils.localize(context)).toEqual(TestFormats[key]);
                     });
@@ -127,7 +127,7 @@ define(
                 it('generates a localized datetime string', function () {
                     var context = {
                         datetime: '2016-10-14 08:00:00+00:00',
-                        timezone: 'Atlantic/Azores',
+                        timezone: 'Atlantic/Azores'
                     };
                     expect(DateUtils.localize(context)).toEqual('Oct 14, 2016 08:00 +00');
                 });
@@ -137,13 +137,13 @@ define(
                         datetime: '2016-10-14 08:00:00+00:00',
                         timezone: 'Pacific/Kiritimati',
                         language: 'ar',
-                        format: DateUtils.dateFormatEnum.longDate,
+                        format: DateUtils.dateFormatEnum.longDate
                     };
                     expect(
-                        DateUtils.localize(context),
+                        DateUtils.localize(context)
                     ).toEqual('الجمعة ١٤ أكتوبر ٢٠١٦ ٢٢:٠٠');
                 });
             });
         });
-    },
+    }
 );

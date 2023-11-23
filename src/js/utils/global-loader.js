@@ -70,7 +70,7 @@
              */
             clear: function () {
                 registeredModules = {};
-            },
+            }
         };
 
         return GlobalLoader;

@@ -51,6 +51,6 @@ define([], function () {
 
     return {
         withData: withData,
-        withConfiguration: withConfiguration,
+        withConfiguration: withConfiguration
     };
 });

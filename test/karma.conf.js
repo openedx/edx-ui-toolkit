@@ -20,7 +20,7 @@ module.exports = function (config, overrideOptions) {
             browsers: ['ChromeHeadless'],
             logLevel: config.LOG_INFO,
             preprocessors: {
-                'src/js/**/*.js': ['coverage'],
+                'src/js/**/*.js': ['coverage']
             },
             reporters: ['spec', 'coverage'],
         };
@@ -34,7 +34,7 @@ module.exports = function (config, overrideOptions) {
         // support the namespace 'edx-ui-toolkit' so that it can be used in the
         // same way as clients expect to see it.
         proxies: {
-            '/base/edx-ui-toolkit/': '/base/src/',
+            '/base/edx-ui-toolkit/': '/base/src/'
         },
 
         // frameworks to use
@@ -64,7 +64,7 @@ module.exports = function (config, overrideOptions) {
 
             // register all the UI Toolkit source and Underscore templates
             { pattern: 'src/js/**/*.js', included: false },
-            { pattern: 'src/js/**/*.underscore', included: false },
+            { pattern: 'src/js/**/*.underscore', included: false }
         ],
 
         // plugins required for running the karma tests
@@ -78,7 +78,7 @@ module.exports = function (config, overrideOptions) {
             'karma-coveralls',
             'karma-sinon',
             'karma-jasmine-html-reporter',
-            'karma-spec-reporter',
+            'karma-spec-reporter'
         ],
 
         // preprocess each file according to the specified options
@@ -93,8 +93,8 @@ module.exports = function (config, overrideOptions) {
             reporters: [
                 { type: 'html', subdir: 'coverage-js/html' },
                 { type: 'cobertura', file: 'coverage.xml' },
-                { type: 'lcov', dir: 'coverage/' },
-            ],
+                { type: 'lcov', dir: 'coverage/' }
+            ]
         },
 
         // web server port
@@ -123,6 +123,6 @@ module.exports = function (config, overrideOptions) {
 
         // Continuous Integration mode
         // if true, Karma captures browsers, runs the tests and exits
-        singleRun: options.singleRun,
+        singleRun: options.singleRun
     });
 };

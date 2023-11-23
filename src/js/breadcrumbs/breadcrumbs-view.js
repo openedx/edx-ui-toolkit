@@ -35,7 +35,7 @@
                     var json = this.model.attributes;
                     HtmlUtils.setHtml(this.$el, this.template(json));
                     return this;
-                },
+                }
             });
 
             return BreadcrumbsView;
@@ -43,5 +43,5 @@
 }).call(
     this,
     // Use the default 'define' function if available, else use 'RequireJS.define'
-    typeof define === 'function' && define.amd ? define : RequireJS.define,
+    typeof define === 'function' && define.amd ? define : RequireJS.define
 );

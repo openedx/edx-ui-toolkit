@@ -7,6 +7,6 @@ var gulp = require('gulp'),
 
 gulp.task('test-debug', function (callback) {
     new karma.Server({
-        configFile: path.resolve(configFile),
+        configFile: path.resolve(configFile)
     }, callback).start();
 });

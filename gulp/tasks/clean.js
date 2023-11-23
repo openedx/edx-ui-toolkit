@@ -15,7 +15,7 @@ gulp.task('clean', function () {
         // Remove the JSDoc generated markdown
         config.documentation.testing.output,
         config.documentation.utilities.output,
-        config.documentation.views.output,
+        config.documentation.views.output
     ]);
 });
 

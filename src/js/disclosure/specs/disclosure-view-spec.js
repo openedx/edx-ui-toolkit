@@ -8,7 +8,7 @@ define(['jquery', '../disclosure-view.js'], function ($, DisclosureView) {
                 toggleText = document.createElement('div'),
                 toggleContent = document.createElement('div'),
                 view = new DisclosureView({
-                    el: disclosureEl,
+                    el: disclosureEl
                 });
 
             // for testing visibility

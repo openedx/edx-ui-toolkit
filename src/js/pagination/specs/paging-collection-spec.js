@@ -5,7 +5,7 @@ define(['jquery',
     'URI',
     '../paging-collection.js',
     '../../utils/spec-helpers/ajax-helpers.js',
-    '../../utils/spec-helpers/spec-helpers.js',
+    '../../utils/spec-helpers/spec-helpers.js'
 ],
 function ($, Backbone, _, URI, PagingCollection, AjaxHelpers, SpecHelpers) {
     'use strict';
@@ -33,10 +33,10 @@ function ($, Backbone, _, URI, PagingCollection, AjaxHelpers, SpecHelpers) {
                             current_page: page,
                             num_pages: pageCount,
                             start: zeroPage * pageSize,
-                            results: [],
+                            results: []
                         });
                     }
-                },
+                }
             };
         var getUrlParams = function (request) {
             return (new URI(request.url)).query(true);
@@ -61,7 +61,7 @@ function ($, Backbone, _, URI, PagingCollection, AjaxHelpers, SpecHelpers) {
             var MyPagingCollection, newCollection;
             MyPagingCollection = PagingCollection.extend({
                 state: { pageSize: 25 },
-                queryParams: { pageSize: 'per_page' },
+                queryParams: { pageSize: 'per_page' }
             });
             newCollection = new MyPagingCollection([]);
             expect(newCollection.state.pageSize).toBe(25);
@@ -75,13 +75,13 @@ function ($, Backbone, _, URI, PagingCollection, AjaxHelpers, SpecHelpers) {
             'correctly sets state when parse is set to true in set method': ['set', {
                 page: 3,
                 numPages: 5,
-                pageSize: 10,
+                pageSize: 10
             }],
             'correctly sets state when parse is set to true in reset method': ['reset', {
                 page: 3,
                 numPages: 3,
-                pageSize: 15,
-            }],
+                pageSize: 15
+            }]
         }, function (method, expectedState) {
             var newCollection;
             newCollection = new PagingCollection({
@@ -89,7 +89,7 @@ function ($, Backbone, _, URI, PagingCollection, AjaxHelpers, SpecHelpers) {
                 page: 2,
                 num_pages: 6,
                 page_size: 8,
-                results: [],
+                results: []
             }, { parse: true });
 
             expect(newCollection.getPageSize()).toBe(8);
@@ -105,7 +105,7 @@ function ($, Backbone, _, URI, PagingCollection, AjaxHelpers, SpecHelpers) {
                     page_size: expectedState.pageSize,
                     sort_order: -1,
                     order_by: 'testcol',
-                    results: [],
+                    results: []
                 }, { parse: true });
 
                 expect(newCollection.getPageSize()).toBe(expectedState.pageSize);
@@ -303,12 +303,12 @@ function ($, Backbone, _, URI, PagingCollection, AjaxHelpers, SpecHelpers) {
                 collection.setSearchString(testString);
                 collection.refresh();
                 expect(requests.length).toEqual(1);
-            }),
+            })
         );
 
         SpecHelpers.withData({
             'queries with page, page_size, and sort_order parameters when zero indexed': [true, 2],
-            'queries with page, page_size, and sort_order parameters when one indexed': [false, 3],
+            'queries with page, page_size, and sort_order parameters when one indexed': [false, 3]
         }, AjaxHelpers.withFakeRequests(function (isZeroIndexed, page, requests) {
             collection = new PagingCollection([], { state: { firstPage: isZeroIndexed ? 0 : 1, pageSize: 5 } });
             collection.url = '/test';
@@ -318,7 +318,7 @@ function ($, Backbone, _, URI, PagingCollection, AjaxHelpers, SpecHelpers) {
                 page: page.toString(),
                 page_size: '5',
                 order_by: 'test_field',
-                sort_order: 'asc',
+                sort_order: 'asc'
             });
         }));
 
@@ -333,7 +333,7 @@ function ($, Backbone, _, URI, PagingCollection, AjaxHelpers, SpecHelpers) {
 
         SpecHelpers.withConfiguration({
             'using a zero indexed collection': [true],
-            'using a one indexed collection': [false],
+            'using a one indexed collection': [false]
         }, function (isZeroIndexed) {
             collection.state.firstPage = isZeroIndexed ? 0 : 1;
             server.isZeroIndexed = isZeroIndexed;
@@ -346,7 +346,7 @@ function ($, Backbone, _, URI, PagingCollection, AjaxHelpers, SpecHelpers) {
                         collection.setPage(3);
                         server.respond(requests);
                         expect(resetTriggered).toBe(true);
-                    }),
+                    })
                 );
 
                 it('triggers an error event when the requested page is out of range',
@@ -356,7 +356,7 @@ function ($, Backbone, _, URI, PagingCollection, AjaxHelpers, SpecHelpers) {
                         collection.setPage(17);
                         server.respond(requests);
                         expect(errorTriggered).toBe(true);
-                    }),
+                    })
                 );
 
                 it('triggers an error event if the server responds with a 500',
@@ -370,7 +370,7 @@ function ($, Backbone, _, URI, PagingCollection, AjaxHelpers, SpecHelpers) {
                         AjaxHelpers.respondWithError(requests);
                         expect(errorTriggered).toBe(true);
                         expect(collection.getPageNumber()).toBe(2);
-                    }),
+                    })
                 );
             });
 
@@ -391,14 +391,14 @@ function ($, Backbone, _, URI, PagingCollection, AjaxHelpers, SpecHelpers) {
                         'returns false for a single page': [1, 3, false],
                         'returns true on the first page': [1, 43, true],
                         'returns true on the penultimate page': [4, 43, true],
-                        'returns false on the last page': [5, 43, false],
+                        'returns false on the last page': [5, 43, false]
                     },
                     AjaxHelpers.withFakeRequests(function (page, count, result, requests) {
                         server.count = count;
                         collection.setPage(page);
                         server.respond(requests);
                         expect(collection.hasNextPage()).toBe(result);
-                    }),
+                    })
                 );
             });
 
@@ -408,14 +408,14 @@ function ($, Backbone, _, URI, PagingCollection, AjaxHelpers, SpecHelpers) {
                         'returns false for a single page': [1, 3, false],
                         'returns true on the last page': [5, 43, true],
                         'returns true on the second page': [2, 43, true],
-                        'returns false on the first page': [1, 43, false],
+                        'returns false on the first page': [1, 43, false]
                     },
                     AjaxHelpers.withFakeRequests(function (page, count, result, requests) {
                         server.count = count;
                         collection.setPage(page);
                         server.respond(requests);
                         expect(collection.hasPreviousPage()).toBe(result);
-                    }),
+                    })
                 );
             });
 
@@ -423,7 +423,7 @@ function ($, Backbone, _, URI, PagingCollection, AjaxHelpers, SpecHelpers) {
                 SpecHelpers.withData(
                     {
                         'advances to the next page': [2, 43, 3],
-                        'silently fails on the last page': [5, 43, 5],
+                        'silently fails on the last page': [5, 43, 5]
                     },
                     AjaxHelpers.withFakeRequests(function (page, count, newPage, requests) {
                         server.count = count;
@@ -435,7 +435,7 @@ function ($, Backbone, _, URI, PagingCollection, AjaxHelpers, SpecHelpers) {
                             server.respond(requests);
                         }
                         expect(collection.getPageNumber()).toBe(newPage);
-                    }),
+                    })
                 );
             });
 
@@ -443,7 +443,7 @@ function ($, Backbone, _, URI, PagingCollection, AjaxHelpers, SpecHelpers) {
                 SpecHelpers.withData(
                     {
                         'moves to the previous page': [2, 43, 1],
-                        'silently fails on the first page': [1, 43, 1],
+                        'silently fails on the first page': [1, 43, 1]
                     },
                     AjaxHelpers.withFakeRequests(function (page, count, newPage, requests) {
                         server.count = count;
@@ -455,10 +455,10 @@ function ($, Backbone, _, URI, PagingCollection, AjaxHelpers, SpecHelpers) {
                             server.respond(requests);
                         }
                         expect(collection.getPageNumber()).toBe(newPage);
-                    }),
+                    })
                 );
             });
         });
     });
-},
+}
 );

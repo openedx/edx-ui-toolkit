@@ -3,7 +3,7 @@ define(
     [
         'jquery',
         '../../utils/spec-helpers/spec-helpers.js',
-        '../html-utils.js',
+        '../html-utils.js'
     ],
     function ($, SpecHelpers, HtmlUtils) {
         'use strict';
@@ -29,16 +29,16 @@ define(
                 SpecHelpers.withData({
                     'HTML escapes text strings': [
                         'Rock & Roll',
-                        'Rock &amp; Roll',
+                        'Rock &amp; Roll'
                     ],
                     'HTML escapes full HTML strings': [
                         '<a href="world">Rock &amp; Roll</a>',
-                        '&lt;a href=&quot;world&quot;&gt;Rock &amp;amp; Roll&lt;/a&gt;',
+                        '&lt;a href=&quot;world&quot;&gt;Rock &amp;amp; Roll&lt;/a&gt;'
                     ],
                     'does not escape HTML snippets': [
                         HtmlUtils.HTML('<a href="world">Rock &amp; Roll</a>'),
-                        '<a href="world">Rock &amp; Roll</a>',
-                    ],
+                        '<a href="world">Rock &amp; Roll</a>'
+                    ]
                 }, function (input, expectedString) {
                     var result = HtmlUtils.ensureHtml(input);
                     expect(result instanceof HtmlUtils.HtmlSnippet).toBeTruthy();
@@ -49,48 +49,48 @@ define(
             describe('interpolateHtml', function () {
                 it('can interpolate a string with no parameters provided', function () {
                     expect(HtmlUtils.interpolateHtml('Hello, world').toString()).toEqual(
-                        'Hello, world',
+                        'Hello, world'
                     );
                 });
 
                 SpecHelpers.withData({
                     'can interpolate a string with empty parameters': [
                         'Hello, world', {},
-                        'Hello, world',
+                        'Hello, world'
                     ],
                     'can interpolate a string with one parameter': [
                         'Hello, {name}', { name: 'Andy' },
-                        'Hello, Andy',
+                        'Hello, Andy'
                     ],
                     'does not interpolate additional curly braces': [
                         'Hello, {name}. Here is a { followed by a }', { name: 'Andy' },
-                        'Hello, Andy. Here is a { followed by a }',
+                        'Hello, Andy. Here is a { followed by a }'
                     ],
                     'escapes characters in the template': [
                         'Rock & Roll', {},
-                        'Rock &amp; Roll',
+                        'Rock &amp; Roll'
                     ],
                     'does not escape HTML parameters': [
                         'Hello, {anchor}', { anchor: HtmlUtils.HTML('<a href="world">world</a>') },
-                        'Hello, <a href="world">world</a>',
+                        'Hello, <a href="world">world</a>'
                     ],
                     'escapes characters in parameters': [
                         'I love {name}', { name: 'Rock & Roll' },
-                        'I love Rock &amp; Roll',
+                        'I love Rock &amp; Roll'
                     ],
                     'does not double escape when chaining interpolate calls': [
                         'I love {name}', { name: HtmlUtils.interpolateHtml('Rock & Roll') },
-                        'I love Rock &amp; Roll',
+                        'I love Rock &amp; Roll'
                     ],
                     'full example': [
                         'You are enrolling in {spanStart}{courseName}{spanEnd}',
                         {
                             courseName: 'Rock & Roll',
                             spanStart: HtmlUtils.HTML('<span class="course-title">'),
-                            spanEnd: HtmlUtils.HTML('</span>'),
+                            spanEnd: HtmlUtils.HTML('</span>')
                         },
-                        'You are enrolling in <span class="course-title">Rock &amp; Roll</span>',
-                    ],
+                        'You are enrolling in <span class="course-title">Rock &amp; Roll</span>'
+                    ]
                 }, function (template, options, expectedString) {
                     var result = HtmlUtils.interpolateHtml(template, options);
                     expect(result instanceof HtmlUtils.HtmlSnippet).toBeTruthy();
@@ -102,20 +102,20 @@ define(
                 SpecHelpers.withData({
                     'can join a single string': [
                         ['Hello, world'],
-                        'Hello, world',
+                        'Hello, world'
                     ],
                     'escapes characters provided as strings': [
                         ['Rock & Roll'],
-                        'Rock &amp; Roll',
+                        'Rock &amp; Roll'
                     ],
                     'does not escape HTML snippets': [
                         [HtmlUtils.HTML('<a href="world">world</a>')],
-                        '<a href="world">world</a>',
+                        '<a href="world">world</a>'
                     ],
                     'can join a mixture of strings and HTML snippets': [
                         ['Rock & Roll', ' all over the ', HtmlUtils.HTML('<a href="world">world</a>')],
-                        'Rock &amp; Roll all over the <a href="world">world</a>',
-                    ],
+                        'Rock &amp; Roll all over the <a href="world">world</a>'
+                    ]
                 }, function (items, expectedString) {
                     var result = HtmlUtils.joinHtml.apply(null, items);
                     expect(result instanceof HtmlUtils.HtmlSnippet).toBeTruthy();
@@ -145,7 +145,7 @@ define(
 
                 it('adds StringUtils as an additional context variable for the template', function () {
                     var template = HtmlUtils.template(
-                        '<%= StringUtils.interpolate("Hello, {name}", {name: "world"}) %>',
+                        '<%= StringUtils.interpolate("Hello, {name}", {name: "world"}) %>'
                     );
                     expect(template().toString()).toEqual('Hello, world');
                 });
@@ -155,16 +155,16 @@ define(
                 SpecHelpers.withData({
                     'HTML escapes text strings': [
                         'Rock & Roll',
-                        'Rock &amp; Roll',
+                        'Rock &amp; Roll'
                     ],
                     'HTML escapes full HTML strings': [
                         '<a href="world">Rock &amp; Roll</a>',
-                        '&lt;a href="world"&gt;Rock &amp;amp; Roll&lt;/a&gt;',
+                        '&lt;a href="world"&gt;Rock &amp;amp; Roll&lt;/a&gt;'
                     ],
                     'does not escape HTML snippets': [
                         HtmlUtils.HTML('<a href="world">Rock &amp; Roll</a>'),
-                        '<a href="world">Rock &amp; Roll</a>',
-                    ],
+                        '<a href="world">Rock &amp; Roll</a>'
+                    ]
                 }, function (input, expectedString) {
                     var $element = $('.test');
                     HtmlUtils.setHtml($element, input);
@@ -176,16 +176,16 @@ define(
                 SpecHelpers.withData({
                     'HTML escapes text strings': [
                         'Rock & Roll',
-                        'Rock &amp; Roll',
+                        'Rock &amp; Roll'
                     ],
                     'HTML escapes full HTML strings': [
                         '<a href="world">Rock &amp; Roll</a>',
-                        '&lt;a href="world"&gt;Rock &amp;amp; Roll&lt;/a&gt;',
+                        '&lt;a href="world"&gt;Rock &amp;amp; Roll&lt;/a&gt;'
                     ],
                     'does not escape HTML snippets': [
                         HtmlUtils.HTML('<a href="world">Rock &amp; Roll</a>'),
-                        '<a href="world">Rock &amp; Roll</a>',
-                    ],
+                        '<a href="world">Rock &amp; Roll</a>'
+                    ]
                 }, function (input, expectedString) {
                     var $element = $('.test');
 
@@ -204,16 +204,16 @@ define(
                 SpecHelpers.withData({
                     'HTML escapes text strings': [
                         'Rock & Roll',
-                        'Rock &amp; Roll',
+                        'Rock &amp; Roll'
                     ],
                     'HTML escapes full HTML strings': [
                         '<a href="world">Rock &amp; Roll</a>',
-                        '&lt;a href="world"&gt;Rock &amp;amp; Roll&lt;/a&gt;',
+                        '&lt;a href="world"&gt;Rock &amp;amp; Roll&lt;/a&gt;'
                     ],
                     'does not escape HTML snippets': [
                         HtmlUtils.HTML('<a href="world">Rock &amp; Roll</a>'),
-                        '<a href="world">Rock &amp; Roll</a>',
-                    ],
+                        '<a href="world">Rock &amp; Roll</a>'
+                    ]
                 }, function (input, expectedString) {
                     var $element = $('.test');
 
@@ -228,5 +228,5 @@ define(
                 });
             });
         });
-    },
+    }
 );

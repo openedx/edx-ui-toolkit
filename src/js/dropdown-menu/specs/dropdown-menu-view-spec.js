@@ -5,7 +5,7 @@ define([
     'backbone',
     '../dropdown-menu-view.js',
     '../../utils/constants.js',
-    'jquery.simulate',
+    'jquery.simulate'
 ],
 function ($, _, Backbone, DropdownMenuView, constants) {
     'use strict';
@@ -184,9 +184,9 @@ function ($, _, Backbone, DropdownMenuView, constants) {
                     window.analytics.track('user_dropdown.clicked', {
                         category: 'navigation',
                         label: label,
-                        link: $link.attr('href'),
+                        link: $link.attr('href')
                     });
-                },
+                }
             });
 
             // Set the DOM
@@ -195,7 +195,7 @@ function ($, _, Backbone, DropdownMenuView, constants) {
             dropdownModel.set({
                 main: {
                     text: 'username',
-                    url: 'dashboard',
+                    url: 'dashboard'
                 },
                 button: {
                     label: 'User options dropdown',
@@ -203,18 +203,18 @@ function ($, _, Backbone, DropdownMenuView, constants) {
                 items: [
                     {
                         text: 'Dashboard',
-                        url: 'dashboard',
+                        url: 'dashboard'
                     }, {
                         text: 'Account',
-                        url: 'account_settings',
+                        url: 'account_settings'
                     }, {
                         text: 'Profile',
-                        url: 'learner_profile',
+                        url: 'learner_profile'
                     }, {
                         text: 'Sign Out',
-                        url: 'logout',
-                    },
-                ],
+                        url: 'logout'
+                    }
+                ]
             });
         });
 
@@ -229,7 +229,7 @@ function ($, _, Backbone, DropdownMenuView, constants) {
                     className: 'wrapper-more-actions user-menu logged-in',
                     menuId: 'edx-user-menu',
                     model: dropdownModel,
-                    parent: '.js-user-cta',
+                    parent: '.js-user-cta'
                 }).render();
 
                 window.analytics = jasmine.createSpyObj('analytics', ['track', 'page', 'trackLink']);
@@ -286,8 +286,8 @@ function ($, _, Backbone, DropdownMenuView, constants) {
                     main: {
                         text: 'username',
                         screenreader_label: srLabelText,
-                        url: 'dashboard',
-                    },
+                        url: 'dashboard'
+                    }
                 });
                 view.render();
                 $srLabel = view.$el.find('.menu-title .sr-only');
@@ -304,8 +304,8 @@ function ($, _, Backbone, DropdownMenuView, constants) {
                     main: {
                         text: 'username',
                         image: imgSrc,
-                        url: 'dashboard',
-                    },
+                        url: 'dashboard'
+                    }
                 });
                 view.render();
                 $img = view.$el.find('.menu-title .menu-image');
@@ -318,7 +318,7 @@ function ($, _, Backbone, DropdownMenuView, constants) {
                     analyticsData = {
                         category: 'navigation',
                         label: 'Dashboard',
-                        link: 'dashboard',
+                        link: 'dashboard'
                     };
 
                 $userTitle.click();
@@ -335,7 +335,7 @@ function ($, _, Backbone, DropdownMenuView, constants) {
                     analyticsData = {
                         category: 'navigation',
                         label: 'Sign Out',
-                        link: 'logout',
+                        link: 'logout'
                     };
 
                 $userTitle.click();
@@ -353,14 +353,14 @@ function ($, _, Backbone, DropdownMenuView, constants) {
                 dropdownModel.set({
                     button: {
                         icon: 'fa fa-angle-down',
-                        label: 'User options dropdown',
-                    },
+                        label: 'User options dropdown'
+                    }
                 });
                 view = new ExtendedDropdownMenuView({
                     className: 'wrapper-more-actions user-menu logged-in',
                     menuId: 'edx-user-menu',
                     model: dropdownModel,
-                    parent: '.js-user-cta',
+                    parent: '.js-user-cta'
                 }).render();
 
                 window.analytics = jasmine.createSpyObj('analytics', ['track', 'page', 'trackLink']);
@@ -405,5 +405,5 @@ function ($, _, Backbone, DropdownMenuView, constants) {
             });
         });
     });
-},
+}
 );

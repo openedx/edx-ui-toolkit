@@ -46,7 +46,7 @@ gulp.task('doc', function (callback) {
     runSequence(
         'doc-build',
         'doc-serve',
-        callback,
+        callback
     );
 });
 
@@ -56,7 +56,7 @@ gulp.task('doc-build', function (callback) {
         'copy-pattern-library',
         'webpack',
         'jekyll-build',
-        callback,
+        callback
     );
 });
 
@@ -109,7 +109,7 @@ gulp.task('webpack-rebuild', function (callback) {
     runSequence(
         'webpack',
         'jekyll-rebuild',
-        callback,
+        callback
     );
 });
 
@@ -132,5 +132,5 @@ exports.docBuild = gulp.series(
     gulp.parallel('doc-testing', 'doc-utils', 'doc-views'),
     'copy-pattern-library',
     'webpack',
-    'jekyll-build',
+    'jekyll-build'
 );

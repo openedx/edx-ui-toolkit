@@ -10,5 +10,5 @@ module.exports = {
     currentBranch: function () {
         var branch = childProcess.execSync(gitBranchCommand);
         return branch.toString().trim();
-    },
+    }
 };

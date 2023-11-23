@@ -62,7 +62,7 @@
         };
 
         return {
-            interpolate: interpolate,
+            interpolate: interpolate
         };
     });
 }).call(
@@ -74,5 +74,5 @@
     // eslint-disable-next-line no-nested-ternary
     typeof define === 'function' && define.amd ? define
         : (typeof RequireJS !== 'undefined' ? RequireJS.define
-            : edx.GlobalLoader.defineAs('StringUtils', 'edx-ui-toolkit/js/utils/string-utils')),
+            : edx.GlobalLoader.defineAs('StringUtils', 'edx-ui-toolkit/js/utils/string-utils'))
 );

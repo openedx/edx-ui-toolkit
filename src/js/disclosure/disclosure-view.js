@@ -20,7 +20,7 @@
                     self.options = _.defaults(options, {
                         toggleTextSelector: '.disclosure-toggle',
                         disclosureSelector: '.disclosure-target',
-                        isCollapsedClass: 'is-collapsed',
+                        isCollapsedClass: 'is-collapsed'
                     });
                     self.render();
                 },
@@ -61,15 +61,15 @@
                     });
 
                     return self;
-                },
+                }
 
             });
 
             return DisclosureView;
-        },
+        }
     );
 }).call(
     this,
     // Use the default 'define' function if available, else use 'RequireJS.define'
-    typeof define === 'function' && define.amd ? define : RequireJS.define,
+    typeof define === 'function' && define.amd ? define : RequireJS.define
 );

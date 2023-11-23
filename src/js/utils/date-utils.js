@@ -30,11 +30,11 @@
     define([
         'jquery',
         'moment',
-        'moment-timezone',
+        'moment-timezone'
     ], function (
         $,
         moment,
-        momentTZ,
+        momentTZ
     ) {
         var DateUtils,
             localize,
@@ -81,7 +81,7 @@
             if (isValid(context.datetime)) {
                 localTime = localizeTime(
                     DateUtils.stringToMoment(context.datetime),
-                    context.timezone,
+                    context.timezone
                 );
                 displayTime = getDisplayTime(localTime, context.language, context.format);
             }
@@ -238,7 +238,7 @@
             localize: localize,
             stringToMoment: stringToMoment,
             getSysTimezone: getSysTimezone,
-            localizeTime: localizeTime,
+            localizeTime: localizeTime
         };
         return DateUtils;
     });
@@ -251,5 +251,5 @@
     // eslint-disable-next-line no-nested-ternary
     typeof define === 'function' && define.amd ? define
         : (typeof RequireJS !== 'undefined' ? RequireJS.define
-            : edx.GlobalLoader.defineAs('DateUtils', 'edx-ui-toolkit/js/utils/date-utils')),
+            : edx.GlobalLoader.defineAs('DateUtils', 'edx-ui-toolkit/js/utils/date-utils'))
 );

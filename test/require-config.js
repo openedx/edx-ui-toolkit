@@ -20,12 +20,12 @@ require.config({
         URI: 'node_modules/urijs/src/URI',
         IPv6: 'node_modules/urijs/src/IPv6',
         punycode: 'node_modules/urijs/src/punycode',
-        SecondLevelDomains: 'node_modules/urijs/src/SecondLevelDomains',
+        SecondLevelDomains: 'node_modules/urijs/src/SecondLevelDomains'
     },
     wrapShim: true,
     shim: {
         jquery: {
-            exports: '$',
+            exports: '$'
         },
         backbone: {
             deps: ['underscore', 'jquery'],
@@ -36,17 +36,17 @@ require.config({
                 var Backbone;
                 Backbone.$ = $;
                 return Backbone;
-            },
+            }
         },
         'jquery.simulate': {
             deps: ['jquery'],
-            exports: ['$.simulate'],
+            exports: ['$.simulate']
         },
         underscore: {
-            exports: '_',
+            exports: '_'
         },
         'edx-ui-toolkit/js/utils/global-loader': {
-            exports: 'edx.GlobalLoader',
-        },
-    },
+            exports: 'edx.GlobalLoader'
+        }
+    }
 });

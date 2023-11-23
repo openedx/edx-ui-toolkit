@@ -41,7 +41,7 @@
         'jquery',
         'underscore',
         'edx-ui-toolkit/js/utils/constants',
-        'text!./dropdown.underscore',
+        'text!./dropdown.underscore'
     ],
     function (Backbone, $, _, constants, DropdownTpl) {
         var DropdownMenuView = Backbone.View.extend({
@@ -50,7 +50,7 @@
             events: {
                 'click .js-dropdown-button': 'clickOpenDropdown',
                 'click a': 'analyticsLinkClick',
-                keydown: 'viewKeypress',
+                keydown: 'viewKeypress'
             },
 
             dropdownButton: '.js-dropdown-button',
@@ -273,14 +273,14 @@
                     // Key handlers for when the button that opens the menu has focus
                     this.handlerIsButton(key, event);
                 }
-            },
+            }
         });
 
         return DropdownMenuView;
-    },
+    }
     );
 }).call(
     this,
     // Use the default 'define' function if available, else use 'RequireJS.define'
-    typeof define === 'function' && define.amd ? define : RequireJS.define,
+    typeof define === 'function' && define.amd ? define : RequireJS.define
 );

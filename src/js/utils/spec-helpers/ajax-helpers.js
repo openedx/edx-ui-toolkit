@@ -27,7 +27,7 @@ define(['sinon', 'underscore', 'URI'], function (sinon, _, URI) {
         UNSENT: 0,
         OPENED: 1,
         LOADING: 3,
-        DONE: 4,
+        DONE: 4
     };
 
     /* These utility methods are used by Jasmine tests to create a mock server or
@@ -231,7 +231,7 @@ define(['sinon', 'underscore', 'URI'], function (sinon, _, URI) {
             body = options.body || '';
         request.respond(statusCode,
             { 'Content-Type': contentType },
-            contentType === 'application/json' ? JSON.stringify(body || {}) : body,
+            contentType === 'application/json' ? JSON.stringify(body || {}) : body
         );
         requests.currentIndex += 1; // eslint-disable-line no-param-reassign
     };
@@ -244,7 +244,7 @@ define(['sinon', 'underscore', 'URI'], function (sinon, _, URI) {
      */
     respondWithJson = function (requests, body) {
         respond(requests, {
-            body: body,
+            body: body
         });
     };
 
@@ -260,7 +260,7 @@ define(['sinon', 'underscore', 'URI'], function (sinon, _, URI) {
     respondWithError = function (requests, statusCode, body) {
         respond(requests, {
             statusCode: statusCode || 500,
-            body: body,
+            body: body
         });
     };
 
@@ -276,7 +276,7 @@ define(['sinon', 'underscore', 'URI'], function (sinon, _, URI) {
         respond(requests, {
             statusCode: statusCode || 500,
             contentType: 'text/plain',
-            body: body,
+            body: body
         });
     };
 
@@ -287,7 +287,7 @@ define(['sinon', 'underscore', 'URI'], function (sinon, _, URI) {
      */
     respondWithNoContent = function (requests) {
         respond(requests, {
-            statusCode: 204,
+            statusCode: 204
         });
     };
 
@@ -306,6 +306,6 @@ define(['sinon', 'underscore', 'URI'], function (sinon, _, URI) {
         respondWithJson: respondWithJson,
         respondWithError: respondWithError,
         respondWithTextError: respondWithTextError,
-        respondWithNoContent: respondWithNoContent,
+        respondWithNoContent: respondWithNoContent
     };
 });

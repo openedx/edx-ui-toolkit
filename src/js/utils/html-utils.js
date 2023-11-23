@@ -136,7 +136,7 @@
         interpolateHtml = function (formatString, parameters) {
             var result = StringUtils.interpolate(
                 ensureHtml(formatString).toString(),
-                _.mapObject(parameters, ensureHtml),
+                _.mapObject(parameters, ensureHtml)
             );
             return HTML(result);
         };
@@ -182,7 +182,7 @@
                 var augmentedData = _.extend(
                     {
                         HtmlUtils: HtmlUtils,
-                        StringUtils: StringUtils,
+                        StringUtils: StringUtils
                     },
                     data || {},
                 );
@@ -247,7 +247,7 @@
             joinHtml: joinHtml,
             prepend: prepend,
             setHtml: setHtml,
-            template: template,
+            template: template
         };
 
         return HtmlUtils;
@@ -261,5 +261,5 @@
     // eslint-disable-next-line no-nested-ternary
     typeof define === 'function' && define.amd ? define
         : (typeof RequireJS !== 'undefined' ? RequireJS.define
-            : edx.GlobalLoader.defineAs('HtmlUtils', 'edx-ui-toolkit/js/utils/html-utils')),
+            : edx.GlobalLoader.defineAs('HtmlUtils', 'edx-ui-toolkit/js/utils/html-utils'))
 );

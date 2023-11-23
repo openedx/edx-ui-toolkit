@@ -3,7 +3,7 @@ define(
     [
         'jquery',
         'sinon',
-        '../../utils/spec-helpers/ajax-helpers.js',
+        '../../utils/spec-helpers/ajax-helpers.js'
     ],
     function ($, sinon, AjaxHelpers) {
         'use strict';
@@ -50,7 +50,7 @@ define(
                     it('verifies a more complex request', AjaxHelpers.withFakeRequests(function (requests) {
                         $.ajax(testUrl, {
                             method: 'POST',
-                            data: 'foobar',
+                            data: 'foobar'
                         });
                         AjaxHelpers.expectRequest(requests, 'POST', testUrl, 'foobar');
                     }));
@@ -73,7 +73,7 @@ define(
                         $.ajax(testUrl, {
                             method: 'POST',
                             data: JSON.stringify(testData),
-                            contentType: 'application/json',
+                            contentType: 'application/json'
                         });
                         AjaxHelpers.expectJsonRequest(requests, 'POST', testUrl, testData);
                     }));
@@ -92,7 +92,7 @@ define(
                     it('validates a non-JSON POST request', AjaxHelpers.withFakeRequests(function (requests) {
                         $.ajax(testUrl, {
                             method: 'POST',
-                            data: testQuerystring,
+                            data: testQuerystring
                         });
                         AjaxHelpers.expectPostRequest(requests, testUrl, testQuerystring);
                     }));
@@ -120,7 +120,7 @@ define(
 
                         expect(ajaxSpy).toHaveBeenCalledWith(testData, 'success', jasmine.objectContaining({
                             responseJSON: testData,
-                            status: 200,
+                            status: 200
                         }));
                     }));
                 });
@@ -176,11 +176,11 @@ define(
 
                         expect(ajaxSpy).toHaveBeenCalledWith(undefined, 'nocontent', jasmine.objectContaining({
                             responseJSON: {},
-                            status: 204,
+                            status: 204
                         }));
                     }));
                 });
             });
         });
-    },
+    }
 );
