@@ -33,13 +33,13 @@
     "urijs": "1.19.11"
   },
   "devDependencies": {
-    "@edx/eslint-config": "^3.1.1",
-    "browser-sync": "2.29.3",
+    "browser-sync": "2.27.12",
     "css-loader": "^6.0.0",
     "del": "2.2.2",
     "edx-pattern-library": "0.12.5",
-    "eslint": "^8.35.0",
+    "eslint": "3.19.0",
     "eslint-config-edx": "4.0.4",
+    "eslint-config-edx-es5": "4.0.1",
     "gulp": "^4.0.2",
     "gulp-coveralls": "0.1.4",
     "gulp-gh-pages": "0.5.4",

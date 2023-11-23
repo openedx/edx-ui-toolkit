@@ -8,5 +8,5 @@ var gulp = require('gulp'),
 exports.default = gulp.series(
     lint.lint,
     test.test,
-    doc.docBuild,
+    doc.docBuild
 );
