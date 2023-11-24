@@ -8,19 +8,19 @@
  *
  * @module DisclosureView
  */
-(function (define) {
+(function(define) {
     'use strict';
 
     define(['backbone', 'underscore'],
-        function (Backbone, _) {
+        function(Backbone, _) {
             var DisclosureView = Backbone.View.extend({
 
-                initialize: function (options) {
+                initialize: function(options) {
                     var self = this;
                     self.options = _.defaults(options, {
                         toggleTextSelector: '.disclosure-toggle',
                         disclosureSelector: '.disclosure-target',
-                        isCollapsedClass: 'is-collapsed',
+                        isCollapsedClass: 'is-collapsed'
                     });
                     self.render();
                 },
@@ -30,7 +30,7 @@
                  *
                  * @param {boolean} isVisible True if the section should be visible (default: false).
                  */
-                toggleState: function (isVisible) {
+                toggleState: function(isVisible) {
                     var self = this,
                         $textEl = self.$el.find(self.options.toggleTextSelector);
 
@@ -43,7 +43,7 @@
                     self.$el.toggleClass(self.options.isCollapsedClass, !isVisible);
                 },
 
-                render: function () {
+                render: function() {
                     var self = this,
                         $disclosureEl = self.$el.find(self.options.disclosureSelector),
                         $textEl = self.$el.find(self.options.toggleTextSelector);
@@ -52,7 +52,7 @@
                     self.toggleState($disclosureEl.is(':visible'));
 
                     // clicking on the toggle text will hide/show content and update text
-                    $textEl.click(function () {
+                    $textEl.click(function() {
                         // Get the state now because getting it after toggling isn't  always accurate -- state is
                         // in transition
                         var isVisible = $disclosureEl.is(':visible');
@@ -61,15 +61,15 @@
                     });
 
                     return self;
-                },
+                }
 
             });
 
             return DisclosureView;
-        },
+        }
     );
 }).call(
     this,
     // Use the default 'define' function if available, else use 'RequireJS.define'
-    typeof define === 'function' && define.amd ? define : RequireJS.define,
+    typeof define === 'function' && define.amd ? define : RequireJS.define
 );

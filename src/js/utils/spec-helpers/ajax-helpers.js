@@ -12,7 +12,7 @@
  *
  * @module AjaxHelpers
  */
-define(['sinon', 'underscore', 'URI'], function (sinon, _, URI) {
+define(['sinon', 'underscore', 'URI'], function(sinon, _, URI) {
     'use strict';
 
     var XHR_READY_STATES, fakeServer, createFakeRequests, withFakeRequests, fakeRequests, currentRequest,
@@ -26,7 +26,7 @@ define(['sinon', 'underscore', 'URI'], function (sinon, _, URI) {
         UNSENT: 0,
         OPENED: 1,
         LOADING: 3,
-        DONE: 4,
+        DONE: 4
     };
 
     /* These utility methods are used by Jasmine tests to create a mock server or
@@ -48,9 +48,9 @@ define(['sinon', 'underscore', 'URI'], function (sinon, _, URI) {
      * @param {string} response the fake response.
      * @returns {*} The current request.
      */
-    fakeServer = function (response) {
+    fakeServer = function(response) {
         var server = sinon.fakeServer.create();
-        afterEach(function () {
+        afterEach(function() {
             if (server) {
                 server.restore();
             }
@@ -59,17 +59,17 @@ define(['sinon', 'underscore', 'URI'], function (sinon, _, URI) {
         return server;
     };
 
-    createFakeRequests = function () {
+    createFakeRequests = function() {
         var requests = [],
             xhr = sinon.useFakeXMLHttpRequest();
 
         requests.currentIndex = 0;
-        requests.restore = function () {
+        requests.restore = function() {
             if (xhr && 'restore' in xhr) {
                 xhr.restore();
             }
         };
-        xhr.onCreate = function (request) {
+        xhr.onCreate = function(request) {
             requests.push(request);
         };
 
@@ -82,9 +82,9 @@ define(['sinon', 'underscore', 'URI'], function (sinon, _, URI) {
      *
      * @returns {Array} An array tracking the fake requests.
      */
-    fakeRequests = function () {
+    fakeRequests = function() {
         var requests = createFakeRequests();
-        afterEach(function () {
+        afterEach(function() {
             requests.restore();
         });
         return requests;
@@ -97,12 +97,10 @@ define(['sinon', 'underscore', 'URI'], function (sinon, _, URI) {
      * @param {function} test A function to be invoked with the fake requests.
      * @returns {function} A wrapped version of the input function.
      */
-    withFakeRequests = function (test) {
-        return function () {
-            var requests = createFakeRequests();
-            // eslint-disable-next-line prefer-rest-params
-            var args = Array.prototype.slice.call(arguments);
-            // eslint-disable-next-line prefer-spread
+    withFakeRequests = function(test) {
+        return function() {
+            var requests = createFakeRequests(),
+                args = Array.prototype.slice.call(arguments);
             test.apply(null, args.concat([requests]));
             requests.restore();
         };
@@ -115,7 +113,7 @@ define(['sinon', 'underscore', 'URI'], function (sinon, _, URI) {
      * @param {object} requests an array of fired sinon requests
      * @returns {*} The current request.
      */
-    currentRequest = function (requests) {
+    currentRequest = function(requests) {
         expect(requests.length).toBeGreaterThan(requests.currentIndex);
         return requests[requests.currentIndex];
     };
@@ -128,7 +126,7 @@ define(['sinon', 'underscore', 'URI'], function (sinon, _, URI) {
      * @param {string} url the expected url of the request
      * @param {string} body the expected request body
      */
-    expectRequest = function (requests, method, url, body) {
+    expectRequest = function(requests, method, url, body) {
         var request = currentRequest(requests);
         expect(request.readyState).toEqual(XHR_READY_STATES.OPENED);
         expect(request.url).toEqual(url);
@@ -146,7 +144,7 @@ define(['sinon', 'underscore', 'URI'], function (sinon, _, URI) {
      *
      * @param {object} requests an array of fired sinon requests
      */
-    expectNoRequests = function (requests) {
+    expectNoRequests = function(requests) {
         expect(requests.length).toEqual(requests.currentIndex);
     };
 
@@ -158,7 +156,7 @@ define(['sinon', 'underscore', 'URI'], function (sinon, _, URI) {
      * @param {string} url the expected url of the request
      * @param {object} jsonRequest the expected request body as an object
      */
-    expectJsonRequest = function (requests, method, url, jsonRequest) {
+    expectJsonRequest = function(requests, method, url, jsonRequest) {
         var request = currentRequest(requests);
         expect(request.readyState).toEqual(XHR_READY_STATES.OPENED);
         expect(request.url).toEqual(url);
@@ -173,12 +171,12 @@ define(['sinon', 'underscore', 'URI'], function (sinon, _, URI) {
      * @param {string} expectedUrl The expected URL excluding the parameters
      * @param {object} expectedParameters An object representing the URL parameters
      */
-    expectRequestURL = function (requests, expectedUrl, expectedParameters) {
+    expectRequestURL = function(requests, expectedUrl, expectedParameters) {
         var request = currentRequest(requests),
             parameters;
         expect(new URI(request.url).path()).toEqual(expectedUrl);
         parameters = new URI(request.url).query(true);
-        delete parameters._; // Ignore the cache-busting argument
+        delete parameters._;  // Ignore the cache-busting argument
         expect(parameters).toEqual(expectedParameters);
     };
 
@@ -189,7 +187,7 @@ define(['sinon', 'underscore', 'URI'], function (sinon, _, URI) {
      * @param {string} url the expected url of the request
      * @param {string} body the expected body of the request
      */
-    expectPostRequest = function (requests, url, body) {
+    expectPostRequest = function(requests, url, body) {
         var request = currentRequest(requests);
         expect(request.readyState).toEqual(XHR_READY_STATES.OPENED);
         expect(request.url).toEqual(url);
@@ -206,11 +204,11 @@ define(['sinon', 'underscore', 'URI'], function (sinon, _, URI) {
 
      * @param {object} requests an array of fired sinon requests
      */
-    skipResetRequest = function (requests) {
+    skipResetRequest = function(requests) {
         var request = currentRequest(requests);
         expect(request.readyState).toEqual(XHR_READY_STATES.UNSENT);
         // Our ESLint config bans mutating params, but fixing this would require breaking AjaxHelpers API
-        requests.currentIndex += 1;
+        requests.currentIndex += 1;  // eslint-disable-line no-param-reassign
     };
 
     /**
@@ -223,16 +221,16 @@ define(['sinon', 'underscore', 'URI'], function (sinon, _, URI) {
      * @param {object} requests an array of fired sinon requests
      * @param {object} options the options to provide to the response
      */
-    respond = function (requests, options) {
+    respond = function(requests, options) {
         var request = currentRequest(requests),
             statusCode = options.statusCode || 200,
             contentType = options.contentType || 'application/json',
             body = options.body || '';
         request.respond(statusCode,
-            { 'Content-Type': contentType },
-            contentType === 'application/json' ? JSON.stringify(body || {}) : body,
+            {'Content-Type': contentType},
+            contentType === 'application/json' ? JSON.stringify(body || {}) : body
         );
-        requests.currentIndex += 1;
+        requests.currentIndex += 1;  // eslint-disable-line no-param-reassign
     };
 
     /**
@@ -241,9 +239,9 @@ define(['sinon', 'underscore', 'URI'], function (sinon, _, URI) {
      * @param {object} requests an array of fired sinon requests
      * @param {object} body an object to be serialized to the response
      */
-    respondWithJson = function (requests, body) {
+    respondWithJson = function(requests, body) {
         respond(requests, {
-            body: body,
+            body: body
         });
     };
 
@@ -256,10 +254,10 @@ define(['sinon', 'underscore', 'URI'], function (sinon, _, URI) {
      *     (defaults to 500)
      * @param {object} body an object to be serialized to the response
      */
-    respondWithError = function (requests, statusCode, body) {
+    respondWithError = function(requests, statusCode, body) {
         respond(requests, {
             statusCode: statusCode || 500,
-            body: body,
+            body: body
         });
     };
 
@@ -271,11 +269,11 @@ define(['sinon', 'underscore', 'URI'], function (sinon, _, URI) {
      *     (defaults to 500)
      * @param {object} body the response body as a string
      */
-    respondWithTextError = function (requests, statusCode, body) {
+    respondWithTextError = function(requests, statusCode, body) {
         respond(requests, {
             statusCode: statusCode || 500,
             contentType: 'text/plain',
-            body: body,
+            body: body
         });
     };
 
@@ -284,9 +282,9 @@ define(['sinon', 'underscore', 'URI'], function (sinon, _, URI) {
      *
      * @param {object} requests an array of fired sinon requests
      */
-    respondWithNoContent = function (requests) {
+    respondWithNoContent = function(requests) {
         respond(requests, {
-            statusCode: 204,
+            statusCode: 204
         });
     };
 
@@ -305,6 +303,6 @@ define(['sinon', 'underscore', 'URI'], function (sinon, _, URI) {
         respondWithJson: respondWithJson,
         respondWithError: respondWithError,
         respondWithTextError: respondWithTextError,
-        respondWithNoContent: respondWithNoContent,
+        respondWithNoContent: respondWithNoContent
     };
 });

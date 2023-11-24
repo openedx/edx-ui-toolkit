@@ -12,55 +12,55 @@ var gulp = require('gulp'),
     childProcess = require('child_process'),
     browserSync = require('browser-sync'),
     runSequence = require('gulp4-run-sequence'),
+    config = require('../config').documentation,
+    generateDoc = require('../utils/generate-doc'),
     rename = require('gulp-rename'),
     webpack = require('webpack'),
     webpackStream = require('webpack-stream'),
     ghPages = require('gulp-gh-pages'),
-    config = require('../config').documentation,
-    generateDoc = require('../utils/generate-doc'),
-    webpackConfig = require('../../webpack.config.js'), // eslint-disable-line import/extensions
+    webpackConfig = require('../../webpack.config.js'),
     clean = require('./clean'),
     renameAsMarkdown,
     generateDocFor;
 
-renameAsMarkdown = function (path) {
+renameAsMarkdown = function(path) {
     var renamedPath = path;
     renamedPath.extname = '.md';
     return renamedPath;
 };
 
-generateDocFor = function (options) {
+generateDocFor = function(options) {
     var i, sources,
         sourceLength = options.sources.length;
     for (i = 0; i < sourceLength; i += 1) {
         sources = options.sources[i];
-        console.log(`Generating documentation for ${sources}`);
-        gulp.src(sources, { buffer: false })
+        console.log('Generating documentation for ' + sources);
+        gulp.src(sources, {buffer: false})
             .pipe(generateDoc(options.viewClass))
             .pipe(rename(renameAsMarkdown))
             .pipe(gulp.dest(options.output));
     }
 };
 
-gulp.task('doc', function (callback) {
+gulp.task('doc', function(callback) {
     runSequence(
         'doc-build',
         'doc-serve',
-        callback,
+        callback
     );
 });
 
-gulp.task('doc-build', function (callback) {
+gulp.task('doc-build', function(callback) {
     runSequence(
         ['doc-testing', 'doc-utils', 'doc-views'],
         'copy-pattern-library',
         'webpack',
         'jekyll-build',
-        callback,
+        callback
     );
 });
 
-gulp.task('doc-serve', function (callback) {
+gulp.task('doc-serve', function(callback) {
     // Run browserSync to serve the doc site
     browserSync(config.browserSync);
 
@@ -77,53 +77,53 @@ gulp.task('doc-serve', function (callback) {
     callback();
 });
 
-gulp.task('doc-testing', function (callback) {
+gulp.task('doc-testing', function(callback) {
     generateDocFor(config.testing);
     callback();
 });
 
-gulp.task('doc-utils', function (callback) {
+gulp.task('doc-utils', function(callback) {
     generateDocFor(config.utilities);
     callback();
 });
 
-gulp.task('doc-views', function (callback) {
+gulp.task('doc-views', function(callback) {
     generateDocFor(config.views);
     callback();
 });
 
-gulp.task('copy-pattern-library', function (callback) {
+gulp.task('copy-pattern-library', function(callback) {
     gulp.src(['./node_modules/edx-pattern-library/pattern-library/**/*'])
         .pipe(gulp.dest('doc/public/edx-pattern-library'));
     callback();
 });
 
-gulp.task('webpack', function () {
-    return gulp.src('.', { allowEmpty: true })
+gulp.task('webpack', function() {
+    return gulp.src('.', {allowEmpty: true})
         .pipe(webpackStream(webpackConfig, webpack))
         .pipe(gulp.dest(webpackConfig.output.path))
         .pipe(browserSync.stream());
 });
 
-gulp.task('webpack-rebuild', function (callback) {
+gulp.task('webpack-rebuild', function(callback) {
     runSequence(
         'webpack',
         'jekyll-rebuild',
-        callback,
+        callback
     );
 });
 
-gulp.task('jekyll-build', function (callback) {
+gulp.task('jekyll-build', function(callback) {
     childProcess.execSync('jekyll build');
     callback();
 });
 
-gulp.task('jekyll-rebuild', gulp.series('jekyll-build', function (callback) {
+gulp.task('jekyll-rebuild', gulp.series('jekyll-build', function(callback) {
     browserSync.reload();
     callback();
 }));
 
-gulp.task('doc-publish', gulp.series(clean.clean, 'doc-build', function () {
+gulp.task('doc-publish', gulp.series(clean.clean, 'doc-build', function() {
     return gulp.src(config.gitHubPages.files)
         .pipe(ghPages());
 }));
@@ -132,5 +132,5 @@ exports.docBuild = gulp.series(
     gulp.parallel('doc-testing', 'doc-utils', 'doc-views'),
     'copy-pattern-library',
     'webpack',
-    'jekyll-build',
+    'jekyll-build'
 );
