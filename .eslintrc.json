@@ -7,7 +7,7 @@
         "setFixtures": true  // added globally by jasmine-jquery (bad)
     },
     "rules": {
-        "indent": "off",
+        "indent": ["error", 4],
         "func-names": "off",
         "import/no-extraneous-dependencies": "off",
         "object-shorthand": "off",

@@ -36,7 +36,7 @@
         $,
         moment,
         momentTZ
-        ) {
+    ) {
         var DateUtils,
             localize,
             stringToMoment,

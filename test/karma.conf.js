@@ -49,7 +49,7 @@ module.exports = function(config, overrideOptions) {
             // load the RequireJS configuration
             'test/require-config.js',
 
-           // load third party libraries
+            // load third party libraries
             'node_modules/underscore/underscore.js',
 
             // register third party libraries to be loaded via RequireJS

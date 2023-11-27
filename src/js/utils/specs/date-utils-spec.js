@@ -46,8 +46,8 @@ define(
                 it('tests sys time determiner', function() {
                     var testDate = DateUtils.stringToMoment('2016-10-14 08:00:00+00:00');
                     expect(
-                         moment(DateUtils.localizeTime(testDate).format()).isValid()
-                         ).toBeTruthy();
+                        moment(DateUtils.localizeTime(testDate).format()).isValid()
+                    ).toBeTruthy();
                 });
                 it('offsets time according to a determined timezone', function() {
                     var testDate = DateUtils.stringToMoment('2016-10-14 08:00:00+00:00');
