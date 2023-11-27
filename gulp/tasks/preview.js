@@ -24,7 +24,7 @@ var gulp = require('gulp'),
     previewConfigFile = '_tmp_preview_config.yml',
     previewDomain = process.env.S3_PREVIEW_DOMAIN;
 
-gulp.task('preview', function(callback) {
+gulp.task('preview', function (callback) {
     runSequence(
         'clean',
         'doc-build',
@@ -32,29 +32,29 @@ gulp.task('preview', function(callback) {
         'preview-webpack',
         'upload-preview',
         'show-preview',
-        callback
+        callback,
     );
 });
 
-gulp.task('jekyll-build-preview', function() {
+gulp.task('jekyll-build-preview', function () {
     var branch = gitUtils.currentBranch(),
         previewBaseUrl = '/' + branch + '/';
     // Create a temporary Jekyll configuration file which specifies the base URL for the preview site
     childProcess.execSync(
-        'echo \'baseurl: ' + previewBaseUrl + '\' > ' + previewConfigFile
+        'echo \'baseurl: ' + previewBaseUrl + '\' > ' + previewConfigFile,
     );
 
     // Generate the preview version of the site
     console.log('Generating preview for branch ' + branch);
     childProcess.execSync(
-        'jekyll build --config _config.yml,' + previewConfigFile + ' --destination ' + config.previewTargetDir
+        'jekyll build --config _config.yml,' + previewConfigFile + ' --destination ' + config.previewTargetDir,
     );
 
     // Remove the configuration file since it is no longer needed
     childProcess.execSync('rm ' + previewConfigFile);
 });
 
-gulp.task('preview-webpack', function() {
+gulp.task('preview-webpack', function () {
     var outputPath = config.previewTargetDir + '/public/',
         branch = gitUtils.currentBranch();
     process.env.SITE_ROOT = '/' + branch + '/';
@@ -63,31 +63,31 @@ gulp.task('preview-webpack', function() {
         .pipe(gulp.dest(outputPath));
 });
 
-gulp.task('upload-preview', function() {
+gulp.task('upload-preview', function () {
     var branch = gitUtils.currentBranch();
     if (previewDomain) {
         childProcess.execSync(
-            'aws s3 sync ' + config.previewTargetDir + ' s3://' + previewDomain + '/' + branch
+            'aws s3 sync ' + config.previewTargetDir + ' s3://' + previewDomain + '/' + branch,
         );
         console.log('Preview site ready at http://' + previewDomain + '/' + branch);
     } else {
         console.log(
-            'No preview domain specified. Please export environment variable S3_PREVIEW_DOMAIN and try again.'
+            'No preview domain specified. Please export environment variable S3_PREVIEW_DOMAIN and try again.',
         );
     }
 });
 
-gulp.task('remove-preview', function() {
+gulp.task('remove-preview', function () {
     var branch = gitUtils.currentBranch();
     childProcess.execSync(
-        'aws s3 rm --recursive  s3://' + previewDomain + '/' + branch
+        'aws s3 rm --recursive  s3://' + previewDomain + '/' + branch,
     );
     console.log('Removed preview for branch ' + branch);
 });
 
-gulp.task('show-preview', function() {
+gulp.task('show-preview', function () {
     var branch = gitUtils.currentBranch();
     childProcess.execSync(
-        'open http://' + previewDomain + '/' + branch
+        'open http://' + previewDomain + '/' + branch,
     );
 });

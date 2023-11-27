@@ -3,10 +3,10 @@
  *
  * @module StringUtils
  */
-(function(define) {
+(function (define) {
     'use strict';
 
-    define([], function() {
+    define([], function () {
         var interpolate;
 
         /**
@@ -53,16 +53,16 @@
          * @param {Object} parameters An optional set of parameters to the template.
          * @returns {string} A string with the values interpolated.
          */
-        interpolate = function(formatString, parameters) {
+        interpolate = function (formatString, parameters) {
             return formatString.replace(/{\w+}/g,
-                function(parameter) {
+                function (parameter) {
                     var parameterName = parameter.slice(1, -1);
                     return String(parameters[parameterName]);
                 });
         };
 
         return {
-            interpolate: interpolate
+            interpolate: interpolate,
         };
     });
 }).call(
@@ -74,5 +74,5 @@
     // eslint-disable-next-line no-nested-ternary
     typeof define === 'function' && define.amd ? define :
         (typeof RequireJS !== 'undefined' ? RequireJS.define :
-            edx.GlobalLoader.defineAs('StringUtils', 'edx-ui-toolkit/js/utils/string-utils'))
+            edx.GlobalLoader.defineAs('StringUtils', 'edx-ui-toolkit/js/utils/string-utils')),
 );
