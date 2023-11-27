@@ -3,7 +3,7 @@
  *
  * @module SpecHelpers
  */
-define([], function() {
+define([], function () {
     'use strict';
 
     var withData, withConfiguration;
@@ -17,9 +17,9 @@ define([], function() {
      * is applied as arguments to func.
      * @param {function} func The function that actually expresses the logic of the test.
      */
-    withData = function(data, func) {
-        Object.keys(data).forEach(function(key) {
-            it(key, function() {
+    withData = function (data, func) {
+        Object.keys(data).forEach(function (key) {
+            it(key, function () {
                 func.apply(this, data[key]);
             });
         });
@@ -37,10 +37,10 @@ define([], function() {
      * @param {function} test The function that actually express the logic of the test.
      * May include it() or more describe().
      */
-    withConfiguration = function(config, setup, test) {
-        Object.keys(config).forEach(function(key) {
-            describe(key, function() {
-                beforeEach(function() {
+    withConfiguration = function (config, setup, test) {
+        Object.keys(config).forEach(function (key) {
+            describe(key, function () {
+                beforeEach(function () {
                     setup.apply(this, config[key]);
                 });
                 test();
@@ -50,6 +50,6 @@ define([], function() {
 
     return {
         withData: withData,
-        withConfiguration: withConfiguration
+        withConfiguration: withConfiguration,
     };
 });

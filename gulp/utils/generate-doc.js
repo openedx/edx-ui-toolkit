@@ -10,11 +10,11 @@ var jsdox = require('jsdox'),
     generateMD = jsdox.generateMD,
     jsdoxTemplatesDir = 'node_modules/jsdox/templates';
 
-module.exports = function(viewClass) {
-    return through.obj(function(file, enc, next) {
+module.exports = function (viewClass) {
+    return through.obj(function (file, enc, next) {
         var self = this;
         if (file.isStream()) {
-            jsdocParser(file.history, function(err, result) {
+            jsdocParser(file.history, function (err, result) {
                 var frontMatter, data, markdown, title, relativePath, requirePath, gitHubPath,
                     fileToPush = file;
                 if (err) {
