@@ -24,7 +24,6 @@
  * @module DateUtils
  */
 
-
 (function (define) {
     'use strict';
 
@@ -201,9 +200,8 @@
             // default
             if (isValid(language)) {
                 return displayLang;
-            } else {
-                return DEFAULT_LANG;
             }
+            return DEFAULT_LANG;
         };
 
         /**
@@ -255,4 +253,3 @@
         (typeof RequireJS !== 'undefined' ? RequireJS.define :
             edx.GlobalLoader.defineAs('DateUtils', 'edx-ui-toolkit/js/utils/date-utils')),
 );
-

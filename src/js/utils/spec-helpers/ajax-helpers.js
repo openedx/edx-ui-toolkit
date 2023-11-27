@@ -176,7 +176,7 @@ define(['sinon', 'underscore', 'URI'], function (sinon, _, URI) {
             parameters;
         expect(new URI(request.url).path()).toEqual(expectedUrl);
         parameters = new URI(request.url).query(true);
-        delete parameters._;  // Ignore the cache-busting argument
+        delete parameters._; // Ignore the cache-busting argument
         expect(parameters).toEqual(expectedParameters);
     };
 
@@ -208,7 +208,7 @@ define(['sinon', 'underscore', 'URI'], function (sinon, _, URI) {
         var request = currentRequest(requests);
         expect(request.readyState).toEqual(XHR_READY_STATES.UNSENT);
         // Our ESLint config bans mutating params, but fixing this would require breaking AjaxHelpers API
-        requests.currentIndex += 1;  // eslint-disable-line no-param-reassign
+        requests.currentIndex += 1; // eslint-disable-line no-param-reassign
     };
 
     /**
@@ -230,7 +230,7 @@ define(['sinon', 'underscore', 'URI'], function (sinon, _, URI) {
             { 'Content-Type': contentType },
             contentType === 'application/json' ? JSON.stringify(body || {}) : body,
         );
-        requests.currentIndex += 1;  // eslint-disable-line no-param-reassign
+        requests.currentIndex += 1; // eslint-disable-line no-param-reassign
     };
 
     /**

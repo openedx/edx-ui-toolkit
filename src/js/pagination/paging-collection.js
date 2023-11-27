@@ -253,9 +253,8 @@
             sortDisplayName: function () {
                 if (this.state.sortKey) {
                     return this.sortableFields[this.state.sortKey].displayName;
-                } else {
-                    return '';
                 }
+                return '';
             },
 
             /**
@@ -268,9 +267,8 @@
             filterDisplayName: function (fieldName) {
                 if (!_.isUndefined(this.filterableFields[fieldName])) {
                     return this.filterableFields[fieldName].displayName;
-                } else {
-                    return '';
                 }
+                return '';
             },
 
             /**

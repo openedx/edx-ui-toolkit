@@ -63,9 +63,8 @@
         ensureHtml = function (html) {
             if (html instanceof HtmlSnippet) {
                 return html;
-            } else {
-                return HTML(_.escape(html));
             }
+            return HTML(_.escape(html));
         };
 
         /**
