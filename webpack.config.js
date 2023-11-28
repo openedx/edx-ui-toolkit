@@ -2,7 +2,7 @@ var path = require('path'),
     Webpack = require('webpack'),
     MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
-(function () {
+(function() {
     'use strict';
 
     var outputRoot = process.env.OUTPUT_ROOT ? process.env.OUTPUT_ROOT : 'doc/public/',
@@ -13,12 +13,12 @@ var path = require('path'),
     module.exports = {
         entry: [
             path.resolve(__dirname, './doc/static/js/ui-toolkit-doc-factory.js'),
-            path.resolve(__dirname, './doc/static/sass/main-ltr.scss'),
+            path.resolve(__dirname, './doc/static/sass/main-ltr.scss')
         ],
         output: {
             path: path.resolve(__dirname, outputRoot),
             publicPath: siteRoot + publicStaticRoot,
-            filename: 'ui-toolkit-doc-factory.js',
+            filename: 'ui-toolkit-doc-factory.js'
         },
         resolve: {
             alias: {
@@ -26,9 +26,9 @@ var path = require('path'),
                 modernizr: 'edx-pattern-library/js/modernizr-custom',
                 'edx-pattern-library': patternLibraryPath,
                 'edx-ui-toolkit': path.resolve(__dirname, 'src'),
-                doc: path.resolve(__dirname, 'doc/static'),
+                doc: path.resolve(__dirname, 'doc/static')
             },
-            modules: ['node_modules'],
+            modules: ['node_modules']
         },
         module: {
             rules: [
@@ -36,41 +36,42 @@ var path = require('path'),
                     test: /\.scss$/,
                     use: [
                         {
-                            loader: MiniCssExtractPlugin.loader,
+                            loader: MiniCssExtractPlugin.loader
                         },
                         {
                             loader: 'css-loader',
                             options: {
-                                url: false,
-                            },
+                                url: false
+                            }
                         },
                         {
                             loader: 'sass-loader',
                             options: {
                                 sassOptions: {
                                     includePaths: [
-                                        path.resolve(__dirname, './node_modules'),
-                                    ],
+                                        path.resolve(__dirname, './node_modules')
+                                    ]
                                 },
-                                additionalData: `$pattern-library-path: '${siteRoot}./public/edx-pattern-library' !default;`,
-                            },
-                        },
-                    ],
-                },
-            ],
+                                additionalData: '$pattern-library-path: \'' + siteRoot +
+                                                        './public/edx-pattern-library\' !default;'
+                            }
+                        }
+                    ]
+                }
+            ]
         },
         plugins: [
             new Webpack.ProvidePlugin({
-                $: 'jquery',
+                $: 'jquery'
             }),
-            new Webpack.IgnorePlugin({ resourceRegExp: /^(config.js)$/ }),
+            new Webpack.IgnorePlugin({resourceRegExp: /^(config.js)$/}),
             new Webpack.LoaderOptionsPlugin({
-                debug: true,
+                debug: true
             }),
             new MiniCssExtractPlugin({
-                filename: 'ui-toolkit.css',
-            }),
+                filename: 'ui-toolkit.css'
+            })
         ],
-        devtool: 'inline-source-map',
+        devtool: 'inline-source-map'
     };
 }());
