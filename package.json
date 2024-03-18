@@ -18,7 +18,7 @@
     "lint": "eslint ."
   },
   "dependencies": {
-    "backbone": "1.5.0",
+    "backbone": "1.6.0",
     "backbone.paginator": "2.0.8",
     "gulp-shell": "0.8.0",
     "jquery": "~3.7.0",
