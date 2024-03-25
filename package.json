@@ -37,7 +37,7 @@
     "browser-sync": "3.0.2",
     "css-loader": "^6.0.0",
     "del": "2.2.2",
-    "edx-pattern-library": "0.12.5",
+    "edx-pattern-library": "0.18.1",
     "eslint": "^8.35.0",
     "eslint-config-edx": "4.0.4",
     "gulp": "^4.0.2",
