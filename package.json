@@ -23,7 +23,7 @@
     "gulp-shell": "0.8.0",
     "jquery": "~3.7.0",
     "mini-css-extract-plugin": "^2.7.2",
-    "moment": "2.29.4",
+    "moment": "2.30.1",
     "moment-timezone": "0.5.45",
     "requirejs": "2.1.22",
     "requirejs-text": "2.0.16",
