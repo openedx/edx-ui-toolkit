@@ -1,7 +1,7 @@
 // UI Toolkit main styles
 
-// Load the LTR version of the edX Pattern Library
-@import 'edx-pattern-library/pattern-library/sass/edx-pattern-library-ltr';
+// Load LTR functions and mixins
+@import 'bi-app-sass/bi-app/bi-app-ltr';
 
 // Load the shared build
 @import 'build';

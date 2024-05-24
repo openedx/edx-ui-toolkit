@@ -1,6 +1,6 @@
 {
   "name": "edx-ui-toolkit",
-  "version": "1.5.4",
+  "version": "1.5.5",
   "description": "A JavaScript toolkit for building edX user interfaces",
   "license": "Apache-2.0",
   "repository": {
@@ -34,10 +34,11 @@
   },
   "devDependencies": {
     "@edx/eslint-config": "^3.1.1",
+    "bi-app-sass": "1.1.0",
+    "bourbon": "4.3.4",
     "browser-sync": "3.0.2",
     "css-loader": "^6.0.0",
     "del": "2.2.2",
-    "edx-pattern-library": "0.12.5",
     "eslint": "^8.35.0",
     "eslint-config-edx": "4.0.4",
     "gulp": "^4.0.2",
@@ -66,6 +67,7 @@
     "require-dir": "latest",
     "requirejs-plugins": "1.0.2",
     "sass-loader": "^13.2.0",
+    "susy": "2.2.14",
     "style-loader": "3.3.4",
     "through2": "2.0.5",
     "webpack": "^5.75.0",

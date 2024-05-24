@@ -25,7 +25,7 @@
     @extend %clear-last-child;
     @include clearfix();
     padding-bottom: spacing-vertical(base);
-    border-bottom: rem(2) solid palette(grayscale-cool, x-light);
+    border-bottom: 2rem solid palette(grayscale-cool, x-light);
     margin-bottom: spacing-vertical(base);
 
     .button-overlay-demo {
@@ -46,7 +46,7 @@
 // ------------------------------
 .badge {
     @include text-align(center);
-    border-radius: rem(15);
+    border-radius: 15rem;
     padding: spacing-vertical(xxx-small) spacing-horizontal(small);
     font-size: font-size(xxx-small);
     font-weight: font-weight(bold);
@@ -177,7 +177,7 @@
     border: rem(1) solid palette(grayscale, x-light);
     padding: spacing-vertical(base) spacing-horizontal(base);
 
-    @include susy-breakpoint($bp-screen-md, $susy-default) {
+    @include susy-breakpoint($bp-screen-md, $susy-defaults) {
        padding: spacing-vertical(base) spacing-horizontal(mid-large);
     }
 }
@@ -216,7 +216,7 @@
 // #FOOTER
 // ------------------------------
 .doc-footer-site {
-    @extend %grid-container;
+    @extend .grid-container;
 }
 
 .doc-footer-site-copyright {
@@ -292,15 +292,15 @@
     background: $grid-debug-color;
     border: 1px solid saturate($grid-debug-color, 100%);
 
-    @include susy-breakpoint($bp-screen-md, $susy-default) {
+    @include susy-breakpoint($bp-screen-md, $susy-defaults) {
         background: saturate($grid-debug-color, 33%);
     }
 
-    @include susy-breakpoint($bp-screen-lg, $susy-default) {
+    @include susy-breakpoint($bp-screen-lg, $susy-defaults) {
         background: saturate($grid-debug-color, 66%);
     }
 
-    @include susy-breakpoint($bp-screen-xl, $susy-default) {
+    @include susy-breakpoint($bp-screen-xl, $susy-defaults) {
         background: saturate($grid-debug-color, 100%);
     }
 }

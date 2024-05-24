@@ -3,13 +3,46 @@
 
 // About: configuration, functions, variables, mixins, and general helpers for rendering.
 
+// ----------------------------
+// #COLORS
+// ----------------------------
+// color: config
+$transparent:                   rgba(0, 0, 0, 0);
+$white:                         rgb(255, 255, 255);
+
+// shadows
+$shadow:            rgba(0, 0, 0, .25);
+
+$text-emphasized-color:                     palette(grayscale, black) !default;
+$text-emphasized-font-weight:               font-weight(normal) !default;
+$text-de-emphasized-color:                  palette(grayscale, dark) !default;
+$text-de-emphasized-font-weight:            font-weight(normal) !default;
+
+$link-color:                                palette(primary, dark) !default;
+$link-focus-color:                          palette(primary, light) !default;
+$link-visited-color:                        palette(primary, dark) !default;
+
 // ------------------------------
 // #VARIABLES
 // ------------------------------
 // pl UI
-$doc-tab-label-height:            rem(4);  // height of tab labels
+$text-base-color:                 palette(grayscale, x-dark) !default;
+$doc-tab-label-height:            4rem;  // height of tab labels
 $doc-link-color:                  palette(primary, dark);
+$font-family-monospace:     'Bitstream Vera Sans Mono', Consolas, Courier, monospace !default;
+$grid-debug-color:              rgba(203, 89, 141, 0.33) !default;
+$depth-0-bg:        palette(grayscale, x-back) !default;  // -0 depth level
+$depth-1-bg:        $white !default;  // +1 depth level
+$depth-2-bg:        $white !default;  // +2 depth level
 
+// grid - breakpoints
+$bp-screen-sm:                  480px !default;
+$bp-screen-md:                  768px !default;
+$bp-screen-lg:                  1024px !default;
+$bp-screen-xl:                  1280px !default;
+
+$grid-direction:                row !default; // set to 'row-reverse' to reverse. Follows flexbox spec.
+$grid-max-width:                rem(1170) !default;
 
 // ------------------------------
 // #HELPERS
@@ -19,6 +52,186 @@ $doc-link-color:                  palette(primary, dark);
     padding-right: spacing-horizontal(base);
     padding-left: spacing-horizontal(base);
 }
+
+// Wrap grids with grid-container.
+@mixin grid-container($direction:$grid-direction, $size:$grid-max-width) {
+    display: flex;
+    max-width: $size;
+    flex-direction: $direction;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: flex-start;
+    box-sizing: border-box;
+    margin: 0 auto;
+}
+
+.grid-container {
+    @include grid-container;
+
+    .col {
+        &.col-first {
+            @include margin-left(0);
+        }
+
+        &.col-last {
+            @include margin-right(0);
+        }
+    }
+}
+
+
+// ----------------------------
+// #UTILITY
+// ----------------------------
+// accessibility
+%a11y-hide {
+    // clip has been deprecated but is still supported
+    clip: rect(1px 1px 1px 1px);
+    clip: rect(1px, 1px, 1px, 1px);
+    position: absolute;
+    margin: -1px;
+    height: 1px;
+    width: 1px;
+    border: 0;
+    padding: 0;
+    overflow: hidden;
+    // ensure there are spaces in sr text
+    word-wrap: normal;
+}
+
+// links: base
+%link {
+    @include transition(
+        color timing(xx-fast) ease-in-out 0s
+    );
+
+    color: $link-color;
+    text-decoration: none;
+
+    // STATE: hover, active, focus
+    &:hover,
+    &:active,
+    &:focus {
+        color: $link-focus-color;
+        text-decoration: underline;
+    }
+
+    // STATE: is disabled
+    &:disabled,
+    &.is-disabled {
+        display: none;
+        color: palette(grayscale, base);
+    }
+
+    // STATE: is pressed or active
+    &:active,
+    &.is-pressed,
+    &.is-active {
+        color: $link-focus-color;
+    }
+}
+
+// links: text-based
+%link-text {
+    @extend %link;
+    @include transition(
+        box-shadow timing(xx-fast) ease-in-out 0s
+    );
+
+    box-shadow: 0 1px 0 0 $transparent;
+}
+
+%copy {
+    color: $text-base-color;
+
+    &.emphasized {
+        @extend %copy-emphasized;
+    }
+
+    &.de-emphasized {
+        @extend %copy-de-emphasized;
+    }
+
+    a {
+        @extend %link-text;
+    }
+}
+
+%copy-de-emphasized {
+    color: $text-de-emphasized-color;
+    font-weight: $text-de-emphasized-font-weight;
+}
+
+// broad stroke extend for emphasized/de-emphasized copy
+%copy-emphasized {
+    color: $text-emphasized-color;
+    font-weight: $text-emphasized-font-weight;
+}
+
+%copy-micro {
+    @extend %copy;
+    font-size: font-size(x-small);
+    line-height: line-height(x-small);
+
+    p,
+    ol,
+    ul,
+    dl {
+        margin-bottom: spacing-vertical(small);
+    }
+}
+
+
+%depth-0 {
+    background: $depth-0-bg;
+}
+
+%depth-1 {
+    background: $depth-1-bg;
+}
+
+%depth-2 {
+    background: $depth-2-bg;
+    box-shadow: 0 1px 2px 1px $shadow;
+}
+
+%clear-last-child {
+
+    &:last-child {
+        margin-bottom: 0;
+        padding-bottom: 0;
+        border-bottom: none;
+    }
+}
+
+// Level three heading
+%hd-3 {
+    margin-bottom: spacing-vertical(x-small);
+    font-size: font-size(xx-large);
+    line-height: line-height(x-large);
+}
+
+// Level four heading
+%hd-4 {
+    margin-bottom: spacing-vertical(x-small);
+    font-size: font-size(x-large);
+    line-height: line-height(large);
+}
+
+// Level five heading
+%hd-5 {
+    margin-bottom: spacing-vertical(x-small);
+    font-size: font-size(large);
+    line-height: line-height(large);
+}
+
+%reset-lists {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    text-indent: 0;
+}
+
 
 // ------------------------------
 // #BASE RESET
