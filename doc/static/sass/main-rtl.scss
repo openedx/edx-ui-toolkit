@@ -1,4 +1,7 @@
 // UI Toolkit main styles
 
+// Load RTL functions and mixins
+@import 'bi-app-sass/bi-app/bi-app-rtl';
+
 // Load the shared build
 @import 'build';

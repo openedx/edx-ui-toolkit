@@ -5,7 +5,7 @@
 }
 
 .doc-header-site {
-    @extend %grid-container;
+    @extend .grid-container;
     padding-top: spacing-vertical(x-small);
 }
 
@@ -28,7 +28,7 @@
 }
 
 .doc-content {
-    @extend %grid-container;
+    @extend .grid-container;
     margin-top: spacing-vertical(x-small);
     padding-bottom: spacing-vertical(x-small);
 }
@@ -41,7 +41,7 @@
 .doc-wrapper-content-main {
     padding-top: spacing-vertical(small);
 
-    @include susy-breakpoint($bp-screen-md, $susy-default) {
+    @include susy-breakpoint($bp-screen-md, $susy-defaults) {
         @include span(9 last);
     }
 
@@ -86,7 +86,7 @@
     background-color: palette(grayscale-cool, xx-light);
     padding: spacing-vertical(small);
 
-    @include susy-breakpoint($bp-screen-md, $susy-default) {
+    @include susy-breakpoint($bp-screen-md, $susy-defaults) {
         @include span(3 first);
     }
 }
@@ -102,7 +102,7 @@
 }
 
 .doc-pattern {
-    @extend %grid-row;
+    @extend %grid-row !optional;
 }
 
 .doc-pattern-header {
@@ -113,14 +113,14 @@
     margin-bottom: spacing-vertical(x-small);
     font-size: font-size(xx-large);
 
-    @include susy-breakpoint($bp-screen-xl, $susy-default) {
+    @include susy-breakpoint($bp-screen-xl, $susy-defaults) {
         @include span(6 first);
         margin-bottom: 0;
     }
 }
 
 .doc-pattern-meta {
-    @include susy-breakpoint($bp-screen-xl, $susy-default) {
+    @include susy-breakpoint($bp-screen-xl, $susy-defaults) {
         @include span(6 last);
         @include text-align(right);
     }
@@ -128,7 +128,7 @@
     .meta-updated {
         margin-bottom: spacing-vertical(x-small);
 
-        @include susy-breakpoint($bp-screen-md, $susy-default) {
+        @include susy-breakpoint($bp-screen-md, $susy-defaults) {
             margin-bottom: 0;
         }
     }
