@@ -7,8 +7,7 @@ var path = require('path'),
 
     var outputRoot = process.env.OUTPUT_ROOT ? process.env.OUTPUT_ROOT : 'doc/public/',
         siteRoot = process.env.SITE_ROOT !== undefined ? process.env.SITE_ROOT : '/',
-        publicStaticRoot = 'public/static/',
-        patternLibraryPath = path.resolve(__dirname, './node_modules/edx-pattern-library/pattern-library');
+        publicStaticRoot = 'public/static/';
 
     module.exports = {
         entry: [
@@ -22,9 +21,6 @@ var path = require('path'),
         },
         resolve: {
             alias: {
-                afontgarde: 'edx-pattern-library/js/afontgarde',
-                modernizr: 'edx-pattern-library/js/modernizr-custom',
-                'edx-pattern-library': patternLibraryPath,
                 'edx-ui-toolkit': path.resolve(__dirname, 'src'),
                 doc: path.resolve(__dirname, 'doc/static')
             },
