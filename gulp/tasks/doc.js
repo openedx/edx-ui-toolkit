@@ -53,7 +53,6 @@ gulp.task('doc', function(callback) {
 gulp.task('doc-build', function(callback) {
     runSequence(
         ['doc-testing', 'doc-utils', 'doc-views'],
-        'copy-pattern-library',
         'webpack',
         'jekyll-build',
         callback
@@ -92,12 +91,6 @@ gulp.task('doc-views', function(callback) {
     callback();
 });
 
-gulp.task('copy-pattern-library', function(callback) {
-    gulp.src(['./node_modules/edx-pattern-library/pattern-library/**/*'])
-        .pipe(gulp.dest('doc/public/edx-pattern-library'));
-    callback();
-});
-
 gulp.task('webpack', function() {
     return gulp.src('.', {allowEmpty: true})
         .pipe(webpackStream(webpackConfig, webpack))
@@ -130,7 +123,6 @@ gulp.task('doc-publish', gulp.series(clean.clean, 'doc-build', function() {
 
 exports.docBuild = gulp.series(
     gulp.parallel('doc-testing', 'doc-utils', 'doc-views'),
-    'copy-pattern-library',
     'webpack',
     'jekyll-build'
 );
