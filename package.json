@@ -33,7 +33,7 @@
     "urijs": "1.19.11"
   },
   "devDependencies": {
-    "@edx/eslint-config": "^3.1.1",
+    "@edx/eslint-config": "^4.0.0",
     "bi-app-sass": "1.1.0",
     "bourbon": "4.3.4",
     "browser-sync": "3.0.2",
