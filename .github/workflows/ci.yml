@@ -46,3 +46,9 @@ jobs:
         uses: GabrielBB/xvfb-action@v1
         with:
           run: gulp default --ci
+
+      - name: Run Code Coverage
+        uses: codecov/codecov-action@v4
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          fail_ci_if_error: true
