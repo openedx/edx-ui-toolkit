@@ -27,7 +27,7 @@ jobs:
         run: export DISPLAY=:99.0
 
       - name: Install Ruby
-        uses: ruby/setup-ruby@3783f195e29b74ae398d7caca108814bbafde90e
+        uses: ruby/setup-ruby@v1
         with:
           ruby-version: 2.7.3
 
