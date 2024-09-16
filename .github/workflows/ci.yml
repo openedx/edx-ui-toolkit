@@ -38,9 +38,7 @@ jobs:
         run: bundle install
 
       - name: Install Firefox
-        run: |
-          sudo apt-get update
-          sudo apt-get install --no-install-recommends -y firefox xvfb
+        uses: browser-actions/setup-firefox@v1
 
       - name: Run Gulp
         uses: GabrielBB/xvfb-action@v1
