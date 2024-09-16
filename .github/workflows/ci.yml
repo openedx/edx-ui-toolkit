@@ -10,7 +10,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -18,7 +18,7 @@ jobs:
       - name: Setup Nodejs
         uses: actions/setup-node@v4
         with:
-          node-version: 18
+          node-version: 20
 
       - name: Export CHROME_BIN Env Variable
         run: export CHROME_BIN=chromium-browser
@@ -27,7 +27,7 @@ jobs:
         run: export DISPLAY=:99.0
 
       - name: Install Ruby
-        uses: ruby/setup-ruby@3783f195e29b74ae398d7caca108814bbafde90e
+        uses: ruby/setup-ruby@v1
         with:
           ruby-version: 2.7.3
 
@@ -38,11 +38,15 @@ jobs:
         run: bundle install
 
       - name: Install Firefox
-        run: |
-          sudo apt-get update
-          sudo apt-get install --no-install-recommends -y firefox xvfb
+        uses: browser-actions/setup-firefox@v1
 
       - name: Run Gulp
         uses: GabrielBB/xvfb-action@v1
         with:
           run: gulp default --ci
+
+      - name: Run Code Coverage
+        uses: codecov/codecov-action@v4
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          fail_ci_if_error: true

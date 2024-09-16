@@ -75,7 +75,6 @@ module.exports = function(config, overrideOptions) {
             'karma-chrome-launcher',
             'karma-firefox-launcher',
             'karma-coverage',
-            'karma-coveralls',
             'karma-sinon',
             'karma-jasmine-html-reporter',
             'karma-spec-reporter'

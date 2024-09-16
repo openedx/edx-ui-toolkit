@@ -18,6 +18,6 @@ module.exports = function(config) {
         preprocessors: {
             'src/js/**/*.js': ['coverage']
         },
-        reporters: ['spec', 'coverage', 'coveralls']
+        reporters: ['spec', 'coverage']
     });
 };
