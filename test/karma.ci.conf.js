@@ -13,7 +13,7 @@ module.exports = function(config) {
                 flags: ['--no-sandbox']
             }
         },
-        browsers: ['Chrome_github_ci', 'Firefox', 'ChromeHeadless'],
+        browsers: ['Chrome_github_ci', 'Firefox'],
         logLevel: config.LOG_INFO,
         preprocessors: {
             'src/js/**/*.js': ['coverage']
