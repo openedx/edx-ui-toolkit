@@ -6,7 +6,7 @@
  * the best practices for handling proper escaping in the Open edX
  * platform with
  * [Preventing Cross Site Scripting Vulnerabilities][1].
- * [1]: http://edx.readthedocs.org/projects/edx-developer-guide/en/latest/conventions/safe_templates.html
+ * [1]: https://docs.openedx.org/en/latest/developers/references/developer_guide/preventing_xss/index.html
  *
  * @module HtmlUtils
  */
