@@ -35,7 +35,7 @@
   "devDependencies": {
     "@edx/eslint-config": "^4.0.0",
     "bi-app-sass": "1.1.0",
-    "bourbon": "4.3.4",
+    "bourbon": "7.3.0",
     "browser-sync": "3.0.3",
     "css-loader": "^6.0.0",
     "del": "2.2.2",
